@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const SessionSchema = new Schema({
   username: { type: 'String', required: true },
   sessionId: { type: 'String', required: true },
-  timestamp: { type: 'Timestamp', required: true },
+  timestamp: { type: 'Date', default: Date.now },
   // SCHEMA GOES HERE
 });
 
