@@ -44,7 +44,7 @@ function checkSession(username, sessionID, callback) {
   // TODO: Needs to be tested againts database records, & proper return value is needed
   var Session = mongoose.model('Session', SessionSchema);
   var age = undefined;
-  
+
   Session.findOne(
     { 'username': username, 'sessionId': sessionID },  // username and sessionId should match arguments
     'timestamp',    // should return timestamp
@@ -81,7 +81,7 @@ function checkCredentials(username, password, callback) {
       }
       //console.log('user record returned: ' + user +' | data type: ' + (typeof user));
       if(user){
-        callback(true);
+        callback(true, user.isAdmin);
       } else {
         callback(false);
       }
@@ -106,10 +106,13 @@ export function login(req, res) {
         // check if the user already has a sessionID, they have already logged in -> proceed
         res.status(200).end();
       } else {
-        checkCredentials(req.body.username, req.body.password, (credsAreValid)=> {
+        checkCredentials(req.body.username, req.body.password, (credsAreValid, isAdmin)=> {
           if (credsAreValid === true) {
             // Generate a new session that is valid for 3 hours from now
             res.cookie('sessionID', generateSessionID(req.body.username), { maxAge: 10800 });
+            res.send({
+              isAdmin: isAdmin
+            });
             res.status(200).end();
           } else {
             res.status(401).end();
