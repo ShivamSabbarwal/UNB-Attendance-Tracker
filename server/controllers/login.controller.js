@@ -121,3 +121,17 @@ export function login(req, res) {
       }
     })
 }
+
+export function logout(req, res) {
+  var Session = mongoose.model('Session', SessionSchema);
+  if (req.cookies.sessionID !== null) {
+    Session.remove({ 'sessionId': req.cookies.sessionID }, function(err) {
+    if (!err) {
+          res.status(200).end();
+    }
+    else {
+          res.status(400).end();
+    }
+  });
+  }
+}

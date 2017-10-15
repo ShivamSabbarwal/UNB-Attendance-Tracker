@@ -5,4 +5,6 @@ const router = new Router();
 // Get all Posts
 router.route('/login').post(LoginController.login);
 
+router.route('/logout').get(LoginController.logout);
+
 export default router;
