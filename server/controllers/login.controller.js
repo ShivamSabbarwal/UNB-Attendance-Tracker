@@ -40,13 +40,13 @@ function generateSessionID(username) {
 /**
 * Check if the current sessionID is correct and is still valid
 */
-function checkSession(username, sessionID, callback) {
+function checkSession(sessionID, callback) {
   // TODO: Needs to be tested againts database records, & proper return value is needed
   var Session = mongoose.model('Session', SessionSchema);
   var age = undefined;
 
   Session.findOne(
-    { 'username': username, 'sessionId': sessionID },  // username and sessionId should match arguments
+    { 'sessionId': sessionID },  // username and sessionId should match arguments
     'timestamp',    // should return timestamp
     function (err, session) {
       if (err) {
@@ -96,29 +96,28 @@ function checkCredentials(username, password, callback) {
  * @returns void
  */
 export function login(req, res) {
-  // check if we are missing HTTP parameters
-  if (!req.body.username || !req.body.password) {
-    res.status(403).end();
-  } else {
     // if the user hasn't logged in before, check their credentials and then generate a sessionID
-    checkSession(req.body.username, req.cookies.sessionID, (sessionIsValid) => {
+    checkSession(req.cookies.sessionID, (sessionIsValid) => {
       if (sessionIsValid === true) {
         // check if the user already has a sessionID, they have already logged in -> proceed
         res.status(200).end();
       } else {
-        checkCredentials(req.body.username, req.body.password, (credsAreValid, isAdmin)=> {
-          if (credsAreValid === true) {
-            // Generate a new session that is valid for 3 hours from now
-            res.cookie('sessionID', generateSessionID(req.body.username), { maxAge: 10800 });
-            res.send({
-              isAdmin: isAdmin
-            });
-            res.status(200).end();
-          } else {
-            res.status(401).end();
-          }
-        })
+        if (!req.body.username || !req.body.password) {
+          res.status(403).end();
+        } else {
+          checkCredentials(req.body.username, req.body.password, (credsAreValid, isAdmin)=> {
+            if (credsAreValid === true) {
+              // Generate a new session that is valid for 3 hours from now
+              res.cookie('sessionID', generateSessionID(req.body.username), { maxAge: 10800 });
+              res.send({
+                isAdmin: isAdmin
+              });
+              res.status(200).end();
+            } else {
+              res.status(401).end();
+            }
+          })
+        }
       }
     })
-  }
 }
