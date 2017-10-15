@@ -4,7 +4,6 @@ import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
-import IntlWrapper from '../client/modules/Intl/IntlWrapper';
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -23,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // React And Redux Setup
-import { configureStore } from '../client/store';
+import { configureStore } from '../client/store/store';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -31,9 +30,8 @@ import { match, RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
 
 // Import required modules
-import routes from '../client/routes';
+import routes from '../client/routes/routes';
 import { fetchComponentData } from './util/fetchData';
-import posts from './routes/post.routes';
 import login from './routes/login.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
@@ -51,14 +49,13 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
   // feed some dummy data in DB.
   dummyData();
 });
-
+ 
 // Apply body Parser and server public assets and routes
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
-app.use(Express.static(path.resolve(__dirname, '../dist/client')));
-app.use('/api', posts);
+app.use(Express.static(path.resolve(__dirname, '../dist/client'))); 
 app.use('/api', login);
 
 // Render Initial HTML
@@ -74,10 +71,10 @@ const renderFullPage = (html, initialState) => {
     <html>
       <head>
         ${head.base.toString()}
-        ${head.title.toString()}
+        ${head.title.toString()} 
         ${head.meta.toString()}
         ${head.link.toString()}
-        ${head.script.toString()}
+        ${head.script.toString()}  
 
         ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
@@ -127,9 +124,7 @@ app.use((req, res, next) => {
       .then(() => {
         const initialView = renderToString(
           <Provider store={store}>
-            <IntlWrapper>
               <RouterContext {...renderProps} />
-            </IntlWrapper>
           </Provider>
         );
         const finalState = store.getState();
