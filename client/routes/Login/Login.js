@@ -17,11 +17,11 @@ export function Login(props) {
           <input className={styles.Input} id="password" placeholder="Password"/>
           <br/>
           <button className={styles.Submit} onClick={submit}> Submit </button>
-        </div>    
+        </div>
         <div className={styles.Signup}>
           <label>New User? <a href="#">Register Here</a>. </label>
         </div>
-      </div> 
+      </div>
     </div>
   );
 }
@@ -42,7 +42,7 @@ function submit(){
   req.onreadystatechange = function(){
     if(req.readyState == 4 && req.status == 200) {
         alert(window.location.pathname);
-        window.location.href = "/home";
+        window.location.href = "/instructor_page";
     }
   }
 

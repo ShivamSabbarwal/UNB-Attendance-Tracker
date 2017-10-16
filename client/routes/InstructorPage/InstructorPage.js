@@ -2,18 +2,18 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router'; 
+import { Link } from 'react-router';
 
 // Import Style
 import styles from './style.css';
 
-export function HomePage(props) {
+export function InstructorPage(props) {
   return (
-    <div id="HomePage">
+    <div id="InstructorPage">
     <header>
       <h1> UNB Attendance Checker</h1>
     </header>
-    <Link to={`/create_course`}>Create a Course</Link> 
+    <Link to={`/create_course`}>Create a Course</Link>
     </div>
   );
 }
@@ -30,7 +30,7 @@ function mapStateToProps(state, props) {
   };
 }
 
-HomePage.propTypes = {
+InstructorPage.propTypes = {
 //  post: PropTypes.shape({
 //    name: PropTypes.string.isRequired,
 //    title: PropTypes.string.isRequired,
@@ -40,4 +40,4 @@ HomePage.propTypes = {
 //  }).isRequired,
 };
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps)(InstructorPage);

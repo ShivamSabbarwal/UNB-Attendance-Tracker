@@ -6,12 +6,13 @@ import { FormattedMessage } from 'react-intl';
 // Import Style
 import styles from './style.css';
 
-export function HomePage(props) {
+export function CreateCourse(props) {
   return (
     <div>
-    <header>
-      <h1> UNB Attendance Checker - Create a Course</h1>
-    </header>
+      <header>
+        <h1> UNB Attendance Checker</h1>
+      </header>
+      <label>Instructor Name:</label>
     </div>
   );
 }
@@ -28,7 +29,7 @@ function mapStateToProps(state, props) {
   };
 }
 
-HomePage.propTypes = {
+CreateCourse.propTypes = {
 //  post: PropTypes.shape({
 //    name: PropTypes.string.isRequired,
 //    title: PropTypes.string.isRequired,
@@ -38,4 +39,4 @@ HomePage.propTypes = {
 //  }).isRequired,
 };
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps)(CreateCourse);
