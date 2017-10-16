@@ -6,6 +6,9 @@ var UserSchema = require('mongoose').model('User').schema;
 
 var bigrandom = require('bigrandom');
 
+var async_f = require('asyncawait/async');
+var await_f = require('asyncawait/await');
+
 /**
 * generate a random 128-bit ID, save it to the session database
 */
@@ -14,80 +17,104 @@ function generateSessionID(username) {
 
   var random128bitHexString = bigrandom();
 
-  // TODO: Needs to create new record
-    // check if exists in session table  (may not need to sort checkSession query results if we avoid duplicates by checking here)
+  // TODO: Needs to check if a session with this 128-bit number already exists
 
   // make new entry
   var session_data = {
     'username': username,
     'sessionId': random128bitHexString
   };
+
   var session = new Session(session_data);
   session.save(
     function(err, data){
       if (err){
         console.error(err)
-      } else {
-        //console.log('session record created: ' + data +' | data type: ' + (typeof data));
       }
     }
   );
 
-  // return '22f5832147f5650c6a1a999fbd97695d';
   return random128bitHexString;
 }
 
 /**
 * Check if the current sessionID is correct and is still valid
 */
-function checkSession(sessionID, callback) {
-  // TODO: Needs to be tested againts database records, & proper return value is needed
+var checkSession = async_f( function(sessionID) {
   var Session = mongoose.model('Session', SessionSchema);
   var age = undefined;
+  var isValid = false;
 
-  Session.findOne(
-    { 'sessionId': sessionID },  // username and sessionId should match arguments
-    'timestamp',    // should return timestamp
-    function (err, session) {
-      if (err) {
-        console.error(err);
-        callback(false);
+  var session = await_f(
+    Session.findOne(
+      { 'sessionId': sessionID },  // username and sessionId should match arguments
+      'timestamp',    // should return timestamp
+      function (err, session) {
+        if (err) {
+          console.error(err);
+        }
       }
-      //console.log('QUERY -- session record returned: ' + session.timestamp +' | data type: ' + (typeof session.timestamp));
-      if(session){
-        var age = Date.now() - session.timestamp.getTime();
-        callback(age < 10800000); //fails if session is > 3hrs old
-      } else {
-        callback(false);
-      }
-    }
-  ).sort({'timestamp': -1}); // I think this will make it return the most recent match if there is more than 1, but this needs to be verified
-}
+    )
+  )
+
+  if(session){
+    age = Date.now() - session.timestamp.getTime();
+    isValid = age < 10800000; //fails if session is > 3hrs old
+  }
+
+  return isValid
+})
 
 /**
 * Check if User's credentials are correct
+* If correct, return isAdmin too
 */
-function checkCredentials(username, password, callback) {
-  // TODO: Needs to be tested againts database records, & proper return value is needed
+var checkCredentials = async_f( function(username, password) {
   var User = mongoose.model('User', UserSchema);
+  var result = [];
 
-  User.findOne(
-    { 'username': username, 'password': password},  // username and password should match arguments
-    'isAdmin',   //doesn't really matter what value we get back since we aren't using it (just need to see if record exists, theres probably a better way (count()))
-    function (err, user) {
-      if (err) {
-        console.error(err);
-        callback(false);
+  var user = await_f(
+    User.findOne(
+      { 'username': username, 'password': password},  // username and password should match arguments
+      'isAdmin',
+      function (err, user) {
+        if (err) {
+          console.error(err);
+        }
       }
-      //console.log('user record returned: ' + user +' | data type: ' + (typeof user));
-      if(user){
-        callback(true, user.isAdmin);
-      } else {
-        callback(false);
+    )
+  )
+
+  if (user) {
+    result = [true, user.isAdmin];
+
+  } else {
+    result = [false, ,];
+  }
+
+  return result;
+})
+
+/*
+* removes all sessions that are more than three hours old
+*/
+var clearOldSessions = async_f( function() {
+  var Session = mongoose.model('Session', SessionSchema);
+  var threeHoursOld = new Date()
+
+  threeHoursOld.setHours(threeHoursOld.getHours()-3)
+
+  await_f(
+    Session.remove(
+      {'timestamp': {$lt:threeHoursOld}},
+      function(err, result) {
+        if(err) {
+          console.error(err);
+        }
       }
-    }
+    )
   );
-}
+})
 
 /**
  *
@@ -95,32 +122,33 @@ function checkCredentials(username, password, callback) {
  * @param res
  * @returns void
  */
-export function login(req, res) {
-    // if the user hasn't logged in before, check their credentials and then generate a sessionID
-    checkSession(req.cookies.sessionID, (sessionIsValid) => {
-      if (sessionIsValid === true) {
-        // check if the user already has a sessionID, they have already logged in -> proceed
-        res.status(200).end();
-      } else {
-        if (!req.body.username || !req.body.password) {
-          res.status(403).end();
-        } else {
-          checkCredentials(req.body.username, req.body.password, (credsAreValid, isAdmin)=> {
-            if (credsAreValid === true) {
-              // Generate a new session that is valid for 3 hours from now
-              res.cookie('sessionID', generateSessionID(req.body.username), { maxAge: 10800 });
-              res.send({
-                isAdmin: isAdmin
-              });
-              res.status(200).end();
-            } else {
-              res.status(401).end();
-            }
-          })
-        }
-      }
-    })
-}
+export var login = async_f(function(req, res) {
+  //clear sessions older than 3 hrs
+  await_f(clearOldSessions());
+
+  var sessionResult = await_f(checkSession(req.cookies.sessionID))
+  // check if the user already has a sessionID, they have already logged in -> proceed
+  if (sessionResult) {
+    res.status(200).end();
+
+  } else if (!req.body.username || !req.body.password) {
+    res.status(403).end();
+
+  } else { // if the user hasn't logged in before, check their credentials and then generate a sessionID
+    var credResult = await_f(checkCredentials(req.body.username, req.body.password));
+
+    if(credResult[0] === true){
+      res.cookie('sessionID', generateSessionID(req.body.username), { maxAge: 10800 });
+      res.send({
+        isAdmin: credResult[1]
+      });
+      res.status(200).end();
+
+    } else {
+      res.status(401).end();
+    }
+  }
+})
 
 export function logout(req, res) {
   var Session = mongoose.model('Session', SessionSchema);
