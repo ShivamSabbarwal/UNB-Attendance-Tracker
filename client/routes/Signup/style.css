@@ -1,0 +1,56 @@
+
+body {
+  font-family: Calibri;
+  font-size: 14px;
+  background-size: 100% 200% !important;
+  background: linear-gradient(-10deg, #A0A0A0 10%, #202020 90%);
+}
+
+.user {
+  width: 50%;
+  max-width: 400px;
+  margin: 14vh auto;
+}
+
+.user__header {
+  text-align: center;
+}
+
+.user__title {
+  font-family: Calibri;
+  font-weight: 500;
+  color: white;
+  transition: 0.5s;
+}
+
+img {
+  width: 80%;
+}
+
+.form {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.form__input {
+  display: block;
+  width: 100%;
+  padding: 20px;
+  font-family: Calibri;
+  border: 0;
+  outline: 0;
+  transition: 0.5s;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 20px;
+  font-family: Calibri;
+  font-size: 20px;
+  outline: 0;
+  border: 0;
+  color: white;
+  background: #CC0000;
+  transition: 0.5s;
+}
