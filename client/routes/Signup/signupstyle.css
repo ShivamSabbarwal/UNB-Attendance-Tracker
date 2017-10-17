@@ -1,0 +1,81 @@
+
+body {
+  font-size: 14px;
+  background-size: 100% 200% !important;
+  background: linear-gradient(-10deg, #A0A0A0 10%, #202020 90%);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  vertical-align: middle;
+}
+
+.user {
+  width: 40vh;
+  height: 40vh;
+  max-width: 40vh;
+  max-height: 40vh;
+  border-radius: 30px;
+  display: block;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  margin: auto;
+  background-color: red;
+}
+
+.user__header {
+  text-align: center;
+
+}
+
+.user__title {
+  font-family: Calibri;
+  font-weight: 500;
+  color: white;
+  transition: 0.5s;
+  padding-top: 10px;
+}
+
+img {
+  width: 80%;
+}
+
+.form {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.form__input {
+  display: block;
+  width: 100%;
+  padding: 20px;
+  font-family: Calibri;
+  border: 0;
+  outline: 0;
+  transition: 0.5s;
+  width: 100%;
+  height: 12.5%;
+  margin: 2.5% 0 2.5% 0;
+  border-radius: 5px;
+
+}
+
+.form__group{
+  margin-top: 7px;
+  margin-bottom: 7px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.btn {
+  margin: 2.5% auto;
+  background-color: #e7e7e7; /* Gray */
+  border: none;
+  border-radius: 15px;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}

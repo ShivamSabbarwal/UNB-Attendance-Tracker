@@ -5,7 +5,8 @@ import App from '../App/App';
 import CreateCourse from './CreateCourse/CreateCourse';
 import Login from './Login/Login';
 import StudentHomePage from './StudentHomePage/StudentHomePage';
-import InstructorPage from './InstructorPage/InstructorPage'
+import InstructorPage from './InstructorPage/InstructorPage';
+import Signup from './Signup/Signup';
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
   require.ensure = function requireModule(deps, callback) {
@@ -32,5 +33,6 @@ export default (
     <Route path="/student_home" component = {StudentHomePage} />
     <Route path="/instructor_page" component = {InstructorPage} />
     <Route path="/create_course" component = {CreateCourse} />
+    <Route path="/sign_up" component = {Signup} />
   </Route>
 );

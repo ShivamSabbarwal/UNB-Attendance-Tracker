@@ -5,16 +5,20 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 
 // Import Style
-import styles from './style.css';
+import styles from './instructorpagestyle.css';
 
 export function InstructorPage(props) {
   return (
-    <div id="InstructorPage">
-    <header>
-      <h1> UNB Attendance Checker</h1>
-    </header>
-    <Link to={`/create_course`}>Create a Course</Link>
-    </div>
+    <body>
+      <ul>
+        <li><Link to={'/create_course'}>Create Course</Link></li>
+        <li><a href="/">instructor page1</a></li>
+        <li><a href="/">instructor page 2</a></li>
+        <li><a href="/">instructor page 3</a></li>
+        <li><a href="/">log out?</a></li>
+      </ul>
+    </body>
+
   );
 }
 

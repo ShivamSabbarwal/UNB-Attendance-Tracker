@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 
 // Import Style
-import styles from './style.css';
+
 
 export function CreateCourse(props) {
   return (
@@ -13,6 +13,7 @@ export function CreateCourse(props) {
         <h1> UNB Attendance Checker</h1>
       </header>
       <label>Instructor Name:</label>
+      <label>test</label>
     </div>
   );
 }

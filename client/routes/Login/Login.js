@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
-
+import { Link } from 'react-router';
 // Import Style
-import styles from './style.css';
+import styles from './loginstyle.css';
 
 export function Login(props) {
   return (
@@ -14,12 +14,12 @@ export function Login(props) {
           <h3>Login to UNB Attendance Services</h3>
           <input className={styles.Input} id="username" placeholder="Username"/>
           <br/>
-          <input className={styles.Input} id="password" placeholder="Password"/>
+          <input className={styles.Input} type = "password" id="password" placeholder="Password"/>
           <br/>
           <button className={styles.Submit} onClick={submit}> Submit </button>
         </div>
         <div className={styles.Signup}>
-          <label>New User? <a href="#">Register Here</a>. </label>
+          <label>New User? <Link to={'/sign_up'}>Register Here</Link>. </label>
         </div>
       </div>
     </div>
@@ -41,7 +41,6 @@ function submit(){
 
   req.onreadystatechange = function(){
     if(req.readyState == 4 && req.status == 200) {
-        alert(window.location.pathname);
         window.location.href = "/instructor_page";
     }
   }

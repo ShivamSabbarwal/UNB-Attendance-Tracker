@@ -8,14 +8,7 @@
 label{
   font-size: 18px;
 }
-header{
-  background-color: red;
-  text-align: center;
-  height: 20%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  color: white;
-}
+
 button{
   width: 200px;
   font-size: 30px;

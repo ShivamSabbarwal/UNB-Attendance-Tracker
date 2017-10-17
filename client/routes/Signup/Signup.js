@@ -2,31 +2,31 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
 
 // Import Style
-import styles from './style.css';
+import styles from './signupstyle.css';
 
-export function SignUp(props) {
+export function Signup(props) {
   return (
     <body>
       <div className={styles.user}>
         <div className={styles.user__header}>
-          <img src="./UNB-primary_RGB_W.png" alt="" />
           <h1 className={styles.user__title}>Sign-up</h1>
           <form className={styles.form}>
             <div className={styles.form__group}>
-              <input className={styles.form__input} type="text" name="username" id="username" placeholder="Username" />
+              <input className={styles.form__input} type="text" name="username" id="username" placeholder="Your Username" />
             </div>
 
             <div className={styles.form__group}>
-              <input className={styles.form__input} type="email" name="Email" id="email" placeholder="Email" />
+              <input className={styles.form__input} type="email" name="Email" id="email" placeholder="Your Email" />
             </div>
 
             <div className={styles.form__group}>
               <input className={styles.form__input} type="password" name="password" id="password" placeholder="Password" />
             </div>
             <div className={styles.form__group}>
-              <button className={styles.btn] onClick={submit}>Register</button>
+              <button className={styles.btn}>Register</button>
             </div>
           </form>
         </div>
@@ -47,7 +47,7 @@ function mapStateToProps(state, props) {
   };
 }
 
-SignUp.propTypes = {
+Signup.propTypes = {
 //  post: PropTypes.shape({
 //    name: PropTypes.string.isRequired,
 //    title: PropTypes.string.isRequired,
@@ -57,4 +57,4 @@ SignUp.propTypes = {
 //  }).isRequired,
 };
 
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps)(Signup);
