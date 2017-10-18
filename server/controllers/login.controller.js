@@ -9,12 +9,13 @@ var bigrandom = require('bigrandom');
 /**
 *Create a new user account
 */
-function generateUserAccount(username,password,email,firstname,lastname,isadmin) {
+function generateUserAccount(username,password,email,isadmin) {
   var User = mongoose.model('User', UserSchema);
   var user_data = {
-    'username': username
-    'password': password
-    'email': email
+    'username': username,
+    'password': password,
+    'email': email,
+    'isAdmin': isAdmin
   };
   var user = new User(user_data);
   user.save(
@@ -24,8 +25,8 @@ function generateUserAccount(username,password,email,firstname,lastname,isadmin)
       } else {
         //console.log('session record created: ' + data +' | data type: ' + (typeof data));
       }
-    } ;  
-  )
+    }  
+  );
 }
 /**
 * generate a random 128-bit ID, save it to the session database
