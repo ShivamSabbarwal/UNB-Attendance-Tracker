@@ -12,19 +12,19 @@ var UserSchema = require('mongoose').model('User').schema;
  */
 export function createCourse(req, res) {  
   var Course = mongoose.model('Course', CourseSchema);
-  var course_data = {
-    'title': req.body.title,
-    'professor': req.body.professor,
-    'usernames': [], // make usernames array empty for now until users are added
-    'institution': req.body.institution,
-    'location': req.body.location
-  };
   
   if (!req.body.title || !req.body.professor || !req.body.institution) {
     //verify that title, professor, and institution were provided
     res.status(403).send("Title, professor, and institution are required");
 
   } else {
+    var course_data = {
+      'title': req.body.title,
+      'professor': req.body.professor,
+      'usernames': [], // make usernames array empty for now until users are added
+      'institution': req.body.institution,
+      'location': req.body.location
+    };
     var course = new Course(course_data);
     course.save(
       function(err, data){
