@@ -10,17 +10,31 @@ var UserSchema = require('mongoose').model('User').schema;
  * @param res
  * @returns void
  */
-export function createCourse(req, res) {
-
-  if (!req.body.username || !req.body.courseName) {
-    //verify that username and courseName were provided
+export function createCourse(req, res) {  
+  var Course = mongoose.model('Course', CourseSchema);
+  var course_data = {
+    'title': req.body.title,
+    'professor': req.body.professor,
+    'usernames': [], // make usernames array empty for now until users are added
+    'institution': req.body.institution,
+    'location': req.body.location
+  };
+  
+  if (!req.body.title || !req.body.professor || !req.body.institution) {
+    //verify that title, professor, and institution were provided
     res.status(403).send("Username and courseName are required");
 
   } else {
-    // TODO: create new entry in course collection
-      // do not need to verify that provided username belongs to an admin
-      // user (professor) because the page calling this function should
-      //only be available to admins
+    var course = new User(course_data);
+    course.save(
+      function(err, data){
+        if (err){
+          console.error(err)
+        } else {
+          //console.log('Course record created: ' + data + ' | data type: ' + (typeof data));
+        }
+      } ;  
+    )
   }
 }
 
@@ -31,15 +45,22 @@ export function createCourse(req, res) {
  * @returns void
  */
 export function removeCourse(req, res) {
-
-  if (!req.body.username || !req.body.courseName) {
-    //verify that username and courseName were provided
-    res.status(403).send("Username and courseName are required");
+  var Course = mongoose.model('Course', CourseSchema);
+  
+  if (!req.body.title) {
+    //verify that title was provided
+    res.status(403).send("Title is required!");
 
   } else {
-    // TODO: create new entry in course collection
-      // do not need to verify that provided username belongs to an admin
-      // user (professor) because the page calling this function should
-      //only be available to admins
+    Course.remove({ 'title': req.body.title }, function(err) {
+      if (!err) {
+            res.status(200).end();
+            // successful removal
+      }
+      else {
+            res.status(400).end();
+            // unsuccessful removal
+      }
+    });
   }
 }
