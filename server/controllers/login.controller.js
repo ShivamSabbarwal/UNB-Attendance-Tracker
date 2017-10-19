@@ -12,8 +12,8 @@ var bigrandom = require('bigrandom');
 function generateUserAccount(username,password,email,firstname,lastname,isadmin) {
   var User = mongoose.model('User', UserSchema);
   var user_data = {
-    'username': username
-    'password': password
+    'username': username,
+    'password': password,
     'email': email
   };
   var user = new User(user_data);
@@ -24,7 +24,7 @@ function generateUserAccount(username,password,email,firstname,lastname,isadmin)
       } else {
         //console.log('session record created: ' + data +' | data type: ' + (typeof data));
       }
-    } ;  
+    }
   )
 }
 /**

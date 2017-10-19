@@ -22,18 +22,19 @@ export function createCourse(req, res) {
   
   if (!req.body.title || !req.body.professor || !req.body.institution) {
     //verify that title, professor, and institution were provided
-    res.status(403).send("Username and courseName are required");
+    res.status(403).send("Title, professor, and institution are required");
 
   } else {
-    var course = new User(course_data);
+    var course = new Course(course_data);
     course.save(
       function(err, data){
         if (err){
           console.error(err)
+          res.status(403).send("Title already belongs to an existing course")
         } else {
-          //console.log('Course record created: ' + data + ' | data type: ' + (typeof data));
+          res.status(200).end()
         }
-      } ;  
+      }
     )
   }
 }
@@ -44,7 +45,7 @@ export function createCourse(req, res) {
  * @param res
  * @returns void
  */
-export function removeCourse(req, res) {
+export function removeCourse(req, res) { //FIX NEEDED: return 200 when removing course that does not exist
   var Course = mongoose.model('Course', CourseSchema);
   
   if (!req.body.title) {
