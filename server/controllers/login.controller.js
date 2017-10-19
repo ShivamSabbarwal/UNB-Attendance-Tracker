@@ -24,14 +24,16 @@ export function generateUserAccount(req, res) {
       'username': req.body.username,
       'password': req.body.password,
       'email': req.body.email,
-      'isAdmin': isAdmin
+      'isAdmin': req.body.isAdmin
     };
     var user = new User(user_data);
     user.save(
       function(err, data){
         if (err){
           console.error(err)
+          res.status(403).end()
         } else {
+          res.status(200).end()
           //console.log('session record created: ' + data +' | data type: ' + (typeof data));
         }
       }  
