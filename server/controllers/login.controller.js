@@ -7,26 +7,37 @@ var UserSchema = require('mongoose').model('User').schema;
 var bigrandom = require('bigrandom');
 
 /**
-*Create a new user account
+*
+* @param req
+* @param res
+* @returns void
 */
-function generateUserAccount(username,password,email,isadmin) {
+export function generateUserAccount(req, res) {
   var User = mongoose.model('User', UserSchema);
-  var user_data = {
-    'username': username,
-    'password': password,
-    'email': email,
-    'isAdmin': isAdmin
-  };
-  var user = new User(user_data);
-  user.save(
-    function(err, data){
-      if (err){
-        console.error(err)
-      } else {
-        //console.log('session record created: ' + data +' | data type: ' + (typeof data));
-      }
-    }  
-  );
+  
+  if(!req.body.username || !req.body.password || !req.body.email) {
+    res.status(403).send("Username, email, and password are requiered.");
+  }else if((req.body.password).length < 6){
+    res.status(403).send("Password must be at least 6 characters in length.");
+  } else {
+    var user_data = {
+      'username': req.body.username,
+      'password': req.body.password,
+      'email': req.body.email,
+      'isAdmin': isAdmin
+    };
+    var user = new User(user_data);
+    user.save(
+      function(err, data){
+        if (err){
+          console.error(err)
+        } else {
+          //console.log('session record created: ' + data +' | data type: ' + (typeof data));
+        }
+      }  
+    );
+  }
+  
 }
 /**
 * generate a random 128-bit ID, save it to the session database
