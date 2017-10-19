@@ -17,8 +17,8 @@ export function generateUserAccount(req, res) {
   
   if(!req.body.username || !req.body.password || !req.body.email) {
     res.status(403).send("Username, email, and password are requiered.");
-  }else if((req.body.password).length < 6){
-    res.status(403).send("Password must be at least 6 characters in length.");
+  }else if((req.body.password).length < 6 || (req.body.password).length > 20){
+    res.status(403).send("Password must be at least 6 characters in length, but less than 20.");
   } else {
     var user_data = {
       'username': req.body.username,
@@ -32,9 +32,11 @@ export function generateUserAccount(req, res) {
         if (err){
           console.error(err)
           res.status(403).end()
-        } else {
+        } else if (data){
           res.status(200).end()
           //console.log('session record created: ' + data +' | data type: ' + (typeof data));
+        } else {
+          res.status(400).end()
         }
       }  
     );
