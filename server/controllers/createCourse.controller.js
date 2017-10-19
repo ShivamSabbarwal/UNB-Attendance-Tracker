@@ -53,14 +53,19 @@ export function removeCourse(req, res) { //FIX NEEDED: return 200 when removing 
     res.status(403).send("Title is required!");
 
   } else {
-    Course.remove({ 'title': req.body.title }, function(err) {
-      if (!err) {
-            res.status(200).end();
-            // successful removal
-      }
-      else {
-            res.status(400).end();
-            // unsuccessful removal
+    Course.findOneAndRemove(
+      { 'title': req.body.title },
+      function(err, course) {
+      if (err) {
+        console.error(err)
+        res.status(400).end();
+
+      } else if (course) {
+        res.status(200).end()
+
+      } else {
+        res.status(403).send("Course matching \"" + req.body.title + "\" not found.");
+        // unsuccessful removal
       }
     });
   }
