@@ -8,7 +8,7 @@ import App from './components/App';
 import { configureStore } from './store/store';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import 'font-awesome/css/font-awesome.min.css';
+
 
 
 // Initialize store
