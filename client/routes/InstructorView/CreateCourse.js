@@ -3,22 +3,27 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 // Import Style
-import styles from './instructorpagestyle.css';
+import styles from '../../main.css';
 
-export function InstructorPage(props) {
+export function CreateCourse(props) {
   return (
-    <body>
-      <ul>
-        <li><Link to={'/create_course'}>Create Course</Link></li>
-        <li><a href="/">instructor page1</a></li>
-        <li><a href="/">instructor page 2</a></li>
-        <li><a href="/">instructor page 3</a></li>
-        <li><a href="/">log out?</a></li>
-      </ul>
-    </body>
-
+    <Navbar>
+      <Navbar.Header>
+        <Navbar.Brand>
+          UNB Attendance Service
+        </Navbar.Brand>
+      </Navbar.Header>
+      <Nav>
+        <NavItem href="/instructor_home">Instructor Home</NavItem>
+        <NavItem href="/instructor_home">Other thing</NavItem>
+      </Nav>
+      <Nav pullRight>
+        <NavItem href="/">Log out</NavItem>
+      </Nav>
+    </Navbar>
   );
 }
 
@@ -34,7 +39,7 @@ function mapStateToProps(state, props) {
   };
 }
 
-InstructorPage.propTypes = {
+CreateCourse.propTypes = {
 //  post: PropTypes.shape({
 //    name: PropTypes.string.isRequired,
 //    title: PropTypes.string.isRequired,
@@ -44,4 +49,4 @@ InstructorPage.propTypes = {
 //  }).isRequired,
 };
 
-export default connect(mapStateToProps)(InstructorPage);
+export default connect(mapStateToProps)(CreateCourse);

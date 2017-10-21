@@ -2,19 +2,28 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 // Import Style
+import styles from '../../main.css';
 
-
-export function CreateCourse(props) {
+export function SeatingPlan(props) {
   return (
-    <div>
-      <header>
-        <h1> UNB Attendance Checker</h1>
-      </header>
-      <label>Instructor Name:</label>
-      <label>test</label>
-    </div>
+    <Navbar>
+      <Navbar.Header>
+        <Navbar.Brand>
+          UNB Attendance Service
+        </Navbar.Brand>
+      </Navbar.Header>
+      <Nav>
+        <NavItem href="/instructor_home">Instructor Home</NavItem>
+        <NavItem href="/instructor_home">Other thing</NavItem>
+      </Nav>
+      <Nav pullRight>
+        <NavItem href="/">Log out</NavItem>
+      </Nav>
+    </Navbar>
   );
 }
 
@@ -30,7 +39,7 @@ function mapStateToProps(state, props) {
   };
 }
 
-CreateCourse.propTypes = {
+SeatingPlan.propTypes = {
 //  post: PropTypes.shape({
 //    name: PropTypes.string.isRequired,
 //    title: PropTypes.string.isRequired,
@@ -40,4 +49,4 @@ CreateCourse.propTypes = {
 //  }).isRequired,
 };
 
-export default connect(mapStateToProps)(CreateCourse);
+export default connect(mapStateToProps)(SeatingPlan);

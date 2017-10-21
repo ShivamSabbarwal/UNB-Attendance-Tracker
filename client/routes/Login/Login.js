@@ -2,24 +2,24 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 // Import Style
-import styles from './loginstyle.css';
+import styles from '../../main.css';
 
 export function Login(props) {
   return (
-    <div className={styles.Page}>
-      <div className={styles.Container}>
-        <div className={styles.Login}>
+    <div className={styles.page}>
+      <div className={styles.loginContainer}>
+        <div className={styles.login}>
           <h3>Login to UNB Attendance Services</h3>
-          <input className={styles.Input} id="username" placeholder="Username"/>
+          <input className={styles.input} id="username" placeholder="Username"/>
           <br/>
-          <input className={styles.Input} type = "password" id="password" placeholder="Password"/>
+          <input className={styles.input} id="password" placeholder="Password" type="password"/>
           <br/>
-          <button className={styles.Submit} onClick={submit}> Submit </button>
+          <button className={styles.submit} onClick={submit}> Submit </button>
         </div>
-        <div className={styles.Signup}>
-          <label>New User? <Link to={'/sign_up'}>Register Here</Link>. </label>
+        <div className={styles.signup}>
+          <label>New User? <Link to={'/signup'}>Register Here</Link>. </label>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@ function submit(){
 
   req.onreadystatechange = function(){
     if(req.readyState == 4 && req.status == 200) {
-        window.location.href = "/instructor_page";
+        window.location.href = "/instructor_home";
     }
   }
 

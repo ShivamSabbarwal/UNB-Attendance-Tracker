@@ -2,12 +2,11 @@
 import React from 'react';
 import { Route, IndexRoute, Router } from 'react-router';
 import App from '../App/App';
-import CreateCourse from './CreateCourse/CreateCourse';
+import CreateCourse from './InstructorView/CreateCourse';
 import Login from './Login/Login';
-import StudentHomePage from './StudentHomePage/StudentHomePage';
-import InstructorPage from './InstructorPage/InstructorPage';
 import Signup from './Signup/Signup';
-import BootstrapExample from './BootstrapExample/BootstrapExample';
+import InstructorHome from './InstructorView/InstructorHome';
+
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
   require.ensure = function requireModule(deps, callback) {
@@ -23,7 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
   //require('./modules/Post/pages/PostListPage/PostListPage');
   //require('./modules/Post/pages/PostDetailPage/PostDetailPage');
-  require('./InstructorPage/InstructorPage');
+  require('./InstructorView/InstructorHome');
 }
 
 // react-router setup with code-splitting
@@ -31,10 +30,8 @@ if (process.env.NODE_ENV !== 'production') {
 export default (
   <Route path="/" component={App}>
     <IndexRoute component = {Login} />
-    <Route path="/student_home" component = {StudentHomePage} />
-    <Route path="/instructor_page" component = {InstructorPage} />
     <Route path="/create_course" component = {CreateCourse} />
-    <Route path="/sign_up" component = {Signup} />
-    <Route path="/bootstrap" component = {BootstrapExample} />
+    <Route path="/signup" component = {Signup} />
+    <Route path="/instructor_home" component={InstructorHome} />
   </Route>
 );

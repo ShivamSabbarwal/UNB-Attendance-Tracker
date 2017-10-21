@@ -3,35 +3,37 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
+import { Checkbox, Col, ControlLabel,Form, FormGroup, FormControl, Glyphicon, HelpBlock, InputGroup, Radio } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 
 // Import Style
-import styles from './signupstyle.css';
+import styles from '../../main.css';
 
 export function Signup(props) {
   return (
-    <body>
-      <div className={styles.user}>
-        <div className={styles.user__header}>
-          <h1 className={styles.user__title}>Sign-up</h1>
-          <form className={styles.form}>
-            <div className={styles.form__group}>
-              <input className={styles.form__input} type="text" name="username" id="username" placeholder="Your Username" />
-            </div>
-
-            <div className={styles.form__group}>
-              <input className={styles.form__input} type="email" name="Email" id="email" placeholder="Your Email" />
-            </div>
-
-            <div className={styles.form__group}>
-              <input className={styles.form__input} type="password" name="password" id="password" placeholder="Password" />
-            </div>
-            <div className={styles.form__group}>
-              <button className={styles.btn}>Register</button>
-            </div>
-          </form>
+    <div className={styles.page}>
+      <div className={styles.signupContainer}>
+        <div className={styles.user}>
+          <div className={styles.user__header}>
+            <h3 className={styles.user__title}>Sign-up to use <span className={styles.unb}>UNB Attendance Service</span></h3>
+            <form className={styles.form}>
+              <div className={styles.form__group}>
+                <input className={styles.form__input} type="text" name="username" id="username" placeholder="Username" />
+              </div>
+              <div className={styles.form__group}>
+                <input className={styles.form__input} type="password" name="password" id="password" placeholder="Password" />
+              </div>
+              <div className={styles.form__group}>
+                <input className={styles.form__input} type="email" name="Email" id="email" placeholder="Your Email" />
+              </div>
+              <div className={styles.form__group}>
+                <button className={styles.btn}>Register</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
 
