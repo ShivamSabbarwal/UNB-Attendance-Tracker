@@ -7,7 +7,7 @@ let transporter = nodemailer.createTransport({
         secure: false, // true for 465, false for other ports
         auth: {
             user: 'UNBSWE4103G1',
-            pass: BentonianPhysics
+            pass: 'BentonianPhysics'
         }
 });
 export function sendEmail (req, res) {
