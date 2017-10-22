@@ -13,7 +13,7 @@ export function sendEmail (req, res) {
       from: 'swe4103g1@gmail.com',
       to: req.body.to,
       subject: req.body.subject,
-      text: req.body.text
+      html: req.body.html
     }
     
     transporter.sendMail(mailOptions, function(error, info){
