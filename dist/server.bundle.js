@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 42);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -50,7 +50,7 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	module.exports = require("mongoose");
+	module.exports = require("react-router");
 
 /***/ },
 /* 2 */
@@ -68,28 +68,34 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router");
+	module.exports = require("react-intl");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-intl");
+	module.exports = require("mongoose");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("express");
+	module.exports = require("react-bootstrap");
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack");
+	module.exports = require("express");
 
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack");
+
+/***/ },
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -110,7 +116,7 @@
 	}
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -125,7 +131,7 @@
 	// Import Style
 	
 	
-	exports.HomePage = HomePage;
+	exports.InstructorHome = InstructorHome;
 	
 	var _react = __webpack_require__(0);
 	
@@ -137,32 +143,94 @@
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(4);
 	
-	var _reactRouter = __webpack_require__(4);
+	var _reactRouter = __webpack_require__(1);
 	
-	var _style = {
-	  "container": "_2ztsJxrpuKBelKcK-N1eGf",
-	  "form-control": "_3mJJd5ZMuoq9PW9FR7MIWm",
-	  "label": "_1w4D9WPoxeh-MoHzkxoTS4",
-	  "header": "_3xEtTWNYDmX5BurStNaia7",
-	  "button": "_2kbIHSCK4uuwDfgCO6qdzz",
-	  "loginBtn": "_168fJFsJUaIA6BfQeB112M",
-	  "password": "_393dWqTND-3XXoHfJpffxX"
+	var _reactBootstrap = __webpack_require__(6);
+	
+	var _main = {
+	  "page": "_2UbYb8a84j4Lao1llfzi0X",
+	  "loginContainer": "_1o3nlz1EoAMNNnpO8iUiY6",
+	  "login": "_24YesQ6IIGgLcwUjHyRddZ",
+	  "input": "_24Rsr0jLNLE_aq_f0MbrAv",
+	  "submit": "l8D8d4_FqUBpclkJ3n5Sf",
+	  "signup": "_1TDrNxGe_Vc-pNVhsNZbI6",
+	  "signupContainer": "_2Z4VXp9zg0P1iD568k6WtG",
+	  "unb": "_1LpTmnEzzprSDRIfT0SDEa",
+	  "user": "_1xY800K06kSGP6VS3nJ4B1",
+	  "user__header": "_2mDmNvlo668Gw-i22g-uBP",
+	  "user__title": "_1ntJhaLf1YwbUhDzx-YmP1",
+	  "form__input": "_1jpmTgEBHrYCXzlsq-WaV6",
+	  "btn": "_22cYRKnsVbWwfqJ9cXbIdH",
+	  "optionsContainer": "_3ulUidPgZQ4OVjM2Rtdn6O",
+	  "courseGridCell": "_2xqMXqJiB_JmrFQ14Ea7VS",
+	  "courseGridCellClicked": "_2noRhapg3V7Mymzeq9_yKv",
+	  "courseGrid": "_1rTJ4GGeEJz1RSeU1TCHKe"
 	};
 	
-	var _style2 = _interopRequireDefault(_style);
+	var _main2 = _interopRequireDefault(_main);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _ref = _jsx('header', {}, void 0, _jsx('h1', {}, void 0, ' UNB Attendance Checker'));
+	var _ref = _jsx(_reactBootstrap.Navbar, {}, void 0, _jsx(_reactBootstrap.Navbar.Header, {}, void 0, _jsx(_reactBootstrap.Navbar.Brand, {}, void 0, 'UNB Attendance Service')), _jsx(_reactBootstrap.Nav, {}, void 0, _jsx(_reactBootstrap.NavItem, {
+	  href: '/instructor_home'
+	}, void 0, 'Instructor Home'), _jsx(_reactBootstrap.NavItem, {
+	  href: '/instructor_home'
+	}, void 0, 'Other thing')), _jsx(_reactBootstrap.Nav, {
+	  pullRight: true
+	}, void 0, _jsx(_reactBootstrap.NavItem, {
+	  href: '/'
+	}, void 0, 'Log out')));
 	
-	function HomePage(props) {
-	  return _jsx('div', {
-	    id: 'HomePage'
-	  }, void 0, _ref, _jsx(_reactRouter.Link, {
+	var _ref2 = _jsx('label', {}, void 0, ' Create a Course ');
+	
+	var _ref3 = _jsx('label', {}, void 0, ' See Course Grid ');
+	
+	function InstructorHome(props) {
+	  return _jsx('body', {}, void 0, _ref, _jsx('div', {
+	    className: _main2.default.optionsContainer
+	  }, void 0, _jsx(_reactBootstrap.Grid, {}, void 0, _jsx(_reactBootstrap.Row, {}, void 0, _jsx(_reactBootstrap.Col, {
+	    xs: 6,
+	    md: 3
+	  }, void 0, _jsx(_reactRouter.Link, {
 	    to: '/create_course'
-	  }, void 0, 'Create a Course'));
+	  }, void 0, _ref2, _jsx(_reactBootstrap.Image, {
+	    src: '/' + "4002bd3be9ebe4b752d1809a9407c862.png",
+	    rounded: true
+	  }))), _jsx(_reactBootstrap.Col, {
+	    xs: 6,
+	    md: 3
+	  }, void 0, _jsx(_reactRouter.Link, {
+	    to: '/course_grid'
+	  }, void 0, _ref3, _jsx(_reactBootstrap.Image, {
+	    src: '/' + "4002bd3be9ebe4b752d1809a9407c862.png",
+	    rounded: true
+	  }))), _jsx(_reactBootstrap.Col, {
+	    xs: 6,
+	    md: 3
+	  }, void 0, _jsx(_reactBootstrap.Image, {
+	    src: '/' + "4002bd3be9ebe4b752d1809a9407c862.png",
+	    rounded: true
+	  }))), _jsx(_reactBootstrap.Row, {}, void 0, _jsx(_reactBootstrap.Col, {
+	    xs: 6,
+	    md: 3
+	  }, void 0, _jsx(_reactBootstrap.Image, {
+	    src: '/' + "4002bd3be9ebe4b752d1809a9407c862.png",
+	    rounded: true
+	  })), _jsx(_reactBootstrap.Col, {
+	    xs: 6,
+	    md: 3
+	  }, void 0, _jsx(_reactBootstrap.Image, {
+	    src: '/' + "4002bd3be9ebe4b752d1809a9407c862.png",
+	    rounded: true
+	  })), _jsx(_reactBootstrap.Col, {
+	    xs: 6,
+	    md: 3
+	  }, void 0, _jsx(_reactBootstrap.Image, {
+	    src: '/' + "4002bd3be9ebe4b752d1809a9407c862.png",
+	    rounded: true
+	  }))))));
 	}
 	
 	// Actions required to provide data for this component to render in sever side.
@@ -177,16 +245,16 @@
 	  };
 	}
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(HomePage);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(InstructorHome);
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux");
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -203,23 +271,35 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(4);
+	var _reactRouter = __webpack_require__(1);
 	
-	var _App = __webpack_require__(25);
+	var _App = __webpack_require__(26);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _HomePage = __webpack_require__(9);
-	
-	var _HomePage2 = _interopRequireDefault(_HomePage);
-	
-	var _CreateCourse = __webpack_require__(30);
+	var _CreateCourse = __webpack_require__(33);
 	
 	var _CreateCourse2 = _interopRequireDefault(_CreateCourse);
 	
-	var _Login = __webpack_require__(31);
+	var _Login = __webpack_require__(34);
 	
 	var _Login2 = _interopRequireDefault(_Login);
+	
+	var _Signup = __webpack_require__(35);
+	
+	var _Signup2 = _interopRequireDefault(_Signup);
+	
+	var _InstructorHome = __webpack_require__(10);
+	
+	var _InstructorHome2 = _interopRequireDefault(_InstructorHome);
+	
+	var _landingPage = __webpack_require__(36);
+	
+	var _landingPage2 = _interopRequireDefault(_landingPage);
+	
+	var _CourseGrid = __webpack_require__(31);
+	
+	var _CourseGrid2 = _interopRequireDefault(_CourseGrid);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -238,7 +318,7 @@
 	  // Require async routes only in development for react-hot-reloader to work.
 	  //require('./modules/Post/pages/PostListPage/PostListPage');
 	  //require('./modules/Post/pages/PostDetailPage/PostDetailPage');
-	  __webpack_require__(9);
+	  __webpack_require__(10);
 	}
 	
 	// react-router setup with code-splitting
@@ -249,15 +329,24 @@
 	}, void 0, _jsx(_reactRouter.IndexRoute, {
 	  component: _Login2.default
 	}), _jsx(_reactRouter.Route, {
-	  path: '/home',
-	  component: _HomePage2.default
-	}), _jsx(_reactRouter.Route, {
 	  path: '/create_course',
 	  component: _CreateCourse2.default
+	}), _jsx(_reactRouter.Route, {
+	  path: '/signup',
+	  component: _Signup2.default
+	}), _jsx(_reactRouter.Route, {
+	  path: '/instructor_home',
+	  component: _InstructorHome2.default
+	}), _jsx(_reactRouter.Route, {
+	  path: '/student_home',
+	  component: _landingPage2.default
+	}), _jsx(_reactRouter.Route, {
+	  path: '/course_grid',
+	  component: _CourseGrid2.default
 	}));
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -268,13 +357,13 @@
 	});
 	exports.configureStore = configureStore;
 	
-	var _redux = __webpack_require__(10);
+	var _redux = __webpack_require__(11);
 	
-	var _reduxThunk = __webpack_require__(46);
+	var _reduxThunk = __webpack_require__(51);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _reducers = __webpack_require__(32);
+	var _reducers = __webpack_require__(37);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -303,7 +392,7 @@
 	   */
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -320,7 +409,7 @@
 	exports.default = config;
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -351,14 +440,14 @@
 	  });
 	};
 	
-	var _post = __webpack_require__(34);
+	var _post = __webpack_require__(39);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -368,9 +457,9 @@
 	  value: true
 	});
 	
-	var _express = __webpack_require__(6);
+	var _express = __webpack_require__(7);
 	
-	var _login = __webpack_require__(33);
+	var _login = __webpack_require__(38);
 	
 	var LoginController = _interopRequireWildcard(_login);
 	
@@ -386,7 +475,7 @@
 	exports.default = router;
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -397,7 +486,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 	
-	var _promiseUtils = __webpack_require__(38);
+	var _promiseUtils = __webpack_require__(43);
 	
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -413,16 +502,16 @@
 	  */
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
-	var webpack = __webpack_require__(7);
-	var cssnext = __webpack_require__(40);
-	var postcssFocus = __webpack_require__(41);
-	var postcssReporter = __webpack_require__(42);
+	var webpack = __webpack_require__(8);
+	var cssnext = __webpack_require__(45);
+	var postcssFocus = __webpack_require__(46);
+	var postcssReporter = __webpack_require__(47);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -463,7 +552,7 @@
 	      test: /\.json$/,
 	      loader: 'json-loader'
 	    }, {
-	      test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+	      test: /\.(woff|woff2|eot|ttf|svg)$/,
 	      loader: 'url-loader?limit=100000'
 	    }]
 	  },
@@ -490,49 +579,49 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1712,21 +1801,21 @@
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _DevTools = __webpack_require__(27);
+	var _DevTools = __webpack_require__(28);
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _Header = __webpack_require__(29);
+	var _Header = __webpack_require__(30);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(28);
+	var _Footer = __webpack_require__(29);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
-	var _reactRouter = __webpack_require__(4);
+	var _reactRouter = __webpack_require__(1);
 	
-	var _AppActions = __webpack_require__(8);
+	var _AppActions = __webpack_require__(9);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1795,7 +1884,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1806,7 +1895,7 @@
 	});
 	exports.getShowAddPost = undefined;
 	
-	var _AppActions = __webpack_require__(8);
+	var _AppActions = __webpack_require__(9);
 	
 	// Initial State
 	var initialState = {
@@ -1840,7 +1929,7 @@
 	exports.default = AppReducer;
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1856,13 +1945,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxDevtools = __webpack_require__(43);
+	var _reduxDevtools = __webpack_require__(48);
 	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(45);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(50);
 	
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(44);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(49);
 	
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 	
@@ -1874,7 +1963,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1895,7 +1984,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(4);
 	
 	var _Footer = {
 	  "footer": "bo3HgOxwnMCxuEAKXkA9_"
@@ -1916,7 +2005,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1937,9 +2026,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(4);
+	var _reactRouter = __webpack_require__(1);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(4);
 	
 	var _Header = {
 	  "header": "_3ouKIGZiS3ur4UPJ_9nWcl",
@@ -1998,70 +2087,6 @@
 	exports.default = Header;
 
 /***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	// Import Style
-	
-	
-	exports.HomePage = HomePage;
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(3);
-	
-	var _reactHelmet = __webpack_require__(2);
-	
-	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
-	
-	var _reactIntl = __webpack_require__(5);
-	
-	var _style = {
-	  "container": "_1ZvcYDnLjAgvxT7bm73nvT",
-	  "form-control": "zxUshLjgVmklJgrti8HMa",
-	  "label": "_3iHVVvHdw6hcWdZXTSG5lQ",
-	  "header": "_2pBO5zK54Uia-setVHHX02",
-	  "button": "sRzSqb0n_b0c8VKiY63Qb",
-	  "loginBtn": "_1WTkZXq25ikrJUUdJQdbjA",
-	  "password": "_1mo7kH2aGet5BnVFYk2moW"
-	};
-	
-	var _style2 = _interopRequireDefault(_style);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var _ref = _jsx('div', {}, void 0, _jsx('header', {}, void 0, _jsx('h1', {}, void 0, ' UNB Attendance Checker - Create a Course')));
-	
-	function HomePage(props) {
-	  return _ref;
-	}
-	
-	// Actions required to provide data for this component to render in sever side.
-	//HomePage.need = [params => {
-	//return fetchPost(params.cuid);
-	//}];
-	
-	// Retrieve data from store as props
-	function mapStateToProps(state, props) {
-	  return {
-	    //post: getPost(state, props.params.cuid),
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(HomePage);
-
-/***/ },
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2077,6 +2102,298 @@
 	// Import Style
 	
 	
+	exports.CourseGrid = CourseGrid;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(3);
+	
+	var _reactHelmet = __webpack_require__(2);
+	
+	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+	
+	var _reactIntl = __webpack_require__(4);
+	
+	var _reactRouter = __webpack_require__(1);
+	
+	var _reactBootstrap = __webpack_require__(6);
+	
+	var _DataCell = __webpack_require__(32);
+	
+	var _DataCell2 = _interopRequireDefault(_DataCell);
+	
+	var _main = {
+	  "page": "_2UbYb8a84j4Lao1llfzi0X",
+	  "loginContainer": "_1o3nlz1EoAMNNnpO8iUiY6",
+	  "login": "_24YesQ6IIGgLcwUjHyRddZ",
+	  "input": "_24Rsr0jLNLE_aq_f0MbrAv",
+	  "submit": "l8D8d4_FqUBpclkJ3n5Sf",
+	  "signup": "_1TDrNxGe_Vc-pNVhsNZbI6",
+	  "signupContainer": "_2Z4VXp9zg0P1iD568k6WtG",
+	  "unb": "_1LpTmnEzzprSDRIfT0SDEa",
+	  "user": "_1xY800K06kSGP6VS3nJ4B1",
+	  "user__header": "_2mDmNvlo668Gw-i22g-uBP",
+	  "user__title": "_1ntJhaLf1YwbUhDzx-YmP1",
+	  "form__input": "_1jpmTgEBHrYCXzlsq-WaV6",
+	  "btn": "_22cYRKnsVbWwfqJ9cXbIdH",
+	  "optionsContainer": "_3ulUidPgZQ4OVjM2Rtdn6O",
+	  "courseGridCell": "_2xqMXqJiB_JmrFQ14Ea7VS",
+	  "courseGridCellClicked": "_2noRhapg3V7Mymzeq9_yKv",
+	  "courseGrid": "_1rTJ4GGeEJz1RSeU1TCHKe"
+	};
+	
+	var _main2 = _interopRequireDefault(_main);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx(_reactBootstrap.Navbar, {}, void 0, _jsx(_reactBootstrap.Navbar.Header, {}, void 0, _jsx(_reactBootstrap.Navbar.Brand, {}, void 0, 'UNB Attendance Service')), _jsx(_reactBootstrap.Nav, {}, void 0, _jsx(_reactBootstrap.NavItem, {
+	  href: '/instructor_home'
+	}, void 0, 'Instructor Home'), _jsx(_reactBootstrap.NavItem, {
+	  href: '/instructor_home'
+	}, void 0, 'Other thing')), _jsx(_reactBootstrap.Nav, {
+	  pullRight: true
+	}, void 0, _jsx(_reactBootstrap.NavItem, {
+	  href: '/'
+	}, void 0, 'Log out')));
+	
+	var _ref2 = _jsx('h3', {}, void 0, 'CS3383');
+	
+	function CourseGrid(props) {
+	
+	  var height = props.grid.length;
+	  var width = props.grid[0].length;
+	
+	  var rows = [];
+	
+	  for (var i = 0; i < height; i++) {
+	
+	    var cell = [];
+	
+	    for (var idx = 0; idx < width; idx++) {
+	
+	      var id = i * 100 + idx;
+	      cell.push(_jsx(_DataCell2.default, {
+	        name: props.grid[i][idx],
+	        id: i * 100 + idx
+	      }));
+	    }
+	
+	    rows.push(_jsx('tr', {}, void 0, cell));
+	  }
+	
+	  return _jsx('div', {}, void 0, _ref, _jsx('div', {
+	    className: _main2.default.courseGrid
+	  }, void 0, _ref2, _jsx('table', {
+	    id: 'simple-board'
+	  }, void 0, _jsx('tbody', {}, void 0, rows))));
+	}
+	
+	// Retrieve data from store as props
+	function mapStateToProps(state, props) {
+	  return {
+	    grid: [["", "Tony", "", "", "", "", "", "", "Shiv", ""], ["", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "Tristen", "", "", "", "", ""], ["", "Jean-Marc", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "Justin", ""], ["", "", "Jacob", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", ""]]
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CourseGrid);
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import Style
+	
+	
+	exports.DataCell = DataCell;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(3);
+	
+	var _reactHelmet = __webpack_require__(2);
+	
+	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+	
+	var _reactIntl = __webpack_require__(4);
+	
+	var _reactRouter = __webpack_require__(1);
+	
+	var _reactBootstrap = __webpack_require__(6);
+	
+	var _main = {
+		"page": "_2UbYb8a84j4Lao1llfzi0X",
+		"loginContainer": "_1o3nlz1EoAMNNnpO8iUiY6",
+		"login": "_24YesQ6IIGgLcwUjHyRddZ",
+		"input": "_24Rsr0jLNLE_aq_f0MbrAv",
+		"submit": "l8D8d4_FqUBpclkJ3n5Sf",
+		"signup": "_1TDrNxGe_Vc-pNVhsNZbI6",
+		"signupContainer": "_2Z4VXp9zg0P1iD568k6WtG",
+		"unb": "_1LpTmnEzzprSDRIfT0SDEa",
+		"user": "_1xY800K06kSGP6VS3nJ4B1",
+		"user__header": "_2mDmNvlo668Gw-i22g-uBP",
+		"user__title": "_1ntJhaLf1YwbUhDzx-YmP1",
+		"form__input": "_1jpmTgEBHrYCXzlsq-WaV6",
+		"btn": "_22cYRKnsVbWwfqJ9cXbIdH",
+		"optionsContainer": "_3ulUidPgZQ4OVjM2Rtdn6O",
+		"courseGridCell": "_2xqMXqJiB_JmrFQ14Ea7VS",
+		"courseGridCellClicked": "_2noRhapg3V7Mymzeq9_yKv",
+		"courseGrid": "_1rTJ4GGeEJz1RSeU1TCHKe"
+	};
+	
+	var _main2 = _interopRequireDefault(_main);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function DataCell(props) {
+	
+		function clicked(id) {
+			if (!document.getElementById(id).className.includes(_main2.default.courseGridCellClicked)) {
+				document.getElementById(id).classList.add(_main2.default.courseGridCellClicked);
+			} else {
+				document.getElementById(id).classList.remove(_main2.default.courseGridCellClicked);
+			}
+		}
+	
+		return _jsx('td', {
+			className: _main2.default.courseGridCell,
+			id: props.id,
+			onClick: function onClick() {
+				clicked(props.id);
+			}
+		}, void 0, ' ', props.name, ' ')
+		//<td className={styles.courseGridCell} id={props.id} onClick={() => alert(this.document.getElementById(props.id).className)}> {props.name} </td>
+		//<td className={styles.courseGridCell} id={props.id} onClick={() => if(this.document.getElementById(props.id).className.includes("courseGridCell"))}> {props.name} </td>
+		;
+	}
+	
+	function onItemClick() {
+		alert("was clicked");
+	}
+	
+	// Retrieve data from store as props
+	function mapStateToProps(state, props) {
+		return {
+			name: props.name,
+			style: "courseGridCell"
+		};
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(DataCell);
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import Style
+	
+	
+	exports.CreateCourse = CreateCourse;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(3);
+	
+	var _reactHelmet = __webpack_require__(2);
+	
+	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+	
+	var _reactIntl = __webpack_require__(4);
+	
+	var _reactRouter = __webpack_require__(1);
+	
+	var _reactBootstrap = __webpack_require__(6);
+	
+	var _main = {
+	  "page": "_2UbYb8a84j4Lao1llfzi0X",
+	  "loginContainer": "_1o3nlz1EoAMNNnpO8iUiY6",
+	  "login": "_24YesQ6IIGgLcwUjHyRddZ",
+	  "input": "_24Rsr0jLNLE_aq_f0MbrAv",
+	  "submit": "l8D8d4_FqUBpclkJ3n5Sf",
+	  "signup": "_1TDrNxGe_Vc-pNVhsNZbI6",
+	  "signupContainer": "_2Z4VXp9zg0P1iD568k6WtG",
+	  "unb": "_1LpTmnEzzprSDRIfT0SDEa",
+	  "user": "_1xY800K06kSGP6VS3nJ4B1",
+	  "user__header": "_2mDmNvlo668Gw-i22g-uBP",
+	  "user__title": "_1ntJhaLf1YwbUhDzx-YmP1",
+	  "form__input": "_1jpmTgEBHrYCXzlsq-WaV6",
+	  "btn": "_22cYRKnsVbWwfqJ9cXbIdH",
+	  "optionsContainer": "_3ulUidPgZQ4OVjM2Rtdn6O",
+	  "courseGridCell": "_2xqMXqJiB_JmrFQ14Ea7VS",
+	  "courseGridCellClicked": "_2noRhapg3V7Mymzeq9_yKv",
+	  "courseGrid": "_1rTJ4GGeEJz1RSeU1TCHKe"
+	};
+	
+	var _main2 = _interopRequireDefault(_main);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx(_reactBootstrap.Navbar, {}, void 0, _jsx(_reactBootstrap.Navbar.Header, {}, void 0, _jsx(_reactBootstrap.Navbar.Brand, {}, void 0, 'UNB Attendance Service')), _jsx(_reactBootstrap.Nav, {}, void 0, _jsx(_reactBootstrap.NavItem, {
+	  href: '/instructor_home'
+	}, void 0, 'Instructor Home'), _jsx(_reactBootstrap.NavItem, {
+	  href: '/instructor_home'
+	}, void 0, 'Other thing')), _jsx(_reactBootstrap.Nav, {
+	  pullRight: true
+	}, void 0, _jsx(_reactBootstrap.NavItem, {
+	  href: '/'
+	}, void 0, 'Log out')));
+	
+	function CreateCourse(props) {
+	  return _ref;
+	}
+	
+	// Actions required to provide data for this component to render in sever side.
+	//HomePage.need = [params => {
+	//return fetchPost(params.cuid);
+	//}];
+	
+	// Retrieve data from store as props
+	function mapStateToProps(state, props) {
+	  return {
+	    //post: getPost(state, props.params.cuid),
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CreateCourse);
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	// Import Style
+	
+	
 	exports.Login = Login;
 	
 	var _react = __webpack_require__(0);
@@ -2089,19 +2406,31 @@
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(4);
 	
-	var _style = {
-	  "header": "aqcKS8_97M9tDJSzfKTvT",
-	  "Page": "_1Z6iqhDObAUgmZ9oySF3hp",
-	  "Container": "_3QWcOFHTe5wG_JyiLrHvu9",
-	  "Login": "_18uWR-iN64EYYZVES6C0ux",
-	  "Input": "_1UiKj8XwrmwWnNCRfqVpTW",
-	  "Submit": "_3JWVu9ppbfeccMra4Bq5Vw",
-	  "Signup": "pTe--n_2dzM9yXhPn2qkj"
+	var _reactRouter = __webpack_require__(1);
+	
+	var _main = {
+	  "page": "_2UbYb8a84j4Lao1llfzi0X",
+	  "loginContainer": "_1o3nlz1EoAMNNnpO8iUiY6",
+	  "login": "_24YesQ6IIGgLcwUjHyRddZ",
+	  "input": "_24Rsr0jLNLE_aq_f0MbrAv",
+	  "submit": "l8D8d4_FqUBpclkJ3n5Sf",
+	  "signup": "_1TDrNxGe_Vc-pNVhsNZbI6",
+	  "signupContainer": "_2Z4VXp9zg0P1iD568k6WtG",
+	  "unb": "_1LpTmnEzzprSDRIfT0SDEa",
+	  "user": "_1xY800K06kSGP6VS3nJ4B1",
+	  "user__header": "_2mDmNvlo668Gw-i22g-uBP",
+	  "user__title": "_1ntJhaLf1YwbUhDzx-YmP1",
+	  "form__input": "_1jpmTgEBHrYCXzlsq-WaV6",
+	  "btn": "_22cYRKnsVbWwfqJ9cXbIdH",
+	  "optionsContainer": "_3ulUidPgZQ4OVjM2Rtdn6O",
+	  "courseGridCell": "_2xqMXqJiB_JmrFQ14Ea7VS",
+	  "courseGridCellClicked": "_2noRhapg3V7Mymzeq9_yKv",
+	  "courseGrid": "_1rTJ4GGeEJz1RSeU1TCHKe"
 	};
 	
-	var _style2 = _interopRequireDefault(_style);
+	var _main2 = _interopRequireDefault(_main);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2111,30 +2440,31 @@
 	
 	var _ref3 = _jsx('br', {});
 	
-	var _ref4 = _jsx('label', {}, void 0, 'New User? ', _jsx('a', {
-	  href: '#'
+	var _ref4 = _jsx('label', {}, void 0, 'New User? ', _jsx(_reactRouter.Link, {
+	  to: '/signup'
 	}, void 0, 'Register Here'), '. ');
 	
 	function Login(props) {
 	  return _jsx('div', {
-	    className: _style2.default.Page
+	    className: _main2.default.page
 	  }, void 0, _jsx('div', {
-	    className: _style2.default.Container
+	    className: _main2.default.loginContainer
 	  }, void 0, _jsx('div', {
-	    className: _style2.default.Login
+	    className: _main2.default.login
 	  }, void 0, _ref, _jsx('input', {
-	    className: _style2.default.Input,
+	    className: _main2.default.input,
 	    id: 'username',
 	    placeholder: 'Username'
 	  }), _ref2, _jsx('input', {
-	    className: _style2.default.Input,
+	    className: _main2.default.input,
 	    id: 'password',
-	    placeholder: 'Password'
+	    placeholder: 'Password',
+	    type: 'password'
 	  }), _ref3, _jsx('button', {
-	    className: _style2.default.Submit,
+	    className: _main2.default.submit,
 	    onClick: submit
 	  }, void 0, ' Submit ')), _jsx('div', {
-	    className: _style2.default.Signup
+	    className: _main2.default.signup
 	  }, void 0, _ref4)));
 	}
 	
@@ -2153,8 +2483,7 @@
 	
 	  req.onreadystatechange = function () {
 	    if (req.readyState == 4 && req.status == 200) {
-	      alert(window.location.pathname);
-	      window.location.href = "/home";
+	      window.location.href = "/instructor_home";
 	    }
 	  };
 	
@@ -2176,7 +2505,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Login);
 
 /***/ },
-/* 32 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2186,9 +2515,134 @@
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(10);
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
 	
-	var _AppReducer = __webpack_require__(26);
+	// Import Style
+	
+	
+	exports.Signup = Signup;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(3);
+	
+	var _reactHelmet = __webpack_require__(2);
+	
+	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+	
+	var _reactIntl = __webpack_require__(4);
+	
+	var _reactRouter = __webpack_require__(1);
+	
+	var _reactBootstrap = __webpack_require__(6);
+	
+	var _main = {
+	  "page": "_2UbYb8a84j4Lao1llfzi0X",
+	  "loginContainer": "_1o3nlz1EoAMNNnpO8iUiY6",
+	  "login": "_24YesQ6IIGgLcwUjHyRddZ",
+	  "input": "_24Rsr0jLNLE_aq_f0MbrAv",
+	  "submit": "l8D8d4_FqUBpclkJ3n5Sf",
+	  "signup": "_1TDrNxGe_Vc-pNVhsNZbI6",
+	  "signupContainer": "_2Z4VXp9zg0P1iD568k6WtG",
+	  "unb": "_1LpTmnEzzprSDRIfT0SDEa",
+	  "user": "_1xY800K06kSGP6VS3nJ4B1",
+	  "user__header": "_2mDmNvlo668Gw-i22g-uBP",
+	  "user__title": "_1ntJhaLf1YwbUhDzx-YmP1",
+	  "form__input": "_1jpmTgEBHrYCXzlsq-WaV6",
+	  "btn": "_22cYRKnsVbWwfqJ9cXbIdH",
+	  "optionsContainer": "_3ulUidPgZQ4OVjM2Rtdn6O",
+	  "courseGridCell": "_2xqMXqJiB_JmrFQ14Ea7VS",
+	  "courseGridCellClicked": "_2noRhapg3V7Mymzeq9_yKv",
+	  "courseGrid": "_1rTJ4GGeEJz1RSeU1TCHKe"
+	};
+	
+	var _main2 = _interopRequireDefault(_main);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function Signup(props) {
+	  return _jsx('div', {
+	    className: _main2.default.page
+	  }, void 0, _jsx('div', {
+	    className: _main2.default.signupContainer
+	  }, void 0, _jsx('div', {
+	    className: _main2.default.user
+	  }, void 0, _jsx('div', {
+	    className: _main2.default.user__header
+	  }, void 0, _jsx('h3', {
+	    className: _main2.default.user__title
+	  }, void 0, 'Sign-up to use ', _jsx('span', {
+	    className: _main2.default.unb
+	  }, void 0, 'UNB Attendance Service')), _jsx('form', {
+	    className: _main2.default.form
+	  }, void 0, _jsx('div', {
+	    className: _main2.default.form__group
+	  }, void 0, _jsx('input', {
+	    className: _main2.default.form__input,
+	    type: 'text',
+	    name: 'username',
+	    id: 'username',
+	    placeholder: 'Username'
+	  })), _jsx('div', {
+	    className: _main2.default.form__group
+	  }, void 0, _jsx('input', {
+	    className: _main2.default.form__input,
+	    type: 'password',
+	    name: 'password',
+	    id: 'password',
+	    placeholder: 'Password'
+	  })), _jsx('div', {
+	    className: _main2.default.form__group
+	  }, void 0, _jsx('input', {
+	    className: _main2.default.form__input,
+	    type: 'email',
+	    name: 'Email',
+	    id: 'email',
+	    placeholder: 'Your Email'
+	  })), _jsx('div', {
+	    className: _main2.default.form__group
+	  }, void 0, _jsx('button', {
+	    className: _main2.default.btn
+	  }, void 0, 'Register')))))));
+	}
+	
+	// Actions required to provide data for this component to render in sever side.
+	//HomePage.need = [params => {
+	//return fetchPost(params.cuid);
+	//}];
+	
+	// Retrieve data from store as props
+	function mapStateToProps(state, props) {
+	  return {
+	    //post: getPost(state, props.params.cuid),
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Signup);
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(11);
+	
+	var _AppReducer = __webpack_require__(27);
 	
 	var _AppReducer2 = _interopRequireDefault(_AppReducer);
 	
@@ -2205,7 +2659,7 @@
 	// Import Reducers
 
 /***/ },
-/* 33 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2216,14 +2670,33 @@
 	});
 	exports.login = login;
 	exports.logout = logout;
-	var mongoose = __webpack_require__(1);
-	__webpack_require__(35);
-	__webpack_require__(36);
-	var SessionSchema = __webpack_require__(1).model('Session').schema;
-	var UserSchema = __webpack_require__(1).model('User').schema;
+	var mongoose = __webpack_require__(5);
+	__webpack_require__(40);
+	__webpack_require__(41);
+	var SessionSchema = __webpack_require__(5).model('Session').schema;
+	var UserSchema = __webpack_require__(5).model('User').schema;
 	
-	var bigrandom = __webpack_require__(39);
+	var bigrandom = __webpack_require__(44);
 	
+	/**
+	*Create a new user account
+	*/
+	function generateUserAccount(username, password, email, firstname, lastname, isadmin) {
+	  var User = mongoose.model('User', UserSchema);
+	  var user_data = {
+	    'username': username,
+	    'password': password,
+	    'email': email
+	  };
+	  var user = new User(user_data);
+	  user.save(function (err, data) {
+	    if (err) {
+	      console.error(err);
+	    } else {
+	      //console.log('session record created: ' + data +' | data type: ' + (typeof data));
+	    }
+	  });
+	}
 	/**
 	* generate a random 128-bit ID, save it to the session database
 	*/
@@ -2348,7 +2821,7 @@
 	}
 
 /***/ },
-/* 34 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2358,7 +2831,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(1);
+	var _mongoose = __webpack_require__(5);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -2378,7 +2851,7 @@
 	exports.default = _mongoose2.default.model('Post', postSchema);
 
 /***/ },
-/* 35 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2388,7 +2861,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(1);
+	var _mongoose = __webpack_require__(5);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -2406,7 +2879,7 @@
 	exports.default = _mongoose2.default.model('Session', SessionSchema);
 
 /***/ },
-/* 36 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2416,7 +2889,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(1);
+	var _mongoose = __webpack_require__(5);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -2434,7 +2907,7 @@
 	exports.default = _mongoose2.default.model('User', UserSchema);
 
 /***/ },
-/* 37 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2449,47 +2922,47 @@
 	// Webpack Requirements
 	
 	
-	var _express = __webpack_require__(6);
+	var _express = __webpack_require__(7);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _cookieParser = __webpack_require__(20);
+	var _cookieParser = __webpack_require__(21);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _compression = __webpack_require__(19);
+	var _compression = __webpack_require__(20);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
-	var _mongoose = __webpack_require__(1);
+	var _mongoose = __webpack_require__(5);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bodyParser = __webpack_require__(18);
+	var _bodyParser = __webpack_require__(19);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _path = __webpack_require__(21);
+	var _path = __webpack_require__(22);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _webpack = __webpack_require__(7);
+	var _webpack = __webpack_require__(8);
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _webpackConfig = __webpack_require__(17);
+	var _webpackConfig = __webpack_require__(18);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _webpackDevMiddleware = __webpack_require__(23);
+	var _webpackDevMiddleware = __webpack_require__(24);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(24);
+	var _webpackHotMiddleware = __webpack_require__(25);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _store = __webpack_require__(12);
+	var _store = __webpack_require__(13);
 	
 	var _reactRedux = __webpack_require__(3);
 	
@@ -2497,29 +2970,29 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(22);
+	var _server = __webpack_require__(23);
 	
-	var _reactRouter = __webpack_require__(4);
+	var _reactRouter = __webpack_require__(1);
 	
 	var _reactHelmet = __webpack_require__(2);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _routes = __webpack_require__(11);
+	var _routes = __webpack_require__(12);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _fetchData = __webpack_require__(16);
+	var _fetchData = __webpack_require__(17);
 	
-	var _login = __webpack_require__(15);
+	var _login = __webpack_require__(16);
 	
 	var _login2 = _interopRequireDefault(_login);
 	
-	var _dummyData = __webpack_require__(14);
+	var _dummyData = __webpack_require__(15);
 	
 	var _dummyData2 = _interopRequireDefault(_dummyData);
 	
-	var _config = __webpack_require__(13);
+	var _config = __webpack_require__(14);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
@@ -2621,7 +3094,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 38 */
+/* 43 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2652,49 +3125,49 @@
 	}
 
 /***/ },
-/* 39 */
+/* 44 */
 /***/ function(module, exports) {
 
 	module.exports = require("bigrandom");
 
 /***/ },
-/* 40 */
+/* 45 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-cssnext");
 
 /***/ },
-/* 41 */
+/* 46 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-focus");
 
 /***/ },
-/* 42 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-reporter");
 
 /***/ },
-/* 43 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools");
 
 /***/ },
-/* 44 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
-/* 45 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
-/* 46 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
