@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 45);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -56,25 +56,25 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-helmet");
+	module.exports = require("mongoose");
 
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-redux");
+	module.exports = require("react-helmet");
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-intl");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("mongoose");
+	module.exports = require("react-intl");
 
 /***/ },
 /* 6 */
@@ -137,13 +137,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(4);
 	
-	var _reactHelmet = __webpack_require__(2);
+	var _reactHelmet = __webpack_require__(3);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _reactRouter = __webpack_require__(1);
 	
@@ -249,12 +249,68 @@
 
 /***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _mongoose = __webpack_require__(2);
+	
+	var _mongoose2 = _interopRequireDefault(_mongoose);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Schema = _mongoose2.default.Schema;
+	
+	var SessionSchema = new Schema({
+	  username: { type: 'String', required: true },
+	  sessionId: { type: 'String', required: true },
+	  timestamp: { type: 'Date', default: Date.now }
+	  // SCHEMA GOES HERE
+	});
+	
+	exports.default = _mongoose2.default.model('Session', SessionSchema);
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _mongoose = __webpack_require__(2);
+	
+	var _mongoose2 = _interopRequireDefault(_mongoose);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Schema = _mongoose2.default.Schema;
+	
+	var UserSchema = new Schema({
+	  username: { type: 'String', required: true, unique: true },
+	  email: { type: 'String', required: true, unique: true },
+	  // This is very very not secure and definitely needs to be updated soon
+	  password: { type: 'String', required: true, minlength: 6, maxlength: 20 },
+	  isAdmin: { type: 'Boolean', default: false }
+	});
+	exports.default = _mongoose2.default.model('User', UserSchema);
+
+/***/ },
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux");
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -273,19 +329,19 @@
 	
 	var _reactRouter = __webpack_require__(1);
 	
-	var _App = __webpack_require__(26);
+	var _App = __webpack_require__(29);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _CreateCourse = __webpack_require__(33);
+	var _CreateCourse = __webpack_require__(36);
 	
 	var _CreateCourse2 = _interopRequireDefault(_CreateCourse);
 	
-	var _Login = __webpack_require__(34);
+	var _Login = __webpack_require__(37);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
-	var _Signup = __webpack_require__(35);
+	var _Signup = __webpack_require__(38);
 	
 	var _Signup2 = _interopRequireDefault(_Signup);
 	
@@ -293,11 +349,11 @@
 	
 	var _InstructorHome2 = _interopRequireDefault(_InstructorHome);
 	
-	var _landingPage = __webpack_require__(36);
+	var _landingPage = __webpack_require__(39);
 	
 	var _landingPage2 = _interopRequireDefault(_landingPage);
 	
-	var _CourseGrid = __webpack_require__(31);
+	var _CourseGrid = __webpack_require__(34);
 	
 	var _CourseGrid2 = _interopRequireDefault(_CourseGrid);
 	
@@ -346,7 +402,7 @@
 	}));
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -357,13 +413,13 @@
 	});
 	exports.configureStore = configureStore;
 	
-	var _redux = __webpack_require__(11);
+	var _redux = __webpack_require__(13);
 	
-	var _reduxThunk = __webpack_require__(51);
+	var _reduxThunk = __webpack_require__(55);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _reducers = __webpack_require__(37);
+	var _reducers = __webpack_require__(40);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -392,7 +448,7 @@
 	   */
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -409,7 +465,7 @@
 	exports.default = config;
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -440,14 +496,14 @@
 	  });
 	};
 	
-	var _post = __webpack_require__(39);
+	var _post = __webpack_require__(44);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -459,7 +515,36 @@
 	
 	var _express = __webpack_require__(7);
 	
-	var _login = __webpack_require__(38);
+	var _course = __webpack_require__(41);
+	
+	var CourseController = _interopRequireWildcard(_course);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var router = new _express.Router();
+	
+	// Add students to a specific course
+	router.route('/course/:courseTitle/students').put(CourseController.addStudents);
+	
+	// Drop students from a specific course
+	router.route('/course/:courseTitle/students').delete(CourseController.dropStudents);
+	
+	exports.default = router;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _express = __webpack_require__(7);
+	
+	var _login = __webpack_require__(42);
 	
 	var LoginController = _interopRequireWildcard(_login);
 	
@@ -472,10 +557,12 @@
 	
 	router.route('/logout').get(LoginController.logout);
 	
+	router.route('/signup').post(LoginController.generateUserAccount);
+	
 	exports.default = router;
 
 /***/ },
-/* 17 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -486,7 +573,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 	
-	var _promiseUtils = __webpack_require__(43);
+	var _promiseUtils = __webpack_require__(46);
 	
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -502,16 +589,16 @@
 	  */
 
 /***/ },
-/* 18 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
 	var webpack = __webpack_require__(8);
-	var cssnext = __webpack_require__(45);
-	var postcssFocus = __webpack_require__(46);
-	var postcssReporter = __webpack_require__(47);
+	var cssnext = __webpack_require__(49);
+	var postcssFocus = __webpack_require__(50);
+	var postcssReporter = __webpack_require__(51);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -579,49 +666,49 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 19 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 20 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 21 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 22 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 23 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 24 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 25 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 26 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -640,7 +727,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(4);
 	
 	var _App = {
 	  "navbar": "_1bwZm8NK9UDPb2iPjwmk7",
@@ -1797,19 +1884,19 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _reactHelmet = __webpack_require__(2);
+	var _reactHelmet = __webpack_require__(3);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _DevTools = __webpack_require__(28);
+	var _DevTools = __webpack_require__(31);
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _Header = __webpack_require__(30);
+	var _Header = __webpack_require__(33);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(29);
+	var _Footer = __webpack_require__(32);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
@@ -1884,7 +1971,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 27 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1929,7 +2016,7 @@
 	exports.default = AppReducer;
 
 /***/ },
-/* 28 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1945,13 +2032,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxDevtools = __webpack_require__(48);
+	var _reduxDevtools = __webpack_require__(52);
 	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(50);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(54);
 	
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(49);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(53);
 	
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 	
@@ -1963,7 +2050,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 29 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1984,7 +2071,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _Footer = {
 	  "footer": "bo3HgOxwnMCxuEAKXkA9_"
@@ -2005,7 +2092,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 30 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2028,7 +2115,7 @@
 	
 	var _reactRouter = __webpack_require__(1);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _Header = {
 	  "header": "_3ouKIGZiS3ur4UPJ_9nWcl",
@@ -2087,7 +2174,7 @@
 	exports.default = Header;
 
 /***/ },
-/* 31 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2108,19 +2195,19 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(4);
 	
-	var _reactHelmet = __webpack_require__(2);
+	var _reactHelmet = __webpack_require__(3);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _reactRouter = __webpack_require__(1);
 	
 	var _reactBootstrap = __webpack_require__(6);
 	
-	var _DataCell = __webpack_require__(32);
+	var _DataCell = __webpack_require__(35);
 	
 	var _DataCell2 = _interopRequireDefault(_DataCell);
 	
@@ -2200,7 +2287,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CourseGrid);
 
 /***/ },
-/* 32 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2221,13 +2308,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(4);
 	
-	var _reactHelmet = __webpack_require__(2);
+	var _reactHelmet = __webpack_require__(3);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _reactRouter = __webpack_require__(1);
 	
@@ -2294,7 +2381,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(DataCell);
 
 /***/ },
-/* 33 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2315,13 +2402,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(4);
 	
-	var _reactHelmet = __webpack_require__(2);
+	var _reactHelmet = __webpack_require__(3);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _reactRouter = __webpack_require__(1);
 	
@@ -2380,7 +2467,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CreateCourse);
 
 /***/ },
-/* 34 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2400,13 +2487,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(4);
 	
-	var _reactHelmet = __webpack_require__(2);
+	var _reactHelmet = __webpack_require__(3);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _reactRouter = __webpack_require__(1);
 	
@@ -2511,7 +2598,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Login);
 
 /***/ },
-/* 35 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2532,13 +2619,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(4);
 	
-	var _reactHelmet = __webpack_require__(2);
+	var _reactHelmet = __webpack_require__(3);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _reactRouter = __webpack_require__(1);
 	
@@ -2629,14 +2716,14 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Signup);
 
 /***/ },
-/* 36 */
+/* 39 */
 /***/ function(module, exports) {
 
 	"use strict";
 	"use strict";
 
 /***/ },
-/* 37 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2646,9 +2733,9 @@
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(11);
+	var _redux = __webpack_require__(13);
 	
-	var _AppReducer = __webpack_require__(27);
+	var _AppReducer = __webpack_require__(30);
 	
 	var _AppReducer2 = _interopRequireDefault(_AppReducer);
 	
@@ -2665,7 +2752,7 @@
 	// Import Reducers
 
 /***/ },
-/* 38 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2674,20 +2761,207 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.login = login;
-	exports.logout = logout;
-	var mongoose = __webpack_require__(5);
-	__webpack_require__(40);
-	__webpack_require__(41);
-	var SessionSchema = __webpack_require__(5).model('Session').schema;
-	var UserSchema = __webpack_require__(5).model('User').schema;
+	exports.addStudents = addStudents;
+	exports.dropStudents = dropStudents;
 	
-	var bigrandom = __webpack_require__(44);
+	var _course = __webpack_require__(43);
+	
+	var _course2 = _interopRequireDefault(_course);
+	
+	var _sessionUtils = __webpack_require__(47);
+	
+	var _sessionUtils2 = _interopRequireDefault(_sessionUtils);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function checkRequestSanity(req, res) {
+	  return new Promise(function (fulfill, reject) {
+	    // make sure that the session is valid
+	    _sessionUtils2.default.isValidSession(req.cookies.sessionID).then(function (isValid) {
+	      if (isValid !== true) {
+	        res.status(401).end();
+	        fulfill(false);
+	      } else {
+	        // make sure that this sessionID belongs to an Admin
+	        //TODO: we need to check that this admin is the owner of the course
+	        _sessionUtils2.default.isAdmin(req.cookies.sessionID).then(function (isAdmin) {
+	          if (isAdmin !== true) {
+	            res.status(401).send("This API endpoint requires Admin capability").end();
+	            fulfill(false);
+	          } else {
+	            // make sure that the request contains a course title
+	            if (!req.params.courseTitle) {
+	              res.status(403).send("Invalid course title").end();
+	              fulfill(false);
+	            }
+	            // make sure the courseTitle is valid
+	            // TODO Important :: we need to make sure that the course title is alphanumeric and doesn't contain special characters
+	
+	            // make sure that the request format is correct
+	            if (!req.body.students) {
+	              res.status(403).send("Invalid request").end();
+	              fulfill(false);
+	            }
+	
+	            // make sure that the request size > 0
+	            if (!Array.isArray(req.body.students) || req.body.students.length <= 0) {
+	              res.status(403).send("Invalid request (Array of students is expected)").end();
+	              fulfill(false);
+	            }
+	
+	            fulfill(true);
+	          }
+	        });
+	      }
+	    });
+	  });
+	}
 	
 	/**
-	*Create a new user account
+	* This function add a list of students to a specific Course
+	* It requires admin access
+	* @author Gehad
+	* @param HTTP req
+	* @param HTTP res
+	* @returns void
 	*/
-	function generateUserAccount(username, password, email, firstname, lastname, isadmin) {
+	function addStudents(req, res) {
+	  checkRequestSanity(req, res).then(function (accept) {
+	    if (accept) {
+	      var checkAndSend = function checkAndSend() {
+	        if (DBSuccesses + DBfails === numberOfStudents) {
+	          res.status(200).send({
+	            Inserted: DBSuccesses,
+	            Failed: DBfails
+	          }).end();
+	        }
+	      };
+	
+	      // add students to the database
+	
+	
+	      var numberOfStudents = req.body.students.length;
+	      var DBSuccesses = 0;
+	      var DBfails = 0;
+	      _course2.default.findOne({ 'title': req.params.courseTitle }, 'title', function (err, course) {
+	        if (course === null) {
+	          res.status(403).send("Invalid request (Course not found)").end();
+	        } else {
+	          req.body.students.map(function (student) {
+	            return student.email;
+	          }).filter(function (student_email) {
+	            // TODO: We need to check if this user exists in the User collection before registering them to the course (Integrity)
+	            // TODO: We need to check if this user is added to this course before??
+	            // Will just return true for all now; need to be fixed
+	            return true;
+	          }).forEach(function (student_email) {
+	            if (typeof student_email == 'undefined') {
+	              DBfails = DBfails + 1;
+	              checkAndSend();
+	            } else {
+	              _course2.default.updateOne({ _id: course._id }, { $push: { usernames: student_email } }, function (err, raw) {
+	                if (err !== null) {
+	                  console.log(err);
+	                  DBfails = DBfails + 1;
+	                } else {
+	                  DBSuccesses = DBSuccesses + 1;
+	                }
+	                checkAndSend();
+	              });
+	            }
+	          });
+	        }
+	      });
+	    }
+	  });
+	}
+	
+	/**
+	* This function remove a list of students from a specific Course
+	* It requires admin access
+	* @author Gehad
+	* @param HTTP req
+	* @param HTTP res
+	* @returns void
+	*/
+	function dropStudents(req, res) {
+	  checkRequestSanity(req, res).then(function (accept) {
+	    if (accept) {
+	      var checkAndSend = function checkAndSend() {
+	        if (DBSuccesses + DBfails === numberOfStudents) {
+	          res.status(200).send({
+	            Deleted: DBSuccesses,
+	            Failed: DBfails
+	          }).end();
+	        }
+	      };
+	
+	      // add students to the database
+	
+	
+	      var numberOfStudents = req.body.students.length;
+	      var DBSuccesses = 0;
+	      var DBfails = 0;
+	      _course2.default.findOne({ 'title': req.params.courseTitle }, 'title', function (err, course) {
+	        if (course === null) {
+	          res.status(403).send("Invalid request (Course not found)").end();
+	        } else {
+	          req.body.students.map(function (student) {
+	            return student.email;
+	          }).filter(function (student_email) {
+	            // TODO: We need to check if these users exist before registering them to the course
+	            return true;
+	          }).forEach(function (student_email) {
+	            if (typeof student_email == 'undefined') {
+	              DBfails = DBfails + 1;
+	              checkAndSend();
+	            } else {
+	              _course2.default.updateOne({ _id: course._id },
+	              // TODO: optimization :: we can remove a list in one query; we will need to filter the list beforehand
+	              { $pull: { usernames: { $in: [student_email] } } }, function (err, raw) {
+	                if (err !== null || raw.nModified === 0) {
+	                  DBfails = DBfails + 1;
+	                } else {
+	                  DBSuccesses = DBSuccesses + 1;
+	                }
+	                checkAndSend();
+	              });
+	            }
+	          });
+	        }
+	      });
+	    }
+	  });
+	}
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.generateUserAccount = generateUserAccount;
+	exports.login = login;
+	exports.logout = logout;
+	var mongoose = __webpack_require__(2);
+	__webpack_require__(11);
+	__webpack_require__(12);
+	var SessionSchema = __webpack_require__(2).model('Session').schema;
+	var UserSchema = __webpack_require__(2).model('User').schema;
+	
+	var bigrandom = __webpack_require__(48);
+	
+	/**
+	*
+	* @param req
+	* @param res
+	* @returns void
+	*/
+	function generateUserAccount(req, res) {
 	  var User = mongoose.model('User', UserSchema);
 	  var user_data = {
 	    'username': username,
@@ -2702,6 +2976,31 @@
 	      //console.log('session record created: ' + data +' | data type: ' + (typeof data));
 	    }
 	  });
+	
+	  if (!req.body.username || !req.body.password || !req.body.email) {
+	    res.status(403).send("Username, email, and password are requiered.");
+	  } else if (req.body.password.length < 6 || req.body.password.length > 20) {
+	    res.status(403).send("Password must be at least 6 characters in length, but less than 20.");
+	  } else {
+	    var user_data = {
+	      'username': req.body.username,
+	      'password': req.body.password,
+	      'email': req.body.email,
+	      'isAdmin': req.body.isAdmin
+	    };
+	    var user = new User(user_data);
+	    user.save(function (err, data) {
+	      if (err) {
+	        console.error(err);
+	        res.status(403).end();
+	      } else if (data) {
+	        res.status(200).end();
+	        //console.log('session record created: ' + data +' | data type: ' + (typeof data));
+	      } else {
+	        res.status(400).end();
+	      }
+	    });
+	  }
 	}
 	/**
 	* generate a random 128-bit ID, save it to the session database
@@ -2827,7 +3126,7 @@
 	}
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2837,7 +3136,36 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(5);
+	var _mongoose = __webpack_require__(2);
+	
+	var _mongoose2 = _interopRequireDefault(_mongoose);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Schema = _mongoose2.default.Schema;
+	
+	var CourseSchema = new Schema({
+	  title: { type: 'String', required: true, unique: true },
+	  professor: { type: 'String', required: true },
+	  usernames: { type: 'Array' }, // Usernames of students who are in the class will be in here to link
+	  institution: { type: 'String', required: true },
+	  location: { type: 'String' } // room the class takes place in
+	});
+	
+	exports.default = _mongoose2.default.model('Course', CourseSchema);
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _mongoose = __webpack_require__(2);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -2857,63 +3185,7 @@
 	exports.default = _mongoose2.default.model('Post', postSchema);
 
 /***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _mongoose = __webpack_require__(5);
-	
-	var _mongoose2 = _interopRequireDefault(_mongoose);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Schema = _mongoose2.default.Schema;
-	
-	var SessionSchema = new Schema({
-	  username: { type: 'String', required: true },
-	  sessionId: { type: 'String', required: true },
-	  timestamp: { type: 'Date', default: Date.now }
-	  // SCHEMA GOES HERE
-	});
-	
-	exports.default = _mongoose2.default.model('Session', SessionSchema);
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _mongoose = __webpack_require__(5);
-	
-	var _mongoose2 = _interopRequireDefault(_mongoose);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Schema = _mongoose2.default.Schema;
-	
-	var UserSchema = new Schema({
-	  username: { type: 'String', required: true, unique: true },
-	  email: { type: 'String', required: true, unique: true },
-	  // This is very very not secure and definitely needs to be updated soon
-	  password: { type: 'String', required: true, minlength: 6, maxlength: 20 },
-	  isAdmin: { type: 'Boolean', default: false }
-	});
-	exports.default = _mongoose2.default.model('User', UserSchema);
-
-/***/ },
-/* 42 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2932,23 +3204,23 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _cookieParser = __webpack_require__(21);
+	var _cookieParser = __webpack_require__(24);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _compression = __webpack_require__(20);
+	var _compression = __webpack_require__(23);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
-	var _mongoose = __webpack_require__(5);
+	var _mongoose = __webpack_require__(2);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bodyParser = __webpack_require__(19);
+	var _bodyParser = __webpack_require__(22);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _path = __webpack_require__(22);
+	var _path = __webpack_require__(25);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
@@ -2956,49 +3228,53 @@
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _webpackConfig = __webpack_require__(18);
+	var _webpackConfig = __webpack_require__(21);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _webpackDevMiddleware = __webpack_require__(24);
+	var _webpackDevMiddleware = __webpack_require__(27);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(25);
+	var _webpackHotMiddleware = __webpack_require__(28);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _store = __webpack_require__(13);
+	var _store = __webpack_require__(15);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(4);
 	
 	var _react = __webpack_require__(0);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(23);
+	var _server = __webpack_require__(26);
 	
 	var _reactRouter = __webpack_require__(1);
 	
-	var _reactHelmet = __webpack_require__(2);
+	var _reactHelmet = __webpack_require__(3);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _routes = __webpack_require__(12);
+	var _routes = __webpack_require__(14);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _fetchData = __webpack_require__(17);
+	var _fetchData = __webpack_require__(20);
 	
-	var _login = __webpack_require__(16);
+	var _login = __webpack_require__(19);
 	
 	var _login2 = _interopRequireDefault(_login);
 	
-	var _dummyData = __webpack_require__(15);
+	var _course = __webpack_require__(18);
+	
+	var _course2 = _interopRequireDefault(_course);
+	
+	var _dummyData = __webpack_require__(17);
 	
 	var _dummyData2 = _interopRequireDefault(_dummyData);
 	
-	var _config = __webpack_require__(14);
+	var _config = __webpack_require__(16);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
@@ -3041,6 +3317,7 @@
 	app.use(_bodyParser2.default.urlencoded({ limit: '20mb', extended: false }));
 	app.use(_express2.default.static(_path2.default.resolve(__dirname, '../dist/client')));
 	app.use('/api', _login2.default);
+	app.use('/api', _course2.default);
 	
 	// Render Initial HTML
 	var renderFullPage = function renderFullPage(html, initialState) {
@@ -3050,7 +3327,7 @@
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
 	
-	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + ' \n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '  \n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/main.css'] + '\' />' : '') + '\n        <link href=\'https://fonts.googleapis.com/css?family=Lato:400,300,700\' rel=\'stylesheet\' type=\'text/css\'/>\n        <link rel="shortcut icon" href="map.png" type="image/png" />\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/main.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
+	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/main.css'] + '\' />' : '') + '\n        <link href=\'https://fonts.googleapis.com/css?family=Lato:400,300,700\' rel=\'stylesheet\' type=\'text/css\'/>\n        <link rel="shortcut icon" href="map.png" type="image/png" />\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/main.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
 	
 	var renderError = function renderError(err) {
@@ -3100,7 +3377,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 43 */
+/* 46 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3131,49 +3408,120 @@
 	}
 
 /***/ },
-/* 44 */
-/***/ function(module, exports) {
-
-	module.exports = require("bigrandom");
-
-/***/ },
-/* 45 */
-/***/ function(module, exports) {
-
-	module.exports = require("postcss-cssnext");
-
-/***/ },
-/* 46 */
-/***/ function(module, exports) {
-
-	module.exports = require("postcss-focus");
-
-/***/ },
 /* 47 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = require("postcss-reporter");
+	"use strict";
+	'use strict';
+	
+	var _session = __webpack_require__(11);
+	
+	var _session2 = _interopRequireDefault(_session);
+	
+	var _user = __webpack_require__(12);
+	
+	var _user2 = _interopRequireDefault(_user);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.isValidSession = function (session_id) {
+	  return new Promise(function (fulfill, reject) {
+	    var age = undefined;
+	    _session2.default.findOne({ 'sessionId': session_id }, // sessionId should match arguments
+	    'timestamp', // should return timestamp
+	    function (err, session) {
+	      if (err) {
+	        console.error(err);
+	        reject(false);
+	      } else {
+	        //console.log('QUERY -- session record returned: ' + session.timestamp +' | data type: ' + (typeof session.timestamp));
+	        if (session) {
+	          var age = Date.now() - session.timestamp.getTime();
+	          fulfill(age < 10800000); //fails if session is > 3hrs old
+	        } else {
+	          fulfill(false);
+	        }
+	      }
+	    }).sort({ 'timestamp': -1 }); // I think this will make it return the most recent match if there is more than 1, but this needs to be verified
+	  });
+	};
+	
+	exports.isAdmin = function (session_id) {
+	  return new Promise(function (fulfill, reject) {
+	    _session2.default.findOne({ 'sessionId': session_id }, // sessionId should match arguments
+	    'username', // should return username
+	    function (err, session) {
+	      if (err) {
+	        console.error(err);
+	        reject(false);
+	      } else {
+	        if (session) {
+	          _user2.default.findOne({ 'username': session.username }, // sessionId should match arguments
+	          'isAdmin', // should return username
+	          function (err, user) {
+	            if (err) {
+	              console.error(err);
+	              reject(false);
+	            } else {
+	              if (user) {
+	                fulfill(user.isAdmin);
+	              } else {
+	                fulfill(false);
+	              }
+	            }
+	          }).sort({ 'timestamp': -1 });
+	        } else {
+	          fulfill(false);
+	        }
+	      }
+	    }).sort({ 'timestamp': -1 }); // I think this will make it return the most recent match if there is more than 1, but this needs to be verified
+	  });
+	};
 
 /***/ },
 /* 48 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("bigrandom");
 
 /***/ },
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 51 */
+/***/ function(module, exports) {
+
+	module.exports = require("postcss-reporter");
+
+/***/ },
+/* 52 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools");
+
+/***/ },
+/* 53 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-dock-monitor");
+
+/***/ },
+/* 54 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-log-monitor");
+
+/***/ },
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");

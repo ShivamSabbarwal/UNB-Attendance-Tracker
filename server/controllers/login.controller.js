@@ -14,21 +14,6 @@ var bigrandom = require('bigrandom');
 */
 export function generateUserAccount(req, res) {
   var User = mongoose.model('User', UserSchema);
-  var user_data = {
-    'username': username,
-    'password': password,
-    'email': email
-  };
-  var user = new User(user_data);
-  user.save(
-    function(err, data){
-      if (err){
-        console.error(err)
-      } else {
-        //console.log('session record created: ' + data +' | data type: ' + (typeof data));
-      }
-    }
-  )
   
   if(!req.body.username || !req.body.password || !req.body.email) {
     res.status(403).send("Username, email, and password are requiered.");
