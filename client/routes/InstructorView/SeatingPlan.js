@@ -10,20 +10,30 @@ import styles from '../../main.css';
 
 export function SeatingPlan(props) {
   return (
-    <Navbar>
-      <Navbar.Header>
-        <Navbar.Brand>
-          UNB Attendance Service
-        </Navbar.Brand>
-      </Navbar.Header>
-      <Nav>
-        <NavItem href="/instructor_home">Instructor Home</NavItem>
-        <NavItem href="/instructor_home">Other thing</NavItem>
-      </Nav>
-      <Nav pullRight>
-        <NavItem href="/">Log out</NavItem>
-      </Nav>
-    </Navbar>
+    <div>
+      <div>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              UNB Attendance Service
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+            <NavItem href="/instructor_home">Instructor Home</NavItem>
+            <NavItem href="/instructor_home">Other thing</NavItem>
+          </Nav>
+          <Nav pullRight>
+            <NavItem href="/">Log out</NavItem>
+          </Nav>
+        </Navbar>
+      </div>
+      <div className={styles.sidenav}>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
   );
 }
 

@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
-import {Thumbnail, Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-
+import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import FaBeer from 'react-icons/lib/fa/edit';
 // Import Style
 import styles from '../../main.css';
 
 export function InstructorHome(props) {
   return (
-    <body>
-      <Navbar>
+    <div>
+      <Navbar style={{marginBottom:'0'}}>
         <Navbar.Header>
           <Navbar.Brand>
             UNB Attendance Service
@@ -25,42 +25,46 @@ export function InstructorHome(props) {
           <NavItem href="/">Log out</NavItem>
         </Nav>
       </Navbar>
-
+      <div className={styles.sidenav}>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+      </div>
+      <div className={styles.welcomeContainer}>
+        <h2 className={styles.instructorName}>Welcome, Justin Lee</h2>
+        <Image className={styles.instructorPic} src={require('../../images/png/profile-pictures.png')} rounded />
+      </div>
       <div className={styles.optionsContainer}>
       <Grid>
-      
         <Row>
           <Col xs={6} md={3}>
             <Link to={'/create_course'}>
-              <Image src={require('../../images/png/Pikachu.png')} rounded />
+              <p>Create Course</p>
+              <FaBeer/>
             </Link>
           </Col>
           <Col xs={6} md={3}>
             <Image src={require('../../images/png/Pikachu.png')} rounded />
-
           </Col>
           <Col xs={6} md={3}>
             <Image src={require('../../images/png/Pikachu.png')} rounded />
-
           </Col>
         </Row>
         <Row>
           <Col xs={6} md={3}>
             <Image src={require('../../images/png/Pikachu.png')} rounded />
-
           </Col>
           <Col xs={6} md={3}>
             <Image src={require('../../images/png/Pikachu.png')} rounded />
-
           </Col>
           <Col xs={6} md={3}>
             <Image src={require('../../images/png/Pikachu.png')} rounded />
-
           </Col>
         </Row>
       </Grid>
       </div>
-      </body>
+    </div>
   );
 }
 

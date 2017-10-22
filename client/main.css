@@ -2,6 +2,34 @@
 /*for components like header and footers, use separate css files - justin*/
 /*use lowercase*/
 
+/*----------------------------global components----------------------*/
+.navbar{
+  marginBottom: 0px;
+  background-color: red;
+}
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:#000080;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    font-size: 19px;
+    color: white;
+    display: block;
+}
+.sidenav a:hover {
+    background-color: #4d4dff;
+    color: #f1f1f1;
+}
 /*Every element starts at the center if you put it inside a div called 'page'*/
 .page{
   width: 100vw;
@@ -9,7 +37,6 @@
   display: flex;
   vertical-align: middle;
 }
-
 /*---------------------------Login Page---------------------------comment like this when creating a style for a new page - justin*/
 /*specify name of container for each pages*/
 .loginContainer{
@@ -123,10 +150,37 @@
 
 
 /*------------------------Instructor View------------------------*/
-/*-------home------*/
+/*----------------home-------------*/
 .optionsContainer{
 	width: 50%;
   height: 50%;
   margin-left: 28%;
 	margin-top: 5%;
+}
+.welcomeContainer{
+  margin-left: 200px;
+  width: 100%;
+  height: 200px;
+  background-color: black;
+  position:relative;
+}
+.instructorPic, .instructorName{
+  display: inline-block;
+  background-color: black;
+}
+.instructorName{
+  margin-top: 70px;
+  margin-left: 20px;
+  color: white;
+}
+.instructorPic{
+  width: 100px;
+  height: 100px;
+  margin-left: 20px;
+}
+/*-----------Create Course------------*/
+
+.formContainer{
+  margin-left: 200px;
+  width: 80%;
 }
