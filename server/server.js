@@ -33,6 +33,7 @@ import Helmet from 'react-helmet';
 import routes from '../client/routes/routes';
 import { fetchComponentData } from './util/fetchData';
 import login from './routes/login.routes';
+import email from './routes/email.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
 
@@ -57,6 +58,7 @@ app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist/client'))); 
 app.use('/api', login);
+app.use('/api', email);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
