@@ -12,10 +12,15 @@ var UserSchema = require('mongoose').model('User').schema;
  */
 export function createCourse(req, res) {  
   var Course = mongoose.model('Course', CourseSchema);
-  
+  var re = new RegExp('[^A-Za-z0-9-_.]');
+  //regex pattern with match if the string contains characters other than ( A-Z, a-z, 0-9, -, _, .)
+
   if (!req.body.title || !req.body.professor || !req.body.institution) {
     //verify that title, professor, and institution were provided
     res.status(403).send("Title, professor, and institution are required");
+
+  } else if (re.test(req.body.title)) {
+    res.status(403).send("Course title can only contain: letters, numbers, '-', '_', and '.'");
 
   } else {
     var course_data = {
