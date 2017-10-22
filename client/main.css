@@ -125,8 +125,33 @@
 /*------------------------Instructor View------------------------*/
 /*-------home------*/
 .optionsContainer{
-	width: 50%;
+  width: 50%;
   height: 50%;
   margin-left: 28%;
-	margin-top: 5%;
+  margin-top: 5%;
+}
+
+/*---------------------------Course Grid---------------------------*/
+.courseGridCell, td{
+
+	width:70px;
+	height: 50px;
+	text-align: center;
+	border: 1px solid black;
+
+}
+
+.courseGridCell:hover{
+	background: grey;
+}
+
+.courseGridCellClicked{
+	background: grey;
+}
+
+.courseGrid{
+
+	margin-left: 400px;
+	margin-top: 150px;
+
 }
