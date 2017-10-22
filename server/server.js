@@ -33,6 +33,7 @@ import Helmet from 'react-helmet';
 import routes from '../client/routes/routes';
 import { fetchComponentData } from './util/fetchData';
 import login from './routes/login.routes';
+import course from './routes/course.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
 
@@ -49,14 +50,15 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
   // feed some dummy data in DB.
   dummyData();
 });
- 
+
 // Apply body Parser and server public assets and routes
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
-app.use(Express.static(path.resolve(__dirname, '../dist/client'))); 
+app.use(Express.static(path.resolve(__dirname, '../dist/client')));
 app.use('/api', login);
+app.use('/api', course);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
@@ -71,10 +73,10 @@ const renderFullPage = (html, initialState) => {
     <html>
       <head>
         ${head.base.toString()}
-        ${head.title.toString()} 
+        ${head.title.toString()}
         ${head.meta.toString()}
         ${head.link.toString()}
-        ${head.script.toString()}  
+        ${head.script.toString()}
 
         ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/main.css']}' />` : ''}
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>

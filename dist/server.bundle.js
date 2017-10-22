@@ -2483,7 +2483,13 @@
 	
 	  req.onreadystatechange = function () {
 	    if (req.readyState == 4 && req.status == 200) {
-	      window.location.href = "/instructor_home";
+	      var serverResponse = JSON.parse(req.responseText);
+	      document.cookie = "isAdmin=" + serverResponse.isAdmin + "";
+	      if (serverResponse.isAdmin) {
+	        window.location.href = "/instructor_home";
+	      } else {
+	        window.location.href = "/student_home";
+	      }
 	    }
 	  };
 	
