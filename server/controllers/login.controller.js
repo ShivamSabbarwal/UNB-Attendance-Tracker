@@ -7,25 +7,40 @@ var UserSchema = require('mongoose').model('User').schema;
 var bigrandom = require('bigrandom');
 
 /**
-*Create a new user account
+*
+* @param req
+* @param res
+* @returns void
 */
-function generateUserAccount(username,password,email,firstname,lastname,isadmin) {
+export function generateUserAccount(req, res) {
   var User = mongoose.model('User', UserSchema);
-  var user_data = {
-    'username': username,
-    'password': password,
-    'email': email
-  };
-  var user = new User(user_data);
-  user.save(
-    function(err, data){
-      if (err){
-        console.error(err)
-      } else {
-        //console.log('session record created: ' + data +' | data type: ' + (typeof data));
-      }
-    }
-  )
+  
+  if(!req.body.username || !req.body.password || !req.body.email) {
+    res.status(403).send("Username, email, and password are requiered.");
+  }else if((req.body.password).length < 6 || (req.body.password).length > 20){
+    res.status(403).send("Password must be at least 6 characters in length, but less than 20.");
+  } else {
+    var user_data = {
+      'username': req.body.username,
+      'password': req.body.password,
+      'email': req.body.email,
+      'isAdmin': req.body.isAdmin
+    };
+    var user = new User(user_data);
+    user.save(
+      function(err, data){
+        if (err){
+          console.error(err)
+          res.status(403).end()
+        } else if (data){
+          res.status(200).end()
+          //console.log('session record created: ' + data +' | data type: ' + (typeof data));
+        } else {
+          res.status(400).end()
+        }
+      }  
+    );
+  }
 }
 /**
 * generate a random 128-bit ID, save it to the session database
