@@ -10,16 +10,18 @@ export function Login(props) {
   return (
     <div className={styles.page}>
       <div className={styles.loginContainer}>
-        <div className={styles.login}>
-          <h3>Login to UNB Attendance Services</h3>
-          <input className={styles.input} id="username" placeholder="Username"/>
-          <br/>
-          <input className={styles.input} id="password" placeholder="Password" type="password"/>
-          <br/>
-          <button className={styles.submit} onClick={submit}> Submit </button>
+        <div className={styles.login__user}>
+          <div className={styles.user__header}>
+          <h3 className={styles.user__title}>Login to <span className={styles.unb}>UNB Attendance Services</span></h3>
+          <form className={styles.form}>
+            <input className={styles.input} id="username" placeholder="Username"/>
+            <input className={styles.input} id="password" placeholder="Password" type="password"/>
+            <button className={styles.btn} onClick={submit}> Submit </button>
+          </form>
         </div>
         <div className={styles.signup}>
-          <label>New User? <Link to={'/signup'}>Register Here</Link>. </label>
+          <label>New User? <Link to={'/signup'}>Register Here</Link> </label>
+        </div>
         </div>
       </div>
     </div>
@@ -43,7 +45,7 @@ function submit(){
     if(req.readyState == 4 && req.status == 200) {
 	var serverResponse = JSON.parse(req.responseText);
 	document.cookie = "isAdmin=" + serverResponse.isAdmin + "";
-	if(serverResponse.isAdmin){        
+	if(serverResponse.isAdmin){
 		window.location.href = "/instructor_home";
 	} else{
 		window.location.href = "/student_home";

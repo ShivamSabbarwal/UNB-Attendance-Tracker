@@ -17,19 +17,14 @@ export function Signup(props) {
           <div className={styles.user__header}>
             <h3 className={styles.user__title}>Sign-up to use <span className={styles.unb}>UNB Attendance Service</span></h3>
             <form className={styles.form}>
-              <div className={styles.form__group}>
-                <input className={styles.form__input} type="text" name="username" id="username" placeholder="Username" />
-              </div>
-              <div className={styles.form__group}>
-                <input className={styles.form__input} type="password" name="password" id="password" placeholder="Password" />
-              </div>
-              <div className={styles.form__group}>
-                <input className={styles.form__input} type="email" name="Email" id="email" placeholder="Your Email" />
-              </div>
-              <div className={styles.form__group}>
+                <input className={styles.input} type="text" name="username" id="username" placeholder="Username" />
+                <input className={styles.input} type="password" name="password" id="password" placeholder="Password" />
+                <input className={styles.input} type="email" name="Email" id="email" placeholder="Your Email" />
                 <button className={styles.btn}>Register</button>
-              </div>
             </form>
+          </div>
+          <div className={styles.signup}>
+            <label>Already a User? <Link to={''}>Login Here</Link> </label>
           </div>
         </div>
       </div>
