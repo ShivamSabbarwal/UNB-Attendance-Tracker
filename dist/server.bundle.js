@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 39);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -205,7 +205,7 @@
 	
 	var _reactRouter = __webpack_require__(4);
 	
-	var _App = __webpack_require__(25);
+	var _App = __webpack_require__(26);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -213,11 +213,11 @@
 	
 	var _HomePage2 = _interopRequireDefault(_HomePage);
 	
-	var _CreateCourse = __webpack_require__(30);
+	var _CreateCourse = __webpack_require__(31);
 	
 	var _CreateCourse2 = _interopRequireDefault(_CreateCourse);
 	
-	var _Login = __webpack_require__(31);
+	var _Login = __webpack_require__(32);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
@@ -270,11 +270,11 @@
 	
 	var _redux = __webpack_require__(10);
 	
-	var _reduxThunk = __webpack_require__(46);
+	var _reduxThunk = __webpack_require__(49);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _reducers = __webpack_require__(32);
+	var _reducers = __webpack_require__(33);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -351,7 +351,7 @@
 	  });
 	};
 	
-	var _post = __webpack_require__(34);
+	var _post = __webpack_require__(36);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
@@ -370,18 +370,16 @@
 	
 	var _express = __webpack_require__(6);
 	
-	var _login = __webpack_require__(33);
+	var _email = __webpack_require__(34);
 	
-	var LoginController = _interopRequireWildcard(_login);
+	var EmailController = _interopRequireWildcard(_email);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var router = new _express.Router();
 	
 	// Get all Posts
-	router.route('/login').post(LoginController.login);
-	
-	router.route('/logout').get(LoginController.logout);
+	router.route('/email').post(EmailController.sendEmail);
 	
 	exports.default = router;
 
@@ -395,9 +393,39 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _express = __webpack_require__(6);
+	
+	var _login = __webpack_require__(35);
+	
+	var LoginController = _interopRequireWildcard(_login);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var router = new _express.Router();
+	
+	// Get all Posts
+	router.route('/login').post(LoginController.login);
+	
+	router.route('/logout').get(LoginController.logout);
+	
+	router.route('/signup').post(LoginController.generateUserAccount);
+	
+	exports.default = router;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.fetchComponentData = fetchComponentData;
 	
-	var _promiseUtils = __webpack_require__(38);
+	var _promiseUtils = __webpack_require__(40);
 	
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -413,16 +441,16 @@
 	  */
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
 	var webpack = __webpack_require__(7);
-	var cssnext = __webpack_require__(40);
-	var postcssFocus = __webpack_require__(41);
-	var postcssReporter = __webpack_require__(42);
+	var cssnext = __webpack_require__(43);
+	var postcssFocus = __webpack_require__(44);
+	var postcssReporter = __webpack_require__(45);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -490,49 +518,49 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1712,15 +1740,15 @@
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _DevTools = __webpack_require__(27);
+	var _DevTools = __webpack_require__(28);
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _Header = __webpack_require__(29);
+	var _Header = __webpack_require__(30);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(28);
+	var _Footer = __webpack_require__(29);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
@@ -1795,7 +1823,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1840,7 +1868,7 @@
 	exports.default = AppReducer;
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1856,13 +1884,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxDevtools = __webpack_require__(43);
+	var _reduxDevtools = __webpack_require__(46);
 	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(45);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(48);
 	
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(44);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(47);
 	
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 	
@@ -1874,7 +1902,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1916,7 +1944,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1998,7 +2026,7 @@
 	exports.default = Header;
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2062,7 +2090,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(HomePage);
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2176,7 +2204,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Login);
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2188,7 +2216,7 @@
 	
 	var _redux = __webpack_require__(10);
 	
-	var _AppReducer = __webpack_require__(26);
+	var _AppReducer = __webpack_require__(27);
 	
 	var _AppReducer2 = _interopRequireDefault(_AppReducer);
 	
@@ -2205,7 +2233,7 @@
 	// Import Reducers
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2214,16 +2242,90 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.sendEmail = sendEmail;
+	var nodemailer = __webpack_require__(42);
+	
+	function sendEmail(req, res) {
+	  var transporter = nodemailer.createTransport("SMTP", {
+	    service: 'gmail',
+	    auth: {
+	      user: 'swe4103g1@gmail.com',
+	      pass: 'BentonianPhysics'
+	    }
+	  });
+	
+	  var mailOptions = {
+	    from: 'swe4103g1@gmail.com',
+	    to: req.body.to,
+	    subject: req.body.subject,
+	    html: req.body.html
+	  };
+	
+	  transporter.sendMail(mailOptions, function (error, info) {
+	    if (error) {
+	      console.log(error);
+	    } else {
+	      console.log('Email sent: ' + info.response);
+	    }
+	  });
+	  res.status(200).end();
+	};
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.generateUserAccount = generateUserAccount;
 	exports.login = login;
 	exports.logout = logout;
 	var mongoose = __webpack_require__(1);
-	__webpack_require__(35);
-	__webpack_require__(36);
+	__webpack_require__(37);
+	__webpack_require__(38);
 	var SessionSchema = __webpack_require__(1).model('Session').schema;
 	var UserSchema = __webpack_require__(1).model('User').schema;
 	
-	var bigrandom = __webpack_require__(39);
+	var bigrandom = __webpack_require__(41);
 	
+	/**
+	*
+	* @param req
+	* @param res
+	* @returns void
+	*/
+	function generateUserAccount(req, res) {
+	  var User = mongoose.model('User', UserSchema);
+	
+	  if (!req.body.username || !req.body.password || !req.body.email) {
+	    res.status(403).send("Username, email, and password are requiered.");
+	  } else if (req.body.password.length < 6 || req.body.password.length > 20) {
+	    res.status(403).send("Password must be at least 6 characters in length, but less than 20.");
+	  } else {
+	    var user_data = {
+	      'username': req.body.username,
+	      'password': req.body.password,
+	      'email': req.body.email,
+	      'isAdmin': req.body.isAdmin
+	    };
+	    var user = new User(user_data);
+	    user.save(function (err, data) {
+	      if (err) {
+	        console.error(err);
+	        res.status(403).end();
+	      } else if (data) {
+	        res.status(200).end();
+	        //console.log('session record created: ' + data +' | data type: ' + (typeof data));
+	      } else {
+	        res.status(400).end();
+	      }
+	    });
+	  }
+	}
 	/**
 	* generate a random 128-bit ID, save it to the session database
 	*/
@@ -2348,7 +2450,7 @@
 	}
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2378,7 +2480,7 @@
 	exports.default = _mongoose2.default.model('Post', postSchema);
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2406,7 +2508,7 @@
 	exports.default = _mongoose2.default.model('Session', SessionSchema);
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2434,7 +2536,7 @@
 	exports.default = _mongoose2.default.model('User', UserSchema);
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2453,11 +2555,11 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _cookieParser = __webpack_require__(20);
+	var _cookieParser = __webpack_require__(21);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _compression = __webpack_require__(19);
+	var _compression = __webpack_require__(20);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
@@ -2465,11 +2567,11 @@
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bodyParser = __webpack_require__(18);
+	var _bodyParser = __webpack_require__(19);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _path = __webpack_require__(21);
+	var _path = __webpack_require__(22);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
@@ -2477,15 +2579,15 @@
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _webpackConfig = __webpack_require__(17);
+	var _webpackConfig = __webpack_require__(18);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _webpackDevMiddleware = __webpack_require__(23);
+	var _webpackDevMiddleware = __webpack_require__(24);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(24);
+	var _webpackHotMiddleware = __webpack_require__(25);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
@@ -2497,7 +2599,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(22);
+	var _server = __webpack_require__(23);
 	
 	var _reactRouter = __webpack_require__(4);
 	
@@ -2509,11 +2611,15 @@
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _fetchData = __webpack_require__(16);
+	var _fetchData = __webpack_require__(17);
 	
-	var _login = __webpack_require__(15);
+	var _login = __webpack_require__(16);
 	
 	var _login2 = _interopRequireDefault(_login);
+	
+	var _email = __webpack_require__(15);
+	
+	var _email2 = _interopRequireDefault(_email);
 	
 	var _dummyData = __webpack_require__(14);
 	
@@ -2562,6 +2668,7 @@
 	app.use(_bodyParser2.default.urlencoded({ limit: '20mb', extended: false }));
 	app.use(_express2.default.static(_path2.default.resolve(__dirname, '../dist/client')));
 	app.use('/api', _login2.default);
+	app.use('/api', _email2.default);
 	
 	// Render Initial HTML
 	var renderFullPage = function renderFullPage(html, initialState) {
@@ -2621,7 +2728,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2652,49 +2759,55 @@
 	}
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = require("bigrandom");
 
 /***/ },
-/* 40 */
-/***/ function(module, exports) {
-
-	module.exports = require("postcss-cssnext");
-
-/***/ },
-/* 41 */
-/***/ function(module, exports) {
-
-	module.exports = require("postcss-focus");
-
-/***/ },
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-reporter");
+	module.exports = require("nodemailer");
 
 /***/ },
 /* 43 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 45 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("postcss-reporter");
 
 /***/ },
 /* 46 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools");
+
+/***/ },
+/* 47 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-dock-monitor");
+
+/***/ },
+/* 48 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-log-monitor");
+
+/***/ },
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
