@@ -1,6 +1,9 @@
 import Course from '../models/course';
 import SessionUtils from '../util/sessionUtils';
 
+var async_f = require('asyncawait/async');
+var await_f = require('asyncawait/await');
+
 function  checkRequestSanity(req, res) {
   return new Promise (function (fulfill, reject){
     // make sure that the session is valid
@@ -162,4 +165,41 @@ export function dropStudents(req, res) {
       });
     }
   })
+}
+
+
+export function courseList(req,res) {
+  var list = [];
+  var results;
+
+  Course.find(
+    {},
+    'title',
+    async_f(function (err, course) { // async
+
+      await_f( function(){ // await
+        if (err){
+          console.error(err);
+          res.status(400).end();
+
+        } else if (course) {
+          course.forEach( function(c){
+            if (c.title) {
+              list.push(c.title);
+
+            } else {
+              res.status(400).end();
+            }
+          })
+
+          res.status(200).send({
+            courseList: list
+          })
+
+        } else {
+          res.status(400).end();
+        }
+      }) // end await
+    }) // end async
+  )
 }
