@@ -33,20 +33,7 @@ export function CourseGrid(props) {
 
   return (
 <div>
-    <Navbar>
-      <Navbar.Header>
-        <Navbar.Brand>
-          UNB Attendance Service
-        </Navbar.Brand>
-      </Navbar.Header>
-      <Nav>
-        <NavItem href="/instructor_home">Instructor Home</NavItem>
-        <NavItem href="/instructor_home">Other thing</NavItem>
-      </Nav>
-      <Nav pullRight>
-        <NavItem href="/">Log out</NavItem>
-      </Nav>
-    </Navbar>
+    
 
     <div className={styles.courseGrid}>
     <h3>CS3383</h3>
@@ -72,7 +59,7 @@ function mapStateToProps(state, props) {
 		["", "", "", "", "", "", "", "", "", ""],
 		["", "", "", "", "", "", "", "", "Justin", ""],
 		["", "", "Jacob", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", ""]]	
+		["", "", "", "", "", "", "", "", "", ""]]
   };
 }
 

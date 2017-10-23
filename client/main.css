@@ -14,7 +14,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color:#000080;
+    background-color:#CC0000;
     overflow-x: hidden;
     padding-top: 20px;
 }
@@ -27,8 +27,8 @@
     display: block;
 }
 .sidenav a:hover {
-    background-color: #4d4dff;
-    color: #f1f1f1;
+    background-color: #202020;
+    color: white;
 }
 /*Every element starts at the center if you put it inside a div called 'page'*/
 .page{
@@ -208,4 +208,39 @@
 .formContainer{
   margin-left: 200px;
   width: 80%;
+}
+
+/*------------------Instructor Course list------------------*/
+.instructorCourseContainer{
+  margin-left: 700px;
+  width: 30%;
+  height: 700px;
+  background-color: #ffcccc;
+  position:relative;
+  text-align: center;
+  color: white;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+.instCourseHeader{
+  background-color: red;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  height: 4%;
+}
+.instCourseListContainer{
+  width: 80%;
+  margin-top: 20px;
+  margin-left: 150px;
+}
+.instCourseList, th, td{
+  background-color: #ffb3b3;
+  border-collapse: collapse;
+  border: 1px solid #ff9999;
+}
+.courseNum{
+  width: 100px;
+}
+.courseName{
+  width: 200px;
 }

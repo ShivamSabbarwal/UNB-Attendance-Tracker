@@ -8,7 +8,7 @@ import FaBeer from 'react-icons/lib/fa/edit';
 // Import Style
 import styles from '../../main.css';
 
-export function InstructorHome(props) {
+export function InstructorCourseList(props) {
   return (
     <div>
       <Navbar style={{marginBottom:'0'}}>
@@ -31,38 +31,37 @@ export function InstructorHome(props) {
         <a href="#">Nothing</a>
         <a href="#">Nothing</a>
       </div>
-      <div className={styles.welcomeContainer}>
-        <h2 className={styles.instructorName}>Welcome, Justin Lee</h2>
-        <Image className={styles.instructorPic} src={require('../../images/png/profile-pictures.png')} rounded />
-      </div>
-      <div className={styles.optionsContainer}>
-      <Grid>
-        <Row>
-          <Col xs={6} md={3}>
-            <Link to={'/create_course'}>
-	      <label> Create a Course </label>
+      <div className={styles.instructorCourseContainer}>
+        <div className={styles.instCourseHeader}>
+          <h3>UNB Course List</h3>
+        </div>
+        <div className={styles.instCourseListContainer}>
+          <table className={styles.instCourseList}>
+            <tr>
+              <td className={styles.courseNum}>Course Number</td>
+              <td className={styles.courseName}>Course Name</td>
+            </tr>
+            <tr>
+              <a href="/course_overview">
+              <td>SWE4103</td>
+              </a>
+              <td>Software Quality and Project Management</td>
 
-            </Link>
-          </Col>
-          <Col xs={6} md={3}>
-
-	    
-          </Col>
-          <Col xs={6} md={3}>
-
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={6} md={3}>
-
-          </Col>
-          <Col xs={6} md={3}>
-
-          </Col>
-          <Col xs={6} md={3}>
-          </Col>
-        </Row>
-      </Grid>
+            </tr>
+            <tr>
+              <td>CS3413</td>
+              <td>Operating System I</td>
+            </tr>
+            <tr>
+              <td>ECE3221</td>
+              <td>Computer Organization</td>
+            </tr>
+            <tr>
+              <td>SWE4040</td>
+              <td>Software Engineering Design Project</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -80,7 +79,7 @@ function mapStateToProps(state, props) {
   };
 }
 
-InstructorHome.propTypes = {
+InstructorCourseList.propTypes = {
 //  post: PropTypes.shape({
 //    name: PropTypes.string.isRequired,
 //    title: PropTypes.string.isRequired,
@@ -90,4 +89,4 @@ InstructorHome.propTypes = {
 //  }).isRequired,
 };
 
-export default connect(mapStateToProps)(InstructorHome);
+export default connect(mapStateToProps)(InstructorCourseList);
