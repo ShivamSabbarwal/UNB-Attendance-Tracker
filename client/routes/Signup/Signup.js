@@ -12,18 +12,18 @@ import styles from '../../main.css';
 export function Signup(props) {
   return (
     <div className={styles.page}>
-      <div className={styles.signupContainer}>
+      <div className={styles.Container}>
         <div className={styles.user}>
-          <div className={styles.user__header}>
-            <h3 className={styles.user__title}>Sign-up to use <span className={styles.unb}>UNB Attendance Service</span></h3>
+          <div className={styles.userHeader}>
+            <h3 className={styles.userTitle}>Sign-up to use <span className={styles.appName}>UNB Attendance Service</span></h3>
             <form className={styles.form}>
-                <input className={styles.input} type="text" name="username" id="username" placeholder="Username" />
+              <input className={styles.input} type="text" name="username" id="username" placeholder="Username" />
                 <input className={styles.input} type="password" name="password" id="password" placeholder="Password" />
                 <input className={styles.input} type="email" name="Email" id="email" placeholder="Your Email" />
                 <button className={styles.btn}>Register</button>
             </form>
           </div>
-          <div className={styles.signup}>
+          <div className={styles.underBar}>
             <label>Already a User? <Link to={''}>Login Here</Link> </label>
           </div>
         </div>

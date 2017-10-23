@@ -47,7 +47,7 @@
 
 /*---------------------------Login Page---------------------------comment like this when creating a style for a new page - justin*/
 /*specify name of container for each pages*/
-.loginContainer{
+.Container{
 	width: 50vh;
   height: 30vh;
   border-radius: 30px;
@@ -58,24 +58,24 @@
 	background-color: #202020;
 }
 
-.unb{
+.appName{
 	color: #CC0000;
   margin: auto;
 }
 
-.user__header {
+.userHeader {
  text-align: center;
  margin: auto;
 }
 
-.user__title {
+.userTitle {
  font-family: Calibri;
  font-weight: 500;
  color: white;
  transition: 0.5s;
 }
 
-.login__user{
+.user{
   width: 100%;
   max-width: 600px;
   margin: auto;
@@ -92,7 +92,7 @@
  margin: auto;
 }
 
-.signup{
+.underBar{
   padding: 10px;
 	font-family: Calibri;
   color: white;
@@ -119,26 +119,6 @@
 .form {
  overflow: hidden;
 }
-
-
-/*******************************Sign up page************************************/
-.signupContainer{
-	width: 60vh;
-  height: 35vh;
-  border-radius: 30px;
-  display: block;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-  margin: auto;
-	background-color: #202020;
-}
-
-.sign__user {
- 	width: 100%;
- 	max-width: 400px;
-	margin: auto;
-}
-
 
 /*------------------------Instructor View------------------------*/
 /*----------------home-------------*/

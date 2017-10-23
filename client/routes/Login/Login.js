@@ -9,19 +9,19 @@ import styles from '../../main.css';
 export function Login(props) {
   return (
     <div className={styles.page}>
-      <div className={styles.loginContainer}>
-        <div className={styles.login__user}>
-          <div className={styles.user__header}>
-          <h3 className={styles.user__title}>Login to <span className={styles.unb}>UNB Attendance Services</span></h3>
-          <form className={styles.form}>
-            <input className={styles.input} id="username" placeholder="Username"/>
-            <input className={styles.input} id="password" placeholder="Password" type="password"/>
-            <button className={styles.btn} onClick={submit}> Submit </button>
-          </form>
-        </div>
-        <div className={styles.signup}>
-          <label>New User? <Link to={'/signup'}>Register Here</Link> </label>
-        </div>
+      <div className={styles.Container}>
+        <div className={styles.user}>
+          <div className={styles.userHeader}>
+            <h3 className={styles.userTitle}>Login to <span className={styles.appName}>UNB Attendance Services</span></h3>
+            <form className={styles.form}>
+              <input className={styles.input} id="username" placeholder="Username"/>
+              <input className={styles.input} id="password" placeholder="Password" type="password"/>
+              <button className={styles.btn} onClick={submit}> Submit </button>
+            </form>
+          </div>
+          <div className={styles.underBar}>
+            <label>New User? <Link to={'/signup'}>Register Here</Link> </label>
+          </div>
         </div>
       </div>
     </div>
