@@ -46,7 +46,7 @@ export function InstructorHome(props) {
           </Col>
           <Col xs={6} md={3}>
 
-	    
+
           </Col>
           <Col xs={6} md={3}>
 

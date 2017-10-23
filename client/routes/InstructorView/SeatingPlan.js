@@ -28,10 +28,10 @@ export function SeatingPlan(props) {
         </Navbar>
       </div>
       <div className={styles.sidenav}>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <Link to={'/instructor_courses'}>Courses</Link>
+        <a href="#">Nothing</a>
+        <a href="#">Nothing</a>
+        <a href="#">Nothing</a>
       </div>
     </div>
   );
