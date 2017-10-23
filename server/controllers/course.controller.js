@@ -168,42 +168,38 @@ export function dropStudents(req, res) {
 }
 
 
-export var courseList = async_f( function (req,res) {
+export function courseList(req,res) {
   var list = [];
   var results;
 
-  results = await_f(
-    Course.find(
-      {},
-      'title',
-      function (err, course) {
+  Course.find(
+    {},
+    'title',
+    async_f(function (err, course) { // async
+
+      await_f( function(){ // await
         if (err){
           console.error(err);
           res.status(400).end();
+
+        } else if (course) {
+          course.forEach( function(c){
+            if (c.title) {
+              list.push(c.title);
+
+            } else {
+              res.status(400).end();
+            }
+          })
+
+          res.status(200).send({
+            courseList: list
+          })
+
+        } else {
+          res.status(400).end();
         }
-      }
-    )
+      }) // end await
+    }) // end async
   )
-
-  if (results) {
-
-    results.forEach( function(course){
-
-      if (course.title) {
-        list.push(course.title);
-
-      } else {
-        res.status(400).end();
-      }
-    })
-
-  } else {
-    res.status(400).end();
-  }
-
-  res.send({
-    courseList: list
-  })
-
-  res.status(200).end();
-})
+}
