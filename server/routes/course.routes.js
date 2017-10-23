@@ -11,4 +11,10 @@ router.route('/course/:courseTitle/students').delete(CourseController.dropStuden
 // Get list of courses
 router.route('/courseList').get(CourseController.courseList);
 
+// Add a new course
+router.route('/course').post(CourseController.createCourse);
+
+// Drop a course from the database
+router.route('/course').delete(CourseController.removeCourse);
+
 export default router;
