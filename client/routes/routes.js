@@ -8,7 +8,7 @@ import Signup from './Signup/Signup';
 import InstructorHome from './InstructorView/InstructorHome';
 import StudentHome from './StudentView/landingPage';
 import CourseGrid from './CourseGrid/CourseGrid';
-
+import CourseOverview from './CourseOverview/CourseOverview';
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
   require.ensure = function requireModule(deps, callback) {
@@ -37,5 +37,6 @@ export default (
     <Route path="/instructor_home" component={InstructorHome} />
     <Route path="/student_home" component={StudentHome} />
     <Route path="/course_grid" component={CourseGrid} />
+    <Route path="/course_overview" component={CourseOverview}/>
   </Route>
 );
