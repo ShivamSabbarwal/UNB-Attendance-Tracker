@@ -40,18 +40,21 @@ export function InstructorHome(props) {
         <Row>
           <Col xs={6} md={3}>
             <Link to={'/create_course'}>
-	      <label> Create a Course </label>
-              <Image src={require('../../images/png/Pikachu.png')} rounded />
+	           <label> Create a Course </label>
+             <Image src={require('../../images/png/Pikachu.png')} rounded />
             </Link>
           </Col>
           <Col xs={6} md={3}>
-	    <Link to={'/course_grid'}>
-	    <label> See Course Grid </label>
-            <Image src={require('../../images/png/Pikachu.png')} rounded />
-	    </Link>
+	           <Link to={'/course_grid'}>
+	            <label> See Course Grid </label>
+              <Image src={require('../../images/png/Pikachu.png')} rounded />
+	           </Link>
           </Col>
           <Col xs={6} md={3}>
+            <Link to={'/course_overview'}>
+            <label> Course Overview </label>
             <Image src={require('../../images/png/Pikachu.png')} rounded />
+          </Link>
           </Col>
         </Row>
         <Row>
