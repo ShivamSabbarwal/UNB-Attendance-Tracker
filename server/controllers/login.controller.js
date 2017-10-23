@@ -110,7 +110,6 @@ function checkCredentials(username, password, callback) {
 
   User.findOne(
     { 'username': username, 'password': password},  // username and password should match arguments
-    'isAdmin',   //doesn't really matter what value we get back since we aren't using it (just need to see if record exists, theres probably a better way (count()))
     function (err, user) {
       if (err) {
         console.error(err);
@@ -118,7 +117,7 @@ function checkCredentials(username, password, callback) {
       }
       //console.log('user record returned: ' + user +' | data type: ' + (typeof user));
       if(user){
-        callback(true, user.isAdmin);
+        callback(true, user.username, user.isAdmin);
       } else {
         callback(false);
       }
@@ -142,11 +141,13 @@ export function login(req, res) {
         if (!req.body.username || !req.body.password) {
           res.status(403).end();
         } else {
-          checkCredentials(req.body.username, req.body.password, (credsAreValid, isAdmin)=> {
+          checkCredentials(req.body.username, req.body.password, (credsAreValid, username, isAdmin)=> {
             if (credsAreValid === true) {
               // Generate a new session that is valid for 3 hours from now
               res.cookie('sessionID', generateSessionID(req.body.username), { maxAge: 10800 });
+
               res.send({
+                username: username,
                 isAdmin: isAdmin
               });
               res.status(200).end();
