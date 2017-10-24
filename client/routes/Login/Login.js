@@ -29,6 +29,7 @@ export function Login(props) {
 }
 
 function submit(){
+  debugger;
   var user = document.getElementById("username").value;
   var pass = document.getElementById("password").value;
 
@@ -42,6 +43,7 @@ function submit(){
   document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
 
   req.onreadystatechange = function(){
+    debugger;
     if(req.readyState == 4 && req.status == 200) {
 	var serverResponse = JSON.parse(req.responseText);
 	document.cookie = "isAdmin=" + serverResponse.isAdmin + "";
