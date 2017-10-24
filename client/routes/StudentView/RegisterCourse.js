@@ -14,7 +14,7 @@ export function RegisterCourse(props) {
          <input type="text" id="searchInput" name="search" placeholder="Serach.."/>
          <button onClick={myfunction}>search!</button>
           <p id="searchOutput"></p>
-            <ul class="myUL">
+            <ul id="myUL">
             </ul>
       </div>
   );
@@ -22,16 +22,17 @@ export function RegisterCourse(props) {
 
 
 function myfunction() {
-
+    document.getElementById("searchOutput").innerHTML = "";
+    document.getElementById("myUL").innerHTML = "";
     // Declare variables
     //hard coded data
     var classes = ["SWE4444", "PHIL1500", "MATH1000", "SCHI2000", "HIST2045", "CS1246", "HELLO"];
-    var input = document.getElementById("username").value;
+    var input = document.getElementById("searchInput").value;
     //Change input to Upper Case
-    var filter = input.value.toUpperCase();
+    var filter = input.toUpperCase();
     var count = classes.length;
     var match = [];
-
+    var i,j;
     // Loop through all list items, and see how many matching items there are
     for (i = 0; i < classes.length; i++) {
         if (classes[i].toUpperCase().indexOf(filter) > -1) {
@@ -41,14 +42,17 @@ function myfunction() {
         }
     }
 
-    for (i = 0; i < match.length; i++) {
-      var li = "<li>" + match[i] + "</li>";
-      document.getElementById("myUL").appendChild(li);
+    for (j = 0; j < match.length; j++) {
+      var node = document.createElement("LI");
+      var li =  document.createTextNode(match[j]);
+      node.appendChild(li);
+      document.getElementById("myUL").appendChild(node);
     }
 
-    var text1 = document.getElementById("searchOutput")
+    var text1 = document.getElementById("searchOutput");
     var text2 = document.createTextNode("You have " + count + " matching courses!");
     text1.appendChild(text2);
+
 }
 
 function mapStateToProps(state, props) {
