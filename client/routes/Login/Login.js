@@ -16,8 +16,8 @@ export function Login(props) {
             <form className={styles.form}>
               <input className={styles.input} id="username" placeholder="Username"/>
               <input className={styles.input} id="password" placeholder="Password" type="password"/>
-              <button className={styles.btn} onClick={submit}> Submit </button>
             </form>
+            <button className={styles.btn} onClick={submit}> Submit </button>
           </div>
           <div className={styles.underBar}>
             <label>New User? <Link to={'/signup'}>Register Here</Link> </label>
