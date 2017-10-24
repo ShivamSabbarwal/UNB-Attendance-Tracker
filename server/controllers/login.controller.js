@@ -14,7 +14,7 @@ var bigrandom = require('bigrandom');
 */
 export function generateUserAccount(req, res) {
   var User = mongoose.model('User', UserSchema);
-  
+
   if(!req.body.username || !req.body.password || !req.body.email) {
     res.status(403).send("Username, email, and password are requiered.");
   }else if((req.body.password).length < 6 || (req.body.password).length > 20){
@@ -38,10 +38,10 @@ export function generateUserAccount(req, res) {
         } else {
           res.status(400).end()
         }
-      }  
+      }
     );
   }
-  
+
 }
 /**
 * generate a random 128-bit ID, save it to the session database
@@ -113,13 +113,13 @@ function checkCredentials(username, password, callback) {
     function (err, user) {
       if (err) {
         console.error(err);
-        callback(false);
+        callback(false, null);
       }
       //console.log('user record returned: ' + user +' | data type: ' + (typeof user));
       if(user){
-        callback(true, user.username, user.isAdmin);
+        callback(true, user);
       } else {
-        callback(false);
+        callback(false, null);
       }
     }
   );
@@ -141,16 +141,15 @@ export function login(req, res) {
         if (!req.body.username || !req.body.password) {
           res.status(403).end();
         } else {
-          checkCredentials(req.body.username, req.body.password, (credsAreValid, username, isAdmin)=> {
-            if (credsAreValid === true) {
+          checkCredentials(req.body.username, req.body.password, (credsAreValid, user)=> {
+            console.log(user)
+            if (credsAreValid === true && user !== null) {
               // Generate a new session that is valid for 3 hours from now
               res.cookie('sessionID', generateSessionID(req.body.username), { maxAge: 10800 });
-
-              res.send({
-                username: username,
-                isAdmin: isAdmin
+              res.status(200).send({
+                username: user.username,
+                isAdmin: user.isAdmin
               });
-              res.status(200).end();
             } else {
               res.status(401).end();
             }
