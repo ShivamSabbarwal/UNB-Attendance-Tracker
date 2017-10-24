@@ -34,7 +34,9 @@ export function InstructorCourseList(props) {
       <div className={styles.instructorCourseContainer}>
         <div className={styles.instCourseHeader}>
           <h3>UNB Course List</h3>
+          <p id = "testp" onLoad={test}>test</p>
         </div>
+
         <div className={styles.instCourseListContainer}>
           <table className={styles.instCourseList}>
             <tr>
@@ -66,6 +68,18 @@ export function InstructorCourseList(props) {
     </div>
   );
 }
+
+//when directed to this site, make xmlhttprequest to get course list.
+function test(){
+  var req = new XMLHttpRequest();
+  req.open("GET", "api/courseList");
+  //test to see if a fucntion is called on onLoad
+  document.getElementById("testp").innerHTML = "test";
+}
+//var req = new XMLHttpRequest();
+//alert(req.open("GET", api.courseList));
+
+
 
 // Actions required to provide data for this component to render in sever side.
 //HomePage.need = [params => {

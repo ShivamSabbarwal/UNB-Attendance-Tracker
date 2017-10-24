@@ -40,13 +40,13 @@ export function InstructorHome(props) {
         <Row>
           <Col xs={6} md={3}>
             <Link to={'/create_course'}>
-	      <label> Create a Course </label>
-
+	           <label> Create a Course </label>
             </Link>
           </Col>
           <Col xs={6} md={3}>
-
-
+            <Link to={'/instructor_home'}>
+            <label> Remove a Course </label>
+            </Link>
           </Col>
           <Col xs={6} md={3}>
 
