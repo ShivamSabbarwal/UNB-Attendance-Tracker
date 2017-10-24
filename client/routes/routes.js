@@ -10,6 +10,7 @@ import StudentHome from './StudentView/landingPage';
 import CourseGrid from './CourseGrid/CourseGrid';
 import InstructorCourseList from './InstructorView/InstructorCourseList';
 import CourseOverview from './InstructorView/CourseOverview';
+import RegisterCourse from './StudentView/RegisterCourse'
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -41,5 +42,6 @@ export default (
     <Route path="/course_grid" component={CourseGrid} />
     <Route path="/instructor_courses" component={InstructorCourseList} />
     <Route path="/course_overview" component={CourseOverview} />
+    <Route path="/register_course" component={RegisterCourse} />
   </Route>
 );
