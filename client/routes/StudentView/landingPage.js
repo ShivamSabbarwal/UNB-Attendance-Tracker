@@ -37,6 +37,13 @@ export function StudentHome(props) {
       </div>
       <div>
         <h1>This is a student page!</h1>
+            <ul className ={styles.ulStyle}>
+              <Link to={'/register_course'}>
+                <li>Register and Search for classes</li>
+              </Link>
+                <li >View My Courses</li>
+            </ul>
+
       </div>
     </div>
   );

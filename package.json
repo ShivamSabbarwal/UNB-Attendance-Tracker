@@ -31,6 +31,7 @@
   "author": "Prashant Abhishek <prashant.abhishek7g@gmail.com>, Mayank Chandola <imayankchd@gmail.com>, Sandeep Panda <sandeep@hashnode.com>, Syed Fazle Rahman <fazle@hashnode.com>, Alkshendra Maurya <alkshendra@hashnode.com>",
   "license": "MIT",
   "dependencies": {
+    "asyncawait": "^1.0.6",
     "ava": "^0.15.2",
     "babel-core": "^6.9.1",
     "babel-eslint": "^6.0.4",
@@ -77,6 +78,8 @@
     "mockgoose": "^6.0.3",
     "mongoose": "^4.4.20",
     "nock": "^8.0.0",
+    "node-mailer": "^0.1.1",
+    "nodemailer": "^0.7.1",
     "nodemon": "^1.9.2",
     "null-loader": "^0.1.1",
     "nyc": "^6.4.4",

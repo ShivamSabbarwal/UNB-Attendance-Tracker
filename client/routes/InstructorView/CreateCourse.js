@@ -42,7 +42,7 @@ export function CreateCourse(props) {
               Course Name
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Enter course name" />
+              <FormControl type="text" placeholder="Enter course name" id="title"/>
             </Col>
           </FormGroup>
           <FormGroup>
@@ -50,7 +50,7 @@ export function CreateCourse(props) {
               Professor Name
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Enter course instructor name" />
+              <FormControl type="text" placeholder="Enter course instructor name" id="professor"/>
             </Col>
           </FormGroup>
           <FormGroup controlId="formHorizontalEmail">
@@ -58,7 +58,7 @@ export function CreateCourse(props) {
               Institution
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Enter name of the institution" />
+              <FormControl type="text" placeholder="Enter name of the institution" id="institution"/>
             </Col>
           </FormGroup>
           <FormGroup controlId="formHorizontalEmail">
@@ -66,12 +66,12 @@ export function CreateCourse(props) {
               Location
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Enter location of the institution" />
+              <FormControl type="text" placeholder="Enter the room number where the lecture takes place in" id="location"/>
             </Col>
           </FormGroup>
           <FormGroup>
            <Col smOffset={2} sm={10}>
-             <Button type="submit">
+             <Button type="submit" onClick={submit}>
                Create
              </Button>
            </Col>
@@ -82,6 +82,25 @@ export function CreateCourse(props) {
   );
 }
 
+function submit(){
+  //creates variable to be passed in
+  var courseName = document.getElementById("title").value;
+  var prof = document.getElementById("professor").value;
+  var inst = document.getElementById("institution").value;
+  var room = document.getElementById("location").value;
+
+  //xml request
+  var req = new XMLHttpRequest();
+
+  var params = '{"title":"' + courseName + '", "professor":"' + prof + '", "usernames":" ", "institution":"' + inst + '", "location":"' + room + '"}';
+  req.open("POST", "api/course");
+  req.setRequestHeader("Content-type", "application/json");
+  //403 - not enough data provided / course already exists / title contains characters other than letter, numbers, -, _ and .
+  //200 - course created successfully
+  //above comments need to be implemented
+  alert(courseName + " has been created successfully!");
+  req.send(params);
+}
 // Actions required to provide data for this component to render in sever side.
 //HomePage.need = [params => {
   //return fetchPost(params.cuid);
