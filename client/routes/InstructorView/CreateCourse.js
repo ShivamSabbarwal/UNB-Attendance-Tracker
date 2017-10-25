@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, ControlLabel, FormControl, Form, Col, Button} from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, ControlLabel, FormControl, Form, Col, Button, Image} from 'react-bootstrap';
 
 
 import SvgIcon from 'react-icons-kit';
@@ -13,28 +13,12 @@ import styles from '../../main.css';
 export function CreateCourse(props) {
   return (
     <div>
-      <div>
-        <Navbar>
-          <Navbar.Header>
-            <Navbar.Brand>
-              UNB Attendance Service
-            </Navbar.Brand>
-          </Navbar.Header>
-          <Nav>
-            <NavItem href="/instructor_home">Instructor Home</NavItem>
-            <NavItem href="/instructor_home">Other thing</NavItem>
-          </Nav>
-          <Nav pullRight>
-            <NavItem href="/">Log out</NavItem>
-          </Nav>
-        </Navbar>
+
+      <div className={styles.welcomeContainer}>
+        <h2 className={styles.instructorName}>Create a Course</h2>
+        <Link to={"/instructor_home"}><h4>Home</h4></Link>
       </div>
-      <div className={styles.sidenav}>
-        <Link to={'/instructor_courses'}>Courses</Link>
-        <a href="#">Nothing</a>
-        <a href="#">Nothing</a>
-        <a href="#">Nothing</a>
-      </div>
+
       <div className={styles.formContainer}>
         <Form horizontal>
           <FormGroup>

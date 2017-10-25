@@ -19,9 +19,10 @@ export function Signup(props) {
             <form className={styles.form}>
               <input className={styles.input} type="text" name="username" id="username" placeholder="Username" />
                 <input className={styles.input} type="password" name="password" id="password" placeholder="Password" />
-                <input className={styles.input} type="email" name="Email" id="email" placeholder="Your Email" />
-                <button className={styles.btn}>Register</button>
+                <input className={styles.email} type="email" name="Email" id="email" placeholder="Your Email" />
+                <label className={styles.emailTag}>(@unb.ca)</label>
             </form>
+            <button className={styles.btn} onClick={submit}>Register</button>
           </div>
           <div className={styles.underBar}>
             <label>Already a User? <Link to={''}>Login Here</Link> </label>
@@ -36,6 +37,33 @@ export function Signup(props) {
 //HomePage.need = [params => {
   //return fetchPost(params.cuid);
 //}];
+
+function submit(){
+  debugger;
+  var user = document.getElementById("username").value;
+  var pass = document.getElementById("password").value;
+  var email = document.getElementById("email").value;
+
+  var req = new XMLHttpRequest();
+
+  var params = '{"username":"' + user + '", "password":"' + pass + '", "email":"' + email + '", "isAdmin":"false"}';
+
+  req.open("POST", "api/signup");
+  req.setRequestHeader("Content-type", "application/json");
+  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+
+  req.onreadystatechange = function(){
+    debugger;
+    if(req.readyState == 4 && req.status == 200) {
+	     document.cookie = "isAdmin=false";
+		   window.location.href = "/student_home";
+    }
+  }
+
+  req.send(params);
+
+}
 
 // Retrieve data from store as props
 function mapStateToProps(state, props) {

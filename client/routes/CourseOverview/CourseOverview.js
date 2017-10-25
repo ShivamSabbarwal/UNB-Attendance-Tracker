@@ -13,33 +13,25 @@ export function CourseOverview(props) {
 
   return (
 <div>
-    <Navbar>
-      <Navbar.Header>
-        <Navbar.Brand>
-          UNB Attendance Service
-        </Navbar.Brand>
-      </Navbar.Header>
-      <Nav>
-        <NavItem href="/instructor_home">Instructor Home</NavItem>
-        <NavItem href="/instructor_home">Other thing</NavItem>
-      </Nav>
-      <Nav pullRight>
-        <NavItem href="/">Log out</NavItem>
-      </Nav>
-    </Navbar>
+
+    <div className={styles.welcomeContainer}>
+      <h2 className={styles.instructorName}>Welcome, {username}</h2>
+      <Link to={"/instructor_home"}><h4>Home</h4></Link>
+    </div>
+
     <div className={styles.courseGrid}>
 
       <CourseGrid/>
 
-    <table id="students" align="right">
-      <tr><td>Students</td></tr>
-      <tr><td>Tony</td></tr>
-      <tr><td>Shiv</td></tr>
-      <tr><td>Tristen</td></tr>
-      <tr><td>Jean-Marc</td></tr>
-      <tr><td>Justin</td></tr>
-      <tr><td>Jacob</td></tr>
-    </table>
+      <table id="students" align="right">
+        <tr><td>Students</td></tr>
+        <tr><td>Tony</td></tr>
+        <tr><td>Shiv</td></tr>
+        <tr><td>Tristen</td></tr>
+        <tr><td>Jean-Marc</td></tr>
+        <tr><td>Justin</td></tr>
+        <tr><td>Jacob</td></tr>
+      </table>
     </div>
   </div>
   );

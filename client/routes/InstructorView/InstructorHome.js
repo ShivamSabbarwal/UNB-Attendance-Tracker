@@ -7,62 +7,36 @@ import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, Men
 import FaBeer from 'react-icons/lib/fa/edit';
 // Import Style
 import styles from '../../main.css';
+import InstructorCourseIcon from './InstructorCourseIcon';
 
 export function InstructorHome(props) {
+
+  var courseIcons = [];
+
+  for(var i = 0; i < props.courses.length; i++){
+
+    var courseInfo = JSON.parse(props.courses[i]);
+
+    courseIcons.push(<InstructorCourseIcon name={courseInfo.name} />);
+
+  }
+
+  var username = readCookie("username");
+
   return (
     <div>
-      <Navbar style={{marginBottom:'0'}}>
-        <Navbar.Header>
-          <Navbar.Brand>
-            UNB Attendance Service
-          </Navbar.Brand>
-        </Navbar.Header>
-        <Nav>
-          <NavItem href="/instructor_home">Instructor Home</NavItem>
-          <NavItem href="/instructor_home">Other thing</NavItem>
-        </Nav>
-        <Nav pullRight>
-          <NavItem href="/">Log out</NavItem>
-        </Nav>
-      </Navbar>
-      <div className={styles.sidenav}>
-        <Link to={'/instructor_courses'}>Courses</Link>
-        <a href="#">Nothing</a>
-        <a href="#">Nothing</a>
-        <a href="#">Nothing</a>
-      </div>
+
       <div className={styles.welcomeContainer}>
-        <h2 className={styles.instructorName}>Welcome, Justin Lee</h2>
+        <h2 className={styles.instructorName}>Welcome, {username}</h2>
         <Image className={styles.instructorPic} src={require('../../images/png/profile-pictures.png')} rounded />
       </div>
-      <div className={styles.optionsContainer}>
-      <Grid>
-        <Row>
-          <Col xs={6} md={3}>
-            <Link to={'/create_course'}>
-	           <label> Create a Course </label>
-            </Link>
-          </Col>
-          <Col xs={6} md={3}>
-            <Link to={'/instructor_home'}>
-            <label> Remove a Course </label>
-            </Link>
-          </Col>
-          <Col xs={6} md={3}>
 
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={6} md={3}>
+      <div className = {styles.courses}>
+        {courseIcons}
+      </div>
 
-          </Col>
-          <Col xs={6} md={3}>
-
-          </Col>
-          <Col xs={6} md={3}>
-          </Col>
-        </Row>
-      </Grid>
+      <div className={styles.addCourseBtn}>
+        <Link to="/create_course"><button>ADD A COURSE</button></Link>
       </div>
     </div>
   );
@@ -76,18 +50,27 @@ export function InstructorHome(props) {
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
   return {
-    //post: getPost(state, props.params.cuid),
+    courses: [['{"name":"SWE4103"}'],
+            ['{"name":"CS1073"}']]
   };
 }
 
+function readCookie(name) {
+    var nameEQ = name + "=";
+    if(typeof window !== 'undefined') {
+      var ca = document.cookie.split(';');
+
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+  }
+    return null;
+}
+
 InstructorHome.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
+
 };
 
 export default connect(mapStateToProps)(InstructorHome);

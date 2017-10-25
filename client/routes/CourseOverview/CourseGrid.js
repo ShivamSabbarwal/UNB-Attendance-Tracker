@@ -32,32 +32,23 @@ export function CourseGrid(props) {
   }
 
   return (
-<div>
-    <div className={styles.courseGrid}>
-    <h3>CS3383</h3>
-    <table id="simple-board">
-      <tbody>
-        {rows}
-      </tbody>
-    </table>
+    <div>
+        <div className={styles.courseGrid}>
+          <h3> {props.name} </h3>
+          <table id="simple-board">
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+        </div>
     </div>
-</div>
   );
 }
 
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
   return {
-    grid:      [["", "Tony", "", "", "", "", "", "", "Shiv", ""],
-		["", "", "", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", ""],
-		["", "", "", "", "Tristen", "", "", "", "", ""],
-		["", "Jean-Marc", "", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "Justin", ""],
-		["", "", "Jacob", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", ""]]
+    
   };
 }
 

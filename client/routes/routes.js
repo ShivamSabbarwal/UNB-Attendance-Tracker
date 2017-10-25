@@ -6,11 +6,12 @@ import CreateCourse from './InstructorView/CreateCourse';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import InstructorHome from './InstructorView/InstructorHome';
-import StudentHome from './StudentView/landingPage';
+import StudentHome from './StudentView/StudentHome';
 import CourseGrid from './CourseGrid/CourseGrid';
 import InstructorCourseList from './InstructorView/InstructorCourseList';
-import CourseOverview from './InstructorView/CourseOverview';
-import RegisterCourse from './StudentView/RegisterCourse'
+import InstructorCourseOverview from './InstructorView/InstructorCourseOverview';
+import StudentCourseOverview from './StudentView/StudentCourseOverview';
+import RegisterCourse from './StudentView/RegisterCourse';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -41,7 +42,8 @@ export default (
     <Route path="/student_home" component={StudentHome} />
     <Route path="/course_grid" component={CourseGrid} />
     <Route path="/instructor_courses" component={InstructorCourseList} />
-    <Route path="/course_overview" component={CourseOverview} />
+    <Route path="/course_overview_inst" component={InstructorCourseOverview} />
+    <Route path="/course_overview_stu" component={StudentCourseOverview} />
     <Route path="/register_course" component={RegisterCourse} />
   </Route>
 );

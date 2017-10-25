@@ -33,7 +33,7 @@ export function CourseGrid(props) {
 
   return (
 <div>
-    
+
 
     <div className={styles.courseGrid}>
     <h3>CS3383</h3>

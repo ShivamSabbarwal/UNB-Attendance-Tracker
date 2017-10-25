@@ -47,6 +47,7 @@ function submit(){
     if(req.readyState == 4 && req.status == 200) {
 	     var serverResponse = JSON.parse(req.responseText);
 	     document.cookie = "isAdmin=" + serverResponse.isAdmin + "";
+       document.cookie = "username=" + serverResponse.username + "";
 	     if(serverResponse.isAdmin){
 		       window.location.href = "/instructor_home";
 	     }else{

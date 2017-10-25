@@ -9,6 +9,11 @@ import styles from '../../main.css';
 
 export function RegisterCourse(props) {
   return (
+<div>
+    <div className={styles.welcomeContainer}>
+      <h2 className={styles.instructorName}>Register For A Course</h2>
+      <Link to={"/student_home"}><h4>Home</h4></Link>
+    </div>
 
       <div className={styles.optionsContainer}>
          <input type="text" id="searchInput" name="search" placeholder="Serach.."/>
@@ -17,16 +22,18 @@ export function RegisterCourse(props) {
             <ul id="myUL">
             </ul>
       </div>
+      </div>
   );
 }
 
 
 function myfunction() {
+  debugger;
     document.getElementById("searchOutput").innerHTML = "";
     document.getElementById("myUL").innerHTML = "";
     // Declare variables
     //hard coded data
-    var classes = ["SWE4444", "PHIL1500", "MATH1000", "SCHI2000", "HIST2045", "CS1246", "HELLO"];
+    var classes = ["SWE4103", "CS1003", "CS1073", "CS1083", "CS2043", "CS2383", "CS3383", "CS3997", "CS1303", "SWE4203", "SWE4040", "SWE4403", "STAT2593", "ECE3221", "ECE2701", "ESCI1001"];
     var input = document.getElementById("searchInput").value;
     //Change input to Upper Case
     var filter = input.toUpperCase();
@@ -57,7 +64,7 @@ function myfunction() {
 
 function mapStateToProps(state, props) {
   return {
-    //post: getPost(state, props.params.cuid),
+    courseList: ["SWE4103", "CS1003", "CS1073", "CS1083", "CS2043", "CS2383", "CS3383", "CS3997", "CS1303", "SWE4203", "SWE4040", "SWE4403", "STAT2593", "ECE3221", "ECE2701", "ESCI1001"]
   };
 }
 
