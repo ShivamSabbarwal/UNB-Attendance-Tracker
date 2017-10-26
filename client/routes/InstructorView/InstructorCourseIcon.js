@@ -5,17 +5,21 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import FaBeer from 'react-icons/lib/fa/edit';
+import Background from "../../images/png/books.png";
+import CloseButton from "../../images/png/close2.png";
 // Import Style
 import styles from '../../main.css';
 
 export function CourseIcon(props) {
 
-
+  var backgroundStyle = {
+    backgroundImage: "url(" + Background + ")"
+  };
 
   return (
-    <div className={styles.courseIcon}>
+    <div className={styles.courseIcon} style = {backgroundStyle}>
         <Link to={'/course_overview_inst/?name=' + props.name}><label className={styles.courseTitle}> {props.name} </label></Link>
-        <button className={styles.removeCourse} />
+        <button className={styles.removeCourse}>&#10006;</button>
     </div>
   );
 }

@@ -7,6 +7,20 @@
   marginBottom: 0px;
   background-color: red;
 }
+
+.homeButton{
+  margin-top: 20px;
+  margin-left: 20px;
+  color: white;
+}
+
+.logoutButton{
+  float: right;
+  color: white;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
 .sidenav {
     height: 100%;
     width: 7%;
@@ -189,9 +203,9 @@
   margin-left: 520px;
   margin-top: 30px;
 }
-
+/*
 .removeCourse{
-  background-color: red;
+  content: "\00d7";
   border: none;
   border-radius: 4px;
   width:20px;
@@ -200,6 +214,22 @@
   float: right;
   margin-right: 5px;
   display: inline-block;
+}*/
+
+.removeCourse{
+  float:right;
+  margin-top: 5px;
+  margin-right: 5px;
+  padding:0;
+  border-radius:2px;
+  border:solid 2px #db423d;
+  transition: all .3s ease-out;
+  cursor:pointer;
+  width:20px;
+  height:20px;
+  line-height: 12px;
+  text-align: center;
+  background-color: #db423d;
 }
 
 /*---------------------------Course Grid---------------------------*/

@@ -22,7 +22,8 @@ debugger;
 
     <div className={styles.welcomeContainer}>
       <h2 className={styles.instructorName}>{courseName} Course Grid</h2>
-      <Link to={"/student_home"}><h4>Home</h4></Link>
+      <h4 className={styles.logoutButton} onClick={logout}>Logout</h4>
+      <Link to={"/student_home"}><h4 className={styles.homeButton}>Home</h4></Link>
     </div>
 
     <div className={styles.courseGrid}>
@@ -36,6 +37,22 @@ debugger;
     </div>
   </div>
   );
+}
+
+function logout(){
+  var req = new XMLHttpRequest();
+
+  req.open("GET", "api/logout");
+  req.setRequestHeader("Content-type", "application/json");
+  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+
+  req.onreadystatechange = function(){
+    debugger;
+    window.location.href="/";
+  }
+
+  req.send();
 }
 
 // Retrieve data from store as props

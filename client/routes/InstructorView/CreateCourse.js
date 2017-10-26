@@ -16,7 +16,8 @@ export function CreateCourse(props) {
 
       <div className={styles.welcomeContainer}>
         <h2 className={styles.instructorName}>Create a Course</h2>
-        <Link to={"/instructor_home"}><h4>Home</h4></Link>
+        <h4 className={styles.logoutButton} onClick={logout}>Logout</h4>
+        <Link to={"/instructor_home"}><h4 className={styles.homeButton}>Home</h4></Link>
       </div>
 
       <div className={styles.formContainer}>
@@ -84,6 +85,22 @@ function submit(){
   //above comments need to be implemented
   alert(courseName + " has been created successfully!");
   req.send(params);
+}
+
+function logout(){
+  var req = new XMLHttpRequest();
+
+  req.open("GET", "api/logout");
+  req.setRequestHeader("Content-type", "application/json");
+  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+
+  req.onreadystatechange = function(){
+    debugger;
+    window.location.href="/";
+  }
+
+  req.send();
 }
 // Actions required to provide data for this component to render in sever side.
 //HomePage.need = [params => {

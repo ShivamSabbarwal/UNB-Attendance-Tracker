@@ -28,6 +28,7 @@ export function StudentHome(props) {
 
       <div className={styles.welcomeContainer}>
         <h2 className={styles.instructorName}>Welcome, {username}</h2>
+        <h4 className={styles.logoutButton} onClick={logout}>Logout</h4>
         <Image className={styles.instructorPic} src={require('../../images/png/profile-pictures.png')} rounded />
       </div>
 
@@ -59,6 +60,22 @@ function readCookie(name) {
     }
   }
     return null;
+}
+
+function logout(){
+  var req = new XMLHttpRequest();
+
+  req.open("GET", "api/logout");
+  req.setRequestHeader("Content-type", "application/json");
+  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+
+  req.onreadystatechange = function(){
+    debugger;
+    window.location.href="/";
+  }
+
+  req.send();
 }
 
 // Retrieve data from store as props

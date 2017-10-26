@@ -12,11 +12,12 @@ export function RegisterCourse(props) {
 <div>
     <div className={styles.welcomeContainer}>
       <h2 className={styles.instructorName}>Register For A Course</h2>
-      <Link to={"/student_home"}><h4>Home</h4></Link>
+      <h4 className={styles.logoutButton} onClick={logout}>Logout</h4>
+      <Link to={"/student_home"}><h4 className={styles.homeButton}>Home</h4></Link>
     </div>
 
       <div className={styles.optionsContainer}>
-         <input type="text" id="searchInput" name="search" placeholder="Serach.."/>
+         <input type="text" id="searchInput" name="search" placeholder="Search.."/>
          <button onClick={myfunction}>search!</button>
           <p id="searchOutput"></p>
             <ul id="myUL">
@@ -66,6 +67,22 @@ function mapStateToProps(state, props) {
   return {
     courseList: ["SWE4103", "CS1003", "CS1073", "CS1083", "CS2043", "CS2383", "CS3383", "CS3997", "CS1303", "SWE4203", "SWE4040", "SWE4403", "STAT2593", "ECE3221", "ECE2701", "ESCI1001"]
   };
+}
+
+function logout(){
+  var req = new XMLHttpRequest();
+
+  req.open("GET", "api/logout");
+  req.setRequestHeader("Content-type", "application/json");
+  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+
+  req.onreadystatechange = function(){
+    debugger;
+    window.location.href="/";
+  }
+
+  req.send();
 }
 
 RegisterCourse.propTypes = {
