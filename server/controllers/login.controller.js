@@ -1,8 +1,5 @@
-var mongoose = require('mongoose');
-require('../models/session');
-require('../models/user')
-var SessionSchema = require('mongoose').model('Session').schema;
-var UserSchema = require('mongoose').model('User').schema;
+import Session from '../models/session'
+import User from '../models/user';
 
 var bigrandom = require('bigrandom');
 
@@ -13,8 +10,6 @@ var bigrandom = require('bigrandom');
 * @returns void
 */
 export function generateUserAccount(req, res) {
-  var User = mongoose.model('User', UserSchema);
-
   if(!req.body.username || !req.body.password || !req.body.email) {
     res.status(403).send("Username, email, and password are requiered.");
   }else if((req.body.password).length < 6 || (req.body.password).length > 20){
@@ -47,8 +42,6 @@ export function generateUserAccount(req, res) {
 * generate a random 128-bit ID, save it to the session database
 */
 function generateSessionID(username) {
-  var Session = mongoose.model('Session', SessionSchema);
-
   var random128bitHexString = bigrandom();
 
   // TODO: Needs to create new record
@@ -79,7 +72,6 @@ function generateSessionID(username) {
 */
 function checkSession(sessionID, callback) {
   // TODO: Needs to be tested againts database records, & proper return value is needed
-  var Session = mongoose.model('Session', SessionSchema);
   var age = undefined;
 
   Session.findOne(
@@ -106,8 +98,6 @@ function checkSession(sessionID, callback) {
 */
 function checkCredentials(username, password, callback) {
   // TODO: Needs to be tested againts database records, & proper return value is needed
-  var User = mongoose.model('User', UserSchema);
-
   User.findOne(
     { 'username': username, 'password': password},  // username and password should match arguments
     function (err, user) {
@@ -160,7 +150,6 @@ export function login(req, res) {
 }
 
 export function logout(req, res) {
-  var Session = mongoose.model('Session', SessionSchema);
   if (req.cookies.sessionID !== null) {
     Session.remove({ 'sessionId': req.cookies.sessionID }, function(err) {
     if (!err) {
