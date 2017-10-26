@@ -189,6 +189,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -308,6 +310,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -378,7 +382,10 @@
 	    className: _main2.default.welcomeContainer
 	  }, void 0, _jsx('h2', {
 	    className: _main2.default.instructorName
-	  }, void 0, 'Welcome, ', username), _jsx(_reactBootstrap.Image, {
+	  }, void 0, 'Welcome, ', username), _jsx('h4', {
+	    className: _main2.default.logoutButton,
+	    onClick: logout
+	  }, void 0, 'Logout'), _jsx(_reactBootstrap.Image, {
 	    className: _main2.default.instructorPic,
 	    src: "data:image/png;base64,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",
 	    rounded: true
@@ -399,6 +406,22 @@
 	  return {
 	    courses: [['{"name":"SWE4103"}'], ['{"name":"CS1073"}']]
 	  };
+	}
+	
+	function logout() {
+	  var req = new XMLHttpRequest();
+	
+	  req.open("GET", "api/logout");
+	  req.setRequestHeader("Content-type", "application/json");
+	  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+	  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+	
+	  req.onreadystatechange = function () {
+	    debugger;
+	    window.location.href = "/";
+	  };
+	
+	  req.send();
 	}
 	
 	function readCookie(name) {
@@ -2419,6 +2442,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -2539,6 +2564,8 @@
 	
 	var _main = {
 		"navbar": "_2WVXw0v9fciz6QMs16OXQq",
+		"homeButton": "MlR84UXTRH_0nGRomNYb8",
+		"logoutButton": "_2E0whB4v60cgTop029LZvW",
 		"sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 		"page": "_2UbYb8a84j4Lao1llfzi0X",
 		"Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -2654,6 +2681,8 @@
 	
 	var _main = {
 		"navbar": "_2WVXw0v9fciz6QMs16OXQq",
+		"homeButton": "MlR84UXTRH_0nGRomNYb8",
+		"logoutButton": "_2E0whB4v60cgTop029LZvW",
 		"sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 		"page": "_2UbYb8a84j4Lao1llfzi0X",
 		"Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -2772,6 +2801,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -2815,18 +2846,21 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _ref = _jsx(_reactRouter.Link, {
-	  to: "/instructor_home"
-	}, void 0, _jsx('h4', {}, void 0, 'Home'));
-	
 	function CreateCourse(props) {
 	  return _jsx('div', {}, void 0, _jsx('div', {
 	    className: _main2.default.welcomeContainer
 	  }, void 0, _jsx('h2', {
 	    className: _main2.default.instructorName
-	  }, void 0, 'Create a Course'), _ref), _jsx('div', {
+	  }, void 0, 'Create a Course'), _jsx('h4', {
+	    className: _main2.default.logoutButton,
+	    onClick: logout
+	  }, void 0, 'Logout'), _jsx(_reactRouter.Link, {
+	    to: "/instructor_home"
+	  }, void 0, _jsx('h4', {
+	    className: _main2.default.homeButton
+	  }, void 0, 'Home'))), _jsx('div', {
 	    className: _main2.default.formContainer
-	  }, void 0, _ref2));
+	  }, void 0, _ref));
 	}
 	
 	function submit() {
@@ -2848,14 +2882,8 @@
 	  alert(courseName + " has been created successfully!");
 	  req.send(params);
 	}
-	// Actions required to provide data for this component to render in sever side.
-	//HomePage.need = [params => {
-	//return fetchPost(params.cuid);
-	//}];
 	
-	// Retrieve data from store as props
-	
-	var _ref2 = _jsx(_reactBootstrap.Form, {
+	var _ref = _jsx(_reactBootstrap.Form, {
 	  horizontal: true
 	}, void 0, _jsx(_reactBootstrap.FormGroup, {}, void 0, _jsx(_reactBootstrap.Col, {
 	  componentClass: _reactBootstrap.ControlLabel,
@@ -2905,6 +2933,27 @@
 	  onClick: submit
 	}, void 0, 'Create'))));
 	
+	function logout() {
+	  var req = new XMLHttpRequest();
+	
+	  req.open("GET", "api/logout");
+	  req.setRequestHeader("Content-type", "application/json");
+	  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+	  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+	
+	  req.onreadystatechange = function () {
+	    debugger;
+	    window.location.href = "/";
+	  };
+	
+	  req.send();
+	}
+	// Actions required to provide data for this component to render in sever side.
+	//HomePage.need = [params => {
+	//return fetchPost(params.cuid);
+	//}];
+	
+	// Retrieve data from store as props
 	function mapStateToProps(state, props) {
 	  return {
 	    //post: getPost(state, props.params.cuid),
@@ -2950,8 +2999,18 @@
 	
 	var _edit2 = _interopRequireDefault(_edit);
 	
+	var _books = '/' + "0f227a541c5775392a696d429791739b.png";
+	
+	var _books2 = _interopRequireDefault(_books);
+	
+	var _close = '/' + "55e2049defda9d64de9513650f2c31b5.png";
+	
+	var _close2 = _interopRequireDefault(_close);
+	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -2997,15 +3056,20 @@
 	
 	function CourseIcon(props) {
 	
+	  var backgroundStyle = {
+	    backgroundImage: "url(" + _books2.default + ")"
+	  };
+	
 	  return _jsx('div', {
-	    className: _main2.default.courseIcon
+	    className: _main2.default.courseIcon,
+	    style: backgroundStyle
 	  }, void 0, _jsx(_reactRouter.Link, {
 	    to: '/course_overview_inst/?name=' + props.name
 	  }, void 0, _jsx('label', {
 	    className: _main2.default.courseTitle
 	  }, void 0, ' ', props.name, ' ')), _jsx('button', {
 	    className: _main2.default.removeCourse
-	  }));
+	  }, void 0, '\u2716'));
 	}
 	
 	// Actions required to provide data for this component to render in sever side.
@@ -3074,6 +3138,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -3249,6 +3315,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -3292,11 +3360,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _ref = _jsx(_reactRouter.Link, {
-	  to: "/instructor_home"
-	}, void 0, _jsx('h4', {}, void 0, 'Home'));
-	
-	var _ref2 = _jsx('button', {}, void 0, ' TRACK ATTENDANCE ');
+	var _ref = _jsx('button', {}, void 0, ' TRACK ATTENDANCE ');
 	
 	function InstructorCourseOverview(props) {
 	  debugger;
@@ -3327,14 +3391,21 @@
 	    className: _main2.default.welcomeContainer
 	  }, void 0, _jsx('h2', {
 	    className: _main2.default.instructorName
-	  }, void 0, courseName, ' Course Grid'), _ref), _jsx('div', {
+	  }, void 0, courseName, ' Course Grid'), _jsx('h4', {
+	    className: _main2.default.logoutButton,
+	    onClick: logout
+	  }, void 0, 'Logout'), _jsx(_reactRouter.Link, {
+	    to: "/instructor_home"
+	  }, void 0, _jsx('h4', {
+	    className: _main2.default.homeButton
+	  }, void 0, 'Home'))), _jsx('div', {
 	    className: _main2.default.courseGrid
 	  }, void 0, _jsx(_CourseGrid2.default, {
 	    name: courseName,
 	    grid: props.grid
 	  }), _jsx('div', {
 	    className: _main2.default.trackAttendanceBtn
-	  }, void 0, _ref2), _jsx('div', {
+	  }, void 0, _ref), _jsx('div', {
 	    className: _main2.default.students
 	  }, void 0, _jsx('table', {}, void 0, _jsx('tbody', {}, void 0, rows)))));
 	}
@@ -3344,6 +3415,22 @@
 	  return {
 	    grid: [["", "Tony", "", "", "", "", "", "", "Shiv", ""], ["", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "Tristen", "", "", "", "", ""], ["", "Jean-Marc", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "Justin", ""], ["", "", "Jacob", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", "", "", ""]]
 	  };
+	}
+	
+	function logout() {
+	  var req = new XMLHttpRequest();
+	
+	  req.open("GET", "api/logout");
+	  req.setRequestHeader("Content-type", "application/json");
+	  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+	  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+	
+	  req.onreadystatechange = function () {
+	    debugger;
+	    window.location.href = "/";
+	  };
+	
+	  req.send();
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(InstructorCourseOverview);
@@ -3381,6 +3468,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -3541,6 +3630,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -3705,6 +3796,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -3748,22 +3841,18 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _ref = _jsx(_reactRouter.Link, {
-	  to: "/student_home"
-	}, void 0, _jsx('h4', {}, void 0, 'Home'));
-	
-	var _ref2 = _jsx('input', {
+	var _ref = _jsx('input', {
 	  type: 'text',
 	  id: 'searchInput',
 	  name: 'search',
-	  placeholder: 'Serach..'
+	  placeholder: 'Search..'
 	});
 	
-	var _ref4 = _jsx('p', {
+	var _ref3 = _jsx('p', {
 	  id: 'searchOutput'
 	});
 	
-	var _ref5 = _jsx('ul', {
+	var _ref4 = _jsx('ul', {
 	  id: 'myUL'
 	}, void 0);
 	
@@ -3772,9 +3861,16 @@
 	    className: _main2.default.welcomeContainer
 	  }, void 0, _jsx('h2', {
 	    className: _main2.default.instructorName
-	  }, void 0, 'Register For A Course'), _ref), _jsx('div', {
+	  }, void 0, 'Register For A Course'), _jsx('h4', {
+	    className: _main2.default.logoutButton,
+	    onClick: logout
+	  }, void 0, 'Logout'), _jsx(_reactRouter.Link, {
+	    to: "/student_home"
+	  }, void 0, _jsx('h4', {
+	    className: _main2.default.homeButton
+	  }, void 0, 'Home'))), _jsx('div', {
 	    className: _main2.default.optionsContainer
-	  }, void 0, _ref2, _ref3, _ref4, _ref5));
+	  }, void 0, _ref, _ref2, _ref3, _ref4));
 	}
 	
 	function myfunction() {
@@ -3811,7 +3907,7 @@
 	  text1.appendChild(text2);
 	}
 	
-	var _ref3 = _jsx('button', {
+	var _ref2 = _jsx('button', {
 	  onClick: myfunction
 	}, void 0, 'search!');
 	
@@ -3819,6 +3915,22 @@
 	  return {
 	    courseList: ["SWE4103", "CS1003", "CS1073", "CS1083", "CS2043", "CS2383", "CS3383", "CS3997", "CS1303", "SWE4203", "SWE4040", "SWE4403", "STAT2593", "ECE3221", "ECE2701", "ESCI1001"]
 	  };
+	}
+	
+	function logout() {
+	  var req = new XMLHttpRequest();
+	
+	  req.open("GET", "api/logout");
+	  req.setRequestHeader("Content-type", "application/json");
+	  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+	  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+	
+	  req.onreadystatechange = function () {
+	    debugger;
+	    window.location.href = "/";
+	  };
+	
+	  req.send();
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(RegisterCourse);
@@ -3860,8 +3972,14 @@
 	
 	var _edit2 = _interopRequireDefault(_edit);
 	
+	var _books = '/' + "0f227a541c5775392a696d429791739b.png";
+	
+	var _books2 = _interopRequireDefault(_books);
+	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -3907,8 +4025,13 @@
 	
 	function StudentCourseIcon(props) {
 	
+	  var backgroundStyle = {
+	    backgroundImage: "url(" + _books2.default + ")"
+	  };
+	
 	  return _jsx('div', {
-	    className: _main2.default.courseIcon
+	    className: _main2.default.courseIcon,
+	    style: backgroundStyle
 	  }, void 0, _jsx(_reactRouter.Link, {
 	    to: '/course_overview_stu/?name=' + props.name
 	  }, void 0, _jsx('label', {
@@ -3982,6 +4105,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -4025,11 +4150,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _ref = _jsx(_reactRouter.Link, {
-	  to: "/student_home"
-	}, void 0, _jsx('h4', {}, void 0, 'Home'));
-	
-	var _ref2 = _jsx('button', {}, void 0, ' RESERVE SEAT ');
+	var _ref = _jsx('button', {}, void 0, ' RESERVE SEAT ');
 	
 	function StudentCourseOverview(props) {
 	  debugger;
@@ -4043,14 +4164,37 @@
 	    className: _main2.default.welcomeContainer
 	  }, void 0, _jsx('h2', {
 	    className: _main2.default.instructorName
-	  }, void 0, courseName, ' Course Grid'), _ref), _jsx('div', {
+	  }, void 0, courseName, ' Course Grid'), _jsx('h4', {
+	    className: _main2.default.logoutButton,
+	    onClick: logout
+	  }, void 0, 'Logout'), _jsx(_reactRouter.Link, {
+	    to: "/student_home"
+	  }, void 0, _jsx('h4', {
+	    className: _main2.default.homeButton
+	  }, void 0, 'Home'))), _jsx('div', {
 	    className: _main2.default.courseGrid
 	  }, void 0, _jsx(_CourseGrid2.default, {
 	    name: courseName,
 	    grid: props.grid
 	  })), _jsx('div', {
 	    className: _main2.default.reserveSeatBtn
-	  }, void 0, _ref2));
+	  }, void 0, _ref));
+	}
+	
+	function logout() {
+	  var req = new XMLHttpRequest();
+	
+	  req.open("GET", "api/logout");
+	  req.setRequestHeader("Content-type", "application/json");
+	  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+	  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+	
+	  req.onreadystatechange = function () {
+	    debugger;
+	    window.location.href = "/";
+	  };
+	
+	  req.send();
 	}
 	
 	// Retrieve data from store as props
@@ -4101,6 +4245,8 @@
 	
 	var _main = {
 	  "navbar": "_2WVXw0v9fciz6QMs16OXQq",
+	  "homeButton": "MlR84UXTRH_0nGRomNYb8",
+	  "logoutButton": "_2E0whB4v60cgTop029LZvW",
 	  "sidenav": "_1nJ0JQiBI1zISuvcol3eMU",
 	  "page": "_2UbYb8a84j4Lao1llfzi0X",
 	  "Container": "_3MxuE7bxEkBo89hzDOp_gR",
@@ -4171,7 +4317,10 @@
 	    className: _main2.default.welcomeContainer
 	  }, void 0, _jsx('h2', {
 	    className: _main2.default.instructorName
-	  }, void 0, 'Welcome, ', username), _jsx(_reactBootstrap.Image, {
+	  }, void 0, 'Welcome, ', username), _jsx('h4', {
+	    className: _main2.default.logoutButton,
+	    onClick: logout
+	  }, void 0, 'Logout'), _jsx(_reactBootstrap.Image, {
 	    className: _main2.default.instructorPic,
 	    src: "data:image/png;base64,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",
 	    rounded: true
@@ -4200,6 +4349,22 @@
 	    }
 	  }
 	  return null;
+	}
+	
+	function logout() {
+	  var req = new XMLHttpRequest();
+	
+	  req.open("GET", "api/logout");
+	  req.setRequestHeader("Content-type", "application/json");
+	  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+	  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+	
+	  req.onreadystatechange = function () {
+	    debugger;
+	    window.location.href = "/";
+	  };
+	
+	  req.send();
 	}
 	
 	// Retrieve data from store as props
