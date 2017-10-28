@@ -205,41 +205,6 @@ export function courseList(req,res) {
   )
 }
 
-export function courseListByProfessor(req,res) {
-  var list = [];
-  var results;
-
-  Course.find(
-    {},
-    async_f(function (err, course) { // async
-
-      await_f( function(){ // await
-        if (err){
-          console.error(err);
-          res.status(400).end();
-
-        } else if (course) {
-          course.forEach( function(c){
-            if (c.professor){
-		if(c.professor == req.body.professor){
-              		list.push(c.title);
-		}
-            } else {
-              res.status(400).end();
-            }
-          })
-
-          res.status(200).send({
-            courseListByProfessor: list
-          })
-
-        } else {
-          res.status(400).end();
-        }
-      }) // end await
-    }) // end async
-  )
-}
 
 
 /**

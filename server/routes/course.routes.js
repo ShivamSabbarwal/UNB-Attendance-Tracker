@@ -10,6 +10,7 @@ router.route('/course/:courseTitle/students').delete(CourseController.dropStuden
 
 // Get list of courses
 router.route('/courseList').get(CourseController.courseList);
+router.route('/courseListByProfessor').post(CourseController.courseListByProfessor);
 
 // Add a new course
 router.route('/course').post(CourseController.createCourse);
