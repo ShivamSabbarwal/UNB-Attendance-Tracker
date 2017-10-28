@@ -205,6 +205,57 @@ export function courseList(req,res) {
   )
 }
 
+/**
+ * Returns an array containing the courses that a given student is enrolled in.
+ * @author Jacob Manuel
+ * @param {XMLHTTPRequest} req A request containing the username of a student.
+ * @param {XMLHTTPRequest} res Server reponse. If succesful, returns array of courses.
+ * @returns null 
+ */ 
+export function courseListByStudent(req, res) {
+
+  var list = []; 
+  var userFound = false;
+  var courseFound = false;  
+  
+  // Check if username points to a valid student. 
+  User
+    .find({username: req.body.username})
+    .cursor()
+    .on('data', function(user) { 
+    
+      userFound = true; 
+      
+      if (!user.isAdmin) {
+
+        // If student is valid, search for student's courses. 
+        Course
+          .find({usernames: req.body.username})
+          .cursor()
+          .on('data', function(course) { 
+            console.log(course.title); 
+            list.push(course.title); 
+            courseFound = true;  
+          })
+          .on('end', function () {
+            if (courseFound === true) {
+              console.log(list);
+              res.status(200).send({courseList: list});       
+            } else {
+              res.status(400).send({error: "Search Complete. No results found."}); 
+            }
+          }); 
+
+      } else {
+        res.status(400).send({error: "Error: User is not a student."}); 
+      }
+    })
+    .on('end', function() {
+      if (userFound === false) {
+        res.status(400).send({error: "User not found."}); 
+      }
+    })
+}
 
 /**
  *
