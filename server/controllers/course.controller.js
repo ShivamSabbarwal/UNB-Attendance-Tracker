@@ -303,36 +303,53 @@ export function courseListByProfessor(req,res) {
  * @returns void
  */
 export function createCourse(req, res) {
-  var re = new RegExp('[^A-Za-z0-9-_.]');
-  //regex pattern with match if the string contains characters other than ( A-Z, a-z, 0-9, -, _, .)
 
-  if (!req.body.title || !req.body.professor || !req.body.institution) {
-    //verify that title, professor, and institution were provided
-    res.status(403).send("Title, professor, and institution are required");
-
-  } else if (re.test(req.body.title)) {
-    res.status(403).send("Course title can only contain: letters, numbers, '-', '_', and '.'");
-
-  } else {
-    var course_data = {
-      'title': req.body.title,
-      'professor': req.body.professor,
-      'usernames': [], // make usernames array empty for now until users are added
-      'institution': req.body.institution,
-      'location': req.body.location
-    };
-    var course = new Course(course_data);
-    course.save(
-      function(err, data){
-        if (err){
-          console.error(err)
-          res.status(403).send("Title already belongs to an existing course")
+  // make sure that the session is valid
+  SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+    if (isValid !== true) {
+      res.status(401).end();
+    } else {
+      // make sure that this sessionID belongs to an Admin
+      SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
+        if (isAdmin !== true) {
+            res.status(401).send("This API endpoint requires Admin capability").end();
+            fulfill(false);
         } else {
-          res.status(200).end()
+
+          var re = new RegExp('[^A-Za-z0-9-_.]');
+          //regex pattern with match if the string contains characters other than ( A-Z, a-z, 0-9, -, _, .)
+
+          if (!req.body.title || !req.body.professor || !req.body.institution) {
+            //verify that title, professor, and institution were provided
+            res.status(403).send("Title, professor, and institution are required");
+
+          } else if (re.test(req.body.title)) {
+            res.status(403).send("Course title can only contain: letters, numbers, '-', '_', and '.'");
+
+          } else {
+            var course_data = {
+              'title': req.body.title,
+              'professor': req.body.professor,
+              'usernames': [], // make usernames array empty for now until users are added
+              'institution': req.body.institution,
+              'location': req.body.location
+            };
+            var course = new Course(course_data);
+            course.save(
+              function(err, data){
+                if (err){
+                  console.error(err)
+                  res.status(403).send("Title already belongs to an existing course")
+                } else {
+                  res.status(200).end()
+                }
+              }
+            )
+          }
         }
-      }
-    )
-  }
+      })
+    }
+  })
 }
 
 /**
@@ -342,26 +359,41 @@ export function createCourse(req, res) {
  * @returns void
  */
 export function removeCourse(req, res) {
+  // make sure that the session is valid
+  SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+    if (isValid !== true) {
+      res.status(401).end();
+    } else {
+      // make sure that this sessionID belongs to an Admin
+      SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
+        if (isAdmin !== true) {
+            res.status(401).send("This API endpoint requires Admin capability").end();
+            fulfill(false);
+        } else {
 
-  if (!req.body.title) {
-    //verify that title was provided
-    res.status(403).send("Title is required!");
+          if (!req.body.title) {
+            //verify that title was provided
+            res.status(403).send("Title is required!");
 
-  } else {
-    Course.findOneAndRemove(
-      { 'title': req.body.title },
-      function(err, course) {
-      if (err) {
-        console.error(err)
-        res.status(400).end();
+          } else {
+            Course.findOneAndRemove(
+              { 'title': req.body.title },
+              function(err, course) {
+              if (err) {
+                console.error(err)
+                res.status(400).end();
 
-      } else if (course) {
-        res.status(200).end()
+              } else if (course) {
+                res.status(200).end()
 
-      } else {
-        res.status(403).send("Course matching \"" + req.body.title + "\" not found.");
-        // unsuccessful removal
-      }
-    });
-  }
+              } else {
+                res.status(403).send("Course matching \"" + req.body.title + "\" not found.");
+                // unsuccessful removal
+              }
+            });
+          }
+        }
+      })
+    }
+  })
 }
