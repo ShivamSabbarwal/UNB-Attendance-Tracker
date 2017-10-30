@@ -9,60 +9,58 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, ControlLabel, F
 import SvgIcon from 'react-icons-kit';
 // Import Style
 import styles from '../../main.css';
+import Header from '../Components/Header';
 
 export function CreateCourse(props) {
   return (
     <div>
-
-      <div className={styles.welcomeContainer}>
-        <h2 className={styles.instructorName}>Create a Course</h2>
-        <h4 className={styles.logoutButton} onClick={logout}>Logout</h4>
-        <Link to={"/instructor_home"}><h4 className={styles.homeButton}>Home</h4></Link>
-      </div>
-
-      <div className={styles.formContainer}>
-        <Form horizontal>
-          <FormGroup>
-            <Col componentClass={ControlLabel} sm={2}>
-              Course Name
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Enter course name" id="title"/>
-            </Col>
-          </FormGroup>
-          <FormGroup>
-            <Col componentClass={ControlLabel} sm={2}>
-              Professor Name
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Enter course instructor name" id="professor"/>
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} sm={2}>
-              Institution
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Enter name of the institution" id="institution"/>
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} sm={2}>
-              Location
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Enter the room number where the lecture takes place in" id="location"/>
-            </Col>
-          </FormGroup>
-          <FormGroup>
-           <Col smOffset={2} sm={10}>
-             <Button type="submit" onClick={submit}>
-               Create
-             </Button>
-           </Col>
-         </FormGroup>
-        </Form>
-      </div>
+      <Header/>
+      <div className={styles.mainBody}>
+        <h1 className={styles.mainBodyTitle}>New Course Creation Form</h1>
+          <div className={styles.mainBodyWrapper}>
+            <div className={styles.formContainer}>
+              <Form horizontal>
+                <FormGroup>
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Course Name
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="text" placeholder="Enter course name" id="title"/>
+                  </Col>
+                </FormGroup>
+                <FormGroup>
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Professor Name
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="text" placeholder="Enter course instructor name" id="professor"/>
+                  </Col>
+                </FormGroup>
+                <FormGroup controlId="formHorizontalEmail">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Institution
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="text" placeholder="Enter name of the institution" id="institution"/>
+                  </Col>
+                </FormGroup>
+                <FormGroup controlId="formHorizontalEmail">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Location
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="text" placeholder="Enter the room number where the lecture takes place in" id="location"/>
+                  </Col>
+                </FormGroup>
+              </Form>
+            </div>
+          </div>
+        </div>
+        <div className={styles.footer}>
+            <div className={styles.buttonWrapper}>
+              <h3 className={styles.instructorButton} onClick={submit}>Create a Course</h3>
+            </div>
+        </div>
     </div>
   );
 }

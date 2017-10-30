@@ -7,7 +7,7 @@ import React, { PropTypes } from 'react';
  import CourseGrid from '../CourseOverview/CourseGrid';
  // Import Style
  import styles from '../../main.css';
-
+ import Header from '../Components/Header';
 
  export function InstructorCourseOverview(props) {
 debugger;
@@ -36,17 +36,9 @@ debugger;
 
    return (
      <div>
-
-         <div className={styles.welcomeContainer}>
-           <h2 className={styles.instructorName}>{courseName} Course Grid</h2>
-           <h4 className={styles.logoutButton} onClick={logout}>Logout</h4>
-          <Link to={"/instructor_home"}><h4 className={styles.homeButton}>Home</h4></Link>
-         </div>
-
+      <Header/>
          <div className={styles.courseGrid}>
-
            <CourseGrid name={courseName} grid={props.grid} />
-
            <div className={styles.trackAttendanceBtn}>
             <button> TRACK ATTENDANCE </button>
            </div>
