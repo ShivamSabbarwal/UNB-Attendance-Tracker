@@ -7,7 +7,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import CourseGrid from '../CourseOverview/CourseGrid';
 // Import Style
 import styles from '../../main.css';
-
+import Header from '../Components/Header';
 
 export function StudentCourseOverview(props) {
 debugger;
@@ -19,21 +19,20 @@ debugger;
 
   return (
 <div>
+    <Header/>
+    <div className={styles.mainBody}>
+      <h1 className={styles.mainBodyTitle}>{courseName}</h1>
+        <div className={styles.mainBodyWrapper}>
+          <div className={styles.courseGrid}>
+            <CourseGrid name={courseName} grid={props.grid}/>
+          </div>
+        </div>
+      </div>
 
-    <div className={styles.welcomeContainer}>
-      <h2 className={styles.instructorName}>{courseName} Course Grid</h2>
-      <h4 className={styles.logoutButton} onClick={logout}>Logout</h4>
-      <Link to={"/student_home"}><h4 className={styles.homeButton}>Home</h4></Link>
-    </div>
-
-    <div className={styles.courseGrid}>
-
-      <CourseGrid name={courseName} grid={props.grid}/>
-
-    </div>
-
-    <div className={styles.reserveSeatBtn}>
-     <button> RESERVE SEAT </button>
+    <div className={styles.footer} >
+        <div className={styles.buttonWrapper}>
+          <Link to="/create_course"><h3 className={styles.instructorButton}>Reserve Seat</h3></Link>
+        </div>
     </div>
   </div>
   );
@@ -67,6 +66,7 @@ function mapStateToProps(state, props) {
   ["", "", "", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", "", "Justin", ""],
   ["", "", "Jacob", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", "", "", ""]]
 };
 }

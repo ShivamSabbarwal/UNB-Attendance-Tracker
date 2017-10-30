@@ -4,41 +4,16 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import DataCell from './DataCell';
 
 // Import Style
 import styles from '../../main.css';
 
-export function CourseGrid(props) {
-
-  var height = props.grid.length;
-  var width = props.grid[0].length;
-
-  var rows = [];
-
-  for(var i = 0; i < height; i++){
-
-    var cell = [];
-
-    for(var idx = 0; idx < width; idx++){
-
-	var id = i*100 + idx;
-	cell.push(<DataCell name={props.grid[i][idx]} id={i*100 + idx} />);
-
-    }
-
-    rows.push(<tr>{cell}</tr>);
-
-  }
-
+export function NotAuthorized(props) {
   return (
     <div>
-        <div className={styles.courseGrid}>
-          <table className={styles.courseTable}>
-            <tbody>
-              {rows}
-            </tbody>
-          </table>
+        <div>
+          <h1> Not Authorized </h1>
+          <h3> You are not authorized to access this page</h3>
         </div>
     </div>
   );
@@ -51,7 +26,7 @@ function mapStateToProps(state, props) {
   };
 }
 
-CourseGrid.propTypes = {
+NotAuthorized.propTypes = {
 //  post: PropTypes.shape({
 //    name: PropTypes.string.isRequired,
 //    title: PropTypes.string.isRequired,
@@ -61,4 +36,4 @@ CourseGrid.propTypes = {
 //  }).isRequired,
 };
 
-export default connect(mapStateToProps)(CourseGrid);
+export default connect(mapStateToProps)(NotAuthorized);

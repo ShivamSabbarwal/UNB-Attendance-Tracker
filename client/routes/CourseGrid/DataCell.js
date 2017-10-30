@@ -19,7 +19,9 @@ export function DataCell(props) {
   }
 
   return (
+
 	<td className={styles.courseGridCell} id={props.id} onClick = {function(){clicked(props.id)}}> {props.name} </td>
+  
 	//<td className={styles.courseGridCell} id={props.id} onClick={() => alert(this.document.getElementById(props.id).className)}> {props.name} </td>
 	//<td className={styles.courseGridCell} id={props.id} onClick={() => if(this.document.getElementById(props.id).className.includes("courseGridCell"))}> {props.name} </td>
   );

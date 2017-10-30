@@ -26,7 +26,9 @@ export function InstructorHome(props) {
         <div className={styles.mainBody}>
           <h1 className={styles.mainBodyTitle}>Current Courses</h1>
             <div className={styles.mainBodyWrapper}>
-              {courseIcons}
+              
+                {courseIcons}
+
             </div>
         </div>
         <div className={styles.footer}>
