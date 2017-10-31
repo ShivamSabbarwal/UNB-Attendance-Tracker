@@ -12,6 +12,7 @@ import InstructorCourseList from './InstructorView/InstructorCourseList';
 import InstructorCourseOverview from './InstructorView/InstructorCourseOverview';
 import StudentCourseOverview from './StudentView/StudentCourseOverview';
 import RegisterCourse from './StudentView/RegisterCourse';
+import PageNotFound from './PageNotFound/PageNotFound'; 
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -45,5 +46,6 @@ export default (
     <Route path="/course_overview_inst" component={InstructorCourseOverview} />
     <Route path="/course_overview_stu" component={StudentCourseOverview} />
     <Route path="/register_course" component={RegisterCourse} />
+    <Route path="/not_found" component={PageNotFound} />
   </Route>
 );
