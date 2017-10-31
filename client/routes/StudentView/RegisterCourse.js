@@ -3,32 +3,84 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
-
+import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import FaBeer from 'react-icons/lib/fa/edit';
 // Import Style
 import styles from '../../main.css';
+import InstructorCourseIcon from '../InstructorView/InstructorCourseIcon';
+import Header from '../Components/Header';
+import RowEntry from "./RowEntry";
 
 export function RegisterCourse(props) {
   return (
 <div>
-    <div className={styles.welcomeContainer}>
-      <h2 className={styles.instructorName}>Register For A Course</h2>
-      <h4 className={styles.logoutButton} onClick={logout}>Logout</h4>
-      <Link to={"/student_home"}><h4 className={styles.homeButton}>Home</h4></Link>
-    </div>
+<Header/>
+    <div className={styles.mainBody}>
+    <h1 className={styles.mainBodyTitle}>Search Results</h1>
 
       <div className={styles.optionsContainer}>
-         <input type="text" id="searchInput" name="search" placeholder="Search.."/>
-         <button onClick={myfunction}>search!</button>
+         <input type="text" id="searchInput" name="search" placeholder="...Search Courses"/>
+         <button onClick={searchCourse}>search!</button>
+
+         <table id ="searchTable">
+         <tbody>
+          <tr>
+            <td>ID</td>
+            <td>NAME</td>
+            <td>Professor</td>
+            <td>Start/End Date </td>
+            <td></td>
+          </tr>
+        </tbody>
+         </table>
+
+
           <p id="searchOutput"></p>
             <ul id="myUL">
             </ul>
       </div>
-      </div>
+    </div>
+    </div>
   );
 }
 
+function searchCourse() {
 
-function myfunction() {
+  var input = document.getElementById("searchInput").value;
+  var upperCase = input.toUpperCase();
+
+  var req = new XMLHttpRequest();
+  var params = '{"search":"' + upperCase + '"}'
+
+  req.open("GET", "api/courseListSearch");
+  req.setRequestHeader("Content-type", "application/json");
+  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+  document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+
+  req.onreadystatechange = function() {
+    debugger;
+    if(req.readyState == 200) {
+      var courses =  JSON.parse(req.responseText);
+      alert(courses[1]);
+      var outcome = [];
+
+      /*for (int i = 0; i < courses.length; i++) {
+        var course = courses[i];
+        outcome.push(<RowEntry id={course.id} name={course.name} professorname={course.professorname} location={course.location} )
+      }*/
+      for (var i = 0; i < courses.length; i++) {
+        var course = courses[i];
+        outcome.push(<RowEntry id={course} name={"pending"} professorname={"pending"} location={"pending"} />);
+      }
+    }
+    else {
+      alert('Nope');
+    }
+
+  }
+}
+
+/*function myfunction() {
   debugger;
     document.getElementById("searchOutput").innerHTML = "";
     document.getElementById("myUL").innerHTML = "";
@@ -61,7 +113,7 @@ function myfunction() {
     var text2 = document.createTextNode("You have " + count + " matching courses!");
     text1.appendChild(text2);
 
-}
+}*/
 
 function mapStateToProps(state, props) {
   return {
