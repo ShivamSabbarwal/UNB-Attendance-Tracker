@@ -9,7 +9,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, ControlLabel, F
 import SvgIcon from 'react-icons-kit';
 // Import Style
 import styles from '../../main.css';
-import Header from '../Components/Header';
+import Header from '../Components/InstructorHeader';
 
 export function CreateCourse(props) {
   return (

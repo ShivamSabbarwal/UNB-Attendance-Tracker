@@ -16,9 +16,12 @@ export function StudentCourseIcon(props) {
   };
 
   return (
-    <div className={styles.courseIcon} style = {backgroundStyle}>
-        <Link to={'/course_overview_stu/?name=' + props.name}><label className={styles.courseTitle}> {props.name} </label></Link>
+    <div className={styles.courseIcon}>
+        <button className={styles.removeCourse}>&#10006;</button>
+        <div className={styles.courseIconBackground}></div>
+        <div className={styles.courseNameWrapper}><Link to={'/course_overview_stu/?name=' + props.name}><label className={styles.courseTitle}> {props.name} </label></Link></div>
     </div>
+
   );
 }
 

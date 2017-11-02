@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import styles from '../../main.css';
 
-export function Header(props) {
+export function InstructorHeader(props) {
   return (
     <div className={styles.header}>
       <div className={styles.headerNav}>
@@ -35,7 +35,7 @@ function mapStateToProps(state, props) {
     //post: getPost(state, props.params.cuid),
   };
 }
-Header.propTypes = {
+InstructorHeader.propTypes = {
 //  post: PropTypes.shape({
 //    name: PropTypes.string.isRequired,
 //    title: PropTypes.string.isRequired,
@@ -44,4 +44,4 @@ Header.propTypes = {
 //    cuid: PropTypes.string.isRequired,
 //  }).isRequired,
 };
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(InstructorHeader);
