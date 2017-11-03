@@ -4,9 +4,9 @@ import SessionUtils from '../util/sessionUtils';
 
 //This function should save the students to the database!!
 //We don't know how we would like to save them
-function saveStudents(submissionTime, req.body.absentstudents, callback) {
-  callback(false)
-}
+//function saveStudents(submissionTime, req.body.absentstudents, callback) {
+//  callback(false);
+//}
 
 /**
  * @param {XMLHTTPRequest} req A request containing the username of a student.
@@ -59,10 +59,43 @@ export function submitAttendance(req, res) {
  * @param {XMLHTTPRequest} res Server reponse. If succesful, returns array of courses.
  * @returns null
  */
-export function getAttendance(req, res) {
-
+export function getAttendance (req, res){
+    SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+        if (isValid !== true) {
+            res.status(401).end();
+           fulfill(false);
+        } else {
+        SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
+        if (isAdmin !== true) {
+            res.status(403).send("This API endpoint requires Admin capability").end();
+            fulfill(false);
+        } else {
+            Course.findOne({ 'title' : req.params.courseTitle }, 'usernames', function(err, course){ 
+                console.log('flag1');
+                if(err){
+                    console.log('flag2');
+                    console.error(err)
+                    res.status(400).end();
+                } else if (course) {
+                    var attendance = course.usernames
+                    for (var i = 0, len = course.usernames.length; i < len; i++){
+                        if(course.usernames[i].length = 2){
+                            course.usernames[i][1] = course.usernames[i][1].length
+                        }
+                    }
+                    
+                    res.status(200).send(
+                        getAttendance: attendance
+                    )
+                } else {
+                    res.status(400).send("Course matching \"" + req.params.courseTitle + "\" not found.");
+                }
+            });
+        }
+        });
+        }
+    });
 }
-
 /**
  * @param {XMLHTTPRequest} req A request containing the username of a student.
  * @param {XMLHTTPRequest} res Server reponse. If succesful, returns array of courses.
