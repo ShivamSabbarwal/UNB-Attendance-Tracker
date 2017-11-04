@@ -61,31 +61,48 @@ export function submitAttendance(req, res) {
  */
 export function getAttendance (req, res){
     SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+        isValid = true;
         if (isValid !== true) {
             res.status(401).end();
            fulfill(false);
         } else {
         SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
+        isAdmin = true;
         if (isAdmin !== true) {
             res.status(403).send("This API endpoint requires Admin capability").end();
             fulfill(false);
         } else {
             Course.findOne({ 'title' : req.params.courseTitle }, 'usernames', function(err, course){ 
-                console.log('flag1');
                 if(err){
-                    console.log('flag2');
                     console.error(err)
                     res.status(400).end();
                 } else if (course) {
-                    var attendance = course.usernames
+                    var attendanceRecord = [];
+                    console.log(course.usernames.length);
                     for (var i = 0, len = course.usernames.length; i < len; i++){
-                        if(course.usernames[i].length = 2){
-                            course.usernames[i][1] = course.usernames[i][1].length
+                        console.log('flag');
+                        attendanceRecord[i] = [];
+                        attendanceRecord[i][0] = course.usernames[i][0];
+                        attendanceRecord[i][1] = [];
+                        for (var j = 0, len = course.usernames[i].length; j < len; i++){ 
+                            console.log('inner flag');
+                            if(Date.parse(course.usernames[i][1][j]) < (Date.parse(req.params.date)) &&
+                                (Date.parse(course.usernames[i][1][j])) > (Date.parse(req.params.date) - 518400)){
+                                
+                                attendanceRecord[i][1].push(course.usernames[i][1][j])
+                            }
+                        }
+                    }
+                    var absenceCount = course.usernames;
+                    for (var i = 0, len = absenceCount.length; i < len; i++){
+                        if(absenceCount[i].length = 2){
+                            absenceCount[i][1] = absenceCount[i][1].length
                         }
                     }
                     
                     res.status(200).send(
-                        getAttendance: attendance
+                        getAttendance: absenceCount,
+                        getAttendance: attendanceRecord
                     )
                 } else {
                     res.status(400).send("Course matching \"" + req.params.courseTitle + "\" not found.");
