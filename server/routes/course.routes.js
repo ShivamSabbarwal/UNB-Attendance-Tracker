@@ -14,6 +14,9 @@ router.route('/courseList').get(CourseController.courseList);
 router.route('/courseListByStudent').post(CourseController.courseListByStudent);
 router.route('/courseListByProfessor').post(CourseController.courseListByProfessor);
 
+// Search course by title
+router.route('/courseListSearch').post(CourseController.courseListSearch);
+
 // Add a new course
 router.route('/course').post(CourseController.createCourse);
 

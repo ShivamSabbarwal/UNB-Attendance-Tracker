@@ -345,7 +345,49 @@ export function courseListByProfessor(req, res) {
         })
       }
 
+/**
+ * Returns an array containing the courses that a given student is enrolled in.
+ * @author Tyler Sargent
+ * @param HTTP req
+ * @param HTTP res
+ * @returns course
+ */
 
+ export function courseListSearch(req, res) {
+  SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+     if (isValid === true) {
+       var list = [];
+       var courseFound = false;
+
+       // Check if course name points to a course.
+       Course
+         .find({
+           title: {$regex: req.body.search, $options: '-i' }
+         })
+         .cursor()
+         .on('data', function(course) {
+
+           console.log([course.title, course.professor, course.institution, course.location]);
+           list.push([course.title, course.professor, course.institution, course.location]);
+           courseFound = true;
+         })
+        .on('end', function() {
+           if (courseFound === true) {
+             console.log(list);
+             res.status(200).send({
+               courseList: list
+             });
+           } else {
+             res.status(400).send({
+               error: "Search Complete. No results found."
+             });
+           }
+        })
+     } else {
+       res.status(401).end();
+     }
+   })
+ }
 
       /**
        *
