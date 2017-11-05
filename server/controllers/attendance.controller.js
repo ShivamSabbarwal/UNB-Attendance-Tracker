@@ -3,24 +3,41 @@ import courseGrid from '../models/coursegrid';
 import User from '../models/user';
 import SessionUtils from '../util/sessionUtils';
 
-//This function should save the students to the database!!
-//We don't know how we would like to save them
 function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
   let submissionDate = Date.parse(submissionTime)
-  console.log(courseTitle)
-  console.log(submissionDate)
-  console.log(absentstudents)
   if (!submissionDate) {
-    callback(true)
+    callback(true, "Can't parse the submissionTime (Please use a string representing RFC2822)")
   }
-  Course.findOne({ 'title' : courseTitle }, 'usernames', function(err, course){
+  let studentsNotRegistered = []
+  Course.findOne({ 'title' : courseTitle }, 'title, usernames', function(err, course){
       if(err){
-        callback(err)
+        callback(true, err)
       } else if (course) {
-        course.attendanceList[]
-        callback(false)
+        //THIS IS WRONG!!! I HATE TO WRITE IT THIS WAY!
+        absentstudents.forEach(absentStudent => {
+          let matched = false
+          course.usernames.forEach(attendanceItem => {
+            if (attendanceItem.username === absentStudent) {
+              attendanceItem.absence.push(submissionTime)
+              matched = true
+            }
+          })
+          if (matched === false) {
+            studentsNotRegistered.push(absentStudent)
+          }
+        })
+        course.save(function (err, data) {
+          if(err) {
+            callback(true, err)
+          } else {
+            console.log()
+            callback(false, {
+              notRegisteredStudents: studentsNotRegistered
+            })
+          }
+        });
       } else {
-        callback(true)
+        callback(true, "Couldn't find the course in the database")
       }
   })
 }
@@ -53,11 +70,11 @@ export function submitAttendance(req, res) {
               } else {
                 //ACTUAL CODE EXISTS HERE
                 let absentstudents = req.body.absentstudents
-                saveStudents(req.params.courseTitle, req.body.submissionTime, absentstudents, (err)=>{
+                saveStudents(req.params.courseTitle, req.body.submissionTime, absentstudents, (err, errorMessage)=>{
                   if (err) {
-                    res.status(500).end();
+                    res.status(500).send(errorMessage).end();
                   } else {
-                    res.status(200).end();
+                    res.status(200).send(errorMessage).end();
                   }
                 })
               }
@@ -84,7 +101,7 @@ export function getAttendance (req, res){
         isAdmin = true;
         if (isAdmin !== true) {
             res.status(403).send("This API endpoint requires Admin capability").end();
-            
+
         } else {
             Course.findOne({ 'title' : req.params.courseTitle }, 'usernames', function(err, course){
                 if(err){
@@ -98,7 +115,7 @@ export function getAttendance (req, res){
                         attendanceRecord[i] = [];
                         attendanceRecord[i][0] = course.usernames[i][0];
                         attendanceRecord[i][1] = [];
-                        for (var j = 0, lenj = course.usernames[i].length; j < lenj; j++){ 
+                        for (var j = 0, lenj = course.usernames[i].length; j < lenj; j++){
                             console.log('inner flag');
                             if(Date.parse(course.usernames[i][1][j]) < (Date.parse(req.params.date)) &&
                                 (Date.parse(course.usernames[i][1][j])) > (Date.parse(req.params.date) - 518400)){
@@ -139,14 +156,14 @@ SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
             res.status(401).end();
            fulfill(false);
         } else {
-            courseGrid.findOne({ 'title' : req.params.courseTitle }, 'class', function(err, course){ 
+            courseGrid.findOne({ 'title' : req.params.courseTitle }, 'class', function(err, course){
                 if(err){
                     console.error(err)
                     res.status(400).end();
                 } else if (course) {
                     if (courseGrid.class[req.body.seat[0]][req.body.seat[1]] == -1){
                         res.status(418);
-                    } else { 
+                    } else {
                         console.log('flag');
                         courseGrid.class[req.body.seat[0]][req.body.seat[1]] = req.body.Username;
                         for (var i = 0, len = courseGrid.class.length; i < len; i++){
@@ -158,7 +175,7 @@ SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
                         }
                     }
                 }
-                
+
                 courseGrid.update(
                       function(err, data){
                         if (err){
@@ -166,7 +183,7 @@ SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
                           res.status(403).end()
                         } else if (data){
                           res.status(200).end()
-                         
+
                         } else {
                           res.status(400).end()
                         }
