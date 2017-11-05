@@ -37,19 +37,61 @@ debugger;
    return (
      <div>
       <Header/>
+      <div className={styles.mainBody}>
+        <h1 className={styles.mainBodyTitle}>{courseName}</h1>
+          <div className={styles.mainBodyWrapper}>
          <div className={styles.courseGrid}>
            <CourseGrid name={courseName} grid={props.grid} />
-           <div className={styles.trackAttendanceBtn}>
+          </div>
+
+
+
+          <div className={styles.statsTitle}> Attendance Statistics </div>
+          <div className={styles.dateSelector}> Date Selector </div>
+          <div className={styles.attendanceStatsTable}>
+            <table className={styles.attendanceStatsTable}>
+               <tbody>
+                <tr>
+                  <td>Stu Name</td>
+                  <td>Monday</td>
+                  <td>Tuesday</td>
+                  <td>Wednesday</td>
+                  <td>Thursday</td>
+                  <td>Friday</td>
+                  <td>Total</td>
+                </tr>
+                <tr>
+                  <td>Shivam</td>
+                  <td>Present</td>
+                  <td></td>
+                  <td>Present</td>
+                  <td></td>
+                  <td>Absent</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>Tris10</td>
+                  <td>Absent</td>
+                  <td></td>
+                  <td>Absent</td>
+                  <td></td>
+                  <td>Absent</td>
+                  <td>3</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          </div>
+
+
+           <div className={styles.footer}>
+           <div className={styles.buttonWrapper}>
             <button> TRACK ATTENDANCE </button>
+            </div>
            </div>
 
-           <div className={styles.students}>
-             <table>
-                <tbody>
-                  {rows}
-               </tbody>
-             </table>
-           </div>
          </div>
       </div>
    );
