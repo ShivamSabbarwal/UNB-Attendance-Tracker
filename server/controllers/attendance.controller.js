@@ -1,4 +1,5 @@
 import Course from '../models/course';
+import courseGrid from '../models/coursegrid';
 import User from '../models/user';
 import SessionUtils from '../util/sessionUtils';
 
@@ -78,13 +79,12 @@ export function getAttendance (req, res){
         isValid = true;
         if (isValid !== true) {
             res.status(401).end();
-           fulfill(false);
         } else {
         SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
         isAdmin = true;
         if (isAdmin !== true) {
             res.status(403).send("This API endpoint requires Admin capability").end();
-            fulfill(false);
+            
         } else {
             Course.findOne({ 'title' : req.params.courseTitle }, 'usernames', function(err, course){
                 if(err){
@@ -98,7 +98,7 @@ export function getAttendance (req, res){
                         attendanceRecord[i] = [];
                         attendanceRecord[i][0] = course.usernames[i][0];
                         attendanceRecord[i][1] = [];
-                        for (var j = 0, len = course.usernames[i].length; j < len; i++){
+                        for (var j = 0, lenj = course.usernames[i].length; j < lenj; j++){ 
                             console.log('inner flag');
                             if(Date.parse(course.usernames[i][1][j]) < (Date.parse(req.params.date)) &&
                                 (Date.parse(course.usernames[i][1][j])) > (Date.parse(req.params.date) - 518400)){
@@ -133,5 +133,46 @@ export function getAttendance (req, res){
  * @returns null
  */
 export function reserveSeat(req, res) {
-
+SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+        isValid = true;
+        if (isValid !== true) {
+            res.status(401).end();
+           fulfill(false);
+        } else {
+            courseGrid.findOne({ 'title' : req.params.courseTitle }, 'class', function(err, course){ 
+                if(err){
+                    console.error(err)
+                    res.status(400).end();
+                } else if (course) {
+                    if (courseGrid.class[req.body.seat[0]][req.body.seat[1]] == -1){
+                        res.status(418);
+                    } else { 
+                        console.log('flag');
+                        courseGrid.class[req.body.seat[0]][req.body.seat[1]] = req.body.Username;
+                        for (var i = 0, len = courseGrid.class.length; i < len; i++){
+                            for (var j = 0, lenj = course.usernames.length; j < lenj; j++){
+                                if(courseGrid.class[i][j] === req.body.Username){
+                                    courseGrid.class[i][j] = -1;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                courseGrid.update(
+                      function(err, data){
+                        if (err){
+                          console.error(err)
+                          res.status(403).end()
+                        } else if (data){
+                          res.status(200).end()
+                         
+                        } else {
+                          res.status(400).end()
+                        }
+                      }
+                 );
+            });
+		}
+		});
 }
