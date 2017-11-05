@@ -7,7 +7,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import CourseGrid from '../CourseOverview/CourseGrid';
 // Import Style
 import styles from '../../main.css';
-import Header from '../Components/Header';
+import Header from '../Components/StudentHeader';
 
 export function StudentCourseOverview(props) {
 debugger;
@@ -19,7 +19,7 @@ debugger;
 
   return (
 <div>
-    <Header/>
+  <Header/>
     <div className={styles.mainBody}>
       <h1 className={styles.mainBodyTitle}>{courseName}</h1>
         <div className={styles.mainBodyWrapper}>
@@ -31,7 +31,7 @@ debugger;
 
     <div className={styles.footer} >
         <div className={styles.buttonWrapper}>
-          <Link to="/create_course"><h3 className={styles.instructorButton}>Reserve Seat</h3></Link>
+          <Link to="/student_home"><h3 className={styles.instructorButton}>Reserve Seat</h3></Link>
         </div>
     </div>
   </div>

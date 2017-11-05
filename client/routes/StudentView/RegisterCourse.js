@@ -8,13 +8,13 @@ import FaBeer from 'react-icons/lib/fa/edit';
 // Import Style
 import styles from '../../main.css';
 import InstructorCourseIcon from '../InstructorView/InstructorCourseIcon';
-import Header from '../Components/Header';
 import RowEntry from "./RowEntry";
+import Header from "../Components/StudentHeader";
 
 export function RegisterCourse(props) {
   return (
 <div>
-<Header/>
+  <Header/>
     <div className={styles.mainBody}>
     <h1 className={styles.mainBodyTitle}>Search Results</h1>
 

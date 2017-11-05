@@ -8,38 +8,38 @@ import FaBeer from 'react-icons/lib/fa/edit';
 // Import Style
 import styles from '../../main.css';
 import StudentCourseIcon from "./StudentCourseIcon";
+import Header from '../Components/StudentHeader';
 
 export function StudentHome(props) {
 
   var courseIcons = [];
 
   for(var i = 0; i < props.courses.length; i++){
-
     var courseInfo = JSON.parse(props.courses[i]);
-
     courseIcons.push(<StudentCourseIcon name={courseInfo.name} />);
-
   }
-
   var username = readCookie("username");
 
   return (
     <div>
-
-      <div className={styles.welcomeContainer}>
-        <h2 className={styles.instructorName}>Welcome, {username}</h2>
-        <h4 className={styles.logoutButton} onClick={logout}>Logout</h4>
-        <Image className={styles.instructorPic} src={require('../../images/png/profile-pictures.png')} rounded />
-      </div>
-
-      <div className = {styles.courses}>
-        {courseIcons}
-      </div>
-
-      <div className={styles.addCourseBtn}>
-        <Link to="/register_course"><button>REGISTER FOR A COURSE</button></Link>
+      <Header/>
+        <div className={styles.mainBody}>
+          <h1 className={styles.mainBodyTitle}>Current Courses</h1>
+            <div className={styles.mainBodyWrapper}>
+              {courseIcons}
+            </div>
+          </div>
+        <div className={styles.footer}>
+      <div className={styles.buttonWrapper}>
+        <Link to="/register_course"><h3 className={styles.instructorButton}>Register For A Course</h3></Link>
       </div>
     </div>
+    </div>
+
+
+
+
+
   );
 }
 

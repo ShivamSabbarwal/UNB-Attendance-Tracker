@@ -7,7 +7,7 @@ import React, { PropTypes } from 'react';
  import CourseGrid from '../CourseOverview/CourseGrid';
  // Import Style
  import styles from '../../main.css';
- import Header from '../Components/Header';
+ import Header from '../Components/InstructorHeader';
 
  export function InstructorCourseOverview(props) {
 debugger;

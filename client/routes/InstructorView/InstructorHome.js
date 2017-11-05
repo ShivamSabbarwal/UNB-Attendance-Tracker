@@ -8,7 +8,7 @@ import FaBeer from 'react-icons/lib/fa/edit';
 // Import Style
 import styles from '../../main.css';
 import InstructorCourseIcon from './InstructorCourseIcon';
-import Header from '../Components/Header';
+import Header from '../Components/InstructorHeader';
 
 export function InstructorHome(props) {
 
@@ -26,7 +26,7 @@ export function InstructorHome(props) {
         <div className={styles.mainBody}>
           <h1 className={styles.mainBodyTitle}>Current Courses</h1>
             <div className={styles.mainBodyWrapper}>
-              
+
                 {courseIcons}
 
             </div>
