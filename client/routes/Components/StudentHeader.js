@@ -10,7 +10,6 @@ export function StudentHeader(props) {
   return (
     <div className={styles.header}>
       <div className={styles.headerNav}>
-        <Image className={styles.logo} src={require('../../images/shiv.jpg')}/>
         <h4 className={styles.logout} onClick={logout}>Logout</h4>
         <Link to={"/student_home"}><h4 className={styles.home}>Home</h4></Link>
       </div>

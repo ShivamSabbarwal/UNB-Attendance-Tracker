@@ -21,34 +21,58 @@ export function CreateCourse(props) {
             <div className={styles.formContainer}>
               <Form horizontal>
                 <FormGroup>
-                  <Col componentClass={ControlLabel} sm={2}>
-                    Course Name
+                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                    Rows:
                   </Col>
-                  <Col sm={10}>
+                  <Col sm={9}>
+                    <FormControl type="text" placeholder="Enter the number of rows" id="gridRows"/>
+                  </Col>
+                </FormGroup>
+                <FormGroup>
+                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                    Columns:
+                  </Col>
+                  <Col sm={9}>
+                    <FormControl type="text" placeholder="Enter the number of columns" id="gridCols"/>
+                  </Col>
+                </FormGroup>
+                <h3 className={styles.createGridButton} onClick={createGrid}>Show Grid</h3>
+                <h4 className={styles.legendLabel}>Legend:
+                            <label className={styles.legendLabel}><label className={styles.openSeatsIcon}>open</label>Open Seats</label>
+                            <label className={styles.legendLabel}><label className={styles.closedSeatsIcon}>closed</label>Closed Seats</label>
+                            <label className={styles.legendLabel}><label className={styles.auditableSeatsIcon}>auditable</label>Auditable Seats</label>
+                </h4>
+                <div id="gridWrapper"></div>
+                <p></p>
+                <FormGroup>
+                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                    Course Name:
+                  </Col>
+                  <Col sm={9}>
                     <FormControl type="text" placeholder="Enter course name" id="title"/>
                   </Col>
                 </FormGroup>
                 <FormGroup>
-                  <Col componentClass={ControlLabel} sm={2}>
-                    Professor Name
+                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                    Professor Name:
                   </Col>
-                  <Col sm={10}>
+                  <Col sm={9}>
                     <FormControl type="text" placeholder="Enter course instructor name" id="professor"/>
                   </Col>
                 </FormGroup>
                 <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={2}>
-                    Institution
+                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                    Institution:
                   </Col>
-                  <Col sm={10}>
+                  <Col sm={9}>
                     <FormControl type="text" placeholder="Enter name of the institution" id="institution"/>
                   </Col>
                 </FormGroup>
                 <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={2}>
-                    Location
+                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                    Location:
                   </Col>
-                  <Col sm={10}>
+                  <Col sm={9}>
                     <FormControl type="text" placeholder="Enter the room number where the lecture takes place in" id="location"/>
                   </Col>
                 </FormGroup>
@@ -65,6 +89,23 @@ export function CreateCourse(props) {
   );
 }
 
+function createGrid(){
+  var rows = document.getElementById('gridRows').value;
+  var cols = document.getElementById('gridCols').value;
+  var theader = '<table style="margin: 0 auto";>\n';
+  var tbody = '';
+  for (var i = 0; i < rows; i++){
+    tbody += '<tr>';
+    for (var j = 0; j < cols; j++){
+      tbody += '<td style="background-color: white; width: 140px; height: 60px; border-width: 10px; border-color: #d9d9d9;">';
+      tbody += '';//content;
+      tbody += '</td>'
+    }
+    tbody += '</tr>\n';
+  }
+  var tfooter = '</table>';
+  document.getElementById('gridWrapper').innerHTML = theader + tbody + tfooter;
+}
 function submit(){
   //creates variable to be passed in
   var courseName = document.getElementById("title").value;
