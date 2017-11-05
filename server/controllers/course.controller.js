@@ -1,5 +1,6 @@
 import Course from '../models/course';
 import User from '../models/user';
+
 import SessionUtils from '../util/sessionUtils';
 
 var async_f = require('asyncawait/async');
@@ -96,7 +97,10 @@ export function addStudents(req, res) {
                   _id: course._id
                 }, {
                   $push: {
-                    usernames: student_email
+                    usernames: {
+                      username: student_email,
+                      absence: []
+                    }
                   }
                 },
                 (err, raw) => {
