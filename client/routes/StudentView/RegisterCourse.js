@@ -45,39 +45,37 @@ export function RegisterCourse(props) {
 }
 
 function searchCourse() {
-
+  document.getElementById('searchOutput').innerHTML = "";
   var input = document.getElementById("searchInput").value;
   var upperCase = input.toUpperCase();
-
+  var match = [];
   var req = new XMLHttpRequest();
-  var params = '{"search":"' + upperCase + '"}'
-
-  req.open("GET", "api/courseListSearch");
-  req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
+  var params = '{"search":"' + upperCase + '"}';
   req.onreadystatechange = function() {
-    debugger;
-    if(req.readyState == 200) {
-      var courses =  JSON.parse(req.responseText);
-      alert(courses[1]);
-      var outcome = [];
-
-      /*for (int i = 0; i < courses.length; i++) {
-        var course = courses[i];
-        outcome.push(<RowEntry id={course.id} name={course.name} professorname={course.professorname} location={course.location} )
-      }*/
-      for (var i = 0; i < courses.length; i++) {
-        var course = courses[i];
-        outcome.push(<RowEntry id={course} name={"pending"} professorname={"pending"} location={"pending"} />);
+    if (req.readyState == 4 && req.status == 200) {
+      var courses = JSON.parse(req.responseText);
+      //alert(courses.courseList.length);
+      var courseAmount = courses.courseList.length;
+      alert(courseAmount);
+      for (var i = 0; i < courseAmount; i++){
+        //alert(courses.courseList[i].toUpperCase());
+        /*if(courses.courseList[i].toUpperCase().indexOf(upperCase) > -1){
+          match.push(courses.courseList[i]);
+        }
+        else{
+          courses.courseList.length = courses.courseList.length - 1;
+        }
+        alert(match[i]);*/
+        document.getElementById('searchOutput').innerHTML += courses.courseList[i] + "<br>";
       }
     }
-    else {
-      alert('Nope');
-    }
+  };
 
-  }
+  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
+  req.open("GET", "api/courseList");
+  req.setRequestHeader("Content-type", "application/json");
+  document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+  req.send();
 }
 
 /*function myfunction() {
