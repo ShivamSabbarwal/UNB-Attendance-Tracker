@@ -60,3 +60,22 @@ exports.isAdmin = function(session_id){
     ).sort({'timestamp': -1}); // I think this will make it return the most recent match if there is more than 1, but this needs to be verified
   })
 };
+
+// takes session and returns username
+// returns false if username could not be returned
+exports.getUsername = function(session_id){
+  return new Promise(function (fulfill, reject){
+    Session.findOne(
+      { 'sessionId': session_id },  // sessionId should match arguments
+      'username',    // should return username
+      function (err, session) {
+        if (err) {
+          console.error(err);
+          reject(false);
+        } else {
+          fulfill(session.username)
+        }
+      }
+    ).sort({'timestamp': -1});
+  })
+};
