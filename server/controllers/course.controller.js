@@ -1,6 +1,8 @@
 import Course from '../models/course';
 import User from '../models/user';
+
 import SessionUtils from '../util/sessionUtils';
+import courseGrid from '../models/course';
 
 var async_f = require('asyncawait/async');
 var await_f = require('asyncawait/await');
@@ -96,7 +98,10 @@ export function addStudents(req, res) {
                   _id: course._id
                 }, {
                   $push: {
-                    usernames: student_email
+                    usernames: {
+                      username: student_email,
+                      absence: []
+                    }
                   }
                 },
                 (err, raw) => {
@@ -420,6 +425,14 @@ export function courseListByProfessor(req, res) {
                   res.status(403).send("Course title can only contain: letters, numbers, '-', '_', and '.'");
 
                 } else {
+                  var coursegrid = []
+                  coursegrid[0] = []
+                  coursegrid.length = req.body.gridsize[0];
+                  coursegrid[0].length = req.body.gridsize[1];
+                  var coursegrid_data = {
+                    'courseName': req.body.title,
+                    'class' : coursegrid
+                  };
                   var course_data = {
                     'title': req.body.title,
                     'professor': req.body.professor,
@@ -433,6 +446,16 @@ export function courseListByProfessor(req, res) {
                       if (err) {
                         console.error(err)
                         res.status(403).send("Title already belongs to an existing course")
+                      } else {
+                        res.status(200).end()
+                      }
+                    }
+                  )
+                  courseGrid.save(
+                    function(err, data) {
+                      if (err) {
+                        console.error(err)
+                        res.status(403).end()
                       } else {
                         res.status(200).end()
                       }
