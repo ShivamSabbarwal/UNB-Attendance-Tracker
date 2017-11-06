@@ -60,10 +60,19 @@ test.after.always(t => {
   dropDB(t);
 });
 
+test.serial('get course list (No Session)', async t => {
+  t.plan(1);
+  const res = await request(app)
+    .get('/api/courseList')
+    .set('Accept', 'application/json');
+    t.is(res.status, 401)
+});
+
 test.serial('get course list', async t => {
   t.plan(1);
   const res = await request(app)
     .get('/api/courseList')
+    .set('Cookie', 'sessionID=9abc2e1e1eaf65d72324e024dead0f1e;')
     .set('Accept', 'application/json');
     t.is(res.status, 200)
 });
@@ -133,9 +142,25 @@ test.serial('Check create course with wrong course name', async t => {
       'institution': 'UNBF',
       'location': 'Fredericton'
     })
+    .set('Cookie', 'sessionID=9abc2e1e1eaf65d72324e024dead0f1e;')
     .set('Accept', 'application/json');
 
   t.is(res.status, 403);
+});
+
+test.serial('Check create course (Unverified)', async t => {
+  t.plan(1);
+
+  const res = await request(app)
+    .post('/api/course')
+    .send({
+      'title': 'course1',
+      'professor': 'admin',
+      'institution': 'UNBF',
+      'location': 'Fredericton'
+    })
+    .set('Accept', 'application/json')
+  t.is(res.status, 401);
 });
 
 test.serial('Check create course', async t => {
@@ -149,6 +174,7 @@ test.serial('Check create course', async t => {
       'institution': 'UNBF',
       'location': 'Fredericton'
     })
+    .set('Cookie', 'sessionID=9abc2e1e1eaf65d72324e024dead0f1e;')
     .set('Accept', 'application/json')
   t.is(res.status, 200);
 });
@@ -187,6 +213,18 @@ test.serial('Check drop student from course', async t => {
   t.is(res.status, 200)
 });
 
+test.serial('Check delete course (Unauthorized)', async t => {
+  t.plan(1);
+
+  const res = await request(app)
+    .delete('/api/course')
+    .send({
+      title: 'courseTitle'
+    })
+    .set('Accept', 'application/json');
+  t.is(res.status, 401);
+});
+
 test.serial('Check delete course', async t => {
   t.plan(1);
 
@@ -195,6 +233,7 @@ test.serial('Check delete course', async t => {
     .send({
       title: 'courseTitle'
     })
+    .set('Cookie', 'sessionID=9abc2e1e1eaf65d72324e024dead0f1e;')
     .set('Accept', 'application/json');
   t.is(res.status, 200);
 });
