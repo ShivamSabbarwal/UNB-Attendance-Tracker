@@ -130,7 +130,7 @@ export function getAttendance(req, res) {
                         return false
                       }
                       // 518400000 ms is 6 days
-                      return (recordDate =< requestDate && recordDate > requestDate - 518400000)
+                      return (recordDate <= requestDate && recordDate > requestDate - 518400000)
                     }).length
                   }
                 })
