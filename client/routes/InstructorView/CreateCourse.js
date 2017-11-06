@@ -12,6 +12,19 @@ import styles from '../../main.css';
 import Header from '../Components/InstructorHeader';
 
 export function CreateCourse(props) {
+  var username = readCookie("username");
+  var sessionID = readCookie("sessionID");
+  var isAdmin = readCookie("isAdmin");
+  alert(isAdmin + " " + " "+ sessionID + " " +username);
+  //Justin - this is tedious. but it works
+  /*if (isAdmin == false){
+    return (
+      <div>
+        <p>page not found</p>
+      </div>
+    );
+  }*/
+
   return (
     <div>
       <Header/>
@@ -124,6 +137,19 @@ function submit(){
   //above comments need to be implemented
   alert(courseName + " has been created successfully!");
   req.send(params);
+}
+function readCookie(name) {
+    var nameEQ = name + "=";
+    if(typeof window !== 'undefined') {
+      var ca = document.cookie.split(';');
+
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+  }
+    return null;
 }
 
 function logout(){

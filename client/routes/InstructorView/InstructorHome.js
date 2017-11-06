@@ -19,7 +19,18 @@ export function InstructorHome(props) {
     courseIcons.push(<InstructorCourseIcon name={courseInfo.name} />);
   }
   var username = readCookie("username");
-
+  var sessionID = readCookie("sessionID");
+  var isAdmin = readCookie("isAdmin");
+  alert(isAdmin + " " + " "+ sessionID + " " +username);
+  //Justin - this is tedious. but it works
+  /*if (isAdmin == false){
+    return (
+      <div>
+        <p>page not found</p>
+      </div>
+    );
+  }*/
+  //when a person is logged in, sessionID would exist
   return (
     <div>
       <Header/>
@@ -51,22 +62,6 @@ function mapStateToProps(state, props) {
     courses: [['{"name":"SWE4103"}'],
             ['{"name":"CS1073"}']]
   };
-}
-
-function logout(){
-  var req = new XMLHttpRequest();
-
-  req.open("GET", "api/logout");
-  req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
-  req.onreadystatechange = function(){
-    debugger;
-    window.location.href="/";
-  }
-
-  req.send();
 }
 
 function readCookie(name) {

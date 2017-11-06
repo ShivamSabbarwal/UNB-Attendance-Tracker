@@ -58,7 +58,7 @@ function searchCourse() {
   //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
   req.open("GET", "api/courseList");
   req.setRequestHeader("Content-type", "application/json");
-  document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+  //document.cookie = "sessionID=84ac1438bb9def2ff804a2eb4341d791";
   req.send();
 }
 

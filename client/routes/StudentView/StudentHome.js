@@ -19,7 +19,16 @@ export function StudentHome(props) {
     courseIcons.push(<StudentCourseIcon name={courseInfo.name} />);
   }
   var username = readCookie("username");
-
+  var sessionID = readCookie("sessionID");
+  var isAdmin = readCookie("isAdmin");
+  alert(isAdmin + " " + " "+ sessionID + " " +username);
+  /*if (isAdmin == true){
+    return (
+      <div>
+        <p>page not found</p>
+      </div>
+    );
+  }*/
   return (
     <div>
       <Header/>
@@ -35,11 +44,6 @@ export function StudentHome(props) {
       </div>
     </div>
     </div>
-
-
-
-
-
   );
 }
 
