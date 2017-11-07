@@ -6,7 +6,9 @@ import {Link} from 'react-router';
 // Import Style
 import styles from '../../main.css';
 
+
 export function Login(props) {
+
   return (
     <div className={styles.page}>
       <div className={styles.Container}>
@@ -39,9 +41,6 @@ function submit(){
 
   req.open("POST", "api/login");
   req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
   req.onreadystatechange = function(){
     debugger;
     if(req.readyState == 4 && req.status == 200) {
@@ -55,7 +54,6 @@ function submit(){
 	     }
     }
   }
-
   req.send(params);
 
 }
@@ -64,7 +62,19 @@ function submit(){
 //HomePage.need = [params => {
   //return fetchPost(params.cuid);
 //}];
+function readCookie(name) {
+    var nameEQ = name + "=";
+    if(typeof window !== 'undefined') {
+      var ca = document.cookie.split(';');
 
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+  }
+    return null;
+}
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
   return {

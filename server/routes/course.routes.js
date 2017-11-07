@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as CourseController from '../controllers/course.controller';
+import * as AttendanceController from '../controllers/attendance.controller';
 const router = new Router();
 
 // Add students to a specific course
@@ -21,5 +22,10 @@ router.route('/course').post(CourseController.createCourse);
 
 // Drop a course from the database
 router.route('/course').delete(CourseController.removeCourse);
+
+// Attendance
+router.route('/course/:courseTitle/attendance').put(AttendanceController.submitAttendance);
+router.route('/course/:courseTitle/attendance').get(AttendanceController.getAttendance);
+router.route('/course/:courseTitle/seat').put(AttendanceController.reserveSeat);
 
 export default router;

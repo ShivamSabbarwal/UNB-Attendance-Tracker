@@ -6,11 +6,17 @@ import { Link } from 'react-router';
 import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import styles from '../../main.css';
 
+
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
 export function InstructorHeader(props) {
+
+  //alert(isAdmin + " " + " "+ sessionID + " " +username);
+
   return (
     <div className={styles.header}>
       <div className={styles.headerNav}>
-        <Image className={styles.logo} src={require('../../images/shiv.jpg')}/>
         <h4 className={styles.logout} onClick={logout}>Logout</h4>
         <Link to={"/instructor_home"}><h4 className={styles.home}>Home</h4></Link>
       </div>
@@ -18,15 +24,39 @@ export function InstructorHeader(props) {
     </div>
   );
 }
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    if(typeof window !== 'undefined') {
+      var ca = document.cookie.split(';');
+
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+  }
+  return null;
+}
+
 function logout(){
+  var sessionID = "sessionID=" + readCookie("sessionID");
+  alert(sessionID);
   var req = new XMLHttpRequest();
   req.open("GET", "api/logout");
+
+  //these two function allows cookie to be set inside the header
+  req.crossDomain = true;
+  req.withCredentials = true;
+
   req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
+  //sene cookie to the header
+  req.setRequestHeader("Cookie", sessionID);
   req.onreadystatechange = function(){
     debugger;
-    window.location.href="/";
+    if (req.readyState == 4 && req.status == 200){
+      window.location.href="/";
+    }
   }
   req.send();
 }

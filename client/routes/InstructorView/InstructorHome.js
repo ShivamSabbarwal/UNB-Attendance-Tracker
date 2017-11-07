@@ -9,6 +9,11 @@ import FaBeer from 'react-icons/lib/fa/edit';
 import styles from '../../main.css';
 import InstructorCourseIcon from './InstructorCourseIcon';
 import Header from '../Components/InstructorHeader';
+import PageNotFound from '../PageNotFound/PageNotFound';
+
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
 
 export function InstructorHome(props) {
 
@@ -18,8 +23,14 @@ export function InstructorHome(props) {
     var courseInfo = JSON.parse(props.courses[i]);
     courseIcons.push(<InstructorCourseIcon name={courseInfo.name} />);
   }
-  var username = readCookie("username");
-
+  //Justin - this is tedious. but it works
+  if (isAdmin == "false"){
+    return (
+      <PageNotFound/>
+    );
+  }
+  //when a person is logged in, sessionID would exist
+  else{
   return (
     <div>
       <Header/>
@@ -38,6 +49,7 @@ export function InstructorHome(props) {
         </div>
     </div>
   );
+  }
 }
 
 // Actions required to provide data for this component to render in sever side.
@@ -51,22 +63,6 @@ function mapStateToProps(state, props) {
     courses: [['{"name":"SWE4103"}'],
             ['{"name":"CS1073"}']]
   };
-}
-
-function logout(){
-  var req = new XMLHttpRequest();
-
-  req.open("GET", "api/logout");
-  req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
-  req.onreadystatechange = function(){
-    debugger;
-    window.location.href="/";
-  }
-
-  req.send();
 }
 
 function readCookie(name) {
