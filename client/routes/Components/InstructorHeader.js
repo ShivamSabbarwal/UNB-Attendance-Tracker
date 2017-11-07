@@ -45,7 +45,7 @@ function logout(){
   req.open("GET", "api/logout");
   document.cookie = "isAdmin=" + null;
   document.cookie = "username=" + null;
-
+  document.cookie = "sessionID" + null;
   //these two function allows cookie to be set inside the header
   //req.crossDomain = true;
   //req.withCredentials = true;

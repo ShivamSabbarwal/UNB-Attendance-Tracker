@@ -17,7 +17,7 @@ var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
 export function RegisterCourse(props) {
-  if (isAdmin == "true"){
+  if (isAdmin == "true" || username == "null"){
     return (
       <PageNotFound/>
     );
