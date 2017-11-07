@@ -23,7 +23,7 @@ export function StudentHome(props) {
     var courseInfo = JSON.parse(props.courses[i]);
     courseIcons.push(<StudentCourseIcon name={courseInfo.name} />);
   }
-  if (isAdmin == "true"){
+  if (isAdmin == "true" || username == "null"){
     return (
         <PageNotFound/>
     );
@@ -76,7 +76,7 @@ function logout(){
   //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
 
   req.onreadystatechange = function(){
-    debugger;
+    //debugger;
     window.location.href="/";
   }
 
@@ -85,6 +85,23 @@ function logout(){
 
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
+  /*var params = '{"username":"' + username + '"}';
+  console.log(params);
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function() {
+    if (req.readyState == 4 && req.status == 200) {
+      var courses = JSON.parse(req.responseText);
+      var courseAmount = courses.courseList.length;
+      for (var i = 0; i < courseAmount; i ++){
+        courses.courseList[i] = courses.courseList[i].toUpperCase();
+        console.log(courses.courseList[i]);
+      }
+    }
+  };
+  req.open("POST", "api/courseListByStudent");
+  req.setRequestHeader("Content-type", "application/json");
+  req.send(params);
+  */
   return {
     courses: [['{"name":"SWE4103"}'],
               ['{"name":"ADM1213"}'],

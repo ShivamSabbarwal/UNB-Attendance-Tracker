@@ -24,7 +24,7 @@ export function InstructorHome(props) {
     courseIcons.push(<InstructorCourseIcon name={courseInfo.name} />);
   }
   //Justin - this is tedious. but it works
-  if (isAdmin == "false"){
+  if (isAdmin == "false" || username == "null"){
     return (
       <PageNotFound/>
     );
@@ -37,9 +37,7 @@ export function InstructorHome(props) {
         <div className={styles.mainBody}>
           <h1 className={styles.mainBodyTitle}>Current Courses</h1>
             <div className={styles.mainBodyWrapper}>
-
                 {courseIcons}
-
             </div>
         </div>
         <div className={styles.footer}>
@@ -51,7 +49,6 @@ export function InstructorHome(props) {
   );
   }
 }
-
 // Actions required to provide data for this component to render in sever side.
 //HomePage.need = [params => {
   //return fetchPost(params.cuid);

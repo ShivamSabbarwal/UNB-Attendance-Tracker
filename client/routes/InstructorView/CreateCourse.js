@@ -16,10 +16,11 @@ var username = readCookie("username");
 var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
+
 export function CreateCourse(props) {
 
   //Justin - this is tedious. but it works
-  if (isAdmin == "false"){
+  if (isAdmin == "false" || username == "null"){
     return (
         <PageNotFound/>
     );
@@ -56,7 +57,6 @@ export function CreateCourse(props) {
                             <label className={styles.legendLabel}><label className={styles.auditableSeatsIcon}>auditable</label>Auditable Seats</label>
                 </h4>
                 <div id="gridWrapper"></div>
-                <p></p>
                 <FormGroup>
                   <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
                     Course Name:
@@ -126,7 +126,8 @@ function submit(){
   var prof = document.getElementById("professor").value;
   var inst = document.getElementById("institution").value;
   var room = document.getElementById("location").value;
-
+  var row = document.getElementById('gridRows').value;
+  var col = document.getElementById('gridCols').value;
   //xml request
   var req = new XMLHttpRequest();
 
@@ -162,7 +163,7 @@ function logout(){
   //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
 
   req.onreadystatechange = function(){
-    debugger;
+    //debugger;
     window.location.href="/";
   }
 

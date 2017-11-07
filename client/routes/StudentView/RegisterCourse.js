@@ -4,7 +4,6 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import FaBeer from 'react-icons/lib/fa/edit';
 // Import Style
 import styles from '../../main.css';
 import InstructorCourseIcon from '../InstructorView/InstructorCourseIcon';
@@ -17,7 +16,7 @@ var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
 export function RegisterCourse(props) {
-  if (isAdmin == "true"){
+  if (isAdmin == "true" || username == "null"){
     return (
       <PageNotFound/>
     );

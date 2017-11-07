@@ -41,19 +41,20 @@ function readCookie(name) {
 
 function logout(){
   var sessionID = "sessionID=" + readCookie("sessionID");
-  alert(sessionID);
   var req = new XMLHttpRequest();
   req.open("GET", "api/logout");
+  document.cookie = "isAdmin=" + null;
+  document.cookie = "username=" + null;
 
   //these two function allows cookie to be set inside the header
-  req.crossDomain = true;
-  req.withCredentials = true;
+  //req.crossDomain = true;
+  //req.withCredentials = true;
 
   req.setRequestHeader("Content-type", "application/json");
   //sene cookie to the header
-  req.setRequestHeader("Cookie", sessionID);
+  //req.setRequestHeader("Cookie", sessionID);
   req.onreadystatechange = function(){
-    debugger;
+    //debugger;
     if (req.readyState == 4 && req.status == 200){
       window.location.href="/";
     }
