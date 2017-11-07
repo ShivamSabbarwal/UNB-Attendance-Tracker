@@ -359,7 +359,7 @@ export function courseListByStudent(req, res) {
             // If student is valid, search for student's courses.
             Course
               .find({
-                usernames: req.body.username
+                'usernames.username': req.body.username
               })
               .cursor()
               .on('data', function(course) {
