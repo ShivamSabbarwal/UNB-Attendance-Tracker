@@ -199,3 +199,50 @@ export function reserveSeat(req, res) {
     }
   });
 }
+
+
+export function getCourseGrid(req, res) {
+  SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+    if (isValid !== true) {
+      res.status(401).end();
+    } else {
+
+      // make sure that the request contains a course title
+      if (!req.params.courseTitle) {
+        res.status(403).send("Invalid course title").end();
+      }
+      // verify that course exists
+      Course.
+      findOne(
+        {'title': req.params.courseTitle},
+        'title',
+        (err, course) => {
+          if (err) {
+            console.error(err);
+            res.status(500).end();
+          } else if (course === null) {
+            res.status(400).send("Invalid request (Course not found)").end();
+          } else {
+            courseGrid.
+            findOne(
+              {'courseName': course.title},
+              'class',
+              (err, grid) => {
+                if (err){
+                  console.error(err);
+                  res.status(500).end();
+                } else if (!grid || grid === null) {
+                  res.status(400).send("Grid not found for this course").end();
+                } else {
+                  res.status(200).send({
+                    grid: grid.class
+                  });
+                }
+              }
+            )
+          }
+        }
+      )
+    }
+  })
+}
