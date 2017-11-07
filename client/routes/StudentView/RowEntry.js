@@ -15,6 +15,7 @@ export function RowEntry(props){
     <td>{props.name}</td>
     <td>{props.professorname}</td>
     <td>{props.location}</td>
+  
     </tr>
 
   );

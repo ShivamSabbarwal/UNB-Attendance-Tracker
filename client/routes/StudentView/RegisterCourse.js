@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import FaBeer from 'react-icons/lib/fa/edit';
 // Import Style
 import styles from '../../main.css';
 import InstructorCourseIcon from '../InstructorView/InstructorCourseIcon';
@@ -16,7 +17,7 @@ var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
 export function RegisterCourse(props) {
-  if (isAdmin == "true" || username == "null"){
+  if (isAdmin == "true"){
     return (
       <PageNotFound/>
     );
@@ -32,9 +33,8 @@ export function RegisterCourse(props) {
          <input type="text" id="searchInput" name="search" placeholder="...Search Courses"/>
          <button onClick={searchCourse}>search!</button>
 
-          <p id="searchOutput"></p>
-            <ul id="myUL">
-            </ul>
+          <table id="searchOutput"></table>
+
       </div>
     </div>
     </div>
@@ -43,6 +43,7 @@ export function RegisterCourse(props) {
 }
 
 function searchCourse() {
+
   document.getElementById('searchOutput').innerHTML = "";
   var input = document.getElementById("searchInput").value;
   var upperCase = input.toUpperCase();
@@ -52,32 +53,44 @@ function searchCourse() {
       var courses = JSON.parse(req.responseText);
       //alert(courses.courseList.length);
       var courseAmount = courses.courseList.length;
-      var courseUpperCase = [];
+      var outcome = [];
       for (var i = 0; i < courseAmount; i ++){
-        courses.courseList[i] = courses.courseList[i].toUpperCase();
+        //courses.courseList[i] = courses.courseList[i].toUpperCase();
       }
       for (var j = 0; j < courseAmount; j++){
-        if ((input != "") && (courses.courseList[j].indexOf(upperCase) > -1)){
-          document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
-        }
+
+
+          debugger;
+          var course = courses.courseList[j];
+          var idIn = course;
+          var nameIn = course[1];
+          var profIn = course[2];
+          var loIn = course[3];
+          outcome.push("<tr><td>" + idIn + "</td>  <td>" + nameIn + "</td>  <td>" + profIn + "</td>  <td>" + loIn + "</td> <td> <button value='Register'/></td></tr>" );
+          //document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
+
 
       }
+
+      document.getElementById('searchOutput').innerHTML = outcome + "<br>";
     }
-  };
+  }
 
 
   //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  req.open("GET", "api/courseList");
+  req.open("POST", "api/courseListSearch");
   req.setRequestHeader("Content-type", "application/json");
+  var params = '{"search":"' + input + '"}';
+
   //document.cookie = "sessionID=84ac1438bb9def2ff804a2eb4341d791";
-  req.send();
+  req.send(params);
 }
 
 
 
 function mapStateToProps(state, props) {
   return {
-    courseList: ["SWE4103", "CS1003", "CS1073", "CS1083", "CS2043", "CS2383", "CS3383", "CS3997", "CS1303", "SWE4203", "SWE4040", "SWE4403", "STAT2593", "ECE3221", "ECE2701", "ESCI1001"]
+    courseList: []
   };
 }
 function readCookie(name) {
