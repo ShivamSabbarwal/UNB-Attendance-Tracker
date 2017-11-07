@@ -135,7 +135,7 @@ export function login(req, res) {
             console.log(user)
             if (credsAreValid === true && user !== null) {
               // Generate a new session that is valid for 3 hours from now
-              res.cookie('sessionID', generateSessionID(req.body.username), { maxAge: 10800 });
+              res.cookie('sessionID', generateSessionID(req.body.username), { maxAge: 10800000 }); // expires after 3 hours
               res.status(200).send({
                 username: user.username,
                 isAdmin: user.isAdmin
