@@ -9,6 +9,11 @@ import FaBeer from 'react-icons/lib/fa/edit';
 import styles from '../../main.css';
 import StudentCourseIcon from "./StudentCourseIcon";
 import Header from '../Components/StudentHeader';
+import PageNotFound from '../PageNotFound/PageNotFound';
+
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
 
 export function StudentHome(props) {
 
@@ -18,17 +23,12 @@ export function StudentHome(props) {
     var courseInfo = JSON.parse(props.courses[i]);
     courseIcons.push(<StudentCourseIcon name={courseInfo.name} />);
   }
-  var username = readCookie("username");
-  var sessionID = readCookie("sessionID");
-  var isAdmin = readCookie("isAdmin");
-  alert(isAdmin + " " + " "+ sessionID + " " +username);
-  /*if (isAdmin == true){
+  if (isAdmin == "true"){
     return (
-      <div>
-        <p>page not found</p>
-      </div>
+        <PageNotFound/>
     );
-  }*/
+  }
+  else{
   return (
     <div>
       <Header/>
@@ -45,6 +45,7 @@ export function StudentHome(props) {
     </div>
     </div>
   );
+  }
 }
 
 // Actions required to provide data for this component to render in sever side.

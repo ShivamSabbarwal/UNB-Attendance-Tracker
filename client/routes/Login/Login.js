@@ -6,11 +6,9 @@ import {Link} from 'react-router';
 // Import Style
 import styles from '../../main.css';
 
+
 export function Login(props) {
-  var username = readCookie("username");
-  var sessionID = readCookie("sessionID");
-  var isAdmin = readCookie("isAdmin");
-  alert(isAdmin + " " + " "+ sessionID + " " +username);
+
   return (
     <div className={styles.page}>
       <div className={styles.Container}>

@@ -9,6 +9,11 @@ import FaBeer from 'react-icons/lib/fa/edit';
 import styles from '../../main.css';
 import InstructorCourseIcon from './InstructorCourseIcon';
 import Header from '../Components/InstructorHeader';
+import PageNotFound from '../PageNotFound/PageNotFound';
+
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
 
 export function InstructorHome(props) {
 
@@ -18,19 +23,14 @@ export function InstructorHome(props) {
     var courseInfo = JSON.parse(props.courses[i]);
     courseIcons.push(<InstructorCourseIcon name={courseInfo.name} />);
   }
-  var username = readCookie("username");
-  var sessionID = readCookie("sessionID");
-  var isAdmin = readCookie("isAdmin");
-  alert(isAdmin + " " + " "+ sessionID + " " +username);
   //Justin - this is tedious. but it works
-  /*if (isAdmin == false){
+  if (isAdmin == "false"){
     return (
-      <div>
-        <p>page not found</p>
-      </div>
+      <PageNotFound/>
     );
-  }*/
+  }
   //when a person is logged in, sessionID would exist
+  else{
   return (
     <div>
       <Header/>
@@ -49,6 +49,7 @@ export function InstructorHome(props) {
         </div>
     </div>
   );
+  }
 }
 
 // Actions required to provide data for this component to render in sever side.

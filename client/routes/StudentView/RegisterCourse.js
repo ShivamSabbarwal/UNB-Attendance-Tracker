@@ -10,9 +10,20 @@ import styles from '../../main.css';
 import InstructorCourseIcon from '../InstructorView/InstructorCourseIcon';
 import RowEntry from "./RowEntry";
 import Header from "../Components/StudentHeader";
+import PageNotFound from '../PageNotFound/PageNotFound';
+
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
 
 export function RegisterCourse(props) {
-  return (
+  if (isAdmin == "true"){
+    return (
+      <PageNotFound/>
+    );
+  }
+  else {
+    return (
 <div>
   <Header/>
     <div className={styles.mainBody}>
@@ -29,6 +40,7 @@ export function RegisterCourse(props) {
     </div>
     </div>
   );
+  }
 }
 
 function searchCourse() {
@@ -69,22 +81,20 @@ function mapStateToProps(state, props) {
     courseList: ["SWE4103", "CS1003", "CS1073", "CS1083", "CS2043", "CS2383", "CS3383", "CS3997", "CS1303", "SWE4203", "SWE4040", "SWE4403", "STAT2593", "ECE3221", "ECE2701", "ESCI1001"]
   };
 }
+function readCookie(name) {
+    var nameEQ = name + "=";
+    if(typeof window !== 'undefined') {
+      var ca = document.cookie.split(';');
 
-function logout(){
-  var req = new XMLHttpRequest();
-
-  req.open("GET", "api/logout");
-  req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
-  req.onreadystatechange = function(){
-    debugger;
-    window.location.href="/";
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
   }
-
-  req.send();
+    return null;
 }
+
 
 RegisterCourse.propTypes = {
 //  post: PropTypes.shape({

@@ -10,21 +10,21 @@ import SvgIcon from 'react-icons-kit';
 // Import Style
 import styles from '../../main.css';
 import Header from '../Components/InstructorHeader';
+import PageNotFound from '../PageNotFound/PageNotFound';
+
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
 
 export function CreateCourse(props) {
-  var username = readCookie("username");
-  var sessionID = readCookie("sessionID");
-  var isAdmin = readCookie("isAdmin");
-  alert(isAdmin + " " + " "+ sessionID + " " +username);
-  //Justin - this is tedious. but it works
-  /*if (isAdmin == false){
-    return (
-      <div>
-        <p>page not found</p>
-      </div>
-    );
-  }*/
 
+  //Justin - this is tedious. but it works
+  if (isAdmin == "false"){
+    return (
+        <PageNotFound/>
+    );
+  }
+  else{
   return (
     <div>
       <Header/>
@@ -100,6 +100,7 @@ export function CreateCourse(props) {
         </div>
     </div>
   );
+  }
 }
 
 function createGrid(){

@@ -6,7 +6,14 @@ import { Link } from 'react-router';
 import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import styles from '../../main.css';
 
+
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
 export function InstructorHeader(props) {
+
+  //alert(isAdmin + " " + " "+ sessionID + " " +username);
+
   return (
     <div className={styles.header}>
       <div className={styles.headerNav}>
