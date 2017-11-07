@@ -2,7 +2,7 @@ import Course from '../models/course';
 import User from '../models/user';
 
 import SessionUtils from '../util/sessionUtils';
-import courseGrid from '../models/course';
+import courseGrid from '../models/coursegrid';
 
 var async_f = require('asyncawait/async');
 var await_f = require('asyncawait/await');
@@ -359,7 +359,7 @@ export function courseListByStudent(req, res) {
             // If student is valid, search for student's courses.
             Course
               .find({
-                usernames: req.body.username
+                'usernames.username': req.body.username
               })
               .cursor()
               .on('data', function(course) {
@@ -521,11 +521,17 @@ export function courseListByProfessor(req, res) {
                 } else if (re.test(req.body.title)) {
                   res.status(403).send("Course title can only contain: letters, numbers, '-', '_', and '.'");
 
+                } else if (!Array.isArray(req.body.gridsize) || req.body.gridsize.length <= 1){
+                  res.status(403).send("gridsize must be an array of length 2 ( e.g.  [4, 5] )").end();
+
+                } else if (req.body.gridsize[0] <= 0 || req.body.gridsize[1] <= 1) {
+                  res.status(403).send("Both values in gridsize must be greater than 0").end();
+
                 } else {
-                  var coursegrid = []
-                  coursegrid[0] = []
-                  coursegrid.length = req.body.gridsize[0];
-                  coursegrid[0].length = req.body.gridsize[1];
+                  var gridRow = Array(req.body.gridsize[0]).fill("");
+                  var coursegrid = Array(req.body.gridsize[1]);
+                  coursegrid = coursegrid.fill(gridRow);
+                  
                   var coursegrid_data = {
                     'courseName': req.body.title,
                     'class' : coursegrid
@@ -537,24 +543,26 @@ export function courseListByProfessor(req, res) {
                     'institution': req.body.institution,
                     'location': req.body.location
                   };
+
                   var course = new Course(course_data);
+                  var grid = new courseGrid(coursegrid_data);
+
                   course.save(
                     function(err, data) {
                       if (err) {
                         console.error(err)
                         res.status(403).send("Title already belongs to an existing course")
                       } else {
-                        res.status(200).end()
-                      }
-                    }
-                  )
-                  courseGrid.save(
-                    function(err, data) {
-                      if (err) {
-                        console.error(err)
-                        res.status(403).end()
-                      } else {
-                        res.status(200).end()
+                        grid.save(
+                          function(err, data) {
+                            if (err) {
+                              console.error(err)
+                              res.status(403).end()
+                            } else {
+                              res.status(200).end()
+                            }
+                          }
+                        )
                       }
                     }
                   )
@@ -598,14 +606,28 @@ export function courseListByProfessor(req, res) {
                         res.status(400).end();
 
                       } else if (course) {
-                        res.status(200).end()
+                        courseGrid.findOneAndRemove({
+                        'courseName': req.body.title
+                        },
+                        function(err, coursegrid){
+                            if(err){
+                                    console.error(err)
+                                    res.status(400).end();
+                            } else if (coursegrid) {
+                                res.status(200).end();
+                            } else {
+                                res.status(403).send("Course grid matching \"" + req.body.title + "\" not found.");
+                            }
+                        });
 
                       } else {
                         res.status(403).send("Course matching \"" + req.body.title + "\" not found.");
                         // unsuccessful removal
                       }
                     });
-                }
+                
+                 
+                }     
               }
             })
           }
