@@ -600,14 +600,28 @@ export function courseListByProfessor(req, res) {
                         res.status(400).end();
 
                       } else if (course) {
-                        res.status(200).end()
+                        courseGrid.findOneAndRemove({
+                        'courseName': req.body.title
+                        },
+                        function(err, coursegrid){
+                            if(err){
+                                    console.error(err)
+                                    res.status(400).end();
+                            } else if (coursegrid) {
+                                res.status(200).end();
+                            } else {
+                                res.status(403).send("Course grid matching \"" + req.body.title + "\" not found.");
+                            }
+                        });
 
                       } else {
                         res.status(403).send("Course matching \"" + req.body.title + "\" not found.");
                         // unsuccessful removal
                       }
                     });
-                }
+                
+                 
+                }     
               }
             })
           }
