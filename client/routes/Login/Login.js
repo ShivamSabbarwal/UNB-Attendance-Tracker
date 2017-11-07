@@ -5,6 +5,13 @@ import { FormattedMessage } from 'react-intl';
 import {Link} from 'react-router';
 // Import Style
 import styles from '../../main.css';
+import PageNotFound from '../PageNotFound/PageNotFound';
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
+console.log("username: "+ username);
+console.log("sessionID: "+ sessionID);
+console.log("isAdmin: "+isAdmin);
 
 
 export function Login(props) {
@@ -28,10 +35,10 @@ export function Login(props) {
       </div>
     </div>
   );
+
 }
 
 function submit(){
-  debugger;
   var user = document.getElementById("username").value;
   var pass = document.getElementById("password").value;
 
@@ -42,7 +49,6 @@ function submit(){
   req.open("POST", "api/login");
   req.setRequestHeader("Content-type", "application/json");
   req.onreadystatechange = function(){
-    debugger;
     if(req.readyState == 4 && req.status == 200) {
 	     var serverResponse = JSON.parse(req.responseText);
 	     document.cookie = "isAdmin=" + serverResponse.isAdmin + "";
