@@ -172,12 +172,12 @@ export function reserveSeat(req, res) {
             res.status(400).end();
           }
           if (coursegrid.class[req.body.seat[1]][req.body.seat[0]] != "") {
-            res.status(418);
+            res.status(418).end();
           } else {
             var lookupseat = 'class.' + req.body.seat[1] + '.' + req.body.seat[0];
             courseGrid.update(
-                { courseName: coursegrid.courseName}, 
-                { '$set':
+                { courseName: req.params.courseTitle},
+                { $set:
                     {lookupseat : req.body.username}
                 }
             );
