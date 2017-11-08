@@ -124,14 +124,14 @@ export function getAttendance(req, res) {
                 var attendanceRecord = course.usernames.map(userData => {
                   return {
                     name: userData.username,
-                    numberofAbsence: userData.absence.filter(date => {
+                    absence: userData.absence.filter(date => {
                       const recordDate = Date.parse(date)
                       if (!recordDate) {
                         return false
                       }
                       // 518400000 ms is 6 days
                       return (recordDate <= requestDate && recordDate > requestDate - 518400000)
-                    }).length
+                    })
                   }
                 })
                 console.log(attendanceRecord)
