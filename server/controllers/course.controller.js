@@ -510,13 +510,13 @@ export function courseListByProfessor(req, res) {
                 res.status(401).send("This API endpoint requires Admin capability").end();
                 fulfill(false);
               } else {
-
+                SessionUtils.getUsername(req.cookies.sessionID).then((prof_username) => {
                 var re = new RegExp('[^A-Za-z0-9-_.]');
                 //regex pattern with match if the string contains characters other than ( A-Z, a-z, 0-9, -, _, .)
 
-                if (!req.body.title || !req.body.professor || !req.body.institution || !req.body.gridsize) {
+                if (!req.body.title || !req.body.term || !req.body.gridsize) {
                   //verify that title, professor, institution, and gridsize were provided
-                  res.status(403).send("Title, professor, institution, and gridsize are required");
+                  res.status(403).send("Title, term, and gridsize are required");
 
                 } else if (re.test(req.body.title)) {
                   res.status(403).send("Course title can only contain: letters, numbers, '-', '_', and '.'");
@@ -531,17 +531,17 @@ export function courseListByProfessor(req, res) {
                   var gridRow = Array(req.body.gridsize[0]).fill("");
                   var coursegrid = Array(req.body.gridsize[1]);
                   coursegrid = coursegrid.fill(gridRow);
-                  
+
                   var coursegrid_data = {
                     'courseName': req.body.title,
                     'class' : coursegrid
                   };
                   var course_data = {
                     'title': req.body.title,
-                    'professor': req.body.professor,
+                    'professor': prof_username,
                     'usernames': [], // make usernames array empty for now until users are added
-                    'institution': req.body.institution,
-                    'location': req.body.location
+                    'term': req.body.term,
+                    'time': req.body.time
                   };
 
                   var course = new Course(course_data);
@@ -567,7 +567,8 @@ export function courseListByProfessor(req, res) {
                     }
                   )
                 }
-              }
+              })
+             }
             })
           }
         })
@@ -625,9 +626,9 @@ export function courseListByProfessor(req, res) {
                         // unsuccessful removal
                       }
                     });
-                
-                 
-                }     
+
+
+                }
               }
             })
           }
