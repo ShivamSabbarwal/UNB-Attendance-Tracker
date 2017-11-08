@@ -174,30 +174,17 @@ export function reserveSeat(req, res) {
           if (coursegrid.class[req.body.seat[1]][req.body.seat[0]] != "") {
             res.status(418).end();
           } else {
-            var lookupseat = 'class.' + req.body.seat[1] + '.' + req.body.seat[0];
-            courseGrid.update(
-                { courseName: req.params.courseTitle},
-                { $set:
-                    {lookupseat : req.body.username}
-                }
-            );
-            
+            coursegrid.class[req.body.seat[1]][req.body.seat[0]] = req.body.username;
             for (var i = 0, len = coursegrid.class.length; i < len; i++) {
               for (var j = 0, lenj = coursegrid.class[0].length; j < lenj; j++) {
                 if ((coursegrid.class[i][j] === req.body.username)&&(i != req.body.seat[1] || j != req.body.seat[0])) {
-                    var lookup = 'class.' + i + '.' + j;
-            
-                    
-                    courseGrid.updateOne(
-                        { courseName: coursegrid.courseName}, 
-                        { $set:
-                            {lookup: ""}
-                        }
-                    )
+                    coursegrid.class[i][j] = "";
                 }
               }
             }
-            res.status(200).send();
+            coursegrid.markModified("class");
+            coursegrid.save();
+            res.status(200).end();
           }
         
             
