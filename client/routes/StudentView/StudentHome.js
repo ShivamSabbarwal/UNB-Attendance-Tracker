@@ -16,9 +16,7 @@ var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
 export function StudentHome(props) {
-
   var courseIcons = [];
-
   for(var i = 0; i < props.courses.length; i++){
     var courseInfo = JSON.parse(props.courses[i]);
     courseIcons.push(<StudentCourseIcon name={courseInfo.name} />);
@@ -32,6 +30,7 @@ export function StudentHome(props) {
   return (
     <div>
       <Header/>
+      <p id="apiview" onClick={getCourseList}>Test Click</p>
         <div className={styles.mainBody}>
           <h1 className={styles.mainBodyTitle}>Current Courses</h1>
             <div className={styles.mainBodyWrapper}>
@@ -52,6 +51,27 @@ export function StudentHome(props) {
 //HomePage.need = [params => {
   //return fetchPost(params.cuid);
 //}];
+function getCourseList(){
+
+  var user = readCookie("username");
+  var params = '{"username":"' + user +'"}';
+  var req = new XMLHttpRequest();
+  req.open("POST", "api/courseListByStudent");
+  req.setRequestHeader("Content-type", "application/json");
+  req.onreadystatechange = function(){
+    if(req.status == 200){
+      var registeredCourse = [];
+      var registered = JSON.parse(req.responseText);
+      var courseAmount = registered.courseList.length;
+      for (var i = 0; i < courseAmount; i ++){
+        registeredCourse.push(registered.courseList[i]);
+      }
+      document.getElementById("apiview").innerHTML = registeredCourse;
+    }
+  }
+  req.send(params);
+}
+
 
 function readCookie(name) {
     var nameEQ = name + "=";
@@ -85,23 +105,7 @@ function logout(){
 
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
-  /*var params = '{"username":"' + username + '"}';
-  console.log(params);
-  var req = new XMLHttpRequest();
-  req.onreadystatechange = function() {
-    if (req.readyState == 4 && req.status == 200) {
-      var courses = JSON.parse(req.responseText);
-      var courseAmount = courses.courseList.length;
-      for (var i = 0; i < courseAmount; i ++){
-        courses.courseList[i] = courses.courseList[i].toUpperCase();
-        console.log(courses.courseList[i]);
-      }
-    }
-  };
-  req.open("POST", "api/courseListByStudent");
-  req.setRequestHeader("Content-type", "application/json");
-  req.send(params);
-  */
+
   return {
     courses: [['{"name":"SWE4103"}'],
               ['{"name":"ADM1213"}'],

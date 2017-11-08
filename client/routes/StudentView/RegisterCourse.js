@@ -60,7 +60,6 @@ function searchCourse() {
       for (var j = 0; j < courseAmount; j++){
 
 
-          debugger;
           var course = courses.courseList[j];
           var idIn = course;
           var nameIn = course[1];
@@ -71,7 +70,6 @@ function searchCourse() {
 
 
       }
-
       document.getElementById('searchOutput').innerHTML = outcome + "<br>";
     }
   }
