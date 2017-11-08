@@ -173,7 +173,7 @@ export function reserveSeat(req, res) {
           }
           if (coursegrid.class[req.body.seat[1]][req.body.seat[0]] != "") {
             res.status(418).end();
-          } else {
+          } else if (req.body.username !== "-1" && req.body.username !== "-2"){
             coursegrid.class[req.body.seat[1]][req.body.seat[0]] = req.body.username;
             for (var i = 0, len = coursegrid.class.length; i < len; i++) {
               for (var j = 0, lenj = coursegrid.class[0].length; j < lenj; j++) {
