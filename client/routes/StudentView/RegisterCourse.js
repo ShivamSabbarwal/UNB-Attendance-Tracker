@@ -54,21 +54,17 @@ function searchCourse() {
       //alert(courses.courseList.length);
       var courseAmount = courses.courseList.length;
       var outcome = [];
-      for (var i = 0; i < courseAmount; i ++){
-        //courses.courseList[i] = courses.courseList[i].toUpperCase();
-      }
+
+      outcome.push("<tr><th>" + 'Course ID' + "</th> <th>" + 'Course Name' + "</th> <th>" + 'Term' + "</th> <th>" + 'Course Time' + "</th></tr>")
       for (var j = 0; j < courseAmount; j++){
 
-
           var course = courses.courseList[j];
-          var idIn = course;
+          var idIn = course[0];
           var nameIn = course[1];
           var profIn = course[2];
           var loIn = course[3];
           outcome.push("<tr><td>" + idIn + "</td>  <td>" + nameIn + "</td>  <td>" + profIn + "</td>  <td>" + loIn + "</td> <td> <button value='Register'/></td></tr>" );
           //document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
-
-
       }
       document.getElementById('searchOutput').innerHTML = outcome + "<br>";
     }
@@ -84,7 +80,18 @@ function searchCourse() {
   req.send(params);
 }
 
-
+// function registerForCourse(){
+//   var req = new XMLHttpRequest();
+//   req.onreadystatechange = function() {
+//     if (req.readyState == 4 && req.status == 200) {
+//       var courses = JSON.parse(req.responseText);
+//
+//   req.open("PUT", "api/api/course/<Course title>/students");
+//   req.setRequestHeader("Content-type", "application/json");
+//   var params = '{"search":"' + input + '"}';
+//
+//   req.send(params)
+// }
 
 function mapStateToProps(state, props) {
   return {
