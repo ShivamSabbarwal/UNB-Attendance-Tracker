@@ -17,6 +17,19 @@ var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
 export function RegisterCourse(props) {
+
+  function registerForCourse(courseID){
+    var req = new XMLHttpRequest();
+
+    req.onreadystatechange = function(){
+      if (req.readyState == 4 && req.status == 200){
+        alert("Registration for " + courseID + " was succssfull!")
+      }
+    }
+    req.open('PUT', 'api/api/course/' + courseID + '/students');
+    req.setRequestHeader('Content-type', 'application/json');
+  }
+
   if (isAdmin == "true" || username == "null"){
     return (
       <PageNotFound/>
@@ -55,7 +68,12 @@ function searchCourse() {
       var courseAmount = courses.courseList.length;
       var outcome = [];
 
-      outcome.push("<tr><th>" + 'Course ID' + "</th> <th>" + 'Course Name' + "</th> <th>" + 'Term' + "</th> <th>" + 'Course Time' + "</th></tr>")
+      outcome.push("<tr>" +
+                      "<th>" + 'Course ID' + "</th>" +
+                      "<th>" + 'Course Name' + "</th>" +
+                      "<th>" + 'Term' + "</th>" +
+                      "<th>" + 'Course Time' + "</th>" +
+                   "</tr>");
       for (var j = 0; j < courseAmount; j++){
 
           var course = courses.courseList[j];
@@ -63,9 +81,30 @@ function searchCourse() {
           var nameIn = course[1];
           var profIn = course[2];
           var loIn = course[3];
-          outcome.push("<tr><td>" + idIn + "</td>  <td>" + nameIn + "</td>  <td>" + profIn + "</td>  <td>" + loIn + "</td> <td> <button value='Register'/></td></tr>" );
+          outcome.push("<tr>" +
+                          "<td>" + idIn + "</td>" +
+                          "<td>" + nameIn + "</td>" +
+                          "<td>" + profIn + "</td>" +
+                          "<td>" + loIn + "</td>" +
+                          "<td>" +
+                            "<button onClick={registerForCourse('" + idIn + "')}>Register</button></td>" +
+                       "</tr>" );
           //document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
       }
+
+      outcome.push("<script>" +
+                      "function registerForCourse(courseID){" +
+                      "var req = new XMLHttpRequest();" +
+                      "req.onreadystatechange = function(){" +
+                        "if (req.readyState == 4 && req.status == 200) {" +
+                          "alert('Registration for ' + courseID + ' was succssfull!)" +
+                        "}" +
+                      "}" +
+                      "req.open('PUT', 'api/api/course/' + courseID + '/students');" +
+                      "req.setRequestHeader('Content-type', 'application/json');" +
+                      "}" +
+                    "</script>");
+
       document.getElementById('searchOutput').innerHTML = outcome + "<br>";
     }
   }
