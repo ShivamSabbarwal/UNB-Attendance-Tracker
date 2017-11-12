@@ -171,9 +171,9 @@ export function reserveSeat(req, res) {
           if (coursegrid.class[0].length < req.body.seat[1] || coursegrid.class[1].length < req.body.seat[0]) {
             res.status(400).end();
           }
-          if (coursegrid.class[req.body.seat[1]][req.body.seat[0]] != "") {
+          if ((coursegrid.class[req.body.seat[1]][req.body.seat[0]] != "") && ((req.body.username !== "-1" && req.body.username !== "-2"))) {
             res.status(418).end();
-          } else if (req.body.username !== "-1" && req.body.username !== "-2"){
+          } else if (req.body.username !== "-1" && req.body.username !== "-2" && req.body.username !== ""){
             coursegrid.class[req.body.seat[1]][req.body.seat[0]] = req.body.username;
             for (var i = 0, len = coursegrid.class.length; i < len; i++) {
               for (var j = 0, lenj = coursegrid.class[0].length; j < lenj; j++) {
@@ -182,6 +182,11 @@ export function reserveSeat(req, res) {
                 }
               }
             }
+            coursegrid.markModified("class");
+            coursegrid.save();
+            res.status(200).end();
+          } else {
+            coursegrid.class[req.body.seat[1]][req.body.seat[0]] = req.body.username;
             coursegrid.markModified("class");
             coursegrid.save();
             res.status(200).end();
