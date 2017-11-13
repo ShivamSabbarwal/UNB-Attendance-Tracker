@@ -23,18 +23,32 @@ class InstructorHome extends Component{
   }
 
   componentDidMount(){
-    var tempCourseIcons = [];
-    var courses = [['{"name":"SWE4103"}'],
-            ['{"name":"CS1073"}']];
+    debugger;
+    var username = readCookie("username");
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+        debugger;
+        var courses = JSON.parse(req.responseText);
+        var tempCourseIcons = [];
+        var courseList = courses.courseListByProfessor;
 
-    for(var i = 0; i < courses.length; i++){
-      var courseInfo = JSON.parse(courses[i]);
-      tempCourseIcons.push(<InstructorCourseIcon name={courseInfo.name} />);
-    }
+        for(var i = 0; i < courseList.length; i++){
+          var courseName = courseList[i];
+          tempCourseIcons.push(<InstructorCourseIcon name={courseName} />);
+        }
 
-    this.setState({
-        courseIcons: tempCourseIcons
-    });
+        this.setState({
+          courseIcons: tempCourseIcons
+        });
+      }
+    }.bind(this)
+
+  req.open("POST", "api/courseListByProfessor");
+  req.setRequestHeader("Content-type", "application/json");
+  var params = '{"professor":"' + username + '"}';
+
+  req.send(params);
   }
 
   render(){

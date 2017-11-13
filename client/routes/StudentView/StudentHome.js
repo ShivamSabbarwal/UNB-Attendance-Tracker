@@ -23,25 +23,40 @@ class StudentHome extends Component{
   }
 
   componentDidMount(){
-    var tempCourseIcons = [];
-    var courses  = [['{"name":"SWE4103"}'],
-              ['{"name":"ADM1213"}'],
-              ['{"name":"ECE3221"}'],
-              ['{"name":"ECE2701"}'],
-              ['{"name":"CS3383"}'],
-              ['{"name":"TME3413"}'],
-              ['{"name":"HIST3925"}']];
+    var username = readCookie("username");
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+        debugger;
+        var courses = JSON.parse(req.responseText);
+        var tempCourseIcons = [];
+        var courseList = courses.courseList;
 
-    for(var i = 0; i < courses.length; i++){
-      var courseInfo = JSON.parse(courses[i]);
-      tempCourseIcons.push(<StudentCourseIcon name={courseInfo.name} />);
-    }
+        for(var i = 0; i < courseList.length; i++){
+          var courseName = courseList[i];
+          tempCourseIcons.push(<StudentCourseIcon name={courseName} />);
+        }
 
-    this.setState({courseIcons: tempCourseIcons})
+        this.setState({
+          courseIcons: tempCourseIcons
+        });
+      }
+    }.bind(this)
+
+  req.open("POST", "api/courseListByStudent");
+  req.setRequestHeader("Content-type", "application/json");
+  var params = '{"username":"' + username + '"}';
+
+  req.send(params);
   }
 
   render(){
-    if (isAdmin == "true" || username == "null"){
+    debugger;
+    var username = readCookie("username");
+    var sessionID = readCookie("sessionID");
+    var isAdmin = readCookie("isAdmin");
+
+    if (isAdmin == "true" || username == null){
       return (
           <PageNotFound/>
       );
