@@ -12,7 +12,21 @@ class RegisterCourseRowEntry extends Component{
   }
 
   register(courseName){
-    alert(this.props.idIn + " was added!");
+    debugger;
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+
+        alert(this.props.idIn + " was added as a course!");
+
+      }
+    }.bind(this)
+
+  req.open("PUT", "api/course/" + this.props.idIn + "/students");
+  req.setRequestHeader("Content-type", "application/json");
+  var params = '{"students":[""]}';
+
+  req.send(params);
   }
 
   render(){
