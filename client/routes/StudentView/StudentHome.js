@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -15,43 +15,56 @@ var username = readCookie("username");
 var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
-export function StudentHome(props) {
+class StudentHome extends Component{
 
-  var courseIcons = [];
+  constructor(props){
+    super(props);
+    this.state = {courseIcons: []};
+  }
 
-  for(var i = 0; i < props.courses.length; i++){
-    var courseInfo = JSON.parse(props.courses[i]);
-    courseIcons.push(<StudentCourseIcon name={courseInfo.name} />);
+  componentDidMount(){
+    var tempCourseIcons = [];
+    var courses  = [['{"name":"SWE4103"}'],
+              ['{"name":"ADM1213"}'],
+              ['{"name":"ECE3221"}'],
+              ['{"name":"ECE2701"}'],
+              ['{"name":"CS3383"}'],
+              ['{"name":"TME3413"}'],
+              ['{"name":"HIST3925"}']];
+
+    for(var i = 0; i < courses.length; i++){
+      var courseInfo = JSON.parse(courses[i]);
+      tempCourseIcons.push(<StudentCourseIcon name={courseInfo.name} />);
+    }
+
+    this.setState({courseIcons: tempCourseIcons})
   }
-  if (isAdmin == "true" || username == "null"){
-    return (
-        <PageNotFound/>
-    );
-  }
-  else{
-  return (
-    <div>
-      <Header/>
-        <div className={styles.mainBody}>
-          <h1 className={styles.mainBodyTitle}>Current Courses</h1>
-            <div className={styles.mainBodyWrapper}>
-              {courseIcons}
+
+  render(){
+    if (isAdmin == "true" || username == "null"){
+      return (
+          <PageNotFound/>
+      );
+    }
+    return(
+      <div>
+        <Header/>
+          <div className={styles.mainBody}>
+            <h1 className={styles.mainBodyTitle}>Current Courses</h1>
+              <div className={styles.mainBodyWrapper}>
+                {this.state.courseIcons}
+              </div>
             </div>
-          </div>
-        <div className={styles.footer}>
-      <div className={styles.buttonWrapper}>
-        <Link to="/register_course"><h3 className={styles.instructorButton}>Register For A Course</h3></Link>
+          <div className={styles.footer}>
+        <div className={styles.buttonWrapper}>
+          <Link to="/register_course"><h3 className={styles.instructorButton}>Register For A Course</h3></Link>
+        </div>
       </div>
-    </div>
-    </div>
-  );
+      </div>
+    )
   }
-}
 
-// Actions required to provide data for this component to render in sever side.
-//HomePage.need = [params => {
-  //return fetchPost(params.cuid);
-//}];
+}
 
 function readCookie(name) {
     var nameEQ = name + "=";
@@ -83,45 +96,4 @@ function logout(){
   req.send();
 }
 
-// Retrieve data from store as props
-function mapStateToProps(state, props) {
-  /*var params = '{"username":"' + username + '"}';
-  console.log(params);
-  var req = new XMLHttpRequest();
-  req.onreadystatechange = function() {
-    if (req.readyState == 4 && req.status == 200) {
-      var courses = JSON.parse(req.responseText);
-      var courseAmount = courses.courseList.length;
-      for (var i = 0; i < courseAmount; i ++){
-        courses.courseList[i] = courses.courseList[i].toUpperCase();
-        console.log(courses.courseList[i]);
-      }
-    }
-  };
-  req.open("POST", "api/courseListByStudent");
-  req.setRequestHeader("Content-type", "application/json");
-  req.send(params);
-  */
-  return {
-    courses: [['{"name":"SWE4103"}'],
-              ['{"name":"ADM1213"}'],
-              ['{"name":"ECE3221"}'],
-              ['{"name":"ECE2701"}'],
-              ['{"name":"CS3383"}'],
-              ['{"name":"TME3413"}'],
-              ['{"name":"HIST3925"}']]
-    //post: getPost(state, props.params.cuid),
-  };
-}
-
-StudentHome.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
-};
-
-export default connect(mapStateToProps)(StudentHome);
+export default StudentHome;

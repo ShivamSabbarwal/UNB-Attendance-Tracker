@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -10,19 +10,29 @@ import styles from '../../main.css';
 var username = readCookie("username");
 var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
-export function InstructorHeader(props) {
 
-  //alert(isAdmin + " " + " "+ sessionID + " " +username);
+class InstructorHeader extends Component {
 
-  return (
-    <div className={styles.header}>
-      <div className={styles.headerNav}>
-        <h4 className={styles.logout} onClick={logout}>Logout</h4>
-        <Link to={"/instructor_home"}><h4 className={styles.home}>Home</h4></Link>
+  constructor(props){
+    super(props);
+  }
+
+  componentDidMount(){
+
+  }
+
+  render(){
+    return(
+      <div className={styles.header}>
+        <div className={styles.headerNav}>
+          <h4 className={styles.logout} onClick={logout}>Logout</h4>
+          <Link to={"/instructor_home"}><h4 className={styles.home}>Home</h4></Link>
+        </div>
+        <h1 className={styles.headerTitle}>UNB Attendance Services</h1>
       </div>
-      <h1 className={styles.headerTitle}>UNB Attendance Services</h1>
-    </div>
-  );
+    )
+  }
+
 }
 
 function readCookie(name) {
@@ -61,18 +71,5 @@ function logout(){
   }
   req.send();
 }
-function mapStateToProps(state, props) {
-  return {
-    //post: getPost(state, props.params.cuid),
-  };
-}
-InstructorHeader.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
-};
-export default connect(mapStateToProps)(InstructorHeader);
+
+export default InstructorHeader;

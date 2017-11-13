@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -9,33 +9,64 @@ import CourseGrid from '../CourseOverview/CourseGrid';
 import styles from '../../main.css';
 import Header from '../Components/StudentHeader';
 
-export function StudentCourseOverview(props) {
-debugger;
-  var courseName = props.location.search;
-  courseName = courseName.split("=")[1];
+class StudentCourseOverview extends Component{
 
-  var height = props.grid.length;
-  var width = props.grid[0].length;
+  constructor(props){
+    super(props);
+    this.state = {courseGrid: []};
+  }
 
-  return (
-<div>
-  <Header/>
-    <div className={styles.mainBody}>
-      <h1 className={styles.mainBodyTitle}>{courseName}</h1>
-        <div className={styles.mainBodyWrapper}>
-          <div className={styles.courseGrid}>
-            <CourseGrid name={courseName} grid={props.grid}/>
+  componentDidMount(){
+
+    var courseName = this.props.location.search;
+    courseName = courseName.split("=")[1];
+
+    var grid = [["", "Tony", "", "", "", "", "", "", "Shiv", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "Tristen", "", "", "", "", ""],
+  ["", "Jean-Marc", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "Justin", ""],
+  ["", "", "Jacob", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""]];
+
+  var output = <CourseGrid name={courseName} grid={grid}/>;
+
+  this.setState({
+    courseGrid: output
+  })
+
+  }
+
+  render(){
+
+    var courseName = this.props.location.search;
+    courseName = courseName.split("=")[1];
+
+    return(
+      <div>
+        <Header/>
+          <div className={styles.mainBody}>
+            <h1 className={styles.mainBodyTitle}>{courseName}</h1>
+              <div className={styles.mainBodyWrapper}>
+                <div className={styles.courseGrid}>
+                  {this.state.courseGrid}
+                </div>
+              </div>
+            </div>
+
+          <div className={styles.footer} >
+              <div className={styles.buttonWrapper}>
+                <Link to="/student_home"><h3 className={styles.instructorButton}>Reserve Seat</h3></Link>
+              </div>
           </div>
-        </div>
       </div>
+    )
+  }
 
-    <div className={styles.footer} >
-        <div className={styles.buttonWrapper}>
-          <Link to="/student_home"><h3 className={styles.instructorButton}>Reserve Seat</h3></Link>
-        </div>
-    </div>
-  </div>
-  );
 }
 
 function logout(){
@@ -54,31 +85,4 @@ function logout(){
   req.send();
 }
 
-// Retrieve data from store as props
-function mapStateToProps(state, props) {
-  return{
-    grid: [["", "Tony", "", "", "", "", "", "", "Shiv", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "Tristen", "", "", "", "", ""],
-  ["", "Jean-Marc", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "Justin", ""],
-  ["", "", "Jacob", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""]]
-};
-}
-
-StudentCourseOverview.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
-};
-
-export default connect(mapStateToProps)(StudentCourseOverview);
+export default StudentCourseOverview;

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -11,71 +11,56 @@ import InstructorCourseIcon from '../InstructorView/InstructorCourseIcon';
 import RowEntry from "./RowEntry";
 import Header from "../Components/StudentHeader";
 import PageNotFound from '../PageNotFound/PageNotFound';
+import RegisterCourseRowEntry from './RegisterCourseRowEntry';
 
 var username = readCookie("username");
 var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
-export function RegisterCourse(props) {
-  if (isAdmin == "true"){
-    return (
-      <PageNotFound/>
-    );
+class RegisterCourse extends Component{
+
+  constructor(props) {
+    super(props);
+    this.state = {searchOutput: []};
   }
-  else {
-    return (
-<div>
-  <Header/>
-    <div className={styles.mainBody}>
-    <h1 className={styles.mainBodyTitle}>Search Results</h1>
 
-      <div className={styles.optionsContainer}>
-         <input type="text" id="searchInput" name="search" placeholder="...Search Courses"/>
-         <button onClick={searchCourse}>search!</button>
-
-          <table id="searchOutput"></table>
-
-      </div>
-    </div>
-    </div>
-  );
+  componentDidMount(){
+    alert("test");
   }
-}
 
-function searchCourse() {
+  searchCourse() {
 
-  document.getElementById('searchOutput').innerHTML = "";
-  var input = document.getElementById("searchInput").value;
-  var upperCase = input.toUpperCase();
-  var req = new XMLHttpRequest();
-  req.onreadystatechange = function() {
-    if (req.readyState == 4 && req.status == 200) {
-      var courses = JSON.parse(req.responseText);
-      //alert(courses.courseList.length);
-      var courseAmount = courses.courseList.length;
-      var outcome = [];
-      for (var i = 0; i < courseAmount; i ++){
-        //courses.courseList[i] = courses.courseList[i].toUpperCase();
+    //document.getElementById('searchOutput').innerHTML = "";
+    var input = document.getElementById("searchInput").value;
+    var upperCase = input.toUpperCase();
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+        var courses = JSON.parse(req.responseText);
+        //alert(courses.courseList.length);
+        var courseAmount = courses.courseList.length;
+        var outcome = [];
+        for (var i = 0; i < courseAmount; i ++){
+          //courses.courseList[i] = courses.courseList[i].toUpperCase();
+        }
+        for (var j = 0; j < courseAmount; j++){
+
+            var course = courses.courseList[j];
+            var idIn1 = course[0];
+            var nameIn1 = course[1];
+            var profIn1 = course[2];
+            var loIn1 = course[3];
+            outcome.push(<RegisterCourseRowEntry idIn={idIn1} nameIn={nameIn1} profIn={profIn1} loIn={loIn1} />);
+            //document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
+
+
+        }
+
+        this.setState({
+          searchOutput: outcome
+        });
       }
-      for (var j = 0; j < courseAmount; j++){
-
-
-          debugger;
-          var course = courses.courseList[j];
-          var idIn = course;
-          var nameIn = course[1];
-          var profIn = course[2];
-          var loIn = course[3];
-          outcome.push("<tr><td>" + idIn + "</td>  <td>" + nameIn + "</td>  <td>" + profIn + "</td>  <td>" + loIn + "</td> <td> <button value='Register'/></td></tr>" );
-          //document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
-
-
-      }
-
-      document.getElementById('searchOutput').innerHTML = outcome + "<br>";
-    }
-  }
-
+    }.bind(this)
 
   //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
   req.open("POST", "api/courseListSearch");
@@ -86,13 +71,31 @@ function searchCourse() {
   req.send(params);
 }
 
+  render(){
+    if (isAdmin == "true"){
+      return (
+        <PageNotFound/>
+      );
+    }
+    return(
+      <div>
+          <Header/>
+          <div className={styles.mainBody}>
+            <h1 className={styles.mainBodyTitle}>Search Results</h1>
 
+            <div className={styles.optionsContainer}>
+              <input type="text" id="searchInput" name="search" placeholder="...Search Courses"/>
+              <button onClick={this.searchCourse.bind(this)}>search!</button>
 
-function mapStateToProps(state, props) {
-  return {
-    courseList: []
-  };
+              <div id="searchOutput">{this.state.searchOutput}</div>
+
+            </div>
+          </div>
+      </div>
+    )
+  }
 }
+
 function readCookie(name) {
     var nameEQ = name + "=";
     if(typeof window !== 'undefined') {
@@ -107,15 +110,4 @@ function readCookie(name) {
     return null;
 }
 
-
-RegisterCourse.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
-};
-
-export default connect(mapStateToProps)(RegisterCourse);
+export default RegisterCourse;

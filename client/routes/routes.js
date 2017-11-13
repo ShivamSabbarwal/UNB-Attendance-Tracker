@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
-import React from 'react';
+import React, {Component} from 'react';
+import {render} from 'react-dom';
 import { Route, IndexRoute, Router } from 'react-router';
 import App from '../App/App';
 import CreateCourse from './InstructorView/CreateCourse';
@@ -11,7 +12,7 @@ import CourseGrid from './CourseGrid/CourseGrid';
 import InstructorCourseOverview from './InstructorView/InstructorCourseOverview';
 import StudentCourseOverview from './StudentView/StudentCourseOverview';
 import RegisterCourse from './StudentView/RegisterCourse';
-import PageNotFound from './PageNotFound/PageNotFound'; 
+import PageNotFound from './PageNotFound/PageNotFound';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -33,6 +34,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // react-router setup with code-splitting
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
+
 export default (
   <Route path="/" component={App}>
     <IndexRoute component = {Login} />

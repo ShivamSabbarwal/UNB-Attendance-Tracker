@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -15,51 +15,53 @@ var username = readCookie("username");
 var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
-export function InstructorHome(props) {
+class InstructorHome extends Component{
 
-  var courseIcons = [];
+  constructor(props){
+    super(props);
+    this.state = {courseIcons: []}
+  }
 
-  for(var i = 0; i < props.courses.length; i++){
-    var courseInfo = JSON.parse(props.courses[i]);
-    courseIcons.push(<InstructorCourseIcon name={courseInfo.name} />);
+  componentDidMount(){
+    var tempCourseIcons = [];
+    var courses = [['{"name":"SWE4103"}'],
+            ['{"name":"CS1073"}']];
+
+    for(var i = 0; i < courses.length; i++){
+      var courseInfo = JSON.parse(courses[i]);
+      tempCourseIcons.push(<InstructorCourseIcon name={courseInfo.name} />);
+    }
+
+    this.setState({
+        courseIcons: tempCourseIcons
+    });
   }
-  //Justin - this is tedious. but it works
-  if (isAdmin == "false" || username == "null"){
-    return (
-      <PageNotFound/>
-    );
-  }
-  //when a person is logged in, sessionID would exist
-  else{
-  return (
-    <div>
-      <Header/>
-        <div className={styles.mainBody}>
-          <h1 className={styles.mainBodyTitle}>Current Courses</h1>
-            <div className={styles.mainBodyWrapper}>
-                {courseIcons}
+
+  render(){
+      if (isAdmin == "false" || username == "null"){
+        return (
+          <PageNotFound/>
+        );
+      }
+      //when a person is logged in, sessionID would exist
+      return (
+        <div>
+          <Header/>
+            <div className={styles.mainBody}>
+              <h1 className={styles.mainBodyTitle}>Current Courses</h1>
+                <div className={styles.mainBodyWrapper}>
+                    {this.state.courseIcons}
+                </div>
+            </div>
+            <div className={styles.footer}>
+                <div className={styles.buttonWrapper}>
+                  <Link to="/create_course"><h3 className={styles.instructorButton}>Add a Course</h3></Link>
+                </div>
             </div>
         </div>
-        <div className={styles.footer}>
-            <div className={styles.buttonWrapper}>
-              <Link to="/create_course"><h3 className={styles.instructorButton}>Add a Course</h3></Link>
-            </div>
-        </div>
-    </div>
-  );
+    )
   }
-}
-// Actions required to provide data for this component to render in sever side.
-//HomePage.need = [params => {
-  //return fetchPost(params.cuid);
-//}];
 
-// Retrieve data from store as props
-function mapStateToProps(state, props) {
-  return {
-    courses: [['{"name":"SWE4103"}'],
-            ['{"name":"CS1073"}']]
-  };
 }
 
 function readCookie(name) {
@@ -76,8 +78,4 @@ function readCookie(name) {
     return null;
 }
 
-InstructorHome.propTypes = {
-
-};
-
-export default connect(mapStateToProps)(InstructorHome);
+export default InstructorHome;

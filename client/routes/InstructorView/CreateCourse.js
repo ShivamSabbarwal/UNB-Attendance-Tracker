@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -16,91 +16,98 @@ var username = readCookie("username");
 var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
 
+class CreateCourse extends Component{
 
-export function CreateCourse(props) {
-
-  //Justin - this is tedious. but it works
-  if (isAdmin == "false" || username == "null"){
-    return (
-        <PageNotFound/>
-    );
+  constructor(props){
+    super(props);
   }
-  else{
-  return (
-    <div>
-      <Header/>
-      <div className={styles.mainBody}>
-        <h1 className={styles.mainBodyTitle}>New Course Creation Form</h1>
-          <div className={styles.mainBodyWrapper}>
-            <div className={styles.formContainer}>
-              <Form horizontal>
-                <FormGroup>
-                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                    Rows:
-                  </Col>
-                  <Col sm={9}>
-                    <FormControl type="text" placeholder="Enter the number of rows" id="gridRows"/>
-                  </Col>
-                </FormGroup>
-                <FormGroup>
-                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                    Columns:
-                  </Col>
-                  <Col sm={9}>
-                    <FormControl type="text" placeholder="Enter the number of columns" id="gridCols"/>
-                  </Col>
-                </FormGroup>
-                <h3 className={styles.createGridButton} onClick={createGrid}>Show Grid</h3>
-                <h4 className={styles.legendLabel}>Legend:
-                            <label className={styles.legendLabel}><label className={styles.openSeatsIcon}>open</label>Open Seats</label>
-                            <label className={styles.legendLabel}><label className={styles.closedSeatsIcon}>closed</label>Closed Seats</label>
-                            <label className={styles.legendLabel}><label className={styles.auditableSeatsIcon}>auditable</label>Auditable Seats</label>
-                </h4>
-                <div id="gridWrapper"></div>
-                <FormGroup>
-                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                    Course Name:
-                  </Col>
-                  <Col sm={9}>
-                    <FormControl type="text" placeholder="Enter course name" id="title"/>
-                  </Col>
-                </FormGroup>
-                <FormGroup>
-                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                    Professor Name:
-                  </Col>
-                  <Col sm={9}>
-                    <FormControl type="text" placeholder="Enter course instructor name" id="professor"/>
-                  </Col>
-                </FormGroup>
-                <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                    Institution:
-                  </Col>
-                  <Col sm={9}>
-                    <FormControl type="text" placeholder="Enter name of the institution" id="institution"/>
-                  </Col>
-                </FormGroup>
-                <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                    Location:
-                  </Col>
-                  <Col sm={9}>
-                    <FormControl type="text" placeholder="Enter the room number where the lecture takes place in" id="location"/>
-                  </Col>
-                </FormGroup>
-              </Form>
+
+  componentDidMount(){
+
+  }
+
+  render(){
+    if (isAdmin == "false" || username == "null"){
+      return (
+          <PageNotFound/>
+      );
+    }
+    return(
+      <div>
+        <Header/>
+        <div className={styles.mainBody}>
+          <h1 className={styles.mainBodyTitle}>New Course Creation Form</h1>
+            <div className={styles.mainBodyWrapper}>
+              <div className={styles.formContainer}>
+                <Form horizontal>
+                  <FormGroup>
+                    <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                      Rows:
+                    </Col>
+                    <Col sm={9}>
+                      <FormControl type="text" placeholder="Enter the number of rows" id="gridRows"/>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                      Columns:
+                    </Col>
+                    <Col sm={9}>
+                      <FormControl type="text" placeholder="Enter the number of columns" id="gridCols"/>
+                    </Col>
+                  </FormGroup>
+                  <h3 className={styles.createGridButton} onClick={createGrid}>Show Grid</h3>
+                  <h4 className={styles.legendLabel}>Legend:
+                              <label className={styles.legendLabel}><label className={styles.openSeatsIcon}>open</label>Open Seats</label>
+                              <label className={styles.legendLabel}><label className={styles.closedSeatsIcon}>closed</label>Closed Seats</label>
+                              <label className={styles.legendLabel}><label className={styles.auditableSeatsIcon}>auditable</label>Auditable Seats</label>
+                  </h4>
+                  <div id="gridWrapper"></div>
+                  <FormGroup>
+                    <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                      Course Name:
+                    </Col>
+                    <Col sm={9}>
+                      <FormControl type="text" placeholder="Enter course name" id="title"/>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                      Professor Name:
+                    </Col>
+                    <Col sm={9}>
+                      <FormControl type="text" placeholder="Enter course instructor name" id="professor"/>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formHorizontalEmail">
+                    <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                      Institution:
+                    </Col>
+                    <Col sm={9}>
+                      <FormControl type="text" placeholder="Enter name of the institution" id="institution"/>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formHorizontalEmail">
+                    <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                      Location:
+                    </Col>
+                    <Col sm={9}>
+                      <FormControl type="text" placeholder="Enter the room number where the lecture takes place in" id="location"/>
+                    </Col>
+                  </FormGroup>
+                </Form>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.footer}>
-            <div className={styles.buttonWrapper}>
-              <h3 className={styles.instructorButton} onClick={submit}>Create a Course</h3>
-            </div>
-        </div>
-    </div>
-  );
+          <div className={styles.footer}>
+              <div className={styles.buttonWrapper}>
+                <h3 className={styles.instructorButton} onClick={submit}>Create a Course</h3>
+              </div>
+          </div>
+      </div>
+    )
   }
+
 }
 
 function createGrid(){
@@ -120,6 +127,7 @@ function createGrid(){
   var tfooter = '</table>';
   document.getElementById('gridWrapper').innerHTML = theader + tbody + tfooter;
 }
+
 function submit(){
   //creates variable to be passed in
   var courseName = document.getElementById("title").value;
@@ -131,7 +139,7 @@ function submit(){
   //xml request
   var req = new XMLHttpRequest();
 
-  var params = '{"title":"' + courseName + '", "professor":"' + prof + '", "usernames":" ", "institution":"' + inst + '", "location":"' + room + '"}';
+  var params = '{"title":"' + courseName + '", "professor":"' + prof + '", "usernames":" ", "institution":"' + inst + '", "gridsize":"[' + row + ',' + col + ']", "location":"' + room + '"}';
   req.open("POST", "api/course");
   req.setRequestHeader("Content-type", "application/json");
   //403 - not enough data provided / course already exists / title contains characters other than letter, numbers, -, _ and .
@@ -169,26 +177,5 @@ function logout(){
 
   req.send();
 }
-// Actions required to provide data for this component to render in sever side.
-//HomePage.need = [params => {
-  //return fetchPost(params.cuid);
-//}];
 
-// Retrieve data from store as props
-function mapStateToProps(state, props) {
-  return {
-    //post: getPost(state, props.params.cuid),
-  };
-}
-
-CreateCourse.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
-};
-
-export default connect(mapStateToProps)(CreateCourse);
+export default CreateCourse;
