@@ -26,18 +26,24 @@ class Login extends Component{
   render(){
     return(
       <div className={styles.page}>
-        <div className={styles.Container}>
-          <div className={styles.user}>
-            <div className={styles.userHeader}>
-              <h3 className={styles.userTitle}>Login to <span className={styles.appName}>UNB Attendance Services</span></h3>
-              <form className={styles.form}>
-                <input className={styles.input} id="username" placeholder="Username"/>
-                <input className={styles.input} id="password" placeholder="Password" type="password"/>
-              </form>
-              <button className={styles.btn} onClick={submit}> Submit </button>
-            </div>
-            <div className={styles.underBar}>
-              <label>New User? <Link to={'/signup'}>Register Here</Link> </label>
+        <div className={styles.errorMessageWithBox}>
+          <div className={styles.errorBoxTemplate} id="errorTemplateBox">holds height</div>
+          <div className={styles.noInput} id="inputErrorBox">Do not leave username or password field empty</div>
+          <div className={styles.authenticationError} id="authenticationErrorBox">Invalid username or password</div>
+          <div className={styles.successfulLogin} id="successfulBox">Successful Login!</div>
+          <div className={styles.Container}>
+            <div className={styles.user}>
+              <div className={styles.userHeader}>
+                <h3 className={styles.userTitle}>Login to <span className={styles.appName}>UNB Attendance Services</span></h3>
+                <form className={styles.form}>
+                  <input className={styles.input} id="username" placeholder="Username"/>
+                  <input className={styles.input} id="password" placeholder="Password" type="password"/>
+                </form>
+                <button className={styles.btn} onClick={submit}> Submit</button>
+              </div>
+              <div className={styles.underBar}>
+                <label>New User? <Link to={'/signup'}>Register Here</Link> </label>
+              </div>
             </div>
           </div>
         </div>
@@ -58,7 +64,20 @@ function submit(){
   req.open("POST", "api/login");
   req.setRequestHeader("Content-type", "application/json");
   req.onreadystatechange = function(){
+    //successful login
     if(req.readyState == 4 && req.status == 200) {
+       document.getElementById("successfulBox").style.visibility = "visible";
+       document.getElementById("successfulBox").style.display = "block";
+
+       document.getElementById("errorTemplateBox").style.visibility = "hidden";
+       document.getElementById("errorTemplateBox").style.display = "none";
+
+       document.getElementById("inputErrorBox").style.visibility = "hidden";
+       document.getElementById("inputErrorBox").style.display = "none";
+
+       document.getElementById("authenticationErrorBox").style.visibility = "hidden";
+       document.getElementById("authenticationErrorBox").style.display = "none";
+
 	     var serverResponse = JSON.parse(req.responseText);
 	     document.cookie = "isAdmin=" + serverResponse.isAdmin + "";
        document.cookie = "username=" + serverResponse.username + "";
@@ -67,6 +86,30 @@ function submit(){
 	     }else{
 		       window.location.href = "/student_home";
 	     }
+    }
+    //empty input group, warning
+    if(req.readyState == 4 && req.status == 403){
+      if (user == "" || pass == ""){
+        document.getElementById("errorTemplateBox").style.visibility = "hidden";
+        document.getElementById("errorTemplateBox").style.display = "none";
+
+        document.getElementById("inputErrorBox").style.visibility = "visible";
+        document.getElementById("inputErrorBox").style.display = "block";
+
+        document.getElementById("authenticationErrorBox").style.visibility = "hidden";
+        document.getElementById("authenticationErrorBox").style.display = "none";
+      }
+    }
+    //unauthorized validation, error
+    else if (req.readyState == 4 && req.status == 401){
+      document.getElementById("errorTemplateBox").style.visibility = "hidden";
+      document.getElementById("errorTemplateBox").style.display = "none";
+
+      document.getElementById("authenticationErrorBox").style.visibility = "visible";
+      document.getElementById("authenticationErrorBox").style.display = "block";
+
+      document.getElementById("inputErrorBox").style.visibility = "hidden";
+      document.getElementById("inputErrorBox").style.display = "none";
     }
   }
   req.send(params);
