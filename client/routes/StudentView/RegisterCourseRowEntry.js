@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
+import styles from '../../main.css';
 
 class RegisterCourseRowEntry extends Component{
 
@@ -31,15 +32,17 @@ class RegisterCourseRowEntry extends Component{
 
   render(){
     return(
+      <div className={styles.rowIn}>
       <tr>
-        <td>{this.props.idIn}</td>
-        <td>{this.props.nameIn}</td>
-        <td>{this.props.profIn}</td>
-        <td>{this.props.loIn}</td>
-        <td>
-          <button value='Register' onClick={this.register.bind(this)}/>
+        <td className={styles.tdIn}>{this.props.idIn}</td>
+        <td className={styles.tdIn}>{this.props.nameIn}</td>
+        <td className={styles.tdIn}>{this.props.profIn}</td>
+        <td className={styles.tdIn}>{this.props.loIn}</td>
+        <td className={styles.tdIn}>
+          <button className={styles.buttonIn}onClick={this.register.bind(this)}>Register</button>
         </td>
       </tr>
+      </div>
     )
   }
 

@@ -83,11 +83,23 @@ class RegisterCourse extends Component{
           <div className={styles.mainBody}>
             <h1 className={styles.mainBodyTitle}>Search Results</h1>
 
-            <div className={styles.optionsContainer}>
-              <input type="text" id="searchInput" name="search" placeholder="...Search Courses"/>
+            <div className={styles.registerContainer}>
+              <input className={styles.searchBox} type="text" id="searchInput" name="search" placeholder="...Search Courses"/>
               <button onClick={this.searchCourse.bind(this)}>search!</button>
+              <table className={styles.greyTable}>
+              <thead>
+              <tr>
+              <th className={styles.thIn}>ID</th>
+              <th className={styles.thIn}>Name</th>
+              <th className={styles.thIn}>Professor</th>
+              <th className={styles.thIn}>Location</th>
+              <th className={styles.thIn}>Drop/Register</th>
+              </tr>
+              </thead>
+              </table>
 
               <div id="searchOutput">{this.state.searchOutput}</div>
+
 
             </div>
           </div>
