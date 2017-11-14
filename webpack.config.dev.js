@@ -38,12 +38,12 @@ module.exports = {
     loaders: [
       {
         test: /\.css$/,
-        exclude: /node_modules/,
-        loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
-      }, {
-        test: /\.css$/,
         include: /node_modules/,
         loaders: ['style-loader', 'css-loader'],
+      }, {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
       }, {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
@@ -55,8 +55,12 @@ module.exports = {
         test: /\.json$/,
         loader: 'json-loader',
       }, {
-        test: /\.(woff|woff2|eot|ttf|svg)$/, 
-        loader: 'url-loader?limit=100000'
+        test: /\.(woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000',
+      }, {
+        test: /\.js$/,
+        loader: 'babel',
+        exclude: /node_modules/
       }
     ],
   },

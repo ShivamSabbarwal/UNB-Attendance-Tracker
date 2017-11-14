@@ -1,7 +1,6 @@
 /*use this css file ONLY for routes*/
 /*for components like header and footers, use separate css files - justin*/
 /*use lowercase*/
-
 /*----------------------------global components----------------------*/
 .header{
   margin-top: 25px;
@@ -440,9 +439,6 @@
   font-weight: normal;
   color: #FFFFFF;
   margin-left: 10px;
-}
-.gridWrapper{
-
 }
 /*------------------Instructor Course list------------------*/
 .instructorCourseContainer{

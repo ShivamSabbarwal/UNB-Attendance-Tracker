@@ -21,7 +21,6 @@ class CreateCourse extends Component{
   constructor(props){
     super(props);
   }
-
   componentDidMount(){
 
   }
@@ -62,37 +61,45 @@ class CreateCourse extends Component{
                               <label className={styles.legendLabel}><label className={styles.closedSeatsIcon}>closed</label>Closed Seats</label>
                               <label className={styles.legendLabel}><label className={styles.auditableSeatsIcon}>auditable</label>Auditable Seats</label>
                   </h4>
-                  <div id="gridWrapper"></div>
+                  <div id="gridWrapper" style={{marginBottom:"20px"}}></div>
                   <FormGroup>
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Course Name:
+                      Course ID:
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter course name" id="title"/>
+                      <FormControl type="text" placeholder="Enter course ID" id="title"/>
                     </Col>
                   </FormGroup>
                   <FormGroup>
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Professor Name:
+                      Course Term:
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter course instructor name" id="professor"/>
+                      <FormControl type="text" placeholder="Enter the course term (fall, winter, summer)" id="term"/>
                     </Col>
                   </FormGroup>
                   <FormGroup controlId="formHorizontalEmail">
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Institution:
+                      Your Email Format
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter name of the institution" id="institution"/>
+                      <FormControl type="text" placeholder="ahh" id="emailFormat"/>
                     </Col>
                   </FormGroup>
-                  <FormGroup controlId="formHorizontalEmail">
+                  <FormGroup>
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Location:
+                      Notification to Students For Days Missed
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter the room number where the lecture takes place in" id="location"/>
+                      <FormControl type="text" placeholder="Enter the number of " id="location"/>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                      Lecture Time
+                    </Col>
+                    <Col sm={9}>
+                      <FormControl type="text" placeholder="Enter the number of " id="location"/>
                     </Col>
                   </FormGroup>
                 </Form>
@@ -107,18 +114,16 @@ class CreateCourse extends Component{
       </div>
     )
   }
-
 }
-
 function createGrid(){
   var rows = document.getElementById('gridRows').value;
   var cols = document.getElementById('gridCols').value;
-  var theader = '<table style="margin: 0 auto";>\n';
+  var theader = '<table style="margin: auto";>\n';
   var tbody = '';
   for (var i = 0; i < rows; i++){
     tbody += '<tr>';
     for (var j = 0; j < cols; j++){
-      tbody += '<td style="background-color: white; width: 140px; height: 60px; border-width: 10px; border-color: #d9d9d9;">';
+      tbody += '<td id="createGridCell" style="background-color: white; width: 140px; height: 60px; border-width: 10px; border-color: #d9d9d9;">';
       tbody += '';//content;
       tbody += '</td>'
     }
@@ -127,6 +132,19 @@ function createGrid(){
   var tfooter = '</table>';
   document.getElementById('gridWrapper').innerHTML = theader + tbody + tfooter;
 }
+//1 click - closed Seat
+//2 click - auditable Seat
+//3 click - back to open seat
+function changeLegend(){
+  var rows = document.getElementById('gridRows').value;
+  var cols = document.getElementById('gridCols').value;
+  for (var i = 0; i < rows; i ++){
+    for (var j = 0; j < cols; j ++){
+      document.getElementById("createGridCell[i][j]").style.background = "yellow";
+    }
+  }
+}
+
 
 function submit(){
   //creates variable to be passed in
@@ -160,22 +178,6 @@ function readCookie(name) {
     }
   }
     return null;
-}
-
-function logout(){
-  var req = new XMLHttpRequest();
-
-  req.open("GET", "api/logout");
-  req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
-  req.onreadystatechange = function(){
-    //debugger;
-    window.location.href="/";
-  }
-
-  req.send();
 }
 
 export default CreateCourse;
