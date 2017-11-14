@@ -158,43 +158,44 @@ export function reserveSeat(req, res) {
     isValid = true;
     if (isValid !== true) {
       res.status(401).end();
-      fulfill(false);
+    } else if (!req.params.courseTitle || !req.body.username || !req.body.seat) {
+        res.status(400).send("Missing parameter");
     } else {
       courseGrid.findOne({
-        'title': req.params.courseTitle
-      }, 'class', function(err, course) {
+        'courseName': req.params.courseTitle
+      }, 'class', function(err, coursegrid) {
         if (err) {
           console.error(err)
           res.status(400).end();
-        } else if (course) {
-          if (courseGrid.class[req.body.seat[0]][req.body.seat[1]] == -1) {
-            res.status(418);
-          } else {
-            console.log('flag');
-            courseGrid.class[req.body.seat[0]][req.body.seat[1]] = req.body.Username;
-            for (var i = 0, len = courseGrid.class.length; i < len; i++) {
-              for (var j = 0, lenj = course.usernames.length; j < lenj; j++) {
-                if (courseGrid.class[i][j] === req.body.Username) {
-                  courseGrid.class[i][j] = -1;
+        } else if (coursegrid) {
+          if (coursegrid.class[0].length < req.body.seat[1] || coursegrid.class[1].length < req.body.seat[0]) {
+            res.status(400).end();
+          }
+          if ((coursegrid.class[req.body.seat[1]][req.body.seat[0]] != "") && ((req.body.username !== "-1" && req.body.username !== "-2"))) {
+            res.status(418).end();
+          } else if (req.body.username !== "-1" && req.body.username !== "-2" && req.body.username !== ""){
+            coursegrid.class[req.body.seat[1]][req.body.seat[0]] = req.body.username;
+            for (var i = 0, len = coursegrid.class.length; i < len; i++) {
+              for (var j = 0, lenj = coursegrid.class[0].length; j < lenj; j++) {
+                if ((coursegrid.class[i][j] === req.body.username)&&(i != req.body.seat[1] || j != req.body.seat[0])) {
+                    coursegrid.class[i][j] = "";
                 }
               }
             }
+            coursegrid.markModified("class");
+            coursegrid.save();
+            res.status(200).end();
+          } else {
+            coursegrid.class[req.body.seat[1]][req.body.seat[0]] = req.body.username;
+            coursegrid.markModified("class");
+            coursegrid.save();
+            res.status(200).end();
           }
+        
+            
         }
 
-        courseGrid.update(
-          function(err, data) {
-            if (err) {
-              console.error(err)
-              res.status(403).end()
-            } else if (data) {
-              res.status(200).end()
-
-            } else {
-              res.status(400).end()
-            }
-          }
-        );
+        
       });
     }
   });
