@@ -117,9 +117,51 @@ function checkCredentials(username, password, callback) {
 
 /**
  *
- * @param req
- * @param res
- * @returns void
+ * param req
+ * param res
+ * returns void
+ * 
+ * @api {post} login Login with username & password, or session
+ * @apiName login
+ * @apiGroup Login
+ *
+ * @apiDescription 
+ *  - username and password are not checked (and not needed) if a valid session is provided.
+ *  - username and isAdmin are NOT returned if the session is valid.
+ *
+ * @apiHeader Content-Type application/json
+ * @apiHeader Cookie session cookie
+ *
+ * @apiHeaderExample {json} Header Example
+ *  {
+ *    Content-Type: application/json
+ *    Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f
+ *  }
+ *
+ * @apiParam {String} username The username provided by the user
+ * @apiParam {String} password The password provided by the user
+ *
+ * @apiParamExample {json} Parameter Example
+ *    {
+ *      "username": "admin",
+ *      "password": "password"
+ *    }
+ *
+ * @apiSuccess {String} username Users username (only returned if valid session was not provided)
+ * @apiSuccess {Boolean} isAdmin Users isAdmin property (only returned if valid session was not provided)
+ * 
+ * @apiSuccessExample {json} Successful login with credentials
+ *    HTTP 200 OK
+ *    {
+ *      "username": "admin",
+ *      "isAdmin": True
+ *    }
+ * 
+ * @apiSuccessExample {json} Successful login with sessionID
+ *    HTTP 200 OK
+ *
+ * @apiError 403 Username or password was not provided
+ * @apiError 401 Login unsuccessful
  */
 export function login(req, res) {
     // if the user hasn't logged in before, check their credentials and then generate a sessionID
