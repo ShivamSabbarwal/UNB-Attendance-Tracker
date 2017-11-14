@@ -43,13 +43,21 @@ function readCookie(name) {
   }
   return null;
 }
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
 function logout(){
   var sessionID = "sessionID=" + readCookie("sessionID");
   var req = new XMLHttpRequest();
   req.open("GET", "api/logout");
-  document.cookie = "isAdmin=" + null;
-  document.cookie = "username=" + null;
-  document.cookie = "sessionID=" + null;
+  deleteAllCookies();
   //these two function allows cookie to be set inside the header
   //req.crossDomain = true;
   //req.withCredentials = true;
