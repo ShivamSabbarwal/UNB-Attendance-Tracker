@@ -467,7 +467,7 @@
   margin-top: 20px;
   margin-left: 150px;
 }
-.instCourseList{
+.instCourseList, th, td{
   background-color: #ffb3b3;
   border-collapse: collapse;
   border: 1px solid #ff9999;
