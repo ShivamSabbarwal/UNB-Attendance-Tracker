@@ -8,7 +8,7 @@ import FaBeer from 'react-icons/lib/fa/edit';
 import Background from "../../images/png/books.png";
 //confirmation box
 import { confirmAlert } from 'react-confirm-alert'; // Import
-//import 'react-confirm-alert/src/react-confirm-alert.css';
+import '../../../node_modules/react-confirm-alert/src/react-confirm-alert.css';
 // Import Style
 import styles from '../../main.css';
 
