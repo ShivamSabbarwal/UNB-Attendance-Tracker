@@ -524,7 +524,7 @@ export function courseListByProfessor(req, res) {
                 } else if (!Array.isArray(req.body.gridsize) || req.body.gridsize.length <= 1){
                   res.status(403).send("gridsize must be an array of length 2 ( e.g.  [4, 5] )").end();
 
-                } else if (req.body.gridsize[0] <= 0 || req.body.gridsize[1] <= 1) {
+                } else if (req.body.gridsize[0] <= 0 || req.body.gridsize[1] <= 0) {
                   res.status(403).send("Both values in gridsize must be greater than 0").end();
 
                 } else {
