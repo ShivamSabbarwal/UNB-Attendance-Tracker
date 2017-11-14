@@ -5,9 +5,43 @@ var bigrandom = require('bigrandom');
 
 /**
 *
-* @param req
-* @param res
-* @returns void
+* param req
+* param res
+* returns void
+*
+* @api {post} signup Signup
+* @apiGroup User
+*
+* @apiDescription
+*  ## Create account for new user
+*
+* @apiHeader Content-Type application/json
+* @apiHeader Cookie session cookie
+*
+* @apiParam {String} username         Username provided by the user (must be unique)
+* @apiParam {String} password         Password provided by the user
+* @apiParam {String} email            Email provided by the user, without @unb.ca (must be unique)
+* @apiParam {Boolean} isAdmin=False   Whether user is an admin
+*
+* @apiParamExample {json} Parameter Example
+*     {
+*       "usename": "administrator",
+*       "password": "entropy",
+*       "email": "admin.01",
+*       "isAdmin": True
+*     }
+*
+* @apiParamExample {json} Header Example
+*  {
+*    Content-Type: application/json
+*    Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f
+*  }
+*
+* @apiSuccess 200 User created successfully
+*
+* @apiError 403 required arguments are missing, or password is length is not >=6 & <=20 characters, or user could not be created (username or email may be taken)
+* @apiError 400 user not created, but no error thrown by the database
+*
 */
 export function generateUserAccount(req, res) {
   if(!req.body.username || !req.body.password || !req.body.email) {
@@ -117,9 +151,51 @@ function checkCredentials(username, password, callback) {
 
 /**
  *
- * @param req
- * @param res
- * @returns void
+ * param req
+ * param res
+ * returns void
+ * 
+ * @api {post} login Login
+ * @apiGroup User
+ *
+ * @apiDescription
+ *  ## Login with username & password, or session
+ *  - username and password are not checked (and not needed) if a valid session is provided.
+ *  - username and isAdmin are NOT returned if the session is valid.
+ *
+ * @apiHeader Content-Type application/json
+ * @apiHeader Cookie session cookie
+ *
+ * @apiParam {String} username  The username provided by the user
+ * @apiParam {String} password  The password provided by the user
+ *
+ * @apiParamExample {json} Parameter Example
+ *    {
+ *      "username": "admin",
+ *      "password": "password"
+ *    }
+ *
+ * @apiParamExample {json} Header Example
+ *  {
+ *    Content-Type: application/json
+ *    Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f
+ *  }
+ *
+ * @apiSuccess {String} username Users username (only returned if valid session was not provided)
+ * @apiSuccess {Boolean} isAdmin Users isAdmin property (only returned if valid session was not provided)
+ * 
+ * @apiSuccessExample {json} Successful login with credentials
+ *    HTTP 200 OK
+ *    {
+ *      "username": "admin",
+ *      "isAdmin": True
+ *    }
+ * 
+ * @apiSuccessExample {json} Successful login with sessionID
+ *    HTTP 200 OK
+ *
+ * @apiError 403 Username or password was not provided
+ * @apiError 401 Login unsuccessful
  */
 export function login(req, res) {
     // if the user hasn't logged in before, check their credentials and then generate a sessionID
@@ -149,6 +225,29 @@ export function login(req, res) {
     })
 }
 
+/**
+ * @api {get} logout Logout
+ * @apiGroup User
+ *
+ * @apiDescription
+ *  ## Logout from current session
+ *  - logging out will remove the session record from the database
+ *  - takes no parameters
+ *
+ * @apiHeader Content-Type application/json
+ * @apiHeader Cookie session cookie
+ *
+ * @apiParamExample {json} Header Example
+ *  {
+ *    Content-Type: application/json
+ *    Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f
+ *  }
+ *
+ * @apiSuccess 200 Session removed successfully
+ *
+ * @apiError 400 The provided session was not successfully removed from the database
+ *
+ */
 export function logout(req, res) {
   if (req.cookies.sessionID !== null) {
     Session.remove({ 'sessionId': req.cookies.sessionID }, function(err) {
