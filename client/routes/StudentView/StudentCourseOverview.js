@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import CourseGrid from '../CourseOverview/CourseGrid';
+import * as utils from '../utils/utils.js';
 // Import Style
 import styles from '../../main.css';
 import Header from '../Components/StudentHeader';
@@ -48,8 +49,45 @@ class StudentCourseOverview extends Component{
   reserveSeat(){
     debugger;
     var grid = this.state.courseGrid.props.grid;
-    var x = 1;
-  }
+    var row = -1;
+    var column = -1;
+    for(var i = 0; i < grid.length; i++){
+      for(var j = 0; j < grid[0].length; j++){
+        var check = document.getElementById("" + i + "" + j + "");
+        if(check.className.includes(styles.courseGridCellClicked)){
+          row = i;
+          column = j;
+          break;
+        }
+      }
+      if(row >= 0){
+        break;
+      }
+    }
+    if(row < 0){
+      alert("Didn't select a seat!");
+    } else{
+
+      var courseName = this.props.location.search;
+      courseName = courseName.split("=")[1];
+
+      var username = utils.readCookie("username");
+
+      var req = new XMLHttpRequest();
+      req.onreadystatechange = function() {
+        if (req.readyState == 4 && req.status == 200) {
+          debugger;
+          alert("Sucessfully reserved seat!");
+        }
+      }.bind(this)
+
+      req.open("PUT", "/api/course/" + courseName + "/seat");
+      req.setRequestHeader("Content-type", "application/json");
+      var params = '{"username": "' + username + '", "seat": [' + row + ',' + column + ']}';
+      req.send(params);
+    }
+
+    }
 
   render(){
 
@@ -70,7 +108,7 @@ class StudentCourseOverview extends Component{
 
           <div className={styles.footer} >
               <div className={styles.buttonWrapper}>
-                <Link to="/student_home"><h3 onClick={this.reserveSeat.bind(this)} className={styles.instructorButton}>Reserve Seat</h3></Link>
+                <h3 onClick={this.reserveSeat.bind(this)} className={styles.instructorButton}>Reserve Seat</h3>
               </div>
           </div>
       </div>

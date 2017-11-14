@@ -17,15 +17,23 @@ class StudentCourseIcon extends Component{
   }
 
   componentDidMount(){
-    this.setState({
-      courses: [['{"name":"SWE4103"}'],
-                ['{"name":"ADM1213"}'],
-                ['{"name":"ECE3221"}'],
-                ['{"name":"ECE2701"}'],
-                ['{"name":"CS3383"}'],
-                ['{"name":"TME3413"}'],
-                ['{"name":"HIST3925"}']]
-    });
+  }
+
+  removeCourse(){
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+
+        alert(this.props.name + " was removed!");
+
+      }
+    }.bind(this)
+
+    req.open("DELETE", "api/course/" + this.props.name + "/students");
+    req.setRequestHeader("Content-type", "application/json");
+    var params = '{"students":[""]}';
+
+    req.send(params);
   }
 
   render(){
@@ -36,7 +44,7 @@ class StudentCourseIcon extends Component{
 
     return(
       <div className={styles.courseIcon}>
-          <button className={styles.removeCourse}>&#10006;</button>
+          <button onClick={this.removeCourse.bind(this)} className={styles.removeCourse}>&#10006;</button>
           <div className={styles.courseIconBackground}></div>
           <div className={styles.courseNameWrapper}><Link to={'/course_overview_stu/?name=' + this.props.name}><label className={styles.courseTitle}> {this.props.name} </label></Link></div>
       </div>

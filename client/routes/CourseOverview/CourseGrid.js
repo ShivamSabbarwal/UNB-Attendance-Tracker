@@ -29,8 +29,8 @@ class CourseGrid extends Component{
 
       for(var idx = 0; idx < width; idx++){
 
-      	var id = i*100 + idx;
-      	cell.push(<DataCell name={this.props.grid[i][idx]} id={i*100 + idx} />);
+      	var id = "" + i + "" + idx + "";
+      	cell.push(<DataCell name={this.props.grid[i][idx]} id={id} />);
 
       }
 
