@@ -47,7 +47,7 @@ module.exports = {
       }, {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
-        loader: 'babel',
+        loader: 'babel-loader',
       }, {
         test: /\.(jpe?g|gif|png|svg)$/i,
         loader: 'url-loader?limit=10000',
@@ -57,10 +57,6 @@ module.exports = {
       }, {
         test: /\.(woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000',
-      }, {
-        test: /\.js$/,
-        loader: 'babel',
-        exclude: /node_modules/
       }
     ],
   },
