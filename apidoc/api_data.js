@@ -3,8 +3,8 @@ define({ "api": [
     "type": "post",
     "url": "course",
     "title": "Create course",
-    "group": "Admin",
-    "description": "<h2>Create a course with a corresponding course grid.</h2>",
+    "group": "Course",
+    "description": "<h2>Admin only method that creates a course and corresponding course grid.</h2>",
     "header": {
       "fields": {
         "Header": [
@@ -42,7 +42,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "Array",
+            "type": "Integer[]",
             "optional": false,
             "field": "gridsize",
             "description": "<p>X by Y grid for the seating arrangement</p>"
@@ -50,13 +50,13 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "time",
             "description": "<p>Time and days in which the course falls</p>"
           },
           {
             "group": "Parameter",
-            "type": "Array",
+            "type": "String[]",
             "optional": false,
             "field": "courseGrid",
             "description": "<p>Array containing the course grid as specified by the professor</p>"
@@ -70,7 +70,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "Array",
+            "type": "Integer[]",
             "optional": false,
             "field": "numDays",
             "description": "<p>Number of days a student can miss for this class</p>"
@@ -116,19 +116,13 @@ define({ "api": [
             "optional": false,
             "field": "401",
             "description": "<p>session is not valid or the user is not an admin</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "400",
-            "description": "<p>user not created, but no error thrown by the database</p>"
           }
         ]
       }
     },
     "version": "0.0.0",
     "filename": "server/controllers/course.controller.js",
-    "groupTitle": "Admin",
+    "groupTitle": "Course",
     "name": "PostCourse"
   },
   {

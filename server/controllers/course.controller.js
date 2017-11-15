@@ -501,18 +501,18 @@ export function courseListByProfessor(req, res) {
 * @apiGroup Course
 *
 * @apiDescription
-*  ## Create a course with a corresponding course grid.
+*  ## Admin only method that creates a course and corresponding course grid.
 *
 * @apiHeader Content-Type application/json
 * @apiHeader Cookie session cookie
 *
 * @apiParam {String} title            Title of the course (must be unique)
 * @apiParam {String} term             Defines what term the course falls in
-* @apiParam {Array} gridsize          X by Y grid for the seating arrangement
-* @apiParam {String} time             Time and days in which the course falls
-* @apiParam {Array} courseGrid        Array containing the course grid as specified by the professor
+* @apiParam {Integer[]} gridsize          X by Y grid for the seating arrangement
+* @apiParam {String} [time]           Time and days in which the course falls
+* @apiParam {String[]} courseGrid        Array containing the course grid as specified by the professor
 * @apiParam {String} emailTemplate    Template of the emails that this course will send to students
-* @apiParam {Array} numDays           Number of days a student can miss for this class
+* @apiParam {Integer[]} numDays           Number of days a student can miss for this class
 *
 * @apiParamExample {json} Parameter Example
 *     {
@@ -536,7 +536,6 @@ export function courseListByProfessor(req, res) {
 *
 * @apiError 403 required arguments are missing, or course title contains invalid characters, or gridsize is <= 1, or title is already taken
 * @apiError 401 session is not valid or the user is not an admin
-* @apiError 400 user not created, but no error thrown by the database
 *
 */
 export function createCourse(req, res) {
