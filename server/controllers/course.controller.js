@@ -492,11 +492,59 @@ export function courseListByProfessor(req, res) {
  }
 
 /**
- *
- * @param req
- * @param res
- * @returns void
- */
+*
+* @param req
+* @param res
+* @returns void
+*
+* @api {post} course Create course
+* @apiGroup Admin
+*
+* @apiDescription
+*  ## Create a course with a corresponding course grid.
+*
+* @apiHeader Content-Type application/json
+* @apiHeader Cookie session cookie
+*
+* @apiParam {String} title            Title of the course (must be unique)
+* @apiParam {String} term             Defines what term the course falls in
+* @apiParam {Array} gridsize          X by Y grid for the seating arrangement
+* @apiParam {String} time             Time and days in which the course falls
+* @apiParam {Array} courseGrid        Array containing the course grid as specified by the professor
+* @apiParam {String} emailTemplate    Template of the emails that this course will send to students
+* @apiParam {Array} numDays           Number of days a student can miss for this class
+*
+* @apiParamExample {json} Parameter Example
+*     {
+*     	"title": "Class101",
+*     	"term": "Fall 2017",
+*     	"gridsize": [8,8], 
+*	      "time": "TTh 10:30-11:20am",
+*     	"courseGrid": [["","","","","","","",""],
+*      	["","","","","","","",""],
+*     	["","","","","","","",""],
+*     	["","","","","","","",""],
+*     	["","","","","","","",""],
+*	      ["","","","","","","",""],
+*	      ["","","","","","","",""],
+*     	["","","","","","","",""]],
+*	      "emailTemplate": "You have missed too much class.",
+*	      "numDays": [5]
+*     }
+*
+* @apiParamExample {json} Header Example
+*  {
+*    Content-Type: application/json
+*    Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f
+*  }
+*
+* @apiSuccess 200 Course created successfully
+*
+* @apiError 403 required arguments are missing, or course title contains invalid characters, or gridsize is <= 1, or title is already taken
+* @apiError 401 session is not valid or the user is not an admin
+* @apiError 400 user not created, but no error thrown by the database
+*
+*/
 export function createCourse(req, res) {
 
   // make sure that the session is valid
