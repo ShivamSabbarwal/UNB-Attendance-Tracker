@@ -1,5 +1,132 @@
 [
   {
+    "type": "get",
+    "url": "course/{courseTitle}/stats?absence={numberOfAbsences}",
+    "title": "Absence statistics",
+    "group": "Attendance",
+    "description": "<h2>Get list of students who have missed at least the given number of days</h2> <ul> <li>admin only</li> <li>will return list of students and the number of absences they have (only if there number of absences is greater than the number provided)</li> <li>searching for 0 absences will return full list of students and their number of absences</li> </ul>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p>"
+          },
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Cookie",
+            "description": "<p>session cookie</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "URL parameter": [
+          {
+            "group": "URL parameter",
+            "type": "String",
+            "optional": false,
+            "field": "courseTitle",
+            "description": "<p>The title of the course</p>"
+          }
+        ],
+        "Query parameter": [
+          {
+            "group": "Query parameter",
+            "type": "int",
+            "optional": true,
+            "field": "numberOfAbsences",
+            "defaultValue": "0",
+            "description": "<p>Students will be returned if they have at least this many absences</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "URL and Query Parameter Example",
+          "content": "http://127.0.0.1:8000/api/course/SWE4103/stats?absences=2",
+          "type": "json"
+        },
+        {
+          "title": "Header Example",
+          "content": "{\n  Content-Type: application/json\n  Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "students",
+            "description": "<p>Contains &quot;name&quot; and &quot;absenceCount&quot; for each student with at least as many absences as numberOfAbsences</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>The username of one student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "absenceCount",
+            "description": "<p>The total number of absences a student has on record</p>"
+          },
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "200",
+            "description": "<p>Successfully found and returned information</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Get absences=0",
+          "content": "http://127.0.0.1:8000/api/course/SWE4103/stats?absences=0\n\n{\n  \"students\": [\n    {\"name\": \"Wirt, Jr.\", \"absenceCount\": 0},\n    {\"name\": \"George Washington\", \"absenceCount\": 4},\n    {\"name\": \"J. Funderburker\", \"absenceCount\": 3}\n  ],\n}",
+          "type": "json"
+        },
+        {
+          "title": "Get absences=3",
+          "content": "http://127.0.0.1:8000/api/course/SWE4103/stats?absences=3\n\n{\n  \"students\": [\n    {\"name\": \"George Washington\", \"absenceCount\": 4}\n    {\"name\": \"J. Funderburker\", \"absenceCount\": 3}\n  ],\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "401",
+            "description": "<p>Invalid session</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "403",
+            "description": "<p>Session does not belong to admin, or courseTitle was not provided, or matching course could not be found</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/attendance.controller.js",
+    "groupTitle": "Attendance",
+    "name": "GetCourseCoursetitleStatsAbsenceNumberofabsences"
+  },
+  {
     "type": "post",
     "url": "course",
     "title": "Create course",
@@ -80,8 +207,8 @@
       "examples": [
         {
           "title": "Parameter Example",
-          "content": "    {\n    \t\"title\": \"Class101\",\n    \t\"term\": \"Fall 2017\",\n    \t\"gridsize\": [3,2],\n\t      \"time\": \"TTh 10:30-11:20am\",\n    \t\"courseGrid\": [[\"\",\"\",\"\"],\n     \t[\"\",\"\",\"\"]],\n\t      \"emailTemplate\": \"You have missed too much class.\",\n\t      \"numDays\": [5]\n    }",
-          "type": "json"
+          "content": "{\n  \"title\": \"Class101\",\n  \"term\": \"Fall 2017\",\n  \"gridsize\": [3,2],\n  \"time\": \"TTh 10:30-11:20am\",\n  \"courseGrid\": [[\"\",\"\",\"\"],\n                 [\"\",\"\",\"\"]],\n  \"emailTemplate\": \"You have missed too much class.\",\n  \"numDays\": [5]\n}",
+          "type": "js"
         },
         {
           "title": "Header Example",
