@@ -498,7 +498,7 @@ export function courseListByProfessor(req, res) {
 * @returns void
 *
 * @api {post} course Create course
-* @apiGroup Admin
+* @apiGroup Course
 *
 * @apiDescription
 *  ## Create a course with a corresponding course grid.
@@ -518,16 +518,10 @@ export function courseListByProfessor(req, res) {
 *     {
 *     	"title": "Class101",
 *     	"term": "Fall 2017",
-*     	"gridsize": [8,8], 
+*     	"gridsize": [3,2],
 *	      "time": "TTh 10:30-11:20am",
-*     	"courseGrid": [["","","","","","","",""],
-*      	["","","","","","","",""],
-*     	["","","","","","","",""],
-*     	["","","","","","","",""],
-*     	["","","","","","","",""],
-*	      ["","","","","","","",""],
-*	      ["","","","","","","",""],
-*     	["","","","","","","",""]],
+*     	"courseGrid": [["","",""],
+*      	["","",""]],
 *	      "emailTemplate": "You have missed too much class.",
 *	      "numDays": [5]
 *     }
