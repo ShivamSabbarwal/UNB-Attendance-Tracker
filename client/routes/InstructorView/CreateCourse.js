@@ -25,6 +25,8 @@ class CreateCourse extends Component{
 
   }
 
+
+
   render(){
     if (isAdmin == "false" || username == "null"){
       return (
@@ -115,7 +117,11 @@ class CreateCourse extends Component{
     )
   }
 }
+//1 click - closed Seat
+//2 click - auditable Seat
+//3 click - back to open seat
 function createGrid(){
+  var count = 0;
   var rows = document.getElementById('gridRows').value;
   var cols = document.getElementById('gridCols').value;
   var theader = '<table style="margin: auto";>\n';
@@ -123,8 +129,8 @@ function createGrid(){
   for (var i = 0; i < rows; i++){
     tbody += '<tr>';
     for (var j = 0; j < cols; j++){
-      tbody += '<td id="createGridCell" style="background-color: white; width: 140px; height: 60px; border-width: 10px; border-color: #d9d9d9;">';
-      tbody += '';//content;
+      tbody += '<td id="createGridCell[i][j]" onClick={console.log("test")} style="background-color: white; width: 140px; height: 60px; border-width: 10px; border-color: #d9d9d9;">';
+      tbody += '<span id="CAO" style=""></span>';//content;
       tbody += '</td>'
     }
     tbody += '</tr>\n';
@@ -132,18 +138,7 @@ function createGrid(){
   var tfooter = '</table>';
   document.getElementById('gridWrapper').innerHTML = theader + tbody + tfooter;
 }
-//1 click - closed Seat
-//2 click - auditable Seat
-//3 click - back to open seat
-function changeLegend(){
-  var rows = document.getElementById('gridRows').value;
-  var cols = document.getElementById('gridCols').value;
-  for (var i = 0; i < rows; i ++){
-    for (var j = 0; j < cols; j ++){
-      document.getElementById("createGridCell[i][j]").style.background = "yellow";
-    }
-  }
-}
+
 
 
 function submit(){
