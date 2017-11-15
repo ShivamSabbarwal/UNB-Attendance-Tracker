@@ -2,7 +2,6 @@ import Course from '../models/course';
 import courseGrid from '../models/coursegrid';
 import User from '../models/user';
 import SessionUtils from '../util/sessionUtils';
-import CourseUtils from '../util/courseUtils';
 
 /**
  * @author Gehad
