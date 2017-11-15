@@ -493,9 +493,9 @@ export function courseListByProfessor(req, res) {
 
 /**
 *
-* @param req
-* @param res
-* @returns void
+* param req
+* param res
+* returns void
 *
 * @api {post} course Create course
 * @apiGroup Course
@@ -514,16 +514,16 @@ export function courseListByProfessor(req, res) {
 * @apiParam {String} emailTemplate    Template of the emails that this course will send to students
 * @apiParam {Integer[]} numDays           Number of days a student can miss for this class
 *
-* @apiParamExample {json} Parameter Example
+* @apiParamExample {js} Parameter Example
 *     {
-*     	"title": "Class101",
-*     	"term": "Fall 2017",
-*     	"gridsize": [3,2],
-*	      "time": "TTh 10:30-11:20am",
-*     	"courseGrid": [["","",""],
-*      	["","",""]],
-*	      "emailTemplate": "You have missed too much class.",
-*	      "numDays": [5]
+*       "title": "Class101",
+*       "term": "Fall 2017",
+*       "gridsize": [3,2],
+*       "time": "TTh 10:30-11:20am",
+*       "courseGrid": [["","",""],
+*                      ["","",""]],
+*       "emailTemplate": "You have missed too much class.",
+*       "numDays": [5]
 *     }
 *
 * @apiParamExample {json} Header Example
