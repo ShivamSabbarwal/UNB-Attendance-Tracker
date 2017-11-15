@@ -1,0 +1,7 @@
+{
+  "name": "Attendance tracker API documentation",
+  "version": "0.1.0",
+  "description": "Better than Google Docs!",
+  "title": "API docs",
+  "url" : "http://127.0.0.1:8000/api/"
+}
