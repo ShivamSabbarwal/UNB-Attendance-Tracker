@@ -28,5 +28,6 @@ router.route('/course/:courseTitle/attendance').put(AttendanceController.submitA
 router.route('/course/:courseTitle/attendance').get(AttendanceController.getAttendance);
 router.route('/course/:courseTitle/seat').put(AttendanceController.reserveSeat);
 router.route('/course/:courseTitle/grid').get(AttendanceController.getCourseGrid);
+router.route('/course/:courseTitle/stats').get(AttendanceController.getStats);
 
 export default router;
