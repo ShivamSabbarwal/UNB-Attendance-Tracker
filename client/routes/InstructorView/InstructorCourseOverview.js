@@ -15,7 +15,7 @@ class InstructorCourseOverview extends Component{
   constructor(props){
     super(props);
     this.state = {courseGrid: []}
-    this.startDate = "";
+    this.startDate = "11/11/2017";
   }
 
   componentDidMount(){
@@ -72,12 +72,15 @@ class InstructorCourseOverview extends Component{
       <div>
        <Header/>
        <div className={styles.mainBody}>
+        <div className={styles.datePickerWrapper}>
          <DatePicker className={styles.datePicker}>
              autoFocus
              selected={this.state.startDate}
              onChange={this.handleChange}
          </DatePicker>
-         <h1 className={styles.mainBodyTitle}>{courseName}</h1>
+         </div>
+         <h1 className={styles.mainBodyTitleInstructorCourseOverview}>{courseName}</h1>
+
            <div className={styles.mainBodyWrapper}>
           <div className={styles.courseGrid}>
             {this.state.courseGrid}

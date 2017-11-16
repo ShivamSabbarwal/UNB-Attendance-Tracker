@@ -38,6 +38,7 @@
   padding-top: 1px;
   padding-bottom: 100px;
 }
+
 .mainBodyTitle{
   color: white;
   text-align: center;
@@ -239,10 +240,18 @@
   margin-top: 5%;
 }
 
-.datePicker{
+.datePickerWrapper{
   margin-left: 15%;
   width: 100px;
   display: inline-block;
+}
+
+.mainBodyTitleInstructorCourseOverview{
+  color: white;
+  text-align: center;
+  font-size: 35px;
+  display: inline-block;
+  margin-left: 25%;
 }
 
 .instructorButton{
