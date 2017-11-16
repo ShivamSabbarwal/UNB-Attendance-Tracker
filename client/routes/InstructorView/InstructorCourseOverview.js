@@ -6,6 +6,8 @@ import React, { PropTypes, Component } from 'react';
  import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Image } from 'react-bootstrap';
  import InstructorCourseGrid from '../CourseOverview/InstructorCourseGrid';
  import DatePicker from 'react-datepicker';
+ import '../../../node_modules/react-datepicker/dist/react-datepicker.min.css';
+ import '../../../node_modules/react-datepicker/dist/react-datepicker-cssmodules.min.css';
  // Import Style
  import styles from '../../main.css';
  import Header from '../Components/InstructorHeader';
@@ -72,11 +74,11 @@ class InstructorCourseOverview extends Component{
       <div>
        <Header/>
        <div className={styles.mainBody}>
-         <DatePicker className={styles.datePicker}>
+         <DatePicker
              autoFocus
              selected={this.state.startDate}
              onChange={this.handleChange}
-         </DatePicker>
+         />
          <h1 className={styles.mainBodyTitle}>{courseName}</h1>
            <div className={styles.mainBodyWrapper}>
           <div className={styles.courseGrid}>
