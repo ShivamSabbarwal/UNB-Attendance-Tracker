@@ -8,7 +8,6 @@ import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import InstructorHome from './InstructorView/InstructorHome';
 import StudentHome from './StudentView/StudentHome';
-import CourseGrid from './CourseGrid/CourseGrid';
 import InstructorCourseOverview from './InstructorView/InstructorCourseOverview';
 import StudentCourseOverview from './StudentView/StudentCourseOverview';
 import RegisterCourse from './StudentView/RegisterCourse';
@@ -42,7 +41,6 @@ export default (
     <Route path="/signup" component = {Signup} />
     <Route path="/instructor_home" component={InstructorHome} />
     <Route path="/student_home" component={StudentHome} />
-    <Route path="/course_grid" component={CourseGrid} />
     <Route path="/course_overview_inst" component={InstructorCourseOverview} />
     <Route path="/course_overview_stu" component={StudentCourseOverview} />
     <Route path="/register_course" component={RegisterCourse} />
