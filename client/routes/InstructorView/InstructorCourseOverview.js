@@ -21,19 +21,28 @@ class InstructorCourseOverview extends Component{
     var courseName = this.props.location.search;
     courseName = courseName.split("=")[1];
 
-    var grid = [["", "Tony", "", "", "", "", "", "", "Shiv", ""],
-   ["", "", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "Tristen", "", "", "", "", ""],
-   ["", "Jean-Marc", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "Justin", ""],
-   ["", "", "Jacob", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "", ""]];
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+        debugger;
 
-    var height = grid.length;
-    var width = grid[0].length;
+        var response = JSON.parse(req.responseText);
+
+        var grid = response.grid;
+
+        var output = <CourseGrid name={courseName} grid={grid}/>;
+
+        this.setState({
+          courseGrid: output
+        });
+
+      }
+    }.bind(this)
+
+    req.open("GET", "/api/course/" + courseName + "/grid");
+    req.setRequestHeader("Content-type", "application/json");
+
+    req.send();
 
     var rows = ["Students:"];
 
@@ -51,12 +60,6 @@ class InstructorCourseOverview extends Component{
       }
 
     }
-
-    var output = <CourseGrid name={courseName} grid={grid}/>;
-
-    this.setState({
-      courseGrid: output
-    });
   }
 
   render(){
