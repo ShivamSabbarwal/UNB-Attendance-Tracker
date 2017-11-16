@@ -6,7 +6,6 @@ import { Link } from 'react-router';
 import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import FaBeer from 'react-icons/lib/fa/edit';
 import Background from "../../images/png/books.png";
-import CloseButton from "../../images/png/close2.png";
 // Import Style
 import styles from '../../main.css';
 
@@ -43,13 +42,11 @@ class CourseIcon extends Component{
       backgroundImage: "url(" + Background + ")"
     };
     return(
-      <div>
       <div className={styles.courseIcon}>
           <button onClick={this.removeCourse.bind(this)} className={styles.removeCourse}>&#10006;</button>
           <Link to={'/course_overview_inst/?name=' + this.props.name}>
           <div className={styles.courseIconBackground}></div>
           <div className={styles.courseNameWrapper}><label className={styles.courseTitle}>{this.props.name}</label></div></Link>
-      </div>
       </div>
     )
   }

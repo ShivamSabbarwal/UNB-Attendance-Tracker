@@ -52,13 +52,11 @@ class StudentCourseIcon extends Component{
     };
 
     return(
-      <div>
       <div className={styles.courseIcon}>
           <button onClick={this.removeCourse.bind(this)} className={styles.removeCourse}>&#10006;</button>
           <Link to={'/course_overview_stu/?name=' + this.props.name}>
           <div className={styles.courseIconBackground}></div>
           <div className={styles.courseNameWrapper}><label className={styles.courseTitle}>{this.props.name}</label></div></Link>
-      </div>
       </div>
     )
   }
