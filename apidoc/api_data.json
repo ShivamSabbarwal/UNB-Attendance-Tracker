@@ -80,8 +80,8 @@
       "examples": [
         {
           "title": "Parameter Example",
-          "content": "    {\n    \t\"title\": \"Class101\",\n    \t\"term\": \"Fall 2017\",\n    \t\"gridsize\": [3,2],\n\t      \"time\": \"TTh 10:30-11:20am\",\n    \t\"courseGrid\": [[\"\",\"\",\"\"],\n     \t[\"\",\"\",\"\"]],\n\t      \"emailTemplate\": \"You have missed too much class.\",\n\t      \"numDays\": [5]\n    }",
-          "type": "json"
+          "content": "{\n  \"title\": \"Class101\",\n  \"term\": \"Fall 2017\",\n  \"gridsize\": [3,2],\n  \"time\": \"TTh 10:30-11:20am\",\n  \"courseGrid\": [[\"\",\"\",\"\"],\n                 [\"\",\"\",\"\"]],\n  \"emailTemplate\": \"You have missed too much class.\",\n  \"numDays\": [5]\n}",
+          "type": "js"
         },
         {
           "title": "Header Example",

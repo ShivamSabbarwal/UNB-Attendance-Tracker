@@ -239,6 +239,12 @@
   margin-top: 5%;
 }
 
+.datePicker{
+  margin-left: 15%;
+  width: 100px;
+  display: inline-block;
+}
+
 .instructorButton{
   background: #a6a6a6;
   border-radius: 5px;

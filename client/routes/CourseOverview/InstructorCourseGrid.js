@@ -4,12 +4,12 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import DataCell from './DataCell';
+import InstructorDataCell from './InstructorDataCell';
 
 // Import Style
 import styles from '../../main.css';
 
-class CourseGrid extends Component{
+class InstructorCourseGrid extends Component{
 
   constructor(props){
     super(props);
@@ -30,7 +30,7 @@ class CourseGrid extends Component{
       for(var idx = 0; idx < width; idx++){
 
       	var id = "" + i + "" + idx + "";
-      	cell.push(<DataCell name={this.props.grid[i][idx]} id={id} />);
+      	cell.push(<InstructorDataCell name={this.props.grid[i][idx]} id={id} />);
 
       }
 
@@ -61,4 +61,4 @@ class CourseGrid extends Component{
 }
 
 
-export default CourseGrid;
+export default InstructorCourseGrid;
