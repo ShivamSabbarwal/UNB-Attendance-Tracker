@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -9,56 +9,56 @@ import DataCell from './DataCell';
 // Import Style
 import styles from '../../main.css';
 
-export function CourseGrid(props) {
+class CourseGrid extends Component{
 
-  var height = props.grid.length;
-  var width = props.grid[0].length;
+  constructor(props){
+    super(props);
+    this.state = {gridVisual: []};
+  }
 
-  var rows = [];
+  componentDidMount(){
+    debugger;
+    var height = this.props.grid.length;
+    var width = this.props.grid[0].length;
 
-  for(var i = 0; i < height; i++){
+    var rows = [];
 
-    var cell = [];
+    for(var i = 0; i < height; i++){
 
-    for(var idx = 0; idx < width; idx++){
+      var cell = [];
 
-	var id = i*100 + idx;
-	cell.push(<DataCell name={props.grid[i][idx]} id={i*100 + idx} />);
+      for(var idx = 0; idx < width; idx++){
+
+      	var id = "" + i + "" + idx + "";
+      	cell.push(<DataCell name={this.props.grid[i][idx]} id={id} />);
+
+      }
+
+      rows.push(<tr>{cell}</tr>);
 
     }
-
-    rows.push(<tr>{cell}</tr>);
+    debugger;
+    this.setState({
+      gridVisual: rows
+    })
 
   }
 
-  return (
-    <div>
-        <div className={styles.courseGrid}>
-          <table className={styles.courseTable}>
-            <tbody>
-              {rows}
-            </tbody>
-          </table>
-        </div>
-    </div>
-  );
+  render(){
+    return(
+      <div>
+          <div className={styles.courseGrid}>
+            <table className={styles.courseTable}>
+              <tbody>
+                {this.state.gridVisual}
+              </tbody>
+            </table>
+          </div>
+      </div>
+    )
+  }
+
 }
 
-// Retrieve data from store as props
-function mapStateToProps(state, props) {
-  return {
 
-  };
-}
-
-CourseGrid.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
-};
-
-export default connect(mapStateToProps)(CourseGrid);
+export default CourseGrid;

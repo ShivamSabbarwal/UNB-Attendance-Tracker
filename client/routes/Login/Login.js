@@ -1,35 +1,59 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import {Link} from 'react-router';
 // Import Style
 import styles from '../../main.css';
+import PageNotFound from '../PageNotFound/PageNotFound';
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
+console.log("username: "+ username);
+console.log("sessionID: "+ sessionID);
+console.log("isAdmin: "+isAdmin);
 
-export function Login(props) {
-  return (
-    <div className={styles.page}>
-      <div className={styles.Container}>
-        <div className={styles.user}>
-          <div className={styles.userHeader}>
-            <h3 className={styles.userTitle}>Login to <span className={styles.appName}>UNB Attendance Services</span></h3>
-            <form className={styles.form}>
-              <input className={styles.input} id="username" placeholder="Username"/>
-              <input className={styles.input} id="password" placeholder="Password" type="password"/>
-            </form>
-            <button className={styles.btn} onClick={submit}> Submit </button>
-          </div>
-          <div className={styles.underBar}>
-            <label>New User? <Link to={'/signup'}>Register Here</Link> </label>
+class Login extends Component{
+
+  constructor(props){
+    super(props);
+  }
+
+  componentDidMount(){
+
+  }
+
+  render(){
+    return(
+      <div className={styles.page}>
+        <div className={styles.errorMessageWithBox}>
+          <div className={styles.errorBoxTemplate} id="errorTemplateBox">holds height</div>
+          <div className={styles.noInput} id="inputErrorBox">Do not leave username or password field empty</div>
+          <div className={styles.authenticationError} id="authenticationErrorBox">Invalid username or password</div>
+          <div className={styles.successfulLogin} id="successfulBox">Successful Login!</div>
+          <div className={styles.Container}>
+            <div className={styles.user}>
+              <div className={styles.userHeader}>
+                <h3 className={styles.userTitle}>Login to <span className={styles.appName}>UNB Attendance Services</span></h3>
+                <form className={styles.form}>
+                  <input className={styles.input} id="username" placeholder="Username"/>
+                  <input className={styles.input} id="password" placeholder="Password" type="password"/>
+                </form>
+                <button className={styles.btn} onClick={submit}> Submit</button>
+              </div>
+              <div className={styles.underBar}>
+                <label>New User? <Link to={'/signup'}>Register Here</Link> </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    )
+  }
+
 }
 
 function submit(){
-  debugger;
   var user = document.getElementById("username").value;
   var pass = document.getElementById("password").value;
 
@@ -39,12 +63,21 @@ function submit(){
 
   req.open("POST", "api/login");
   req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
   req.onreadystatechange = function(){
-    debugger;
+    //successful login
     if(req.readyState == 4 && req.status == 200) {
+       document.getElementById("successfulBox").style.visibility = "visible";
+       document.getElementById("successfulBox").style.display = "block";
+
+       document.getElementById("errorTemplateBox").style.visibility = "hidden";
+       document.getElementById("errorTemplateBox").style.display = "none";
+
+       document.getElementById("inputErrorBox").style.visibility = "hidden";
+       document.getElementById("inputErrorBox").style.display = "none";
+
+       document.getElementById("authenticationErrorBox").style.visibility = "hidden";
+       document.getElementById("authenticationErrorBox").style.display = "none";
+
 	     var serverResponse = JSON.parse(req.responseText);
 	     document.cookie = "isAdmin=" + serverResponse.isAdmin + "";
        document.cookie = "username=" + serverResponse.username + "";
@@ -54,32 +87,47 @@ function submit(){
 		       window.location.href = "/student_home";
 	     }
     }
-  }
+    //empty input group, warning
+    if(req.readyState == 4 && req.status == 403){
+      if (user == "" || pass == ""){
+        document.getElementById("errorTemplateBox").style.visibility = "hidden";
+        document.getElementById("errorTemplateBox").style.display = "none";
 
+        document.getElementById("inputErrorBox").style.visibility = "visible";
+        document.getElementById("inputErrorBox").style.display = "block";
+
+        document.getElementById("authenticationErrorBox").style.visibility = "hidden";
+        document.getElementById("authenticationErrorBox").style.display = "none";
+      }
+    }
+    //unauthorized validation, error
+    else if (req.readyState == 4 && req.status == 401){
+      document.getElementById("errorTemplateBox").style.visibility = "hidden";
+      document.getElementById("errorTemplateBox").style.display = "none";
+
+      document.getElementById("authenticationErrorBox").style.visibility = "visible";
+      document.getElementById("authenticationErrorBox").style.display = "block";
+
+      document.getElementById("inputErrorBox").style.visibility = "hidden";
+      document.getElementById("inputErrorBox").style.display = "none";
+    }
+  }
   req.send(params);
 
 }
 
-// Actions required to provide data for this component to render in sever side.
-//HomePage.need = [params => {
-  //return fetchPost(params.cuid);
-//}];
+function readCookie(name) {
+    var nameEQ = name + "=";
+    if(typeof window !== 'undefined') {
+      var ca = document.cookie.split(';');
 
-// Retrieve data from store as props
-function mapStateToProps(state, props) {
-  return {
-    //post: getPost(state, props.params.cuid),
-  };
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+  }
+    return null;
 }
 
-Login.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
-};
-
-export default connect(mapStateToProps)(Login);
+export default Login;

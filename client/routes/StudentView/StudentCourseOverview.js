@@ -1,41 +1,120 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import CourseGrid from '../CourseOverview/CourseGrid';
+import * as utils from '../utils/utils.js';
 // Import Style
 import styles from '../../main.css';
 import Header from '../Components/StudentHeader';
 
-export function StudentCourseOverview(props) {
-debugger;
-  var courseName = props.location.search;
-  courseName = courseName.split("=")[1];
+class StudentCourseOverview extends Component{
 
-  var height = props.grid.length;
-  var width = props.grid[0].length;
+  constructor(props){
+    super(props);
+    this.state = {courseGrid: []};
+  }
 
-  return (
-<div>
-  <Header/>
-    <div className={styles.mainBody}>
-      <h1 className={styles.mainBodyTitle}>{courseName}</h1>
-        <div className={styles.mainBodyWrapper}>
-          <div className={styles.courseGrid}>
-            <CourseGrid name={courseName} grid={props.grid}/>
+  componentDidMount(){
+
+    var courseName = this.props.location.search;
+    courseName = courseName.split("=")[1];
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+        debugger;
+
+        var response = JSON.parse(req.responseText);
+
+        var grid = response.grid;
+
+        var output = <CourseGrid name={courseName} grid={grid}/>;
+
+        this.setState({
+          courseGrid: output
+        });
+
+      }
+    }.bind(this)
+
+  req.open("GET", "/api/course/" + courseName + "/grid");
+  req.setRequestHeader("Content-type", "application/json");
+
+  req.send();
+  }
+
+  reserveSeat(){
+    debugger;
+    var grid = this.state.courseGrid.props.grid;
+    var row = -1;
+    var column = -1;
+    for(var i = 0; i < grid.length; i++){
+      for(var j = 0; j < grid[0].length; j++){
+        var check = document.getElementById("" + i + "" + j + "");
+        if(check.className.includes(styles.courseGridCellClicked)){
+          row = i;
+          column = j;
+          break;
+        }
+      }
+      if(row >= 0){
+        break;
+      }
+    }
+    if(row < 0){
+      alert("Didn't select a seat!");
+    } else{
+
+      var courseName = this.props.location.search;
+      courseName = courseName.split("=")[1];
+
+      var username = utils.readCookie("username");
+
+      var req = new XMLHttpRequest();
+      req.onreadystatechange = function() {
+        if (req.readyState == 4 && req.status == 200) {
+          debugger;
+          window.location.reload();
+        }
+      }.bind(this)
+
+      req.open("PUT", "/api/course/" + courseName + "/seat");
+      req.setRequestHeader("Content-type", "application/json");
+      var params = '{"username": "' + username + '", "seat": [' + row + ',' + column + ']}';
+      req.send(params);
+    }
+
+    }
+
+  render(){
+
+    var courseName = this.props.location.search;
+    courseName = courseName.split("=")[1];
+
+    return(
+      <div>
+        <Header/>
+          <div className={styles.mainBody}>
+            <h1 className={styles.mainBodyTitle}>{courseName}</h1>
+              <div className={styles.mainBodyWrapper}>
+                <div className={styles.courseGrid}>
+                  {this.state.courseGrid}
+                </div>
+              </div>
+            </div>
+
+          <div className={styles.footer} >
+              <div className={styles.buttonWrapper}>
+                <h3 onClick={this.reserveSeat.bind(this)} className={styles.instructorButton}>Reserve Seat</h3>
+              </div>
           </div>
-        </div>
       </div>
+    )
+  }
 
-    <div className={styles.footer} >
-        <div className={styles.buttonWrapper}>
-          <Link to="/student_home"><h3 className={styles.instructorButton}>Reserve Seat</h3></Link>
-        </div>
-    </div>
-  </div>
-  );
 }
 
 function logout(){
@@ -54,31 +133,4 @@ function logout(){
   req.send();
 }
 
-// Retrieve data from store as props
-function mapStateToProps(state, props) {
-  return{
-    grid: [["", "Tony", "", "", "", "", "", "", "Shiv", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "Tristen", "", "", "", "", ""],
-  ["", "Jean-Marc", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "Justin", ""],
-  ["", "", "Jacob", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""]]
-};
-}
-
-StudentCourseOverview.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
-};
-
-export default connect(mapStateToProps)(StudentCourseOverview);
+export default StudentCourseOverview;
