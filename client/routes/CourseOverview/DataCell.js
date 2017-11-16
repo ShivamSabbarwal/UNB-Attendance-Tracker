@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import * as utils from '../utils/utils.js';
+import * as utils from '../Utils/utils.js';
 
 // Import Style
 import styles from '../../main.css';
