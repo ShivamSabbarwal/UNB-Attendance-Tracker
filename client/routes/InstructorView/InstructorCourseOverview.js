@@ -74,11 +74,12 @@ class InstructorCourseOverview extends Component{
       <div>
        <Header/>
           <div className={styles.mainBody}>
-             <DatePicker
-                 autoFocus
-                 selected={this.state.startDate}
-                 onChange={this.handleChange}
-             />
+               <DatePicker className={styles.datePicker}
+                   autoFocus
+                   selected={this.state.startDate}
+                   onChange={this.handleChange}
+               />
+            <Link to={'/attendance_stats/?name=' + courseName}><h3 className={styles.statDirect}>View Attendance Statistics</h3></Link><br/><br/><br/>
             <h1 className={styles.mainBodyTitle}>{courseName}</h1>
             <div className={styles.mainBodyWrapper}>
               <div className={styles.courseGrid}>
@@ -89,7 +90,7 @@ class InstructorCourseOverview extends Component{
 
             <div className={styles.footer}>
               <div className={styles.buttonWrapper}>
-                <h3 className={styles.instructorButton}>Track Attendance</h3>
+                <h3 className={styles.instructorButton}>Submit Attendance</h3>
                </div>
             </div>
           </div>

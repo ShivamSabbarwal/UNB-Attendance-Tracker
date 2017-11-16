@@ -6,6 +6,8 @@ import { Link } from 'react-router';
 import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import FaBeer from 'react-icons/lib/fa/edit';
 import Background from "../../images/png/books.png";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import '../../../node_modules/react-confirm-alert/src/react-confirm-alert.css';
 // Import Style
 import styles from '../../main.css';
 
@@ -19,23 +21,26 @@ class CourseIcon extends Component{
 
   }
 
-  removeCourse(){
-    var req = new XMLHttpRequest();
-    req.onreadystatechange = function() {
-      if (req.readyState == 4 && req.status == 200) {
-
-        alert(this.props.name + " was removed!");
-
-      }
-    }.bind(this)
-
-    req.open("DELETE", "api/course");
-    req.setRequestHeader("Content-type", "application/json");
-    var params = '{"title":"' + this.props.name + '"}';
-
-    req.send(params);
-  }
-
+  removeCourse = () => {
+    confirmAlert({
+      title: 'Drop Course',
+      message: 'Are you sure to drop '+this.props.name+'?',
+      confirmLabel: 'Confirm',
+      cancelLabel: 'Cancel',
+      onConfirm: function(){
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+          if (req.readyState == 4 && req.status == 200) {
+            window.location.reload();
+          }
+        }
+        req.open("DELETE", "api/course");
+        req.setRequestHeader("Content-type", "application/json");
+        var params = '{"title":"' + this.props.name + '"}';
+        req.send(params);
+      }.bind(this),
+    })
+  };
 
   render(){
     var backgroundStyle = {
