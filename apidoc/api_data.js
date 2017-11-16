@@ -127,6 +127,148 @@ define({ "api": [
     "name": "GetCourseCoursetitleStatsAbsenceNumberofabsences"
   },
   {
+    "type": "get",
+    "url": "course/{courseTtile}/attendance?date={date}",
+    "title": "Get course attendance",
+    "group": "Attendance",
+    "description": "<h2>Gets attendance information for the 6 days before the provided date (does not include the provided date)</h2> <ul> <li>admin only</li> </ul>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p>"
+          },
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Cookie",
+            "description": "<p>session cookie</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "URL parameter": [
+          {
+            "group": "URL parameter",
+            "type": "String",
+            "optional": false,
+            "field": "courseTitle",
+            "description": "<p>The title of the course</p>"
+          }
+        ],
+        "query parameter": [
+          {
+            "group": "query parameter",
+            "type": "String",
+            "optional": false,
+            "field": "date",
+            "description": "<p>The date used to define the time period. The information returned will be for the 6 days before this date (non-inclusive)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "URL and Query Parameter Example",
+          "content": "http://127.0.0.1:8000/api/course/SWE4103/attendance?date=Nov 12, 2017",
+          "type": "json"
+        },
+        {
+          "title": "Header Example",
+          "content": "{\n  Content-Type: application/json\n  Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "students",
+            "description": "<p>Contains information for each student in the course</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Username of the student</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "absence",
+            "description": "<p>List of times when the student was absent</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "int",
+            "optional": false,
+            "field": "total",
+            "description": "<p>Total number of absences a student has</p>"
+          },
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "200",
+            "description": "<p>Successfully found and returned attendance information</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success Example",
+          "content": " http://127.0.0.1:8000/api/course/MATH1001/attendance?date=Nov 12, 2017\n\n{\n \"students\":[\n   {\n     \"name\":\"user2\",\n     \"absence\":[],\n     \"total\":2\n   },\n   {\n     \"name\":\"user1\",\n     \"absence\":[\n       \"Tue, 12 Nov 17 15:52:01 +0000\",\n       \"Tue, 12 Nov 17 15:52:01 +0000\",\n       \"Thu, 14 Nov 17 15:52:01 +0000\",\n       \"Fri, 17 Nov 17 15:52:01 +0000\"\n     ],\n     \"total\":5\n   }\n ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "403",
+            "description": "<p>User is not allowed</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "401",
+            "description": "<p>Unauthorized (User not logged in)</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "400",
+            "description": "<p>Bad Request</p>"
+          }
+        ],
+        "Error 5xx": [
+          {
+            "group": "Error 5xx",
+            "optional": false,
+            "field": "500",
+            "description": "<p>Internal server error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/attendance.controller.js",
+    "groupTitle": "Attendance",
+    "name": "GetCourseCoursettileAttendanceDateDate"
+  },
+  {
     "type": "post",
     "url": "course",
     "title": "Create course",
