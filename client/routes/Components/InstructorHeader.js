@@ -59,10 +59,10 @@ function deleteAllCookies() {
     }
 }
 function logout(){
+  deleteAllCookies();
   var sessionID = "sessionID=" + readCookie("sessionID");
   var req = new XMLHttpRequest();
   req.open("GET", "api/logout");
-  deleteAllCookies();
   //these two function allows cookie to be set inside the header
   //req.crossDomain = true;
   //req.withCredentials = true;

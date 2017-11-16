@@ -92,6 +92,7 @@
     "react-bootstrap": "^0.31.3",
     "react-bootstrap-sidebar": "0.0.1",
     "react-confirm-alert": "^1.0.8",
+    "react-datepicker": "^0.61.0",
     "react-dom": "^15.1.0",
     "react-helmet": "^3.1.0",
     "react-hot-loader": "^3.0.0-beta.2",

@@ -9,7 +9,7 @@ import * as utils from '../Utils/utils.js';
 // Import Style
 import styles from '../../main.css';
 
-class DataCell extends Component{
+class StudentDataCell extends Component{
 
   constructor(props){
     super(props);
@@ -45,4 +45,4 @@ class DataCell extends Component{
 
 }
 
-export default DataCell;
+export default StudentDataCell;

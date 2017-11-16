@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import CourseGrid from '../CourseOverview/CourseGrid';
+import StudentCourseGrid from '../CourseOverview/StudentCourseGrid';
 import * as utils from '../Utils/utils.js';
 // Import Style
 import styles from '../../main.css';
@@ -31,7 +31,7 @@ class StudentCourseOverview extends Component{
 
         var grid = response.grid;
 
-        var output = <CourseGrid name={courseName} grid={grid}/>;
+        var output = <StudentCourseGrid name={courseName} grid={grid}/>;
 
         this.setState({
           courseGrid: output
@@ -83,7 +83,7 @@ class StudentCourseOverview extends Component{
 
       req.open("PUT", "/api/course/" + courseName + "/seat");
       req.setRequestHeader("Content-type", "application/json");
-      var params = '{"username": "' + username + '", "seat": [' + row + ',' + column + ']}';
+      var params = '{"username": "' + username + '", "seat": [' + column + ',' + row + ']}';
       req.send(params);
     }
 

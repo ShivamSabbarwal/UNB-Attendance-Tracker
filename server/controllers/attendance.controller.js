@@ -191,11 +191,11 @@ export function reserveSeat(req, res) {
             coursegrid.save();
             res.status(200).end();
           }
-        
-            
+
+
         }
 
-        
+
       });
     }
   });
@@ -246,4 +246,132 @@ export function getCourseGrid(req, res) {
       )
     }
   })
+}
+
+
+/**
+ * param res
+ * param req
+ * author Riley
+ *
+ * @api {get} course/{courseTitle}/stats?absence={numberOfAbsences} Absence statistics
+ * @apiGroup Attendance
+ *
+ * @apiDescription
+ *  ## Get list of students who have missed at least the given number of days
+ *    - admin only
+ *    - will return list of students and the number of absences they have (only if there number of absences is greater than the number provided)
+ *    - searching for 0 absences will return full list of students and their number of absences
+ *
+ * @apiHeader Content-Type application/json
+ * @apiHeader Cookie session cookie
+ *
+ * @apiParam (URL parameter) {String} courseTitle The title of the course
+ * @apiParam (Query parameter) {int} [numberOfAbsences=0] Students will be returned if they have at least this many absences
+ *
+ * @apiParamExample URL and Query Parameter Example
+ *    http://127.0.0.1:8000/api/course/SWE4103/stats?absences=2
+ *
+ * @apiParamExample {json} Header Example
+ *  {
+ *    Content-Type: application/json
+ *    Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f
+ *  }
+ *
+ * @apiSuccess {Object[]} students Contains "name" and "absenceCount" for each student with at least as many absences as numberOfAbsences
+ * @apiSuccess {String} name The username of one student
+ * @apiSuccess {int} absenceCount The total number of absences a student has on record
+ * @apiSuccess 200 Successfully found and returned information
+ *
+ * @apiSuccessExample Get absences=0
+ *  http://127.0.0.1:8000/api/course/SWE4103/stats?absences=0
+ *
+ *  {
+ *    "students": [
+ *      {"name": "Wirt, Jr.", "absenceCount": 0},
+ *      {"name": "George Washington", "absenceCount": 4},
+ *      {"name": "J. Funderburker", "absenceCount": 3}
+ *    ],
+ *  }
+ *
+ * @apiSuccessExample Get absences=3
+ *  http://127.0.0.1:8000/api/course/SWE4103/stats?absences=3
+ *
+ *  {
+ *    "students": [
+ *      {"name": "George Washington", "absenceCount": 4}
+ *      {"name": "J. Funderburker", "absenceCount": 3}
+ *    ],
+ *  }
+ *
+ * @apiError 401 Invalid session
+ * @apiError 403 Session does not belong to admin, or courseTitle was not provided, or matching course could not be found
+ *
+ */
+export function getStats(req, res) {
+
+  //check for provided number of absences, default to 0 if not provided
+  // ".../stats" or ".../stats?absences=" will both default to 0
+  var absenceLimit = 0;
+  if (req.query.absences) {
+    absenceLimit = req.query.absences;
+  }
+
+  // make sure that the request contains a course title
+  if (!req.params.courseTitle) {
+    res.status(403).send("Invalid course title").end();
+  } else {
+    SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+      if (isValid !== true) {
+        res.status(401).end();
+      } else {
+        // make sure that this sessionID belongs to an Admin
+        //TODO: we need to check that this admin is the owner of the course
+        SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
+          if (isAdmin !== true) {
+            res.status(403).end();
+          } else {
+            Course.findOne(
+              {'title': req.params.courseTitle},
+              'usernames',
+              function(err, course){
+                if (err) {
+                  console.error(err);
+                  res.status(403).end();
+
+                } else if (course) {
+
+                  //find students with # of absences >= absenceLimit
+                  var matchingStudents = course.usernames.map(userData => {
+                    if (userData.absence.length >= absenceLimit){
+                      return {
+                        name: userData.username,
+                        absenceCount: userData.absence.length
+                      };
+                    } else {
+                      return null;
+                    }
+                  })
+
+                  // filter out null values
+                  matchingStudents = matchingStudents.filter(
+                    function(val) {
+                      return (val !== null);
+                    }
+                  )
+
+                  res.status(200).send({
+                    students: matchingStudents
+                  })
+
+                } else {
+                  res.status(403).send("Matching course not found")
+                }
+              }
+            )
+          }
+        })
+      }
+    })
+  }
 }
