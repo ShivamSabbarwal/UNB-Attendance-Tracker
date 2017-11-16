@@ -43,11 +43,13 @@ class CourseIcon extends Component{
       backgroundImage: "url(" + Background + ")"
     };
     return(
+      <Link to={'/course_overview_inst/?name=' + this.props.name}>
       <div className={styles.courseIcon}>
           <button onClick={this.removeCourse.bind(this)} className={styles.removeCourse}>&#10006;</button>
           <div className={styles.courseIconBackground}></div>
-          <div className={styles.courseNameWrapper}><Link to={'/course_overview_inst/?name=' + this.props.name}><label className={styles.courseTitle}>{this.props.name}</label></Link></div>
+          <div className={styles.courseNameWrapper}><label className={styles.courseTitle}>{this.props.name}</label></div>
       </div>
+      </Link>
     )
   }
 

@@ -93,7 +93,7 @@ class CreateCourse extends Component{
                       Notification to Students For Days Missed
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter the number of " id="location"/>
+                      <FormControl type="text" placeholder="The number of days a student can miss before notification" id="daysToMiss"/>
                     </Col>
                   </FormGroup>
                   <FormGroup>
@@ -101,7 +101,7 @@ class CreateCourse extends Component{
                       Lecture Time
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter the number of " id="location"/>
+                      <FormControl type="text" placeholder="Enter lecture time " id="lecureTime"/>
                     </Col>
                   </FormGroup>
                 </Form>
@@ -144,15 +144,15 @@ function createGrid(){
 function submit(){
   //creates variable to be passed in
   var courseName = document.getElementById("title").value;
-  var prof = document.getElementById("professor").value;
-  var inst = document.getElementById("institution").value;
-  var room = document.getElementById("location").value;
+  var term = document.getElementById("term").value;
+  var time = document.getElementById("lecureTime").value;
+  var template=document.getElementById("emailFormat").value;
   var row = document.getElementById('gridRows').value;
   var col = document.getElementById('gridCols').value;
   //xml request
   var req = new XMLHttpRequest();
-
-  var params = '{"title":"' + courseName + '", "professor":"' + prof + '", "usernames":" ", "institution":"' + inst + '", "gridsize":"[' + row + ',' + col + ']", "location":"' + room + '"}';
+  //NOT COMPLETE
+  var params = '{"title":"' + courseName + '", "term":"' + term + '", "gridsize":"[' + row + ',' + col + ']", "time":"' + time + '", "emailTemplate":"'+template+'"}';
   req.open("POST", "api/course");
   req.setRequestHeader("Content-type", "application/json");
   //403 - not enough data provided / course already exists / title contains characters other than letter, numbers, -, _ and .
