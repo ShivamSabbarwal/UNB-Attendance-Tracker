@@ -115,7 +115,7 @@ app.use((req, res, next) => {
     }
 
     if (!renderProps) {
-      return next();
+      return res.redirect('/not_found');
     }
 
     const store = configureStore();
@@ -136,15 +136,6 @@ app.use((req, res, next) => {
       })
       .catch((error) => next(error));
   });
-});
-
-app.use(function(req, res, next){
-  // the status option, or res.statusCode = 404
-  // are equivalent, however with the option we
-  // get the "status" local available as well
-  res.set('Content-Type', 'text/html')
-          .status(200)
-          .end(renderFullPage(renderToString(<h1>PAGE DOES NOT EXIST OR YOU ARE NOT AUTHORIZED</h1>), null));
 });
 
 // start app

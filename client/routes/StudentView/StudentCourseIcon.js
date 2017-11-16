@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -6,29 +6,61 @@ import { Link } from 'react-router';
 import {Grid, Row, Col, Image, Jumbotron, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import FaBeer from 'react-icons/lib/fa/edit';
 import Background from "../../images/png/books.png";
+//confirmation box
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import '../../../node_modules/react-confirm-alert/src/react-confirm-alert.css';
 // Import Style
 import styles from '../../main.css';
 
-export function StudentCourseIcon(props) {
+class StudentCourseIcon extends Component{
 
-  var backgroundStyle = {
-    backgroundImage: "url(" + Background + ")"
+  constructor(props){
+    super(props);
+    this.state = {courses: []};
+
+  }
+  componentDidMount(){
+
+  }
+
+  removeCourse = () => {
+    debugger;
+    confirmAlert({
+      title: 'Drop Course',
+      message: 'Are you sure to drop '+this.props.name+'?',
+      confirmLabel: 'Confirm',
+      cancelLabel: 'Cancel',
+      onConfirm: function(){
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+          if (req.readyState == 4 && req.status == 200) {
+            window.location.reload();
+          }
+        }
+        req.open("DELETE", "api/course/" + this.props.name + "/students");
+        req.setRequestHeader("Content-type", "application/json");
+        var params = '{"students":[""]}';
+
+        req.send(params);
+      }.bind(this),
+    })
   };
+  render(){
 
-  return (
-    <div className={styles.courseIcon}>
-        <button className={styles.removeCourse}>&#10006;</button>
-        <div className={styles.courseIconBackground}></div>
-        <div className={styles.courseNameWrapper}><Link to={'/course_overview_stu/?name=' + props.name}><label className={styles.courseTitle}> {props.name} </label></Link></div>
-    </div>
+    var backgroundStyle = {
+      backgroundImage: "url(" + Background + ")"
+    };
 
-  );
+    return(
+      <div className={styles.courseIcon}>
+          <button onClick={this.removeCourse.bind(this)} className={styles.removeCourse}>&#10006;</button>
+          <div className={styles.courseIconBackground}></div>
+          <div className={styles.courseNameWrapper}><Link to={'/course_overview_stu/?name=' + this.props.name}><label className={styles.courseTitle}> {this.props.name} </label></Link></div>
+      </div>
+    )
+  }
+
 }
-
-// Actions required to provide data for this component to render in sever side.
-//HomePage.need = [params => {
-  //return fetchPost(params.cuid);
-//}];
 
 function readCookie(name) {
     var nameEQ = name + "=";
@@ -41,28 +73,4 @@ function readCookie(name) {
     return null;
 }
 
-// Retrieve data from store as props
-function mapStateToProps(state, props) {
-  return {
-    courses: [['{"name":"SWE4103"}'],
-              ['{"name":"ADM1213"}'],
-              ['{"name":"ECE3221"}'],
-              ['{"name":"ECE2701"}'],
-              ['{"name":"CS3383"}'],
-              ['{"name":"TME3413"}'],
-              ['{"name":"HIST3925"}']]
-    //post: getPost(state, props.params.cuid),
-  };
-}
-
-StudentCourseIcon.propTypes = {
-//  post: PropTypes.shape({
-//    name: PropTypes.string.isRequired,
-//    title: PropTypes.string.isRequired,
-//    content: PropTypes.string.isRequired,
-//    slug: PropTypes.string.isRequired,
-//    cuid: PropTypes.string.isRequired,
-//  }).isRequired,
-};
-
-export default connect(mapStateToProps)(StudentCourseIcon);
+export default StudentCourseIcon;

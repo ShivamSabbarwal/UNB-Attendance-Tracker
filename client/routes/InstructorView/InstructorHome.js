@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -9,64 +9,73 @@ import FaBeer from 'react-icons/lib/fa/edit';
 import styles from '../../main.css';
 import InstructorCourseIcon from './InstructorCourseIcon';
 import Header from '../Components/InstructorHeader';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
-export function InstructorHome(props) {
+var username = readCookie("username");
+var sessionID = readCookie("sessionID");
+var isAdmin = readCookie("isAdmin");
 
-  var courseIcons = [];
+class InstructorHome extends Component{
 
-  for(var i = 0; i < props.courses.length; i++){
-    var courseInfo = JSON.parse(props.courses[i]);
-    courseIcons.push(<InstructorCourseIcon name={courseInfo.name} />);
+  constructor(props){
+    super(props);
+    this.state = {courseIcons: []}
   }
-  var username = readCookie("username");
 
-  return (
-    <div>
-      <Header/>
-        <div className={styles.mainBody}>
-          <h1 className={styles.mainBodyTitle}>Current Courses</h1>
-            <div className={styles.mainBodyWrapper}>
-
-                {courseIcons}
-
-            </div>
-        </div>
-        <div className={styles.footer}>
-            <div className={styles.buttonWrapper}>
-              <Link to="/create_course"><h3 className={styles.instructorButton}>Add a Course</h3></Link>
-            </div>
-        </div>
-    </div>
-  );
-}
-
-// Actions required to provide data for this component to render in sever side.
-//HomePage.need = [params => {
-  //return fetchPost(params.cuid);
-//}];
-
-// Retrieve data from store as props
-function mapStateToProps(state, props) {
-  return {
-    courses: [['{"name":"SWE4103"}'],
-            ['{"name":"CS1073"}']]
-  };
-}
-
-function logout(){
-  var req = new XMLHttpRequest();
-
-  req.open("GET", "api/logout");
-  req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
-  req.onreadystatechange = function(){
+  componentDidMount(){
     debugger;
-    window.location.href="/";
+    var username = readCookie("username");
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+        debugger;
+        var courses = JSON.parse(req.responseText);
+        var tempCourseIcons = [];
+        var courseList = courses.courseListByProfessor;
+
+        for(var i = 0; i < courseList.length; i++){
+          var courseName = courseList[i];
+          tempCourseIcons.push(<InstructorCourseIcon name={courseName} />);
+        }
+
+        this.setState({
+          courseIcons: tempCourseIcons
+        });
+      }
+    }.bind(this)
+
+  req.open("POST", "api/courseListByProfessor");
+  req.setRequestHeader("Content-type", "application/json");
+  var params = '{"professor":"' + username + '"}';
+
+  req.send(params);
   }
 
-  req.send();
+  render(){
+      if (isAdmin == "false" || username == "null"){
+        return (
+          <PageNotFound/>
+        );
+      }
+      //when a person is logged in, sessionID would exist
+      return (
+        <div>
+          <Header/>
+            <div className={styles.mainBody}>
+              <h1 className={styles.mainBodyTitle}>Current Courses</h1>
+                <div className={styles.mainBodyWrapper}>
+                    {this.state.courseIcons}
+                </div>
+            </div>
+            <div className={styles.footer}>
+                <div className={styles.buttonWrapper}>
+                  <Link to="/create_course"><h3 className={styles.instructorButton}>Add a Course</h3></Link>
+                </div>
+            </div>
+        </div>
+    )
+  }
+
 }
 
 function readCookie(name) {
@@ -83,8 +92,4 @@ function readCookie(name) {
     return null;
 }
 
-InstructorHome.propTypes = {
-
-};
-
-export default connect(mapStateToProps)(InstructorHome);
+export default InstructorHome;
