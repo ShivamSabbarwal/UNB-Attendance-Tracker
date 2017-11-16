@@ -83,7 +83,7 @@ class StudentCourseOverview extends Component{
 
       req.open("PUT", "/api/course/" + courseName + "/seat");
       req.setRequestHeader("Content-type", "application/json");
-      var params = '{"username": "' + username + '", "seat": [' + row + ',' + column + ']}';
+      var params = '{"username": "' + username + '", "seat": [' + column + ',' + row + ']}';
       req.send(params);
     }
 

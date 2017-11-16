@@ -2,7 +2,6 @@ import Course from '../models/course';
 import courseGrid from '../models/coursegrid';
 import User from '../models/user';
 import SessionUtils from '../util/sessionUtils';
-import CourseUtils from '../util/courseUtils';
 
 /**
  * @author Gehad
@@ -192,11 +191,11 @@ export function reserveSeat(req, res) {
             coursegrid.save();
             res.status(200).end();
           }
-        
-            
+
+
         }
 
-        
+
       });
     }
   });
