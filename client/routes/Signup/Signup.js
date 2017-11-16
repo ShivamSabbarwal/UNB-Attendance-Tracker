@@ -63,13 +63,12 @@ function submit(){
   req.onreadystatechange = function(){
     debugger;
     if(req.readyState == 4 && req.status == 200) {
+      window.location.href = "/";
 	     document.cookie = "isAdmin=false";
-		   window.location.href = "/student_home";
-    }
+		}
   }
 
   req.send(params);
-
 }
 
 export default Signup;
