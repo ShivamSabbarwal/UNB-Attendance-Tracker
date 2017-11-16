@@ -23,6 +23,16 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
     if (err) {
       callback(true, err)
     } else if (course) {
+      course.usernames.forEach(attendanceItem => {
+        attendanceItem.absence = attendanceItem.absence.filter(absenceDate => {
+          const absenceParsedDate = Date.parse(absenceDate)
+          if (absenceParsedDate && (absenceParsedDate <= submissionDate && absenceParsedDate > submissionDate - 86400000)) {
+            console.log("Dropping this attendance record: " + attendanceItem.username + " was absent on " + absenceDate)
+            return false
+          }
+          return true
+        })
+      })
       //THIS IS WRONG!!! I HATE TO WRITE IT THIS WAY!
       absentstudents.forEach(absentStudent => {
         let matched = false
@@ -76,7 +86,7 @@ export function submitAttendance(req, res) {
             if (!req.body.submissionTime || !req.body.absentstudents) {
               res.status(403).send("Invalid request").end();
             } else {
-              if (!Array.isArray(req.body.absentstudents) || req.body.absentstudents.length <= 0) {
+              if (!Array.isArray(req.body.absentstudents) || req.body.absentstudents.length < 0) {
                 res.status(403).send("Invalid request (Array of students is expected)").end();
               } else {
                 //ACTUAL CODE EXISTS HERE
@@ -248,11 +258,11 @@ export function reserveSeat(req, res) {
             coursegrid.save();
             res.status(200).end();
           }
-        
-            
+
+
         }
 
-        
+
       });
     }
   });
