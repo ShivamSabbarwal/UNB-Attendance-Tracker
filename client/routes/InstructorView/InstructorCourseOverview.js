@@ -4,7 +4,8 @@ import React, { PropTypes, Component } from 'react';
  import { FormattedMessage } from 'react-intl';
  import { Link } from 'react-router';
  import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Image } from 'react-bootstrap';
- import CourseGrid from '../CourseOverview/CourseGrid';
+ import InstructorCourseGrid from '../CourseOverview/InstructorCourseGrid';
+ import DatePicker from 'react-datepicker';
  // Import Style
  import styles from '../../main.css';
  import Header from '../Components/InstructorHeader';
@@ -14,6 +15,7 @@ class InstructorCourseOverview extends Component{
   constructor(props){
     super(props);
     this.state = {courseGrid: []}
+    this.startDate = "";
   }
 
   componentDidMount(){
@@ -21,19 +23,28 @@ class InstructorCourseOverview extends Component{
     var courseName = this.props.location.search;
     courseName = courseName.split("=")[1];
 
-    var grid = [["", "Tony", "", "", "", "", "", "", "Shiv", ""],
-   ["", "", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "Tristen", "", "", "", "", ""],
-   ["", "Jean-Marc", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "Justin", ""],
-   ["", "", "Jacob", "", "", "", "", "", "", ""],
-   ["", "", "", "", "", "", "", "", "", ""]];
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+        debugger;
 
-    var height = grid.length;
-    var width = grid[0].length;
+        var response = JSON.parse(req.responseText);
+
+        var grid = response.grid;
+
+        var output = <InstructorCourseGrid name={courseName} grid={grid}/>;
+
+        this.setState({
+          courseGrid: output
+        });
+
+      }
+    }.bind(this)
+
+    req.open("GET", "/api/course/" + courseName + "/grid");
+    req.setRequestHeader("Content-type", "application/json");
+
+    req.send();
 
     var rows = ["Students:"];
 
@@ -51,12 +62,6 @@ class InstructorCourseOverview extends Component{
       }
 
     }
-
-    var output = <CourseGrid name={courseName} grid={grid}/>;
-
-    this.setState({
-      courseGrid: output
-    });
   }
 
   render(){
@@ -67,6 +72,11 @@ class InstructorCourseOverview extends Component{
       <div>
        <Header/>
        <div className={styles.mainBody}>
+         <DatePicker className={styles.datePicker}>
+             autoFocus
+             selected={this.state.startDate}
+             onChange={this.handleChange}
+         </DatePicker>
          <h1 className={styles.mainBodyTitle}>{courseName}</h1>
            <div className={styles.mainBodyWrapper}>
           <div className={styles.courseGrid}>
