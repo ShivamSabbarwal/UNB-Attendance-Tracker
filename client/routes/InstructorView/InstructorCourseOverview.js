@@ -120,7 +120,7 @@ class InstructorCourseOverview extends Component{
 
             <div className={styles.footer}>
             <div className={styles.buttonWrapper}>
-             <button> TRACK ATTENDANCE </button>
+              <h3 className={styles.instructorButton}>Track Attendance</h3>
              </div>
             </div>
 
@@ -130,20 +130,5 @@ class InstructorCourseOverview extends Component{
   }
 
 }
-
- function logout(){
-   var req = new XMLHttpRequest();
-
-   req.open("GET", "api/logout");
-   req.setRequestHeader("Content-type", "application/json");
-   //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-   //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
-   req.onreadystatechange = function(){
-     window.location.href="/";
-   }
-
-   req.send();
- }
 
  export default InstructorCourseOverview;

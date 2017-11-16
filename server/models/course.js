@@ -12,6 +12,9 @@ const CourseSchema = new Schema({
   usernames: [Userdata], // Usernames of students who are in the class will be in here to link
   time: { type: 'String' },
   term: { type: 'String', required: true }, // room the class takes place in
+  emailTemplate: {type: 'String', reqiured: true},
+  numDays: {type: 'Array', reqiured: true}
+
 });
 
 export default mongoose.model('Course', CourseSchema);

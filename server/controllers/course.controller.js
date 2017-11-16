@@ -491,146 +491,186 @@ export function courseListByProfessor(req, res) {
    })
  }
 
-      /**
-       *
-       * @param req
-       * @param res
-       * @returns void
-       */
-      export function createCourse(req, res) {
+/**
+*
+* param req
+* param res
+* returns void
+*
+* @api {post} course Create course
+* @apiGroup Course
+*
+* @apiDescription
+*  ## Admin only method that creates a course and corresponding course grid.
+*
+* @apiHeader Content-Type application/json
+* @apiHeader Cookie session cookie
+*
+* @apiParam {String} title            Title of the course (must be unique)
+* @apiParam {String} term             Defines what term the course falls in
+* @apiParam {Integer[]} gridsize          X by Y grid for the seating arrangement
+* @apiParam {String} [time]           Time and days in which the course falls
+* @apiParam {String[]} courseGrid        Array containing the course grid as specified by the professor
+* @apiParam {String} emailTemplate    Template of the emails that this course will send to students
+* @apiParam {Integer[]} numDays           Number of days a student can miss for this class
+*
+* @apiParamExample {js} Parameter Example
+*     {
+*       "title": "Class101",
+*       "term": "Fall 2017",
+*       "gridsize": [3,2],
+*       "time": "TTh 10:30-11:20am",
+*       "courseGrid": [["","",""],
+*                      ["","",""]],
+*       "emailTemplate": "You have missed too much class.",
+*       "numDays": [5]
+*     }
+*
+* @apiParamExample {json} Header Example
+*  {
+*    Content-Type: application/json
+*    Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f
+*  }
+*
+* @apiSuccess 200 Course created successfully
+*
+* @apiError 403 required arguments are missing, or course title contains invalid characters, or gridsize is <= 1, or title is already taken
+* @apiError 401 session is not valid or the user is not an admin
+*
+*/
+export function createCourse(req, res) {
 
-        // make sure that the session is valid
-        SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
-          if (isValid !== true) {
-            res.status(401).end();
+  // make sure that the session is valid
+  SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+    if (isValid !== true) {
+      res.status(401).end();
+    } else {
+      // make sure that this sessionID belongs to an Admin
+      SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
+        if (isAdmin !== true) {
+          res.status(401).send("This API endpoint requires Admin capability").end();
+          fulfill(false);
+        } else {
+          SessionUtils.getUsername(req.cookies.sessionID).then((prof_username) => {
+          var re = new RegExp('[^A-Za-z0-9-_.]');
+          //regex pattern with match if the string contains characters other than ( A-Z, a-z, 0-9, -, _, .)
+
+          if (!req.body.title || !req.body.term || !req.body.gridsize || !req.body.courseGrid || !req.body.emailTemplate || !req.body.numDays) {
+            //verify that title, professor, institution, and gridsize were provided
+            res.status(403).send("Title, term, gridsize, email template, course grid, and number of days are required");
+
+          } else if (re.test(req.body.title)) {
+            res.status(403).send("Course title can only contain: letters, numbers, '-', '_', and '.'");
+
+          } else if (!Array.isArray(req.body.gridsize) || req.body.gridsize.length <= 1){
+            res.status(403).send("gridsize must be an array of length 2 ( e.g.  [4, 5] )").end();
+
+          } else if (req.body.gridsize[0] <= 0 || req.body.gridsize[1] <= 0) {
+            res.status(403).send("Both values in gridsize must be greater than 0").end();
+
           } else {
-            // make sure that this sessionID belongs to an Admin
-            SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
-              if (isAdmin !== true) {
-                res.status(401).send("This API endpoint requires Admin capability").end();
-                fulfill(false);
-              } else {
-                SessionUtils.getUsername(req.cookies.sessionID).then((prof_username) => {
-                var re = new RegExp('[^A-Za-z0-9-_.]');
-                //regex pattern with match if the string contains characters other than ( A-Z, a-z, 0-9, -, _, .)
 
-                if (!req.body.title || !req.body.term || !req.body.gridsize) {
-                  //verify that title, professor, institution, and gridsize were provided
-                  res.status(403).send("Title, term, and gridsize are required");
+            var coursegrid_data = {
+              'courseName': req.body.title,
+              'class' : req.body.courseGrid
+            };
+            var course_data = {
+              'title': req.body.title,
+              'professor': prof_username,
+              'usernames': [], // make usernames array empty for now until users are added
+              'term': req.body.term,
+              'time': req.body.time,
+              'emailTemplate': req.body.emailTemplate,
+              'numDays': req.body.numDays
+            };
 
-                } else if (re.test(req.body.title)) {
-                  res.status(403).send("Course title can only contain: letters, numbers, '-', '_', and '.'");
+            var course = new Course(course_data);
+            var grid = new courseGrid(coursegrid_data);
 
-                } else if (!Array.isArray(req.body.gridsize) || req.body.gridsize.length <= 1){
-                  res.status(403).send("gridsize must be an array of length 2 ( e.g.  [4, 5] )").end();
-
-                } else if (req.body.gridsize[0] <= 0 || req.body.gridsize[1] <= 0) {
-                  res.status(403).send("Both values in gridsize must be greater than 0").end();
-
+            course.save(
+              function(err, data) {
+                if (err) {
+                  console.error(err)
+                  res.status(403).send("Title already belongs to an existing course")
                 } else {
-                  var gridRow = Array(req.body.gridsize[0]).fill("");
-                  var coursegrid = Array(req.body.gridsize[1]);
-                  coursegrid = coursegrid.fill(gridRow);
-
-                  var coursegrid_data = {
-                    'courseName': req.body.title,
-                    'class' : coursegrid
-                  };
-                  var course_data = {
-                    'title': req.body.title,
-                    'professor': prof_username,
-                    'usernames': [], // make usernames array empty for now until users are added
-                    'term': req.body.term,
-                    'time': req.body.time
-                  };
-
-                  var course = new Course(course_data);
-                  var grid = new courseGrid(coursegrid_data);
-
-                  course.save(
+                  grid.save(
                     function(err, data) {
                       if (err) {
                         console.error(err)
-                        res.status(403).send("Title already belongs to an existing course")
+                        res.status(403).end()
                       } else {
-                        grid.save(
-                          function(err, data) {
-                            if (err) {
-                              console.error(err)
-                              res.status(403).end()
-                            } else {
-                              res.status(200).end()
-                            }
-                          }
-                        )
+                        res.status(200).end()
                       }
                     }
                   )
                 }
-              })
-             }
-            })
+              }
+            )
           }
         })
-      }
+       }
+      })
+    }
+  })
+}
 
-      /**
-       *
-       * @param req
-       * @param res
-       * @returns void
-       */
-      export function removeCourse(req, res) {
-        // make sure that the session is valid
-        SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
-          if (isValid !== true) {
-            res.status(401).end();
+/**
+ *
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function removeCourse(req, res) {
+  // make sure that the session is valid
+  SessionUtils.isValidSession(req.cookies.sessionID).then((isValid) => {
+    if (isValid !== true) {
+      res.status(401).end();
+    } else {
+      // make sure that this sessionID belongs to an Admin
+      SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
+        if (isAdmin !== true) {
+          res.status(401).send("This API endpoint requires Admin capability").end();
+          fulfill(false);
+        } else {
+
+          if (!req.body.title) {
+            //verify that title was provided
+            res.status(403).send("Title is required!");
+
           } else {
-            // make sure that this sessionID belongs to an Admin
-            SessionUtils.isAdmin(req.cookies.sessionID).then((isAdmin) => {
-              if (isAdmin !== true) {
-                res.status(401).send("This API endpoint requires Admin capability").end();
-                fulfill(false);
-              } else {
+            Course.findOneAndRemove({
+                'title': req.body.title
+              },
+              function(err, course) {
+                if (err) {
+                  console.error(err)
+                  res.status(400).end();
 
-                if (!req.body.title) {
-                  //verify that title was provided
-                  res.status(403).send("Title is required!");
+                } else if (course) {
+                  courseGrid.findOneAndRemove({
+                  'courseName': req.body.title
+                  },
+                  function(err, coursegrid){
+                      if(err){
+                              console.error(err)
+                              res.status(400).end();
+                      } else if (coursegrid) {
+                          res.status(200).end();
+                      } else {
+                          res.status(403).send("Course grid matching \"" + req.body.title + "\" not found.");
+                      }
+                  });
 
                 } else {
-                  Course.findOneAndRemove({
-                      'title': req.body.title
-                    },
-                    function(err, course) {
-                      if (err) {
-                        console.error(err)
-                        res.status(400).end();
-
-                      } else if (course) {
-                        courseGrid.findOneAndRemove({
-                        'courseName': req.body.title
-                        },
-                        function(err, coursegrid){
-                            if(err){
-                                    console.error(err)
-                                    res.status(400).end();
-                            } else if (coursegrid) {
-                                res.status(200).end();
-                            } else {
-                                res.status(403).send("Course grid matching \"" + req.body.title + "\" not found.");
-                            }
-                        });
-
-                      } else {
-                        res.status(403).send("Course matching \"" + req.body.title + "\" not found.");
-                        // unsuccessful removal
-                      }
-                    });
-
-
+                  res.status(403).send("Course matching \"" + req.body.title + "\" not found.");
+                  // unsuccessful removal
                 }
-              }
-            })
+              });
+
+
           }
-        })
-      }
+        }
+      })
+    }
+  })
+}

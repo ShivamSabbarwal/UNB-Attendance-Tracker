@@ -77,7 +77,7 @@ class StudentCourseOverview extends Component{
       req.onreadystatechange = function() {
         if (req.readyState == 4 && req.status == 200) {
           debugger;
-          alert("Sucessfully reserved seat!");
+          window.location.reload();
         }
       }.bind(this)
 

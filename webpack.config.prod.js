@@ -39,16 +39,16 @@ module.exports = {
       }, {
         test: /\.jsx*$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
       }, {
         test: /\.(jpe?g|gif|png|svg)$/i,
         loader: 'url-loader?limit=10000',
       }, {
         test: /\.json$/,
         loader: 'json-loader',
-      }, { 
-        test: /\.(woff|woff2|eot|ttf|svg)$/, 
-        loader: 'url-loader?limit=100000' 
+      }, {
+        test: /\.(woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
       }
     ],
   },

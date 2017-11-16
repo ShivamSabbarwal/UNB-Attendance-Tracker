@@ -25,7 +25,7 @@ class RegisterCourse extends Component{
   }
 
   componentDidMount(){
-    alert("test");
+    
   }
 
   searchCourse() {
