@@ -26,7 +26,6 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
     if (err) {
       callback(true, err)
     } else if (course) {
-      console.log(course)
       course.usernames.forEach(attendanceItem => {
         attendanceItem.absence = attendanceItem.absence.filter(absenceDate => {
           const absenceParsedDate = Date.parse(absenceDate)
@@ -48,9 +47,7 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
             User.findOne({
                 'username' : absentStudent
                  },   'email', function(err, user){
-                console.log(attendanceItem.absence.length);
                 if (course.numDays.indexOf(attendanceItem.absence.length)){
-                    console.log(course.numDays.i);
                         sendEmail(attendanceItem.username, course.title, attendanceItem.absence.length, course.professor, course.emailTemplate, user.email)
                 }
               
@@ -353,7 +350,7 @@ function sendEmail (username, course, absences, profUsername, htmlText, emailAdd
     var htmlTemplate = fs.readFileSync('server/email/email.txt', 'utf8');
     emailAddress = emailAddress + '@unb.ca';
     htmlTemplate = htmlTemplate.replace(/\[REPLACEMENT FLAG\]/g, htmlText);
-    console.log(emailAddress);
+
     var mailOptions = {
       from: 'swe4103g1@gmail.com',
       to: emailAddress,
