@@ -84,6 +84,7 @@ class InstructorCourseOverview extends Component{
           <div className={styles.mainBody}>
                <DatePicker className={styles.datePicker}
                    autoFocus
+                   selected={this.state.startDate}
                    onChange={this.handleChange}
                />
             <Link to={'/attendance_stats/?name=' + courseName}><h3 className={styles.statDirect}>View Attendance Statistics</h3></Link><br/><br/><br/>
@@ -98,7 +99,6 @@ class InstructorCourseOverview extends Component{
             <div className={styles.footer}>
               <div className={styles.buttonWrapper}>
                 <h3 className={styles.instructorButton}>Submit Attendance</h3>
-                selected={this.state.startDate}
                </div>
             </div>
           </div>
