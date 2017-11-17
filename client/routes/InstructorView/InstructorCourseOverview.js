@@ -6,18 +6,20 @@ import React, { PropTypes, Component } from 'react';
  import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Image } from 'react-bootstrap';
  import InstructorCourseGrid from '../CourseOverview/InstructorCourseGrid';
  import DatePicker from 'react-datepicker';
+ import DateCarousel from '../Components/DateCarousel';
  import '../../../node_modules/react-datepicker/dist/react-datepicker.min.css';
  import '../../../node_modules/react-datepicker/dist/react-datepicker-cssmodules.min.css';
  // Import Style
  import styles from '../../main.css';
  import Header from '../Components/InstructorHeader';
+ import moment from 'moment';
 
 class InstructorCourseOverview extends Component{
 
   constructor(props){
     super(props);
-    this.state = {courseGrid: []}
-    this.startDate = "11/11/2017";
+    this.state = {courseGrid: [], startDate: moment()};
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount(){
@@ -66,6 +68,12 @@ class InstructorCourseOverview extends Component{
     }
   }
 
+  handleChange(date){
+    this.setState({
+      startDate: date
+    });
+  }
+
   render(){
 
     var courseName = this.props.location.search;
@@ -75,11 +83,10 @@ class InstructorCourseOverview extends Component{
        <Header/>
        <div className={styles.mainBody}>
         <div className={styles.datePickerWrapper}>
-         <DatePicker className={styles.datePicker}>
-             autoFocus
+         <DatePicker className={styles.datePicker}
              selected={this.state.startDate}
              onChange={this.handleChange}
-         </DatePicker>
+         />
          </div>
          <h1 className={styles.mainBodyTitleInstructorCourseOverview}>{courseName}</h1>
 
@@ -91,7 +98,7 @@ class InstructorCourseOverview extends Component{
 
 
            <div className={styles.statsTitle}> Attendance Statistics </div>
-           <div className={styles.dateSelector}> Date Selector </div>
+           <DateCarousel />
            <div className={styles.attendanceStatsTable}>
              <table className={styles.attendanceStatsTable}>
                 <tbody>
