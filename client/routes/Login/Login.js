@@ -9,10 +9,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 var username = readCookie("username");
 var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
-console.log("username: "+ username);
-console.log("sessionID: "+ sessionID);
-console.log("isAdmin: "+isAdmin);
-
+var isNull = null;
 class Login extends Component{
 
   constructor(props){
@@ -20,7 +17,9 @@ class Login extends Component{
   }
 
   componentDidMount(){
-
+      document.cookie = "isAdmin="+ isNull;
+      document.cookie = "sessionID="+ isNull;
+      document.cookie = "username="+ isNull;
   }
 
   render(){
@@ -114,6 +113,15 @@ function submit(){
   }
   req.send(params);
 
+}
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    }
 }
 
 function readCookie(name) {

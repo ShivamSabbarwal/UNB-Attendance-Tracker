@@ -81,68 +81,26 @@ class InstructorCourseOverview extends Component{
     return(
       <div>
        <Header/>
-       <div className={styles.mainBody}>
-        <div className={styles.datePickerWrapper}>
-         <DatePicker className={styles.datePicker}
-             selected={this.state.startDate}
-             onChange={this.handleChange}
-         />
-         </div>
-         <h1 className={styles.mainBodyTitleInstructorCourseOverview}>{courseName}</h1>
-
-           <div className={styles.mainBodyWrapper}>
-          <div className={styles.courseGrid}>
-            {this.state.courseGrid}
-           </div>
-
-
-
-           <div className={styles.statsTitle}> Attendance Statistics </div>
-           <DateCarousel />
-           <div className={styles.attendanceStatsTable}>
-             <table className={styles.attendanceStatsTable}>
-                <tbody>
-                 <tr>
-                   <td>Stu Name</td>
-                   <td>Monday</td>
-                   <td>Tuesday</td>
-                   <td>Wednesday</td>
-                   <td>Thursday</td>
-                   <td>Friday</td>
-                   <td>Total</td>
-                 </tr>
-                 <tr>
-                   <td>Shivam</td>
-                   <td>Present</td>
-                   <td></td>
-                   <td>Present</td>
-                   <td></td>
-                   <td>Absent</td>
-                   <td>1</td>
-                 </tr>
-                 <tr>
-                   <td>Tris10</td>
-                   <td>Absent</td>
-                   <td></td>
-                   <td>Absent</td>
-                   <td></td>
-                   <td>Absent</td>
-                   <td>3</td>
-                 </tr>
-
-               </tbody>
-             </table>
-           </div>
-
-           </div>
+          <div className={styles.mainBody}>
+               <DatePicker className={styles.datePicker}
+                   autoFocus
+                   onChange={this.handleChange}
+               />
+            <Link to={'/attendance_stats/?name=' + courseName}><h3 className={styles.statDirect}>View Attendance Statistics</h3></Link><br/><br/><br/>
+            <h1 className={styles.mainBodyTitle}>{courseName}</h1>
+            <div className={styles.mainBodyWrapper}>
+              <div className={styles.courseGrid}>
+                {this.state.courseGrid}
+              </div>
+            </div>
 
 
             <div className={styles.footer}>
-            <div className={styles.buttonWrapper}>
-              <h3 className={styles.instructorButton}>Track Attendance</h3>
-             </div>
+              <div className={styles.buttonWrapper}>
+                <h3 className={styles.instructorButton}>Submit Attendance</h3>
+                selected={this.state.startDate}
+               </div>
             </div>
-
           </div>
        </div>
     )

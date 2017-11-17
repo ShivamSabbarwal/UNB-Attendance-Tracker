@@ -55,12 +55,11 @@ function deleteAllCookies() {
         var cookie = cookies[i];
         var eqPos = cookie.indexOf("=");
         var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
 }
 function logout(){
+  //var sessionID = "sessionID=" + readCookie("sessionID");
   deleteAllCookies();
-  var sessionID = "sessionID=" + readCookie("sessionID");
   var req = new XMLHttpRequest();
   req.open("GET", "api/logout");
   //these two function allows cookie to be set inside the header
@@ -73,6 +72,7 @@ function logout(){
   req.onreadystatechange = function(){
     //debugger;
     if (req.readyState == 4 && req.status == 200){
+      deleteAllCookies();
       window.location.href="/";
     }
   }

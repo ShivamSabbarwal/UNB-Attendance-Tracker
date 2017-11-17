@@ -491,6 +491,25 @@
   width: 200px;
 }
 
+/*------------------Instructor Course Overview-------------*/
+.statDirect{
+  transition: background-color 0.8s ease;
+  margin-top: 0px;
+  float: right;
+  background-color: #ffffff;
+  margin-right: 30px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+}
+.statDirect:hover{
+  background-color: #000000;
+  color: #ffffff;
+}
+
+
 /*------------------Student View-------------------------*/
 
 .reserveSeatBtn{
