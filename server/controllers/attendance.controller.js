@@ -19,7 +19,7 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
   let studentsNotRegistered = []
   Course.findOne({
     'title': courseTitle
-  }, 'title, usernames', function(err, course) {
+  }, 'title, usernames, numDays, professor, emailTemplate', function(err, course) {
     if (err) {
       callback(true, err)
     } else if (course) {
@@ -40,6 +40,11 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
           if (attendanceItem.username === absentStudent) {
             attendanceItem.absence.push(submissionTime)
             matched = true
+            //Email stuff
+            for(var i = 0; i < course.numDays.length; i++){
+                if(attendanceItem.absence.length === course.numDays.i)
+                    sendEmail(attendanceItem.username, course.title, attendanceItem.absence.length, course.professor, course.emailTemplate)
+            }
           }
         })
         if (matched === false) {
@@ -315,6 +320,46 @@ export function getCourseGrid(req, res) {
   })
 }
 
+function sendEmail (username, course, absences, profUsername, htmlText) {
+    var transporter = nodemailer.createTransport("SMTP",{
+        service: 'gmail',
+        auth: {
+            user: 'swe4103g1@gmail.com',
+            pass: 'BentonianPhysics'
+        }
+    });
+
+    if(req.body.username);
+        htmlText = htmlText.replace(/\[username\]/g, username);
+    if(req.body.course);
+        htmlText = htmlText.replace(/\[course\]/g, course);
+    if(req.body.absences)
+        htmlText = htmlText.replace(/\[absenceCount\]/g, absences);
+    if(req.body.profUsername)
+        htmlText = htmlText.replace(/\[profUsername\]/g, profUsername);
+    
+
+ 
+    var htmlTemplate = fs.readFileSync('server/email/email.txt', 'utf8');
+    
+    htmlTemplate = htmlTemplate.replace(/\[REPLACEMENT FLAG\]/g, htmlText);
+    
+    var mailOptions = {
+      from: 'swe4103g1@gmail.com',
+      to: req.body.to,
+      subject: req.body.subject,
+      html: html
+    }
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+});
+    res.status(200).end()
+};
 
 /**
  * param res
