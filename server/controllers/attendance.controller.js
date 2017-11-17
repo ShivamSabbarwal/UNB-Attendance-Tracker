@@ -3,6 +3,9 @@ import courseGrid from '../models/coursegrid';
 import User from '../models/user';
 import SessionUtils from '../util/sessionUtils';
 
+var nodemailer = require('nodemailer');
+var fs = require('fs');
+
 /**
  * @author Gehad
  * @param {String} courseTitle course title to update.
@@ -19,10 +22,11 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
   let studentsNotRegistered = []
   Course.findOne({
     'title': courseTitle
-  }, 'title, usernames, numDays, professor, emailTemplate', function(err, course) {
+  }, 'title usernames numDays professor emailTemplate', function(err, course) {
     if (err) {
       callback(true, err)
     } else if (course) {
+      console.log(course)
       course.usernames.forEach(attendanceItem => {
         attendanceItem.absence = attendanceItem.absence.filter(absenceDate => {
           const absenceParsedDate = Date.parse(absenceDate)
@@ -41,10 +45,16 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
             attendanceItem.absence.push(submissionTime)
             matched = true
             //Email stuff
-            for(var i = 0; i < course.numDays.length; i++){
-                if(attendanceItem.absence.length === course.numDays.i)
-                    sendEmail(attendanceItem.username, course.title, attendanceItem.absence.length, course.professor, course.emailTemplate)
-            }
+            User.findOne({
+                'username' : absentStudent
+                 },   'email', function(err, user){
+                console.log(attendanceItem.absence.length);
+                if (course.numDays.indexOf(attendanceItem.absence.length)){
+                    console.log(course.numDays.i);
+                        sendEmail(attendanceItem.username, course.title, attendanceItem.absence.length, course.professor, course.emailTemplate, user.email)
+                }
+              
+            })
           }
         })
         if (matched === false) {
@@ -320,7 +330,7 @@ export function getCourseGrid(req, res) {
   })
 }
 
-function sendEmail (username, course, absences, profUsername, htmlText) {
+function sendEmail (username, course, absences, profUsername, htmlText, emailAddress) {
     var transporter = nodemailer.createTransport("SMTP",{
         service: 'gmail',
         auth: {
@@ -329,28 +339,28 @@ function sendEmail (username, course, absences, profUsername, htmlText) {
         }
     });
 
-    if(req.body.username);
+    if(username);
         htmlText = htmlText.replace(/\[username\]/g, username);
-    if(req.body.course);
+    if(course);
         htmlText = htmlText.replace(/\[course\]/g, course);
-    if(req.body.absences)
+    if(absences)
         htmlText = htmlText.replace(/\[absenceCount\]/g, absences);
-    if(req.body.profUsername)
+    if(profUsername)
         htmlText = htmlText.replace(/\[profUsername\]/g, profUsername);
     
 
  
     var htmlTemplate = fs.readFileSync('server/email/email.txt', 'utf8');
-    
+    emailAddress = emailAddress + '@unb.ca';
     htmlTemplate = htmlTemplate.replace(/\[REPLACEMENT FLAG\]/g, htmlText);
-    
+    console.log(emailAddress);
     var mailOptions = {
       from: 'swe4103g1@gmail.com',
-      to: req.body.to,
-      subject: req.body.subject,
-      html: html
+      to: emailAddress,
+      subject: 'Abscence notice',
+      html: htmlTemplate
     }
-    
+    console.log('sent email' + mailOptions);
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
         console.log(error);
@@ -358,7 +368,7 @@ function sendEmail (username, course, absences, profUsername, htmlText) {
         console.log('Email sent: ' + info.response);
       }
 });
-    res.status(200).end()
+    
 };
 
 /**
