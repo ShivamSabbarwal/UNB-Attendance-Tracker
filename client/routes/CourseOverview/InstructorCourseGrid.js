@@ -30,23 +30,23 @@ class InstructorCourseGrid extends Component{
       for(var idx = 0; idx < width; idx++){
 
       	var id = "" + i + "" + idx + "";
-      	cell.push(<InstructorDataCell name={this.props.grid[i][idx]} id={id} />);
-
+      	cell.push(<InstructorDataCell studentName={this.props.grid[i][idx]} id={id} />);
       }
 
       rows.push(<tr>{cell}</tr>);
-
     }
     debugger;
     this.setState({
       gridVisual: rows
     })
-
   }
 
   render(){
     return(
       <div>
+        <div className={styles.hiddenContainer}>
+            <p id="presentStudents"></p>
+        </div>
           <div className={styles.courseGrid}>
             <table className={styles.courseTable}>
               <tbody>

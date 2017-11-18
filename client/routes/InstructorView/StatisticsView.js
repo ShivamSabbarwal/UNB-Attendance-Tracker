@@ -28,43 +28,12 @@ class StatisticsView extends Component{
     }
     return(
       <div>
-        <Header/>
           <div className={styles.mainBody}>
-            <h1 className={styles.mainBodyTitle}>Attendance Stats</h1>
+            <h1 className={styles.mainBodyTitle}>{this.props.course} Attendance Statistics</h1>
             <div className={styles.mainBodyWrapper}>
-
-             <table className={styles.attendanceStatsTable}>
-                <tbody>
-                 <tr>
-                   <td>Stu Name</td>
-                   <td>Monday</td>
-                   <td>Tuesday</td>
-                   <td>Wednesday</td>
-                   <td>Thursday</td>
-                   <td>Friday</td>
-                   <td>Total</td>
-                 </tr>
-                 <tr>
-                   <td>Shivam</td>
-                   <td>Present</td>
-                   <td>fucking fuck this project</td>
-                   <td>Present</td>
-                   <td></td>
-                   <td>Absent</td>
-                   <td>1</td>
-                 </tr>
-                 <tr>
-                   <td>Tris10</td>
-                   <td>Absent</td>
-                   <td></td>
-                   <td>Absent</td>
-                   <td></td>
-                   <td>Absent</td>
-                   <td>3</td>
-                 </tr>
-
-               </tbody>
-             </table>
+              {this.props.studentName}
+              {this.props.absentAmount}
+              {this.props.date}
             </div>
             <div className={styles.footer}>
             </div>

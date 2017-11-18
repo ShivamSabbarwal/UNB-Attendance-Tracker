@@ -271,6 +271,7 @@
 
 .attendanceStatsTable{
   width: 100%;
+  background: #FFFFFF;
 }
 
 .courseBackground{
@@ -497,7 +498,7 @@
   margin-top: 0px;
   float: right;
   background-color: #ffffff;
-  margin-right: 30px;
+  margin-right: 195px;
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -508,7 +509,14 @@
   background-color: #000000;
   color: #ffffff;
 }
-
+.hiddenContainer{
+  display: none;
+  visibility: hidden;
+}
+.hiddenContainer2{
+  display: none;
+  visibility: hidden;
+}
 
 /*------------------Student View-------------------------*/
 

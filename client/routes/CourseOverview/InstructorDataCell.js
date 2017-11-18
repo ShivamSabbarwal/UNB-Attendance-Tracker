@@ -5,22 +5,20 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import * as utils from '../Utils/utils.js';
+import InstructorCourseOverview from '../InstructorView/InstructorCourseOverview';
 
 // Import Style
 import styles from '../../main.css';
 
 class InstructorDataCell extends Component{
-
   constructor(props){
     super(props);
 
-    this.state = {name: props.name};
+    this.state = {studentName: props.studentName};
   }
-
   componentDidMount(){
 
   }
-
   clicked(){
     debugger;
     var y = document.getElementsByClassName(styles.courseGridCellClicked);
@@ -31,15 +29,16 @@ class InstructorDataCell extends Component{
     }
 
   	if(!document.getElementById(this.props.id).className.includes(styles.courseGridCellClicked)){
-      if(this.props.name != ""){
+      if(this.props.studentName != ""){
   		    document.getElementById(this.props.id).classList.add(styles.courseGridCellClicked);
+          document.getElementById("presentStudents").innerHTML +=this.props.studentName+",";
       }
   	}
   }
 
   render(){
     return(
-      <td className={styles.courseGridCell} id={this.props.id} onClick = {this.clicked.bind(this)}> {this.state.name} </td>
+      <td className={styles.courseGridCell} id={this.props.id} onClick = {this.clicked.bind(this)}> {this.state.studentName} </td>
     )
   }
 

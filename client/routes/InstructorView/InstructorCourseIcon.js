@@ -24,7 +24,7 @@ class CourseIcon extends Component{
   removeCourse = () => {
     confirmAlert({
       title: 'Drop Course',
-      message: 'Are you sure to drop '+this.props.name+'?',
+      message: 'Are you sure you want to drop '+this.props.name+'?',
       confirmLabel: 'Confirm',
       cancelLabel: 'Cancel',
       onConfirm: function(){
