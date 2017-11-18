@@ -15,7 +15,6 @@ import React, { PropTypes, Component } from 'react';
  import moment from 'moment';
  import * as utils from '../Utils/utils.js';
  import InstructorDataCell from '../CourseOverview/InstructorDataCell';
- import StatisticsView from './StatisticsView';
 
 class InstructorCourseOverview extends Component{
 
@@ -122,6 +121,7 @@ class InstructorCourseOverview extends Component{
       debugger;
       if (req.readyState == 4 && req.status == 200) {
         alert("You have submitted an attendance");
+        window.location.reload();
       }
       else if (req.readyState == 4 && req.status == 400){
         alert("this was not successful!");
@@ -136,6 +136,7 @@ class InstructorCourseOverview extends Component{
     req.send(param);
   }
   viewStatistics(){
+    //get attendance statistics
     var submissionDateString = document.getElementById("dateToday").value;
     var rfc2822Format = submissionDateString.split('/');
     var submissionDate = new Date(rfc2822Format[2],rfc2822Format[0]-1,rfc2822Format[1]);
@@ -169,8 +170,18 @@ class InstructorCourseOverview extends Component{
     req.open("GET", "/api/course/" + courseName + "/attendance?" + "date=" + submissionDate);
     req.setRequestHeader("Content-type", "application/json");
     req.send();
-  }
 
+
+    //this is animation to open statistic table
+    document.getElementById("statViewHidden").style.height = "200px";
+    document.getElementById("statViewHidden").WebkitTransition = "all 1s";
+    document.getElementById("statViewHidden").style.transition = "all 1s";
+  }
+  closeStatTable(){
+    document.getElementById("statViewHidden").style.height = "0px";
+    document.getElementById("statViewHidden").WebkitTransition = "all 1s";
+    document.getElementById("statViewHidden").style.transition = "all 1s";
+  }
   render(){
     var courseName = this.props.location.search;
     courseName = courseName.split("=")[1];
@@ -190,8 +201,34 @@ class InstructorCourseOverview extends Component{
                        onChange={this.handleChange}
                 />
               </div>
-              <h3 className={styles.statDirect} onClick={this.viewStatistics}>View Attendance Statistics</h3>
+              <h3 className={styles.statDirect} onClick={this.viewStatistics}>View Attendance Statistics</h3><br/><br/><br/>
+              <div className={styles.statisticsViewHidden} id="statViewHidden">
+                <div className={styles.mainBodyWrapper}>
+                  <form id="form1">
+                    <div className={styles.divtable}>
+                      <div className={styles.divtablerow}>
+                        <div className={styles.divtablecol}>Student Name/ID</div>
+                        <div className={styles.divtablecol}>Total</div>
+                        <div className={styles.divtablecol}>date</div>
+                        <div className={styles.divtablecol}>date</div>
+                        <div className={styles.divtablecol}>date</div>
+                        <div className={styles.divtablecol}>date</div>
+                        <div className={styles.divtablecol}>date</div>
+                      </div>
+                      <div className={styles.divtablerow}>
 
+                      </div>
+                      <div className={styles.divtablerow}>
+
+                      </div>
+                      <div className={styles.divtablerow}>
+
+                      </div>
+                    </div>
+                  </form>
+                  <p className={styles.closeStatViewButton} onClick={this.closeStatTable}>Close Statistics</p>
+                </div>
+              </div>
             <h1 className={styles.mainBodyTitle}>{courseName}</h1>
             <div className={styles.mainBodyWrapper}>
               <div className={styles.courseGrid}>
