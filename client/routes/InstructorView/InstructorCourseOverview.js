@@ -23,9 +23,6 @@ class InstructorCourseOverview extends Component{
     super(props);
     this.state = {courseGrid: [], startDate: moment()};
     this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      statVisible : false
-    };
   }
 
   componentDidMount(){
@@ -83,9 +80,6 @@ class InstructorCourseOverview extends Component{
       startDate: date
     });
   }
-  onClick(){
-    this.setState({statVisible: !this.state.statVisible});
-  }
   submitAttendance(){
     //get present student from hidden Container
     var presentStudentsUncleaned = document.getElementById("presentStudents").innerHTML;
@@ -138,7 +132,41 @@ class InstructorCourseOverview extends Component{
     req.open("PUT", "/api/course/" + courseName + "/attendance");
     req.setRequestHeader("Content-type", "application/json");
     req.send(param);
-
+  }
+  viewStatistics(){
+    var submissionDateString = document.getElementById("dateToday").value;
+    var rfc2822Format = submissionDateString.split('/');
+    var submissionDate = new Date(rfc2822Format[2],rfc2822Format[0]-1,rfc2822Format[1]);
+    var courseName = document.getElementById("courseNameHidden").innerHTML;
+    console.log("date: "+submissionDate);
+    console.log("course: "+courseName);
+    console.log("/api/course/" + courseName + "/attendance?" + "date=" + submissionDate);
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      //successful
+      if (req.readyState == 4 && req.status == 200) {
+        var response = JSON.parse(req.responseText);
+        var student = response.students;
+        console.log(student);
+      }
+      //user not allowed
+      else if (req.readyState == 4 && req.status == 403){
+        alert("user is not allowed");
+      }
+      //unauthorized
+      else if (req.readyState == 4 && req.status == 401){
+        alert("you are unauthorized");
+      }
+      else if (req.readyState == 4 && req.status == 400){
+        alert("please do not leave the date empty");
+      }
+      else if(req.readyState == 4 && req.status == 500){
+        alert("please check your internet connection");
+      }
+    }
+    req.open("GET", "/api/course/" + courseName + "/attendance?" + "date=" + submissionDate);
+    req.setRequestHeader("Content-type", "application/json");
+    req.send();
   }
 
   render(){
@@ -152,17 +180,16 @@ class InstructorCourseOverview extends Component{
       </div>
        <Header/>
           <div className={styles.mainBody}>
-               <DatePicker id="dateToday" className={styles.datePicker}
-                   autoFocus
-                   selected={this.state.startDate}
-                   onChange={this.handleChange}
-               />
-            <h3 className={styles.statDirect} onClick={() =>this.onClick()}>View Attendance Statistics</h3><br/><br/><br/>
-            {
-              this.state.statVisible
-                ? <StatisticsView course={courseName}/>
-                : null
-            }
+
+              <div className={styles.datePickerWrapper}>
+                <DatePicker id="dateToday" className={styles.datePicker}
+                       autoFocus
+                       selected={this.state.startDate}
+                       onChange={this.handleChange}
+                />
+              </div>
+              <h3 className={styles.statDirect} onClick={this.viewStatistics}>View Attendance Statistics</h3>
+
             <h1 className={styles.mainBodyTitle}>{courseName}</h1>
             <div className={styles.mainBodyWrapper}>
               <div className={styles.courseGrid}>

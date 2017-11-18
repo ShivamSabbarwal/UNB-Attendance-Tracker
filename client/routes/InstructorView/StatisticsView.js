@@ -19,6 +19,40 @@ class StatisticsView extends Component{
   }
   ComponentDidMount(){
 
+
+  }
+  viewStatistics(){
+    //get course attendance
+
+    //var test = document.getElementById("asdf").innerHTML;
+    /*var rfc2822Format = dateString.split('/');
+    var date = new Date(rfc2822Format[2],rfc2822Format[0]-1,rfc2822Format[1]);
+    console.log(date);*/
+    /*var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      //successful
+      if (req.readyState == 4 && req.status == 200) {
+        var response = JSON.parse(req.responseText);
+        var student = response.students;
+      }
+      //user not allowed
+      else if (req.readyState == 4 && req.status == 403){
+        alert("user is not allowed");
+      }
+      //unauthorized
+      else if (req.readyState == 4 && req.status == 401){
+        alert("you are unauthorized");
+      }
+      else if (req.readyState == 4 && req.status == 400){
+        alert("please do not leave the date empty");
+      }
+      else if(req.readyState == 4 && req.status == 500){
+        alert("please check your internet connection");
+      }
+    }
+    req.open("GET", "/api/course/" + this.props.course + "/attendance?" + "date=");
+    req.setRequestHeader("Content-type", "application/json");
+    req.send();*/
   }
   render(){
     if (isAdmin == "false" || username == "null"){
@@ -29,11 +63,8 @@ class StatisticsView extends Component{
     return(
       <div>
           <div className={styles.mainBody}>
-            <h1 className={styles.mainBodyTitle}>{this.props.course} Attendance Statistics</h1>
+            <h1 className={styles.mainBodyTitle}>{this.props.course}Attendance Statistics</h1>
             <div className={styles.mainBodyWrapper}>
-              {this.props.studentName}
-              {this.props.absentAmount}
-              {this.props.date}
             </div>
             <div className={styles.footer}>
             </div>
@@ -42,5 +73,6 @@ class StatisticsView extends Component{
     )
   }
 }
+
 
 export default StatisticsView;

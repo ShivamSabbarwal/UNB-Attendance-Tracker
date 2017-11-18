@@ -240,10 +240,13 @@
   margin-top: 5%;
 }
 
+.datePicker{
+  margin-left: 200px;
+  font-size: 150%;
+
+}
 .datePickerWrapper{
-  margin-left: 15%;
   width: 100px;
-  display: inline-block;
 }
 
 .mainBodyTitleInstructorCourseOverview{
@@ -493,6 +496,10 @@
 }
 
 /*------------------Instructor Course Overview-------------*/
+.dateStatWrapper{
+
+}
+
 .statDirect{
   transition: background-color 0.8s ease;
   margin-top: 0px;
