@@ -134,7 +134,7 @@ class InstructorCourseOverview extends Component{
         alert("bad input");
       }
     }
-    var param = '{"submissionTime":"' + submissionDate + '", "absentstudents":"' + absentStudents + '"}';
+    var param = '{"submissionTime":"' + submissionDate + '", "absentstudents":["' + absentStudents + '"]}';
     req.open("PUT", "/api/course/" + courseName + "/attendance");
     req.setRequestHeader("Content-type", "application/json");
     req.send(param);
