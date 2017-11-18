@@ -103,6 +103,9 @@ class InstructorCourseOverview extends Component{
         absentStudents.push(allStudentListArray[i]);
       }
     }
+    //can't pass in array. need to be stringified!!!!!!!!!!!!!!
+    var absentStudentsStringified = JSON.stringify(absentStudents);
+
     console.log("all students: "+allStudentListArray);
     console.log("present students: "+presentStudentListArray);
     console.log("absent students: "+absentStudents);
@@ -119,7 +122,6 @@ class InstructorCourseOverview extends Component{
       debugger;
       if (req.readyState == 4 && req.status == 200) {
         alert("You have submitted an attendance");
-        window.location.reload();
       }
       else if (req.readyState == 4 && req.status == 400){
         alert("this was not successful!");
@@ -128,7 +130,7 @@ class InstructorCourseOverview extends Component{
         alert("bad input");
       }
     }
-    var param = '{"submissionTime":"' + submissionDate + '", "absentstudents":["' + absentStudents + '"]}';
+    var param = '{"submissionTime":"' + submissionDate + '", "absentstudents":'+ absentStudentsStringified +'}';
     req.open("PUT", "/api/course/" + courseName + "/attendance");
     req.setRequestHeader("Content-type", "application/json");
     req.send(param);
@@ -205,8 +207,7 @@ class InstructorCourseOverview extends Component{
           </div>
        </div>
     )
-}
-
+  }
 }
 
  export default InstructorCourseOverview;

@@ -31,7 +31,7 @@ class InstructorDataCell extends Component{
   	if(!document.getElementById(this.props.id).className.includes(styles.courseGridCellClicked)){
       if(this.props.studentName != ""){
   		    document.getElementById(this.props.id).classList.add(styles.courseGridCellClicked);
-          document.getElementById("presentStudents").innerHTML +=this.props.studentName+",";
+          document.getElementById("presentStudents").innerHTML += this.props.studentName+',';
       }
   	}
   }
