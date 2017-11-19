@@ -78,6 +78,20 @@ class InstructorCourseOverview extends Component{
     this.setState({
       startDate: date
     });
+    var refresh1 = document.getElementById("studentNameCol");
+    var refresh2 = document.getElementById("totalDaysMissedCol");
+    var refresh3 = document.getElementById("firstDayMissedCol");
+    var refresh4 = document.getElementById("secondDayMissedCol");
+    var refresh5 = document.getElementById("thirdDayMissedCol");
+    var refresh6 = document.getElementById("fourthDayMissedCol");
+    var refresh7 = document.getElementById("fifthDayMissedCol");
+    refresh1.innerHTML = 'Student Name/ID';
+    refresh2.innerHTML = 'Total';
+    refresh3.innerHTML = 'Date';
+    refresh4.innerHTML = 'Date';
+    refresh5.innerHTML = 'Date';
+    refresh6.innerHTML = 'Date';
+    refresh7.innerHTML = 'Date';
   }
   submitAttendance(){
     //get present student from hidden Container
@@ -149,8 +163,50 @@ class InstructorCourseOverview extends Component{
       //successful
       if (req.readyState == 4 && req.status == 200) {
         var response = JSON.parse(req.responseText);
-        var student = response.students;
-        console.log(student);
+        var students = response.students;
+        console.log(students);
+        console.log(students[0].absence.length);
+        console.log(students[0].absence)
+        //create element dynamically based on student classList
+        for (var i=0; i < students.length; i++){
+          //student column
+          var studentCol = document.createElement("div");
+          var studentName = document.createTextNode(students[i].name);
+          studentCol.appendChild(studentName);
+          document.getElementById("studentNameCol").appendChild(studentCol);
+
+          //total days missed column
+          var totalCol = document.createElement("div");
+          var totalNumMissed = document.createTextNode(students[i].absence.length);
+          totalCol.appendChild(totalNumMissed);
+          document.getElementById("totalDaysMissedCol").appendChild(totalCol);
+
+          //first day
+          /*var firstDayCol = document.createElement("div");
+          var firstDayMissed = document.createTextNode(students[i].absence[0]);
+          firstDayCol.appendChild(firstDayMissed);
+          document.getElementById("firstDayMissedCol").appendChild(firstDayCol);
+          //second day
+          var secondDayCol= document.createElement("div");
+          var totalNumMissed = document.createTextNode(students[i].absence.length);
+          totalCol.appendChild(totalNumMissed);
+          document.getElementById("totalDaysMissedCol").appendChild(totalCol);
+          //third day
+          var thirdDayCol = document.createElement("div");
+          var totalNumMissed = document.createTextNode(students[i].absence.length);
+          totalCol.appendChild(totalNumMissed);
+          document.getElementById("totalDaysMissedCol").appendChild(totalCol);
+          //fourth day
+          var fourthDayCol = document.createElement("div");
+          var totalNumMissed = document.createTextNode(students[i].absence.length);
+          totalCol.appendChild(totalNumMissed);
+          document.getElementById("totalDaysMissedCol").appendChild(totalCol);
+          //fifth day
+          var fifthDayCol = document.createElement("div");
+          var totalNumMissed = document.createTextNode(students[i].absence.length);
+          totalCol.appendChild(totalNumMissed);
+          document.getElementById("totalDaysMissedCol").appendChild(totalCol);*/
+        }
       }
       //user not allowed
       else if (req.readyState == 4 && req.status == 403){
@@ -171,16 +227,30 @@ class InstructorCourseOverview extends Component{
     req.setRequestHeader("Content-type", "application/json");
     req.send();
 
-
     //this is animation to open statistic table
-    document.getElementById("statViewHidden").style.height = "200px";
+    document.getElementById("statViewHidden").style.height = "250px";
     document.getElementById("statViewHidden").WebkitTransition = "all 1s";
     document.getElementById("statViewHidden").style.transition = "all 1s";
+
   }
   closeStatTable(){
     document.getElementById("statViewHidden").style.height = "0px";
     document.getElementById("statViewHidden").WebkitTransition = "all 1s";
     document.getElementById("statViewHidden").style.transition = "all 1s";
+    var refresh1 = document.getElementById("studentNameCol");
+    var refresh2 = document.getElementById("totalDaysMissedCol");
+    var refresh3 = document.getElementById("firstDayMissedCol");
+    var refresh4 = document.getElementById("secondDayMissedCol");
+    var refresh5 = document.getElementById("thirdDayMissedCol");
+    var refresh6 = document.getElementById("fourthDayMissedCol");
+    var refresh7 = document.getElementById("fifthDayMissedCol");
+    refresh1.innerHTML = 'Student Name/ID';
+    refresh2.innerHTML = 'Total';
+    refresh3.innerHTML = 'Date';
+    refresh4.innerHTML = 'Date';
+    refresh5.innerHTML = 'Date';
+    refresh6.innerHTML = 'Date';
+    refresh7.innerHTML = 'Date';
   }
   render(){
     var courseName = this.props.location.search;
@@ -207,13 +277,13 @@ class InstructorCourseOverview extends Component{
                   <form id="form1">
                     <div className={styles.divtable}>
                       <div className={styles.divtablerow}>
-                        <div className={styles.divtablecol}>Student Name/ID</div>
-                        <div className={styles.divtablecol}>Total</div>
-                        <div className={styles.divtablecol}>date</div>
-                        <div className={styles.divtablecol}>date</div>
-                        <div className={styles.divtablecol}>date</div>
-                        <div className={styles.divtablecol}>date</div>
-                        <div className={styles.divtablecol}>date</div>
+                        <div className={styles.divtablecol} id="studentNameCol">Student Name/ID</div>
+                        <div className={styles.divtablecol} id="totalDaysMissedCol">Total</div>
+                        <div className={styles.divtablecol} id="firstDayMissedCol">date</div>
+                        <div className={styles.divtablecol} id="secocndDayMissedCol">date</div>
+                        <div className={styles.divtablecol} id="thirdDayMissedCol">date</div>
+                        <div className={styles.divtablecol} id="fourthDayMissedCol">date</div>
+                        <div className={styles.divtablecol} id="fifthDayMissedCol">date</div>
                       </div>
                       <div className={styles.divtablerow}>
 
