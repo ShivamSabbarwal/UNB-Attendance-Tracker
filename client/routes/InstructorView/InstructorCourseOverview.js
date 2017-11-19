@@ -87,11 +87,11 @@ class InstructorCourseOverview extends Component{
     var refresh7 = document.getElementById("fifthDayMissedCol");
     refresh1.innerHTML = 'Student Name/ID';
     refresh2.innerHTML = 'Total';
-    refresh3.innerHTML = 'Date';
-    refresh4.innerHTML = 'Date';
-    refresh5.innerHTML = 'Date';
-    refresh6.innerHTML = 'Date';
-    refresh7.innerHTML = 'Date';
+    refresh3.innerHTML = 'Monday';
+    refresh4.innerHTML = 'Tuesday';
+    refresh5.innerHTML = 'Wednesday';
+    refresh6.innerHTML = 'Thursday';
+    refresh7.innerHTML = 'Friday';
   }
   submitAttendance(){
     //get present student from hidden Container
@@ -181,31 +181,30 @@ class InstructorCourseOverview extends Component{
           totalCol.appendChild(totalNumMissed);
           document.getElementById("totalDaysMissedCol").appendChild(totalCol);
 
-          //first day
-          /*var firstDayCol = document.createElement("div");
-          var firstDayMissed = document.createTextNode(students[i].absence[0]);
+          var fifthDayCol = document.createElement("div");
+          var fifthDayMissed = document.createTextNode("1");
+          fifthDayCol.appendChild(fifthDayMissed);
+          document.getElementById("fifthDayMissedCol").appendChild(fifthDayCol);
+
+          var fourthDayCol = document.createElement("div");
+          var fourthDayMissed = document.createTextNode("1");
+          fourthDayCol.appendChild(fourthDayMissed);
+          document.getElementById("fourthDayMissedCol").appendChild(fourthDayCol);
+
+          var thirdDayCol = document.createElement("div");
+          var thirdDayMissed = document.createTextNode("1");
+          thirdDayCol.appendChild(thirdDayMissed);
+          document.getElementById("thirdDayMissedCol").appendChild(thirdDayCol);
+
+          var secondDayCol = document.createElement("div");
+          var secondDayMissed = document.createTextNode("1");
+          secondDayCol.appendChild(secondDayMissed);
+          document.getElementById("secondDayMissedCol").appendChild(secondDayCol);
+
+          var firstDayCol = document.createElement("div");
+          var firstDayMissed = document.createTextNode("1");
           firstDayCol.appendChild(firstDayMissed);
           document.getElementById("firstDayMissedCol").appendChild(firstDayCol);
-          //second day
-          var secondDayCol= document.createElement("div");
-          var totalNumMissed = document.createTextNode(students[i].absence.length);
-          totalCol.appendChild(totalNumMissed);
-          document.getElementById("totalDaysMissedCol").appendChild(totalCol);
-          //third day
-          var thirdDayCol = document.createElement("div");
-          var totalNumMissed = document.createTextNode(students[i].absence.length);
-          totalCol.appendChild(totalNumMissed);
-          document.getElementById("totalDaysMissedCol").appendChild(totalCol);
-          //fourth day
-          var fourthDayCol = document.createElement("div");
-          var totalNumMissed = document.createTextNode(students[i].absence.length);
-          totalCol.appendChild(totalNumMissed);
-          document.getElementById("totalDaysMissedCol").appendChild(totalCol);
-          //fifth day
-          var fifthDayCol = document.createElement("div");
-          var totalNumMissed = document.createTextNode(students[i].absence.length);
-          totalCol.appendChild(totalNumMissed);
-          document.getElementById("totalDaysMissedCol").appendChild(totalCol);*/
         }
       }
       //user not allowed
@@ -246,11 +245,11 @@ class InstructorCourseOverview extends Component{
     var refresh7 = document.getElementById("fifthDayMissedCol");
     refresh1.innerHTML = 'Student Name/ID';
     refresh2.innerHTML = 'Total';
-    refresh3.innerHTML = 'Date';
-    refresh4.innerHTML = 'Date';
-    refresh5.innerHTML = 'Date';
-    refresh6.innerHTML = 'Date';
-    refresh7.innerHTML = 'Date';
+    refresh3.innerHTML = 'Monday';
+    refresh4.innerHTML = 'Tuesday';
+    refresh5.innerHTML = 'Wednesday';
+    refresh6.innerHTML = 'Thursday';
+    refresh7.innerHTML = 'Friday';
   }
   render(){
     var courseName = this.props.location.search;
@@ -279,11 +278,11 @@ class InstructorCourseOverview extends Component{
                       <div className={styles.divtablerow}>
                         <div className={styles.divtablecol} id="studentNameCol">Student Name/ID</div>
                         <div className={styles.divtablecol} id="totalDaysMissedCol">Total</div>
-                        <div className={styles.divtablecol} id="firstDayMissedCol">Date</div>
-                        <div className={styles.divtablecol} id="secocndDayMissedCol">Date</div>
-                        <div className={styles.divtablecol} id="thirdDayMissedCol">Date</div>
-                        <div className={styles.divtablecol} id="fourthDayMissedCol">Date</div>
-                        <div className={styles.divtablecol} id="fifthDayMissedCol">Date</div>
+                        <div className={styles.divtablecol} id="firstDayMissedCol">Monday</div>
+                        <div className={styles.divtablecol} id="secondDayMissedCol">Tuesday</div>
+                        <div className={styles.divtablecol} id="thirdDayMissedCol">Wednesday</div>
+                        <div className={styles.divtablecol} id="fourthDayMissedCol">Thursday</div>
+                        <div className={styles.divtablecol} id="fifthDayMissedCol">Friday</div>
                       </div>
                     </div>
                   </form>
