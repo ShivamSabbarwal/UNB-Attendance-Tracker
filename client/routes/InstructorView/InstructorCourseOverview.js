@@ -290,6 +290,11 @@ class InstructorCourseOverview extends Component{
                 </div>
               </div>
             <h1 className={styles.mainBodyTitle}>{courseName}</h1>
+            <div className={styles.errorMsgTemplate}>holds height</div>
+            <div className={styles.errorMsgSuccessful}>You have submitted an attendance!</div>
+            <div className={styles.errorMsgCritical}>You are not logged in</div>
+            <div className={styles.errorMsgCritical}>Do not leave the date of submission empty</div>
+            <div className={styles.errorMsgWarning}>Please check your internet</div>
             <div className={styles.mainBodyWrapper}>
               <div className={styles.courseGrid}>
                 {this.state.courseGrid}

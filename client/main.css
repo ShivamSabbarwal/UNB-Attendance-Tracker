@@ -2,6 +2,40 @@
 /*for components like header and footers, use separate css files - justin*/
 /*use lowercase*/
 /*----------------------------global components----------------------*/
+.errorMsgTemplate{
+  display: block;
+  margin: auto;
+  visibility: hidden;
+  display: none;
+}
+.errorMsgCritical{
+  color: #D8000C;
+  background-color: #FFBABA;
+  background-image: url('./images/png/error.png');
+  visibility: hidden;
+  display: none;
+}
+.errorMsgSuccessful{
+  color: #4F8A10;
+  background-color: #DFF2BF;
+  background-image:url('./images/png/success.png');
+  visibility: hidden;
+  display: none;
+}
+.errorMsgWarning{
+  color: #9F6000;
+  background-color: #FEEFB3;
+  background-image: url('./images/png/warning.png');
+  visibility: hidden;
+  display: none;
+}
+.authenticationError{
+  color: #D8000C;
+  background-color: #FFBABA;
+  background-image: url('./images/png/error.png');
+  visibility: hidden;
+  display: none;
+}
 .header{
   margin-top: 25px;
   color: white;
