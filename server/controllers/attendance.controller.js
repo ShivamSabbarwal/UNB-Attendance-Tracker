@@ -15,51 +15,52 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
   let submissionDate = Date.parse(submissionTime)
   if (!submissionDate) {
     callback(true, "Can't parse the submissionTime (Please use a string representing RFC2822)")
-  }
-  let studentsNotRegistered = []
-  Course.findOne({
-    'title': courseTitle
-  }, 'title, usernames', function(err, course) {
-    if (err) {
-      callback(true, err)
-    } else if (course) {
-      course.usernames.forEach(attendanceItem => {
-        attendanceItem.absence = attendanceItem.absence.filter(absenceDate => {
-          const absenceParsedDate = Date.parse(absenceDate)
-          if (absenceParsedDate && (absenceParsedDate <= submissionDate && absenceParsedDate > submissionDate - 86400000)) {
-            console.log("Dropping this attendance record: " + attendanceItem.username + " was absent on " + absenceDate)
-            return false
-          }
-          return true
-        })
-      })
-      //THIS IS WRONG!!! I HATE TO WRITE IT THIS WAY!
-      absentstudents.forEach(absentStudent => {
-        let matched = false
+  } else {
+    let studentsNotRegistered = []
+    Course.findOne({
+      'title': courseTitle
+    }, 'title, usernames', function(err, course) {
+      if (err) {
+        callback(true, err)
+      } else if (course) {
         course.usernames.forEach(attendanceItem => {
-          if (attendanceItem.username === absentStudent) {
-            attendanceItem.absence.push(submissionTime)
-            matched = true
+          attendanceItem.absence = attendanceItem.absence.filter(absenceDate => {
+            const absenceParsedDate = Date.parse(absenceDate)
+            if (absenceParsedDate && (absenceParsedDate <= submissionDate && absenceParsedDate > submissionDate - 86400000)) {
+              console.log("Dropping this attendance record: " + attendanceItem.username + " was absent on " + absenceDate)
+              return false
+            }
+            return true
+          })
+        })
+        //THIS IS WRONG!!! I HATE TO WRITE IT THIS WAY!
+        absentstudents.forEach(absentStudent => {
+          let matched = false
+          course.usernames.forEach(attendanceItem => {
+            if (attendanceItem.username === absentStudent) {
+              attendanceItem.absence.push(submissionTime)
+              matched = true
+            }
+          })
+          if (matched === false) {
+            studentsNotRegistered.push(absentStudent)
           }
         })
-        if (matched === false) {
-          studentsNotRegistered.push(absentStudent)
-        }
-      })
-      course.save(function(err, data) {
-        if (err) {
-          callback(true, err)
-        } else {
-          console.log()
-          callback(false, {
-            notRegisteredStudents: studentsNotRegistered
-          })
-        }
-      });
-    } else {
-      callback(true, "Couldn't find the course in the database")
-    }
-  })
+        course.save(function(err, data) {
+          if (err) {
+            callback(true, err)
+          } else {
+            console.log()
+            callback(false, {
+              notRegisteredStudents: studentsNotRegistered
+            })
+          }
+        });
+      } else {
+        callback(true, "Couldn't find the course in the database")
+      }
+    })  
+  }
 }
 
 /**
