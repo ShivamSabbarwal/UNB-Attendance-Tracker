@@ -119,7 +119,7 @@ function checkSession(sessionID, callback) {
       //console.log('QUERY -- session record returned: ' + session.timestamp +' | data type: ' + (typeof session.timestamp));
       if(session){
         var age = Date.now() - session.timestamp.getTime();
-        callback(age < 108000000000000000000); //fails if session is > 3hrs old
+        callback(age < 10800000); //fails if session is > 3hrs old
       } else {
         callback(false);
       }

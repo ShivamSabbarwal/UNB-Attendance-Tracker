@@ -23,6 +23,16 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
     if (err) {
       callback(true, err)
     } else if (course) {
+      course.usernames.forEach(attendanceItem => {
+        attendanceItem.absence = attendanceItem.absence.filter(absenceDate => {
+          const absenceParsedDate = Date.parse(absenceDate)
+          if (absenceParsedDate && (absenceParsedDate <= submissionDate && absenceParsedDate > submissionDate - 86400000)) {
+            console.log("Dropping this attendance record: " + attendanceItem.username + " was absent on " + absenceDate)
+            return false
+          }
+          return true
+        })
+      })
       //THIS IS WRONG!!! I HATE TO WRITE IT THIS WAY!
       absentstudents.forEach(absentStudent => {
         let matched = false
@@ -76,7 +86,7 @@ export function submitAttendance(req, res) {
             if (!req.body.submissionTime || !req.body.absentstudents) {
               res.status(403).send("Invalid request").end();
             } else {
-              if (!Array.isArray(req.body.absentstudents) || req.body.absentstudents.length <= 0) {
+              if (!Array.isArray(req.body.absentstudents) || req.body.absentstudents.length < 0) {
                 res.status(403).send("Invalid request (Array of students is expected)").end();
               } else {
                 //ACTUAL CODE EXISTS HERE
@@ -98,9 +108,65 @@ export function submitAttendance(req, res) {
 }
 
 /**
- * @param {XMLHTTPRequest} req A request containing the username of a student.
- * @param {XMLHTTPRequest} res Server reponse. If succesful, returns array of courses.
- * @returns null
+ * param {XMLHTTPRequest} req A request containing the username of a student.
+ * param {XMLHTTPRequest} res Server reponse. If succesful, returns array of courses.
+ * returns null
+ *
+ * @api {get} course/{courseTtile}/attendance?date={date} Get course attendance
+ * @apiGroup Attendance
+ *
+ * @apiDescription
+ *  ## Gets attendance information for the 6 days before the provided date (does not include the provided date)
+ *    - admin only
+ *
+ * @apiHeader Content-Type application/json
+ * @apiHeader Cookie session cookie
+ *
+ * @apiParam (URL parameter) {String} courseTitle The title of the course
+ * @apiParam (query parameter) {String} date The date used to define the time period. The information returned will be for the 6 days before this date (non-inclusive)
+ *
+ * @apiParamExample URL and Query Parameter Example
+ *    http://127.0.0.1:8000/api/course/SWE4103/attendance?date=Nov 12, 2017
+ *
+ * @apiParamExample {json} Header Example
+ *  {
+ *    Content-Type: application/json
+ *    Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f
+ *  }
+ *
+ * @apiSuccess {Object[]} students Contains information for each student in the course
+ * @apiSuccess {String} name Username of the student
+ * @apiSuccess {String[]} absence List of times when the student was absent
+ * @apiSuccess {int} total Total number of absences a student has
+ * @apiSuccess 200 Successfully found and returned attendance information
+ *
+ * @apiSuccessExample Success Example
+ *  http://127.0.0.1:8000/api/course/MATH1001/attendance?date=Nov 12, 2017
+ *
+ * {
+ *  "students":[
+ *    {
+ *      "name":"user2",
+ *      "absence":[],
+ *      "total":2
+ *    },
+ *    {
+ *      "name":"user1",
+ *      "absence":[
+ *        "Tue, 12 Nov 17 15:52:01 +0000",
+ *        "Tue, 12 Nov 17 15:52:01 +0000",
+ *        "Thu, 14 Nov 17 15:52:01 +0000",
+ *        "Fri, 17 Nov 17 15:52:01 +0000"
+ *      ],
+ *      "total":5
+ *    }
+ *  ]
+ * }
+ *
+ * @apiError 403 User is not allowed
+ * @apiError 401 Unauthorized (User not logged in)
+ * @apiError 400 Bad Request
+ * @apiError (Error 5xx) 500 Internal server error
  */
 export function getAttendance(req, res) {
   const requestDate = Date.parse(req.query.date)
@@ -131,10 +197,11 @@ export function getAttendance(req, res) {
                       }
                       // 518400000 ms is 6 days
                       return (recordDate <= requestDate && recordDate > requestDate - 518400000)
-                    })
+                    }),
+                    total: userData.absence.length
                   }
                 })
-                console.log(attendanceRecord)
+                //console.log(attendanceRecord)
                 res.status(200).send({
                   students: attendanceRecord
                 })

@@ -14,7 +14,6 @@ import React, { PropTypes, Component } from 'react';
  import Header from '../Components/InstructorHeader';
  import moment from 'moment';
  import * as utils from '../Utils/utils.js';
- import InstructorDataCell from '../CourseOverview/InstructorDataCell';
 
 class InstructorCourseOverview extends Component{
 
@@ -134,14 +133,73 @@ class InstructorCourseOverview extends Component{
     req.onreadystatechange = function() {
       debugger;
       if (req.readyState == 4 && req.status == 200) {
-        alert("You have submitted an attendance");
+        document.getElementById("successfulSubmit").style.visibility = "visible";
+        document.getElementById("successfulSubmit").style.display = "block";
+
+        document.getElementById("errorTemplate").style.visibility = "hidden";
+        document.getElementById("errorTemplate").style.display = "none";
+
+        document.getElementById("notLoggedIn").style.visibility = "hidden";
+        document.getElementById("notLoggedIn").style.display = "none";
+
+        document.getElementById("fieldEmpty").style.visibility = "hidden";
+        document.getElementById("fieldEmpty").style.display = "none";
+
+        document.getElementById("noWifi").style.visibility = "hidden";
+        document.getElementById("noWifi").style.display = "none";
         window.location.reload();
       }
       else if (req.readyState == 4 && req.status == 400){
-        alert("this was not successful!");
+        document.getElementById("errorTemplate").style.visibility = "hidden";
+        document.getElementById("errorTemplate").style.display = "none";
+
+        document.getElementById("notLoggedIn").style.visibility = "hidden";
+        document.getElementById("notLoggedIn").style.display = "none";
+
+        document.getElementById("fieldEmpty").style.visibility = "visible";
+        document.getElementById("fieldEmpty").style.display = "block";
+
+        document.getElementById("noWifi").style.visibility = "hidden";
+        document.getElementById("noWifi").style.display = "none";
       }
       else if (req.readyState == 4 && req.status == 403){
-        alert("bad input");
+        document.getElementById("errorTemplate").style.visibility = "visible";
+        document.getElementById("errorTemplate").style.display = "block";
+
+        document.getElementById("notLoggedIn").style.visibility = "hidden";
+        document.getElementById("notLoggedIn").style.display = "none";
+
+        document.getElementById("fieldEmpty").style.visibility = "hidden";
+        document.getElementById("fieldEmpty").style.display = "none";
+
+        document.getElementById("noWifi").style.visibility = "hidden";
+        document.getElementById("noWifi").style.display = "none";
+      }
+      else if (req.readyState == 4 && req.status == 401){
+        document.getElementById("errorTemplate").style.visibility = "hidden";
+        document.getElementById("errorTemplate").style.display = "none";
+
+        document.getElementById("notLoggedIn").style.visibility = "visible";
+        document.getElementById("notLoggedIn").style.display = "block";
+
+        document.getElementById("fieldEmpty").style.visibility = "hidden";
+        document.getElementById("fieldEmpty").style.display = "none";
+
+        document.getElementById("noWifi").style.visibility = "hidden";
+        document.getElementById("noWifi").style.display = "none";
+      }
+      else if (req.readyState == 4 && req.status == 500){
+        document.getElementById("errorTemplate").style.visibility = "hidden";
+        document.getElementById("errorTemplate").style.display = "none";
+
+        document.getElementById("notLoggedIn").style.visibility = "hidden";
+        document.getElementById("notLoggedIn").style.display = "none";
+
+        document.getElementById("fieldEmpty").style.visibility = "hidden";
+        document.getElementById("fieldEmpty").style.display = "none";
+
+        document.getElementById("noWifi").style.visibility = "visible";
+        document.getElementById("noWifi").style.display = "block";
       }
     }
     var param = '{"submissionTime":"' + submissionDate + '", "absentstudents":'+ absentStudentsStringified +'}';
@@ -290,11 +348,11 @@ class InstructorCourseOverview extends Component{
                 </div>
               </div>
             <h1 className={styles.mainBodyTitle}>{courseName}</h1>
-            <div className={styles.errorMsgTemplate}>holds height</div>
-            <div className={styles.errorMsgSuccessful}>You have submitted an attendance!</div>
-            <div className={styles.errorMsgCritical}>You are not logged in</div>
-            <div className={styles.errorMsgCritical}>Do not leave the date of submission empty</div>
-            <div className={styles.errorMsgWarning}>Please check your internet</div>
+            <div className={styles.errorMsgTemplate} id="errorTemplate">holds height</div>
+            <div className={styles.errorMsgSuccessful} id="successfulSubmit">You have submitted an attendance!</div>
+            <div className={styles.errorMsgCritical} id="notLoggedIn">You are not logged in</div>
+            <div className={styles.errorMsgWarning} id="fieldEmpty">Do not leave the date of submission empty</div>
+            <div className={styles.errorMsgWarning} id="noWifi">Please check your internet</div>
             <div className={styles.mainBodyWrapper}>
               <div className={styles.courseGrid}>
                 {this.state.courseGrid}

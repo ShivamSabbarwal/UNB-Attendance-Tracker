@@ -3,10 +3,7 @@
 /*use lowercase*/
 /*----------------------------global components----------------------*/
 .errorMsgTemplate{
-  display: block;
-  margin: auto;
   visibility: hidden;
-  display: none;
 }
 .errorMsgCritical{
   color: #D8000C;
@@ -14,6 +11,7 @@
   background-image: url('./images/png/error.png');
   visibility: hidden;
   display: none;
+
 }
 .errorMsgSuccessful{
   color: #4F8A10;
@@ -29,12 +27,15 @@
   visibility: hidden;
   display: none;
 }
-.authenticationError{
-  color: #D8000C;
-  background-color: #FFBABA;
-  background-image: url('./images/png/error.png');
-  visibility: hidden;
-  display: none;
+.errorMsgWarning, .errorMsgCritical, .errorMsgSuccessful, .errorMsgTemplate{
+  border: 1px solid;
+  border-radius: 15px;
+  margin: auto;
+  padding:15px 10px 15px 50px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  width: 350px;
+  margin-bottom: 10px;
 }
 .header{
   margin-top: 25px;
