@@ -22,20 +22,26 @@ class Signup extends Component{
   render(){
     return(
       <div className={styles.page}>
-        <div className={styles.Container}>
-          <div className={styles.user}>
-            <div className={styles.userHeader}>
-              <h3 className={styles.userTitle}>Sign-up to use <span className={styles.appName}>UNB Attendance Service</span></h3>
-              <form className={styles.form}>
-                <input className={styles.input} type="text" name="username" id="username" placeholder="Username" />
-                  <input className={styles.input} type="password" name="password" id="password" placeholder="Password" />
-                  <input className={styles.email} type="email" name="Email" id="email" placeholder="Your Email" />
-                  <label className={styles.emailTag}>(@unb.ca)</label>
-              </form>
-              <button className={styles.btn} onClick={submit}>Register</button>
-            </div>
-            <div className={styles.underBar}>
-              <label>Already a User? <Link to={''}>Login Here</Link> </label>
+        <div className={styles.errorMessageWithBox}>
+          <div className={styles.errorBoxTemplate} id="errorTemplateBox">holds height</div>
+          <div className={styles.noInput} id="inputError">Do not leave input fields empty</div>
+          <div className={styles.authenticationError} id="idTakenError">This username is already taken!</div>
+          <div className={styles.successfulLogin} id="successfulError">Welcome to UNB Attendance Service!</div>
+          <div className={styles.Container}>
+            <div className={styles.user}>
+              <div className={styles.userHeader}>
+                <h3 className={styles.userTitle}>Sign-up to use <span className={styles.appName}>UNB Attendance Service</span></h3>
+                <form className={styles.form}>
+                  <input className={styles.input} type="text" name="username" id="username" placeholder="Username" />
+                    <input className={styles.input} type="password" name="password" id="password" placeholder="Password" />
+                    <input className={styles.email} type="email" name="Email" id="email" placeholder="Your Email" />
+                    <label className={styles.emailTag}>(@unb.ca)</label>
+                </form>
+                <button className={styles.btn} onClick={submit}>Register</button>
+              </div>
+              <div className={styles.underBar}>
+                <label>Already a User? <Link to={''}>Login Here</Link> </label>
+              </div>
             </div>
           </div>
         </div>
@@ -63,8 +69,38 @@ function submit(){
   req.onreadystatechange = function(){
     debugger;
     if(req.readyState == 4 && req.status == 200) {
-      window.location.href = "/";
-	     document.cookie = "isAdmin=false";
+      document.getElementById("successfulError").style.visibility = "visible";
+      document.getElementById("successfulError").style.display = "block";
+
+      document.getElementById("errorTemplateBox").style.visibility = "hidden";
+      document.getElementById("errorTemplateBox").style.display = "none";
+
+      document.getElementById("inputError").style.visibility = "hidden";
+      document.getElementById("inputError").style.display = "none";
+
+      document.getElementById("idTakenError").style.visibility = "hidden";
+      document.getElementById("idTakenError").style.display = "none";
+       window.location.href = "/";
+		}
+    else if((req.readyState == 4 && req.status == 403) && (user == "" || pass == "" || email == "")) {
+      document.getElementById("errorTemplateBox").style.visibility = "hidden";
+      document.getElementById("errorTemplateBox").style.display = "none";
+
+      document.getElementById("inputError").style.visibility = "visible";
+      document.getElementById("inputError").style.display = "block";
+
+      document.getElementById("idTakenError").style.visibility = "hidden";
+      document.getElementById("idTakenError").style.display = "none";
+		}
+    else if((req.readyState == 4 && req.status == 403) && (user != "" && pass != "" && email != "")) {
+      document.getElementById("errorTemplateBox").style.visibility = "hidden";
+      document.getElementById("errorTemplateBox").style.display = "none";
+
+      document.getElementById("inputError").style.visibility = "hidden";
+      document.getElementById("inputError").style.display = "none";
+
+      document.getElementById("idTakenError").style.visibility = "visible";
+      document.getElementById("idTakenError").style.display = "block";
 		}
   }
 
