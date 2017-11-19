@@ -473,6 +473,23 @@
   margin-bottom: 20px;
 }
 
+.closedSeat{
+  border-width: 10px;
+  width:70px;
+  height: 50px;
+  text-align: center;
+  background: #000000;
+  border-color: #d9d9d9;
+}
+
+.auditableSeat{
+  border-width: 10px;
+  width:70px;
+  height: 50px;
+  text-align: center;
+  background-image: url("./images/stripes.jpg");
+  border-color: #d9d9d9;
+
 .openSeatsIcon{
   background: #FFFFFF;
   border-radius: 4px;
