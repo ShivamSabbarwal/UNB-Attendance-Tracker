@@ -223,8 +223,8 @@ class InstructorCourseOverview extends Component{
         var response = JSON.parse(req.responseText);
         var students = response.students;
         console.log(students);
-        console.log(students[0].absence.length);
         console.log(students[0].absence)
+        console.log("First Student Absent Length: "+ students[0].absence.length);
         //create element dynamically based on student classList
         for (var i=0; i < students.length; i++){
           //student column
@@ -285,15 +285,20 @@ class InstructorCourseOverview extends Component{
     req.send();
 
     //this is animation to open statistic table
-    document.getElementById("statViewHidden").style.height = "300px";
+    document.getElementById("statViewHidden").style.height = "780px";
     document.getElementById("statViewHidden").WebkitTransition = "all 1s";
     document.getElementById("statViewHidden").style.transition = "all 1s";
-
+    document.getElementById("statBodyTitle").style.height = "45px";
+    document.getElementById("statBodyTitle").WebkitTransition = "all 1s";
+    document.getElementById("statBodyTitle").style.transition = "all 1s";
   }
   closeStatTable(){
     document.getElementById("statViewHidden").style.height = "0px";
     document.getElementById("statViewHidden").WebkitTransition = "all 1s";
     document.getElementById("statViewHidden").style.transition = "all 1s";
+    document.getElementById("statBodyTitle").style.height = "0px";
+    document.getElementById("statBodyTitle").WebkitTransition = "all 1s";
+    document.getElementById("statBodyTitle").style.transition = "all 1s";
     var refresh1 = document.getElementById("studentNameCol");
     var refresh2 = document.getElementById("totalDaysMissedCol");
     var refresh3 = document.getElementById("firstDayMissedCol");
@@ -328,7 +333,10 @@ class InstructorCourseOverview extends Component{
                        onChange={this.handleChange}
                 />
               </div>
+              <div>
               <h3 className={styles.statDirect} onClick={this.viewStatistics}>View Attendance Statistics</h3><br/><br/><br/>
+              <h1 className={styles.statisticBodyTitle} id="statBodyTitle">{courseName} Attendance Statistics</h1>
+              </div>
               <div className={styles.statisticsViewHidden} id="statViewHidden">
                 <div className={styles.mainBodyWrapper}>
                   <form id="form1">
@@ -347,12 +355,12 @@ class InstructorCourseOverview extends Component{
                   <p className={styles.closeStatViewButton} onClick={this.closeStatTable}>Close Statistics</p>
                 </div>
               </div>
-            <h1 className={styles.mainBodyTitle}>{courseName}</h1>
+            <h1 className={styles.mainBodyTitleOverview}>{courseName} Classroom</h1>
             <div className={styles.errorMsgTemplate} id="errorTemplate">holds height</div>
             <div className={styles.errorMsgSuccessful} id="successfulSubmit">You have submitted an attendance!</div>
             <div className={styles.errorMsgCritical} id="notLoggedIn">You are not logged in</div>
             <div className={styles.errorMsgWarning} id="fieldEmpty">Do not leave the date of submission empty</div>
-            <div className={styles.errorMsgWarning} id="noWifi">Please check your internet</div>
+            <div className={styles.errorMsgWarning} id="noWifi">Please check your internet connection</div>
             <div className={styles.mainBodyWrapper}>
               <div className={styles.courseGrid}>
                 {this.state.courseGrid}

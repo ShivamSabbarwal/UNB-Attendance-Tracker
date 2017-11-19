@@ -386,13 +386,18 @@
 }
 
 .courseGridCell:hover{
-	background: #000000;
+	background: #CC0000;
   transition: all 0.6s;
+  font-size: 15px;
+  font-weight: bold;
   color: #FFFFFF;
 }
 
 .courseGridCellClicked{
-	background: grey;
+	background: #CC0000;
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
 }
 
 .studentRowEntry{
@@ -667,6 +672,20 @@ border-radius: 25px;
 
 .buttonIn:hover {
   background: #f5e100;
+}
+
+.statisticBodyTitle{
+  color: white;
+  text-align: center;
+  font-size: 35px;
+  height: 0px;
+  overflow: hidden;
+}
+.mainBodyTitleOverview{
+  color: white;
+  text-align: center;
+  font-size: 35px;
+  height: 0px;
 }
 
 /*-----------------Not Authorized Page-------------------*/

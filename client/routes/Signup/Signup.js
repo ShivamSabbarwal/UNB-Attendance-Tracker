@@ -25,7 +25,7 @@ class Signup extends Component{
         <div className={styles.errorMessageWithBox}>
           <div className={styles.errorBoxTemplate} id="errorTemplateBox">holds height</div>
           <div className={styles.noInput} id="inputError">Do not leave input fields empty</div>
-          <div className={styles.authenticationError} id="idTakenError">This username is already taken!</div>
+          <div className={styles.authenticationError} id="idTakenError">Username or email is already taken!</div>
           <div className={styles.successfulLogin} id="successfulError">Welcome to UNB Attendance Service!</div>
           <div className={styles.Container}>
             <div className={styles.user}>
