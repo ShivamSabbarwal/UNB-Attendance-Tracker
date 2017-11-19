@@ -228,7 +228,7 @@ class InstructorCourseOverview extends Component{
     req.send();
 
     //this is animation to open statistic table
-    document.getElementById("statViewHidden").style.height = "250px";
+    document.getElementById("statViewHidden").style.height = "300px";
     document.getElementById("statViewHidden").WebkitTransition = "all 1s";
     document.getElementById("statViewHidden").style.transition = "all 1s";
 
@@ -279,20 +279,11 @@ class InstructorCourseOverview extends Component{
                       <div className={styles.divtablerow}>
                         <div className={styles.divtablecol} id="studentNameCol">Student Name/ID</div>
                         <div className={styles.divtablecol} id="totalDaysMissedCol">Total</div>
-                        <div className={styles.divtablecol} id="firstDayMissedCol">date</div>
-                        <div className={styles.divtablecol} id="secocndDayMissedCol">date</div>
-                        <div className={styles.divtablecol} id="thirdDayMissedCol">date</div>
-                        <div className={styles.divtablecol} id="fourthDayMissedCol">date</div>
-                        <div className={styles.divtablecol} id="fifthDayMissedCol">date</div>
-                      </div>
-                      <div className={styles.divtablerow}>
-
-                      </div>
-                      <div className={styles.divtablerow}>
-
-                      </div>
-                      <div className={styles.divtablerow}>
-
+                        <div className={styles.divtablecol} id="firstDayMissedCol">Date</div>
+                        <div className={styles.divtablecol} id="secocndDayMissedCol">Date</div>
+                        <div className={styles.divtablecol} id="thirdDayMissedCol">Date</div>
+                        <div className={styles.divtablecol} id="fourthDayMissedCol">Date</div>
+                        <div className={styles.divtablecol} id="fifthDayMissedCol">Date</div>
                       </div>
                     </div>
                   </form>
