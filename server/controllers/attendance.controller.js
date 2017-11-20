@@ -19,7 +19,7 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
     let studentsNotRegistered = []
     Course.findOne({
       'title': courseTitle
-    }, 'title, usernames', function(err, course) {
+    }, 'title, usernames, attendanceRecords', function(err, course) {
       if (err) {
         callback(true, err)
       } else if (course) {
@@ -46,6 +46,7 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
             studentsNotRegistered.push(absentStudent)
           }
         })
+        course.attendanceRecords.push(submissionTime)
         course.save(function(err, data) {
           if (err) {
             callback(true, err)
@@ -59,7 +60,7 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
       } else {
         callback(true, "Couldn't find the course in the database")
       }
-    })  
+    })
   }
 }
 
