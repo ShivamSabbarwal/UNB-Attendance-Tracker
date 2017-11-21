@@ -191,6 +191,13 @@ export function submitAttendance(req, res) {
  */
 export function getAttendance(req, res) {
   const requestDate = Date.parse(req.query.date)
+  const msToQuery = (() => {
+    const numOfDays = req.query.days
+    if (numOfDays) {
+      return numOfDays
+    }
+    return 5
+  })() * 24 * 60 * 60 * 1000;
   if (!req.params.courseTitle || !requestDate) {
     res.status(403).send("Invalid course title or query date (missing or incorrect)").end();
   } else {
@@ -210,7 +217,7 @@ export function getAttendance(req, res) {
               } else if (course) {
                 var attRecords = course.attendanceRecords.filter( atRec => {
                   const recordDate = Date.parse(atRec)
-                  return (recordDate <= requestDate && recordDate > requestDate - 518400000)
+                  return (recordDate <= requestDate && recordDate > requestDate - msToQuery)
                 })
                 var attendanceRecord = course.usernames.map(userData => {
                   return {
