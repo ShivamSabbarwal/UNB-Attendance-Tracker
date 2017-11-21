@@ -24,6 +24,9 @@ class InstructorDataCell extends Component{
     var y = document.getElementsByClassName(styles.courseGridCellClicked);
     if(document.getElementById(this.props.id).className.includes(styles.courseGridCellClicked)){
       document.getElementById(this.props.id).classList.remove(styles.courseGridCellClicked);
+      var absentList =document.getElementById("absentStudents").innerHTML;
+      absentList = absentList.replace(this.props.name+"," , " ");
+      document.getElementById("absentStudents").innerHTML = absentList;
     } else{
       if(this.props.name != ""){
   		    document.getElementById(this.props.id).classList.add(styles.courseGridCellClicked);
