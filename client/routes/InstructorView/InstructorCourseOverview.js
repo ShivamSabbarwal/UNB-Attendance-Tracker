@@ -70,23 +70,6 @@ class InstructorCourseOverview extends Component{
     req.setRequestHeader("Content-type", "application/json");
 
     req.send();
-    /*var rows = ["Students:"];
-
-    for(var i = 0; i < height; i++){
-
-      var cell = [];
-
-      for(var idx = 0; idx < width; idx++){
-
-  	     var id = i*7 + idx;
-        if(grid[i][idx] != ""){
-  	       rows.push(<label className={styles.studentRowEntry}>{grid[i][idx]}</label>);
-        }
-
-      }
-
-    }*/
-
   }
 
 
@@ -234,11 +217,11 @@ class InstructorCourseOverview extends Component{
           var students = response.students;
           console.log(students);
           //fill in date for the table
-          document.getElementById("fifthDayMissedCol").innerHTML = students[0].absence[4].date.toString();
+          /*document.getElementById("fifthDayMissedCol").innerHTML = students[0].absence[4].date.toString();
           document.getElementById("fourthDayMissedCol").innerHTML = students[0].absence[3].date.toString();
           document.getElementById("thirdDayMissedCol").innerHTML = students[0].absence[2].date.toString();
           document.getElementById("secondDayMissedCol").innerHTML = students[0].absence[1].date.toString();
-          document.getElementById("firstDayMissedCol").innerHTML = students[0].absence[0].date.toString();
+          document.getElementById("firstDayMissedCol").innerHTML = students[0].absence[0].date.toString();*/
 
           //stores all absents inside an array
           var totalAbsenceArray = new Array(students.length);
@@ -251,7 +234,7 @@ class InstructorCourseOverview extends Component{
           }
 
           //create element dynamically based on student classList
-          for (var i=0; i < students.length; i++){
+          /*for (var i=0; i < students.length; i++){
             //student column
             var studentCol = document.createElement("div");
             var studentName = document.createTextNode(students[i].name);
@@ -280,25 +263,24 @@ class InstructorCourseOverview extends Component{
             var totalCol = document.createElement("div");
             var totalAbsence = document.createTextNode(totalAbsenceArray[i]);
             totalCol.appendChild(totalAbsence);
-            document.getElementById("totalDaysMissedCol").appendChild(totalCol);
+            document.getElementById("totalDaysMissedCol").appendChild(totalCol);*/
         }
-        console.log(fiveDaysStat);
+        //console.log(fiveDaysStat);
+        //user not allowed
+        else if (req.readyState == 4 && req.status == 403){
+          alert("user is not allowed");
+        }
+        //unauthorized
+        else if (req.readyState == 4 && req.status == 401){
+          alert("you are unauthorized");
+        }
+        else if (req.readyState == 4 && req.status == 400){
+          alert("please do not leave the date empty");
+        }
+        else if(req.readyState == 4 && req.status == 500){
+          alert("please check your internet connection");
+        }
       }
-      //user not allowed
-      else if (req.readyState == 4 && req.status == 403){
-        alert("user is not allowed");
-      }
-      //unauthorized
-      else if (req.readyState == 4 && req.status == 401){
-        alert("you are unauthorized");
-      }
-      else if (req.readyState == 4 && req.status == 400){
-        alert("please do not leave the date empty");
-      }
-      else if(req.readyState == 4 && req.status == 500){
-        alert("please check your internet connection");
-      }
-    }
     req.open("GET", "/api/course/" + courseName + "/attendance?" + "date=" + submissionDate);
     req.setRequestHeader("Content-type", "application/json");
     req.send();
