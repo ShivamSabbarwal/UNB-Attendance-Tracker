@@ -22,13 +22,9 @@ class InstructorDataCell extends Component{
   clicked(){
     debugger;
     var y = document.getElementsByClassName(styles.courseGridCellClicked);
-    if(typeof document.getElementsByClassName(styles.courseGridCellClicked) != "undefined"){
-      //for(var i = 0; i < y.length; i++){
-        //y[i].classList.remove(styles.courseGridCellClicked);
-      //}
-    }
-
-  	if(!document.getElementById(this.props.id).className.includes(styles.courseGridCellClicked)){
+    if(document.getElementById(this.props.id).className.includes(styles.courseGridCellClicked)){
+      document.getElementById(this.props.id).classList.remove(styles.courseGridCellClicked);
+    } else{
       if(this.props.name != ""){
   		    document.getElementById(this.props.id).classList.add(styles.courseGridCellClicked);
           document.getElementById("absentStudents").innerHTML += this.props.name+',';
