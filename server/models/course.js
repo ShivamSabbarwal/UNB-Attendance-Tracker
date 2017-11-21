@@ -14,7 +14,7 @@ const CourseSchema = new Schema({
   term: { type: 'String', required: true }, // room the class takes place in
   emailTemplate: {type: 'String', reqiured: true},
   numDays: {type: 'Array', reqiured: true},
-  attendanceRecords: {type: 'Array'}
+  attendanceRecords: [String]
 });
 
 export default mongoose.model('Course', CourseSchema);
