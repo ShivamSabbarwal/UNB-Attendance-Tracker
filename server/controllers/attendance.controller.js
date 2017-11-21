@@ -3,6 +3,8 @@ import courseGrid from '../models/coursegrid';
 import User from '../models/user';
 import SessionUtils from '../util/sessionUtils';
 
+ const monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+
 /**
  * @author Gehad
  * @param {String} courseTitle course title to update.
@@ -12,51 +14,68 @@ import SessionUtils from '../util/sessionUtils';
  * @returns null
  */
 function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
-  let submissionDate = Date.parse(submissionTime)
+  var submissionDate = Date.parse(submissionTime)
   if (!submissionDate) {
     callback(true, "Can't parse the submissionTime (Please use a string representing RFC2822)")
   } else {
+    // we need to drop the time part
+    var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    var date = new Date(submissionDate)
+    console.log("Converting input date to: " + monthNames[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear())
+    submissionDate = new Date(monthNames[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear())
     let studentsNotRegistered = []
     Course.findOne({
       'title': courseTitle
-    }, 'title, usernames, attendanceRecords', function(err, course) {
+    }, 'title usernames attendanceRecords', function(err, course) {
       if (err) {
         callback(true, err)
       } else if (course) {
-        course.usernames.forEach(attendanceItem => {
-          attendanceItem.absence = attendanceItem.absence.filter(absenceDate => {
-            const absenceParsedDate = Date.parse(absenceDate)
-            if (absenceParsedDate && (absenceParsedDate <= submissionDate && absenceParsedDate > submissionDate - 86400000)) {
-              console.log("Dropping this attendance record: " + attendanceItem.username + " was absent on " + absenceDate)
-              return false
-            }
-            return true
-          })
-        })
-        //THIS IS WRONG!!! I HATE TO WRITE IT THIS WAY!
-        absentstudents.forEach(absentStudent => {
-          let matched = false
-          course.usernames.forEach(attendanceItem => {
-            if (attendanceItem.username === absentStudent) {
-              attendanceItem.absence.push(submissionTime)
-              matched = true
-            }
-          })
-          if (matched === false) {
-            studentsNotRegistered.push(absentStudent)
-          }
-        })
-        course.attendanceRecords.push(submissionTime)
-        course.save(function(err, data) {
-          if (err) {
-            callback(true, err)
-          } else {
-            console.log()
-            callback(false, {
-              notRegisteredStudents: studentsNotRegistered
+        console.log(course)
+        if (!course.usernames) {
+          callback(true, "No students registered in the course")
+        } else {
+          if (course.attendanceRecords.includes(submissionDate.toString())) {
+            // Updating a current submissionTime
+            // we need to delete old records
+            course.usernames.forEach(attendanceItem => {
+              attendanceItem.absence = attendanceItem.absence.filter(absenceDate => {
+                const absenceParsedDate = Date.parse(absenceDate)
+                const subTimestamp = Date.parse(submissionDate)
+                if (absenceParsedDate && (absenceParsedDate <= subTimestamp && absenceParsedDate > subTimestamp - 86400000)) {
+                  console.log("Dropping this attendance record: " + attendanceItem.username + " was absent on " + absenceDate)
+                  return false
+                }
+                return true
+              })
             })
+          } else {
+            // a brand new submission
+            course.attendanceRecords.push(submissionDate)
           }
-        });
+          //THIS IS WRONG!!! I HATE TO WRITE IT THIS WAY!
+          absentstudents.forEach(absentStudent => {
+            let matched = false
+            course.usernames.forEach(attendanceItem => {
+              if (attendanceItem.username === absentStudent) {
+                attendanceItem.absence.push(submissionDate)
+                matched = true
+              }
+            })
+            if (matched === false) {
+              studentsNotRegistered.push(absentStudent)
+            }
+          })
+          course.save(function(err, data) {
+            if (err) {
+              callback(true, err)
+            } else {
+              console.log()
+              callback(false, {
+                notRegisteredStudents: studentsNotRegistered
+              })
+            }
+          });
+        }
       } else {
         callback(true, "Couldn't find the course in the database")
       }
@@ -185,20 +204,29 @@ export function getAttendance(req, res) {
           } else {
             Course.findOne({
               'title': req.params.courseTitle
-            }, 'usernames', function(err, course) {
+            }, 'usernames attendanceRecords', function(err, course) {
               if (err) {
                 res.status(400).end();
               } else if (course) {
+                var attRecords = course.attendanceRecords.filter( atRec => {
+                  const recordDate = Date.parse(atRec)
+                  return (recordDate <= requestDate && recordDate > requestDate - 518400000)
+                })
                 var attendanceRecord = course.usernames.map(userData => {
                   return {
                     name: userData.username,
-                    absence: userData.absence.filter(date => {
-                      const recordDate = Date.parse(date)
-                      if (!recordDate) {
-                        return false
+                    absence: attRecords.map( atRec => {
+                      const d__date = new Date(atRec)
+                      return {
+                        date: monthNames[d__date.getMonth()] + " " + d__date.getDate() + " " + d__date.getFullYear(),
+                        status: (() => {
+                          if (userData.absence.includes(atRec)) {
+                            return 'absent'
+                          } else {
+                            return 'present'
+                          }
+                        })()
                       }
-                      // 518400000 ms is 6 days
-                      return (recordDate <= requestDate && recordDate > requestDate - 518400000)
                     }),
                     total: userData.absence.length
                   }
