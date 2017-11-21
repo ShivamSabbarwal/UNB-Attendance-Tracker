@@ -35,7 +35,7 @@ class InstructorCourseOverview extends Component{
         var response = JSON.parse(req.responseText);
 
         var grid = response.grid;
-
+        console.log(grid);
         var output = <InstructorCourseGrid name={courseName} grid={grid}/>;
 
         this.setState({
@@ -62,7 +62,7 @@ class InstructorCourseOverview extends Component{
         document.getElementById("studentListUnclean").innerHTML = studentListNonEmpty;
         document.getElementById("courseNameHidden").innerHTML = courseName;
 
-        //compare total student list with only clicked students
+
       }
     }.bind(this)
 
@@ -70,8 +70,25 @@ class InstructorCourseOverview extends Component{
     req.setRequestHeader("Content-type", "application/json");
 
     req.send();
+    /*var rows = ["Students:"];
+
+    for(var i = 0; i < height; i++){
+
+      var cell = [];
+
+      for(var idx = 0; idx < width; idx++){
+
+  	     var id = i*7 + idx;
+        if(grid[i][idx] != ""){
+  	       rows.push(<label className={styles.studentRowEntry}>{grid[i][idx]}</label>);
+        }
+
+      }
+
+    }*/
 
   }
+
 
   handleChange(date){
     this.setState({
@@ -84,50 +101,39 @@ class InstructorCourseOverview extends Component{
     var refresh5 = document.getElementById("thirdDayMissedCol");
     var refresh6 = document.getElementById("fourthDayMissedCol");
     var refresh7 = document.getElementById("fifthDayMissedCol");
-    refresh1.innerHTML = 'Student Name/ID';
+    refresh1.innerHTML = 'Student';
     refresh2.innerHTML = 'Total';
     refresh3.innerHTML = 'Monday';
     refresh4.innerHTML = 'Tuesday';
     refresh5.innerHTML = 'Wednesday';
     refresh6.innerHTML = 'Thursday';
     refresh7.innerHTML = 'Friday';
+    document.getElementById("errorTemplate").style.visibility = "hidden";
+
+    document.getElementById("notLoggedIn").style.visibility = "hidden";
+    document.getElementById("notLoggedIn").style.display = "none";
+
+    document.getElementById("fieldEmpty").style.visibility = "hidden";
+    document.getElementById("fieldEmpty").style.display = "none";
+
+    document.getElementById("invalidInput").style.visibility = "hidden";
+    document.getElementById("invalidInput").style.display = "none";
+
+    document.getElementById("statViewHidden").style.height = "0px";
+    document.getElementById("queViewHidden").style.height = "0px";
+
   }
   submitAttendance(){
-    //get present student from hidden Container
-    var presentStudentsUncleaned = document.getElementById("presentStudents").innerHTML;
-
+    var absentStudentsUncleaned = document.getElementById("absentStudents").innerHTML;
     //need to clean student list
-    presentStudentsUncleaned = presentStudentsUncleaned.substring(0, presentStudentsUncleaned.length - 1);
-
-    //need to convert student list into an array
-    var presentStudentListArray = new Array();
-    presentStudentListArray = presentStudentsUncleaned.split(",");
-
-    //compare all students vs. present student
-    //then put absent students based these two arrays.
-    var allStudentsUncleaned = document.getElementById("studentListUnclean").innerHTML;
-    var allStudentListArray = new Array();
-    allStudentListArray = allStudentsUncleaned.split(",");
-
-    var absentStudents = [];
-    for (var i=0; i<allStudentListArray.length; i++){
-      if(presentStudentListArray.indexOf(allStudentListArray[i]) < 0){
-        absentStudents.push(allStudentListArray[i]);
-      }
-    }
-    //can't pass in array. need to be stringified!!!!!!!!!!!!!!
-    var absentStudentsStringified = JSON.stringify(absentStudents);
-
-    console.log("all students: "+allStudentListArray);
-    console.log("present students: "+presentStudentListArray);
-    console.log("absent students: "+absentStudents);
+    absentStudentsUncleaned = absentStudentsUncleaned.substring(0, absentStudentsUncleaned.length - 1);
+    var absentStudentListArray = new Array();
+    absentStudentListArray = absentStudentsUncleaned.split(",");
+    var absentStudentsStringified = JSON.stringify(absentStudentListArray);
     var submissionDateString = document.getElementById("dateToday").value;
     var rfc2822Format = submissionDateString.split('/');
     var submissionDate = new Date(rfc2822Format[2],rfc2822Format[0]-1,rfc2822Format[1]);
-    console.log(submissionDate);
-
-    var courseName = document.getElementById("courseNameHidden").innerHTML
-    console.log(courseName);
+    var courseName = document.getElementById("courseNameHidden").innerHTML;
     //submit attendance api request
     var req = new XMLHttpRequest();
     req.onreadystatechange = function() {
@@ -145,8 +151,8 @@ class InstructorCourseOverview extends Component{
         document.getElementById("fieldEmpty").style.visibility = "hidden";
         document.getElementById("fieldEmpty").style.display = "none";
 
-        document.getElementById("noWifi").style.visibility = "hidden";
-        document.getElementById("noWifi").style.display = "none";
+        document.getElementById("invalidInput").style.visibility = "hidden";
+        document.getElementById("invalidInput").style.display = "none";
         window.location.reload();
       }
       else if (req.readyState == 4 && req.status == 400){
@@ -159,8 +165,8 @@ class InstructorCourseOverview extends Component{
         document.getElementById("fieldEmpty").style.visibility = "visible";
         document.getElementById("fieldEmpty").style.display = "block";
 
-        document.getElementById("noWifi").style.visibility = "hidden";
-        document.getElementById("noWifi").style.display = "none";
+        document.getElementById("invalidInput").style.visibility = "hidden";
+        document.getElementById("invalidInput").style.display = "none";
       }
       else if (req.readyState == 4 && req.status == 403){
         document.getElementById("errorTemplate").style.visibility = "visible";
@@ -172,8 +178,8 @@ class InstructorCourseOverview extends Component{
         document.getElementById("fieldEmpty").style.visibility = "hidden";
         document.getElementById("fieldEmpty").style.display = "none";
 
-        document.getElementById("noWifi").style.visibility = "hidden";
-        document.getElementById("noWifi").style.display = "none";
+        document.getElementById("invalidInput").style.visibility = "hidden";
+        document.getElementById("invalidInput").style.display = "none";
       }
       else if (req.readyState == 4 && req.status == 401){
         document.getElementById("errorTemplate").style.visibility = "hidden";
@@ -185,8 +191,8 @@ class InstructorCourseOverview extends Component{
         document.getElementById("fieldEmpty").style.visibility = "hidden";
         document.getElementById("fieldEmpty").style.display = "none";
 
-        document.getElementById("noWifi").style.visibility = "hidden";
-        document.getElementById("noWifi").style.display = "none";
+        document.getElementById("invalidInput").style.visibility = "hidden";
+        document.getElementById("invalidInput").style.display = "none";
       }
       else if (req.readyState == 4 && req.status == 500){
         document.getElementById("errorTemplate").style.visibility = "hidden";
@@ -198,8 +204,8 @@ class InstructorCourseOverview extends Component{
         document.getElementById("fieldEmpty").style.visibility = "hidden";
         document.getElementById("fieldEmpty").style.display = "none";
 
-        document.getElementById("noWifi").style.visibility = "visible";
-        document.getElementById("noWifi").style.display = "block";
+        document.getElementById("invalidInput").style.visibility = "visible";
+        document.getElementById("invalidInput").style.display = "block";
       }
     }
     var param = '{"submissionTime":"' + submissionDate + '", "absentstudents":'+ absentStudentsStringified +'}';
@@ -208,62 +214,75 @@ class InstructorCourseOverview extends Component{
     req.send(param);
   }
   viewStatistics(){
+    document.getElementById("totalDaysMissedCol").innerHTML = "Total";
+    document.getElementById("studentNameCol").innerHTML = "Student";
+    document.getElementById("fifthDayMissedCol").innerHTML = "Friday";
+    document.getElementById("fourthDayMissedCol").innerHTML = "Thursday";
+    document.getElementById("thirdDayMissedCol").innerHTML = "Wednesday";
+    document.getElementById("secondDayMissedCol").innerHTML = "Tuesday";
+    document.getElementById("firstDayMissedCol").innerHTML = "Monday";
     //get attendance statistics
     var submissionDateString = document.getElementById("dateToday").value;
     var rfc2822Format = submissionDateString.split('/');
     var submissionDate = new Date(rfc2822Format[2],rfc2822Format[0]-1,rfc2822Format[1]);
     var courseName = document.getElementById("courseNameHidden").innerHTML;
-    console.log("date: "+submissionDate);
-    console.log("course: "+courseName);
-    console.log("/api/course/" + courseName + "/attendance?" + "date=" + submissionDate);
     var req = new XMLHttpRequest();
     req.onreadystatechange = function() {
       //successful
       if (req.readyState == 4 && req.status == 200) {
-        var response = JSON.parse(req.responseText);
-        var students = response.students;
-        console.log(students);
-        console.log(students[0].absence)
-        console.log("First Student Absent Length: "+ students[0].absence.length);
-        //create element dynamically based on student classList
-        for (var i=0; i < students.length; i++){
-          //student column
-          var studentCol = document.createElement("div");
-          var studentName = document.createTextNode(students[i].name);
-          studentCol.appendChild(studentName);
-          document.getElementById("studentNameCol").appendChild(studentCol);
+          var response = JSON.parse(req.responseText);
+          var students = response.students;
+          console.log(students);
+          //fill in date for the table
+          document.getElementById("fifthDayMissedCol").innerHTML = students[0].absence[4].date.toString();
+          document.getElementById("fourthDayMissedCol").innerHTML = students[0].absence[3].date.toString();
+          document.getElementById("thirdDayMissedCol").innerHTML = students[0].absence[2].date.toString();
+          document.getElementById("secondDayMissedCol").innerHTML = students[0].absence[1].date.toString();
+          document.getElementById("firstDayMissedCol").innerHTML = students[0].absence[0].date.toString();
 
-          //total days missed column
-          var totalCol = document.createElement("div");
-          var totalNumMissed = document.createTextNode(students[i].absence.length);
-          totalCol.appendChild(totalNumMissed);
-          document.getElementById("totalDaysMissedCol").appendChild(totalCol);
+          //stores all absents inside an array
+          var totalAbsenceArray = new Array(students.length);
+          //per student
+          var absentPerStudent = 0;
 
-          var fifthDayCol = document.createElement("div");
-          var fifthDayMissed = document.createTextNode("1");
-          fifthDayCol.appendChild(fifthDayMissed);
-          document.getElementById("fifthDayMissedCol").appendChild(fifthDayCol);
+          var fiveDaysStat = new Array(students.length);
+          for (var i=0; i<students.length; i++){
+            fiveDaysStat[i] = new Array(6);
+          }
 
-          var fourthDayCol = document.createElement("div");
-          var fourthDayMissed = document.createTextNode("1");
-          fourthDayCol.appendChild(fourthDayMissed);
-          document.getElementById("fourthDayMissedCol").appendChild(fourthDayCol);
+          //create element dynamically based on student classList
+          for (var i=0; i < students.length; i++){
+            //student column
+            var studentCol = document.createElement("div");
+            var studentName = document.createTextNode(students[i].name);
+            studentCol.appendChild(studentName);
+            document.getElementById("studentNameCol").appendChild(studentCol);
 
-          var thirdDayCol = document.createElement("div");
-          var thirdDayMissed = document.createTextNode("1");
-          thirdDayCol.appendChild(thirdDayMissed);
-          document.getElementById("thirdDayMissedCol").appendChild(thirdDayCol);
+            //first day column
+            var firstCol = document.createElement("div");
 
-          var secondDayCol = document.createElement("div");
-          var secondDayMissed = document.createTextNode("1");
-          secondDayCol.appendChild(secondDayMissed);
-          document.getElementById("secondDayMissedCol").appendChild(secondDayCol);
-
-          var firstDayCol = document.createElement("div");
-          var firstDayMissed = document.createTextNode("1");
-          firstDayCol.appendChild(firstDayMissed);
-          document.getElementById("firstDayMissedCol").appendChild(firstDayCol);
+            //total days missed column
+            for (var j=0; j <6; j++){
+              if (students[i].absence[j].status == "absent"){
+                absentPerStudent++;
+                totalAbsenceArray[i] = absentPerStudent;
+                fiveDaysStat[i][j] = "Absent";
+              }
+              else if(students[i].absence[j].status == "present"){
+                fiveDaysStat[i][j] = "Present";
+              }
+            }
+            absentPerStudent = 0;
+            //would return undefined if a student was present every day
+            if (totalAbsenceArray[i] === undefined){
+              totalAbsenceArray[i] = "wtf";
+            }
+            var totalCol = document.createElement("div");
+            var totalAbsence = document.createTextNode(totalAbsenceArray[i]);
+            totalCol.appendChild(totalAbsence);
+            document.getElementById("totalDaysMissedCol").appendChild(totalCol);
         }
+        console.log(fiveDaysStat);
       }
       //user not allowed
       else if (req.readyState == 4 && req.status == 403){
@@ -285,20 +304,15 @@ class InstructorCourseOverview extends Component{
     req.send();
 
     //this is animation to open statistic table
-    document.getElementById("statViewHidden").style.height = "780px";
+    document.getElementById("statViewHidden").style.height = "300px";
     document.getElementById("statViewHidden").WebkitTransition = "all 1s";
     document.getElementById("statViewHidden").style.transition = "all 1s";
-    document.getElementById("statBodyTitle").style.height = "45px";
-    document.getElementById("statBodyTitle").WebkitTransition = "all 1s";
-    document.getElementById("statBodyTitle").style.transition = "all 1s";
   }
   closeStatTable(){
     document.getElementById("statViewHidden").style.height = "0px";
     document.getElementById("statViewHidden").WebkitTransition = "all 1s";
     document.getElementById("statViewHidden").style.transition = "all 1s";
-    document.getElementById("statBodyTitle").style.height = "0px";
-    document.getElementById("statBodyTitle").WebkitTransition = "all 1s";
-    document.getElementById("statBodyTitle").style.transition = "all 1s";
+
     var refresh1 = document.getElementById("studentNameCol");
     var refresh2 = document.getElementById("totalDaysMissedCol");
     var refresh3 = document.getElementById("firstDayMissedCol");
@@ -306,13 +320,54 @@ class InstructorCourseOverview extends Component{
     var refresh5 = document.getElementById("thirdDayMissedCol");
     var refresh6 = document.getElementById("fourthDayMissedCol");
     var refresh7 = document.getElementById("fifthDayMissedCol");
-    refresh1.innerHTML = 'Student Name/ID';
+    refresh1.innerHTML = 'Student';
     refresh2.innerHTML = 'Total';
     refresh3.innerHTML = 'Monday';
     refresh4.innerHTML = 'Tuesday';
     refresh5.innerHTML = 'Wednesday';
     refresh6.innerHTML = 'Thursday';
     refresh7.innerHTML = 'Friday';
+  }
+  openQueryTable(){
+    document.getElementById("queViewHidden").style.height = "300px";
+    document.getElementById("queViewHidden").WebkitTransition = "all 1s";
+    document.getElementById("queViewHidden").style.transition = "all 1s";
+  }
+  viewQueryStudents(){
+    document.getElementById("studentQuery").innerHTML = "Student"
+    document.getElementById("totalDayQuery").innerHTML = "Total Absence";
+    var courseName = document.getElementById("courseNameHidden").innerHTML;
+    var numberOfAbsences = document.getElementById("queryDate").value;
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function(){
+      if (req.readyState == 4 && req.status == 200) {
+          var response = JSON.parse(req.responseText);
+          var students = response.students;
+          console.log(students);
+          for (var i=0; i < students.length; i++){
+            var studentCol = document.createElement("div");
+            var totalCol = document.createElement("div");
+            var studentList = document.createTextNode(students[i].name);
+            var counts = document.createTextNode(students[i].absenceCount);
+            studentCol.appendChild(studentList);
+            totalCol.appendChild(counts);
+            document.getElementById("studentQuery").appendChild(studentCol);
+            document.getElementById("totalDayQuery").appendChild(totalCol);
+          }
+      }
+    }
+    req.open("GET", "/api/course/" + courseName + "/stats?" + "absences=" + numberOfAbsences);
+    console.log("/api/course/" + courseName + "/stats?" + "absences=" + numberOfAbsences);
+    req.setRequestHeader("Content-type", "application/json");
+    req.send();
+  }
+  closeQueryTable(){
+    document.getElementById("queViewHidden").style.height = "0px";
+    document.getElementById("queViewHidden").WebkitTransition = "all 1s";
+    document.getElementById("queViewHidden").style.transition = "all 1s";
+    document.getElementById("queryDate").value = "";
+    document.getElementById("studentQuery").innerHTML = "Student";
+    document.getElementById("totalDayQuery").innerHTML = "Total Absence"
   }
   render(){
     var courseName = this.props.location.search;
@@ -334,15 +389,15 @@ class InstructorCourseOverview extends Component{
                 />
               </div>
               <div>
+              <h3 className={styles.queriesDirect} onClick={this.openQueryTable}>View Query Statistics</h3>
               <h3 className={styles.statDirect} onClick={this.viewStatistics}>View Attendance Statistics</h3><br/><br/><br/>
-              <h1 className={styles.statisticBodyTitle} id="statBodyTitle">{courseName} Attendance Statistics</h1>
               </div>
               <div className={styles.statisticsViewHidden} id="statViewHidden">
-                <div className={styles.mainBodyWrapper}>
+                <div className={styles.statTableWrapper}>
                   <form id="form1">
                     <div className={styles.divtable}>
                       <div className={styles.divtablerow}>
-                        <div className={styles.divtablecol} id="studentNameCol">Student Name/ID</div>
+                        <div className={styles.divtablecol} id="studentNameCol">Student</div>
                         <div className={styles.divtablecol} id="totalDaysMissedCol">Total</div>
                         <div className={styles.divtablecol} id="firstDayMissedCol">Monday</div>
                         <div className={styles.divtablecol} id="secondDayMissedCol">Tuesday</div>
@@ -355,13 +410,32 @@ class InstructorCourseOverview extends Component{
                   <p className={styles.closeStatViewButton} onClick={this.closeStatTable}>Close Statistics</p>
                 </div>
               </div>
-            <h1 className={styles.mainBodyTitleOverview}>{courseName} Classroom</h1>
+              <div className={styles.queriesViewHidden} id="queViewHidden">
+                  <div className={styles.queriesBodyWrapper}>
+                    <div className={styles.query}>
+                      <input type="text" id="queryDate" placeholder="Missed days" className={styles.missedDaysInput}></input>
+                      <p className={styles.studentQueryViewButton} onClick={this.viewQueryStudents}>Search</p>
+                      <form id="form1">
+                        <div className={styles.divtable}>
+                          <div className={styles.divtablerow}>
+                            <div className={styles.divtablecol} id="studentQuery">Student</div>
+                            <div className={styles.divtablecol} id="totalDayQuery">Total Absence</div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <p className={styles.closeStatViewButton} onClick={this.closeQueryTable}>Close Query</p>
+                  </div>
+              </div>
+
             <div className={styles.errorMsgTemplate} id="errorTemplate">holds height</div>
             <div className={styles.errorMsgSuccessful} id="successfulSubmit">You have submitted an attendance!</div>
             <div className={styles.errorMsgCritical} id="notLoggedIn">You are not logged in</div>
             <div className={styles.errorMsgWarning} id="fieldEmpty">Do not leave the date of submission empty</div>
-            <div className={styles.errorMsgWarning} id="noWifi">Please check your internet connection</div>
+            <div className={styles.errorMsgWarning} id="invalidInput">Make sure to check your date input format</div>
+            <h1 className={styles.mainBodyTitleOverview1}>{courseName} Classroom</h1>
             <div className={styles.mainBodyWrapper}>
+              <p className={styles.clickInstruction}>Click once to mark student absent</p>
               <div className={styles.courseGrid}>
                 {this.state.courseGrid}
               </div>
