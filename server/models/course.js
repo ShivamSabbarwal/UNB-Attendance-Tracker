@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const Userdata = new Schema({
-    username: { type: 'String', required: true, unique: true },
+    // we need to check that usernames are unique
+    username: { type: 'String', required: true },
     absence: [String]
 });
 

@@ -42,6 +42,54 @@ function checkRequestSanity(req, res) {
   })
 }
 
+
+/*
+ * author: Riley
+ * param: course  Name of the course to remove a student from the coursegrid
+ * param: student  Username of the student to be removed from grid
+ * returns: Boolean  true if successfully removed
+ */
+var removeStudentFromGrid = async_f(function (course, student) {
+  //replace matching username with ""
+  function replace(seat){
+    if(seat == student){
+      return ""
+    } else {
+      return seat
+    }
+  }
+
+  var status = true;
+
+  await_f(
+    courseGrid.findOne(
+      {'courseName':course},
+      'class',
+      (err, coursegrid) => {
+        if (err) {
+          console.log(err)
+          status = false;
+          return
+        } else if (coursegrid.class) {
+
+          // itterate through outer array
+          coursegrid.class.forEach( function(element, index, array){
+            //itterare through inner array
+            array[index] = array[index].map(replace)
+          })
+
+          //save changes to courseGrid
+          coursegrid.markModified("class");
+          coursegrid.save();
+          return
+        }
+
+      }
+    )
+  )
+  return status;
+})
+
 /**
  * This function add a list of students to a specific Course (is user is admin)
  * This function adds the student associated with the session to a specific Course (if user is not admin)
@@ -178,12 +226,15 @@ export function dropStudents(req, res) {
     if (accept) {
       var numberOfStudents = req.body.students.length;
       var DBSuccesses = 0;
+      var DBPartialSuccesses = 0;
       var DBfails = 0;
+      var removed = true;
 
       function checkAndSend() {
-        if (DBSuccesses + DBfails === numberOfStudents) {
+        if (DBSuccesses + DBfails + DBPartialSuccesses === numberOfStudents) {
           res.status(200).send({
-            Deleted: DBSuccesses,
+            DeletedFromCourseAndGrid: DBSuccesses,
+            DeletedFromeCourseOnly: DBPartialSuccesses,
             Failed: DBfails
           }).end();
         }
@@ -222,14 +273,21 @@ export function dropStudents(req, res) {
                         }
                       }
                     },
-                    (err, raw) => {
+                    async_f((err, raw) => {
                       if (err !== null || raw.nModified === 0) {
                         DBfails = DBfails + 1;
                       } else {
-                        DBSuccesses = DBSuccesses + 1;
+                        DBPartialSuccesses = DBPartialSuccesses + 1;
+                        removed = await_f(removeStudentFromGrid(req.params.courseTitle, student_username))
+                        removed = removed // This line is vital! Do not remove!
+
+                        if (removed) {
+                          DBPartialSuccesses = DBPartialSuccesses -1;
+                          DBSuccesses = DBSuccesses +1;
+                        }
                       }
                       checkAndSend();
-                    });
+                    }));
                 }
               });
             }
@@ -265,15 +323,22 @@ export function dropStudents(req, res) {
                           }
                         }
                       },
-                      (err, raw) => {
+                      async_f((err, raw) => {
                         if (err !== null) {
                           console.log(err);
                           DBfails = DBfails + 1;
                         } else {
-                          DBSuccesses = DBSuccesses + 1;
+                          DBPartialSuccesses = DBPartialSuccesses +1;
+                          removed = await_f(removeStudentFromGrid(req.params.courseTitle, student_username))
+                          removed = removed // This line is vital! Do not remove!
+
+                          if (removed) {
+                            DBPartialSuccesses = DBPartialSuccesses -1;
+                            DBSuccesses = DBSuccesses +1;
+                          }
                         }
                         checkAndSend();
-                      });
+                      }));
                   }
                 } else {
                   res.status(403).send("Student does not exist");
