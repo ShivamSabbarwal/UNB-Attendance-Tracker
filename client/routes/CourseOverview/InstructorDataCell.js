@@ -14,7 +14,7 @@ class InstructorDataCell extends Component{
   constructor(props){
     super(props);
 
-    this.state = {studentName: props.studentName};
+    this.state = {name: props.name};
   }
   componentDidMount(){
 
@@ -22,23 +22,19 @@ class InstructorDataCell extends Component{
   clicked(){
     debugger;
     var y = document.getElementsByClassName(styles.courseGridCellClicked);
-    if(typeof document.getElementsByClassName(styles.courseGridCellClicked) != "undefined"){
-      //for(var i = 0; i < y.length; i++){
-        //y[i].classList.remove(styles.courseGridCellClicked);
-      //}
-    }
-
-  	if(!document.getElementById(this.props.id).className.includes(styles.courseGridCellClicked)){
-      if(this.props.studentName != ""){
+    if(document.getElementById(this.props.id).className.includes(styles.courseGridCellClicked)){
+      document.getElementById(this.props.id).classList.remove(styles.courseGridCellClicked);
+    } else{
+      if(this.props.name != ""){
   		    document.getElementById(this.props.id).classList.add(styles.courseGridCellClicked);
-          document.getElementById("presentStudents").innerHTML += this.props.studentName+',';
+          document.getElementById("absentStudents").innerHTML += this.props.name+',';
       }
   	}
   }
 
   render(){
     return(
-      <td className={styles.courseGridCell} id={this.props.id} onClick = {this.clicked.bind(this)}> {this.state.studentName} </td>
+      <td className={styles.courseGridCell} id={this.props.id} onClick = {this.clicked.bind(this)}> {this.state.name} </td>
     )
   }
 

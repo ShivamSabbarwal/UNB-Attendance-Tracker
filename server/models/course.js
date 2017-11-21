@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const Userdata = new Schema({
-    username: { type: 'String', required: true, unique: true },
+    // we need to check that usernames are unique
+    username: { type: 'String', required: true },
     absence: [String]
 });
 
@@ -13,8 +14,8 @@ const CourseSchema = new Schema({
   time: { type: 'String' },
   term: { type: 'String', required: true }, // room the class takes place in
   emailTemplate: {type: 'String', reqiured: true},
-  numDays: {type: 'Array', reqiured: true}
-
+  numDays: {type: 'Array', reqiured: true},
+  attendanceRecords: [String]
 });
 
 export default mongoose.model('Course', CourseSchema);

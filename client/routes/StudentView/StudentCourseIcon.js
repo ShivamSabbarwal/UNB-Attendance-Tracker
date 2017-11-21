@@ -39,7 +39,7 @@ class StudentCourseIcon extends Component{
         }
         req.open("DELETE", "api/course/" + this.props.name + "/students");
         req.setRequestHeader("Content-type", "application/json");
-        var params = '{"students":[""]}';
+        var params = '{"students": [""]}';
 
         req.send(params);
       }.bind(this),

@@ -30,7 +30,7 @@ class StudentCourseOverview extends Component{
         var response = JSON.parse(req.responseText);
 
         var grid = response.grid;
-
+        console.log(grid);
         var output = <StudentCourseGrid name={courseName} grid={grid}/>;
 
         this.setState({
