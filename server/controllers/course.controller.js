@@ -158,7 +158,11 @@ export function addStudents(req, res) {
                               res.status(400).end();
                             } else if (coursegrid) {
                                 var flag = true; 
+                                var i = 0;
                                 while (flag){
+                                    if (i === 1000){
+                                        flag = false; //Prevent infinite looping on full classroom
+                                    }
                                     var x = Math.floor((Math.random() * coursegrid.class.length) + 1);
                                     var y = Math.floor((Math.random() * coursegrid.class[0].length) + 1);
                                     if (coursegrid.class[x][y] === ""){
@@ -167,6 +171,7 @@ export function addStudents(req, res) {
                                         coursegrid.markModified("class");
                                         coursegrid.save();
                                     }
+                                    i++;
                                 }     
                             }
                         });
