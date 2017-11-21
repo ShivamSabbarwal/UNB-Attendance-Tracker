@@ -528,9 +528,9 @@
   margin-left: 150px;
 }
 .instCourseList, th, td{
-  background-color: #ffb3b3;
+
   border-collapse: collapse;
-  border: 1px solid #ff9999;
+  border: 1px solid #FFFFFF;
 }
 .courseNum{
   width: 100px;
