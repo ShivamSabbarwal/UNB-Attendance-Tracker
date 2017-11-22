@@ -36,27 +36,11 @@ class InstructorDataCell extends Component{
   }
 
   render(){
-
-
-  /*
-    return (
-    <td className={styles.courseGridCell} id={this.props.id} onClick = {this.clicked.bind(this)}> {this.state.name} </td>
-  )*/
-
-    if(this.state.name == "-1") {
-      return (<td className={styles.closedSeat2} id={this.props.id} onClick = {this.clicked.bind(this)}></td>)
-    }
-
-    else if (this.state.name == "-2") {
-      return(<td className={styles.auditableSeat2} id={this.props.id} onClick = {this.clicked.bind(this)}></td>)
-    }
-
-    else{
-      return (
+    return(
       <td className={styles.courseGridCell} id={this.props.id} onClick = {this.clicked.bind(this)}> {this.state.name} </td>
-    )}
+    )
+  }
 
-}
 }
 
 export default InstructorDataCell;
