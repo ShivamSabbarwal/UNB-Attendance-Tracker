@@ -5,6 +5,7 @@ import { connectDB, dropDB } from '../../util/test-helpers';
 import User from '../../models/user'
 import Course from '../../models/course'
 import Session from '../../models/session'
+import courseGrid from '../../models/coursegrid';
 
 // Initial posts added into test db
 const users = [
@@ -26,8 +27,12 @@ const courses = [
   new Course({
     'title': 'courseTitle',
     'professor': 'admin',
-    'institution': 'UNBF',
-    'location': 'Fredericton'
+    'usernames':[],
+    'time': 'MWF 10:30-11:20',
+    'term': 'FA2017',
+    'emailTemplate': 'You have missed class!',
+    'numDays': [[5]],
+    'attendanceRecords': []
   }),
 ];
 
@@ -38,16 +43,28 @@ const sessions = [
   })
 ];
 
+const grid = [
+  new courseGrid({
+    'courseName': 'courseTitle',
+    'class': [["","","",""],["","","",""]]
+  })
+];
+
 test.beforeEach('connect and add data', t => {
   connectDB(t, () => {
-    Course.create(courses, (err, coursess) => {
+    Course.create(courses, (err, courses) => {
       if (err) t.fail('Unable to create courses');
       else {
-        Session.create(sessions, err => {
-          if (err) t.fail('Unable to create users');
+        Session.create(sessions, (err, session) => {
+          if (err) t.fail('Unable to create session');
           else {
-            User.create(users, err => {
+            User.create(users, (err, users) => {
               if (err) t.fail('Unable to create users');
+              else {
+                courseGrid.create(grid, (err, grid) => {
+                  if (err) t.fail('Unable to create courseGrid');
+                })
+              }
             })
           }
         })
@@ -68,6 +85,7 @@ test.serial('get course list (No Session)', async t => {
     t.is(res.status, 401)
 });
 
+//this one fails because the session cookie isn't properly being set & I don't know why...
 test.serial('get course list', async t => {
   t.plan(1);
   const res = await request(app)
@@ -170,9 +188,12 @@ test.serial('Check create course', async t => {
     .post('/api/course')
     .send({
       'title': 'course1',
-      'professor': 'admin',
-      'institution': 'UNBF',
-      'location': 'Fredericton'
+      'term': 'FA2017',
+      'gridsize': [4,3],
+      'time': 'TuTh 8:30-10:00',
+      'courseGrid': [["","","",""],["","","",""]],
+      'emailTemplate': 'You have missed to many lectures!',
+      'numDays': [5]
     })
     .set('Cookie', 'sessionID=9abc2e1e1eaf65d72324e024dead0f1e;')
     .set('Accept', 'application/json')
