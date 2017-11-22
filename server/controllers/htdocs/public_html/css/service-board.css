@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+#container{
+  padding-left: 30px;
+  padding-right: 30px;
+  font-family: Roboto;
+}
+
+#service-title{
+  width: 100%;
+  text-align: center;
+}
+
+#postings-div{
+  width:100%;
+}
+
+#service-title{
+  position: relative;
+  float:left;
+  left:0;
+  top: 20px;
+  width: 80%;
+  font-size: 1.7em;
+}
+
+#postings{
+  float:left;
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 80%;
+  height: 70vh;
+  border: 1px solid #8A8A8A;
+  display: inline-flex;
+  justify-content:space-between;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+#postings .post {
+  position: relative;
+  text-align: center;
+  line-height: 25px;
+  height: 50%;
+  min-height: 200px;
+  max-height: 250px;
+  min-width: 500px;
+  margin-top: 10px;
+  margin-left: 2px;
+  border: 1px solid #8A8A8A;
+  width: 49%;
+  padding-top: 10px;
+  overflow-y: none;
+}
+
+#postings .post div {
+  text-align: left;
+  padding-left: 10px;
+}
+
+#postings .post .post-desc {
+  max-height: 30%;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.post-info{
+  padding-left: 0;
+  display: inline-flex;
+}
+
+.post-info div{
+    position: relative;
+    display: block;
+}
+
+.buttondiv{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.textbox{
+  outline: none;
+  width: 60%;
+  padding: 0px 5px;
+  border: 1px solid #7d7d7d;
+  border-radius: 5px;
+  background-color: #ffffff;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #474747;
+  font-weight: 400;
+  text-decoration: none solid rgb(71, 71, 71);
+  line-height: 16px;
+}
+
+.button {
+  width: 15%;
+  height: 50px;
+  position: relative;
+  left:2.5%;
+  top: 300px;
+  margin-right: 3%;
+  float: right;
+  border:0;
+  padding: 4px 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: #6e6e6e;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none solid rgb(255, 255, 255);
+  text-align: center;
+  box-shadow: 0 1px 2px #000000;
+}
+
+.postbutton {
+  width: 25%;
+  min-width: 180px;
+  height: 25px;
+  position: static;
+  margin-left: 3%;
+  float: left;
+  border:0;
+  padding: 4px 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: #6e6e6e;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none solid rgb(255, 255, 255);
+  text-align: center;
+  box-shadow: 0 1px 2px #000000;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    font-size: 1.25em;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+}
+
+.modal-content textarea{
+  resize: none;
+  outline: none;
+  width: 98%;
+  height: 200px;
+  padding: 0px 5px;
+  border: 1px solid #7d7d7d;
+  border-radius: 5px;
+  background-color: #ffffff;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #474747;
+  font-weight: 400;
+  text-decoration: none solid rgb(71, 71, 71);
+  line-height: 16px;
+}
+
+.modal-content input[type="submit"]{
+  width: 15%;
+  height: 25px;
+  border:0;
+  display: block;
+  margin: 0 auto;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #6e6e6e;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none solid rgb(255, 255, 255);
+  text-align: center;
+  box-shadow: 0 1px 2px #000000;
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    margin-top: -10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+#container{
+  padding-left: 30px;
+  padding-right: 30px;
+  font-family: Roboto;
+}
+
+#editprofile-button, #myservices-button {
+  width: 75%;
+  height: 25px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  display:block;
+  border:0;
+  padding: 4px 10px;
+  border-radius: 5px;
+  background-color: #6e6e6e;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none solid rgb(255, 255, 255);
+  text-align: center;
+  box-shadow: 0 1px 2px #000000;
+}
+
+#side-panel{
+  width: 20%;
+  margin-top: -1px;
+  border-right: 1px solid #8A8A8A;
+  float: left;
+}
+
+
+#avatar-panel img{
+  width: 75%;
+  height: 75%;
+  padding-left: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+#contact-panel{
+  border-top: 1px solid #8A8A8A;
+  padding: 25px;
+}
+
+#contact-panel span{
+  font-size: 1.5em;
+}
+
+#content{
+  padding: 25px;
+  margin-left: 20%;
+}
+
+#content-title{
+  font-size: 1.6em;
+}
+
+#content section{
+  position: relative;
+  margin-left: 50px;
+  top: 50px;
+}
+
+#content-boxes div{
+  margin-bottom: 20px;
+  width: 60%;
+  padding-left: 10px;
+  border-left: 1px solid #8A8A8A;
+}
+
+#content-boxes div p{
+  margin-left: 20px;
+}
+
+.databox{
+  position: absolute;
+  left: 150px;
+}
+
+.box-title{
+  font-size: 1.4em;
+}
+
+#container input[type="date"]{
+  outline: none;
+  width: 60%;
+  float: right;
+  padding: 0px 5px;
+  border: 1px solid #7d7d7d;
+  border-radius: 5px;
+  background-color: #ffffff;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #474747;
+  font-weight: 400;
+  text-decoration: none solid rgb(71, 71, 71);
+  text-align: center;
+  line-height: 16px;
+}
+
+#container input[type="text"]{
+  outline: none;
+  width: 60%;
+  float: right;
+  padding: 0px 5px;
+  border: 1px solid #7d7d7d;
+  border-radius: 5px;
+  background-color: #ffffff;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #474747;
+  font-weight: 400;
+  text-decoration: none solid rgb(71, 71, 71);
+  line-height: 16px;
+}
+
+
+#container textarea{
+  resize: none;
+  outline: none;
+  width: 100%;
+  height: 100px;
+  padding: 0px 5px;
+  border: 1px solid #7d7d7d;
+  border-radius: 5px;
+  background-color: #ffffff;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #474747;
+  font-weight: 400;
+  text-decoration: none solid rgb(71, 71, 71);
+  line-height: 16px;
+}
+
+#content-boxes input[type="submit"]{
+  width: 25%;
+  float: left;
+  display:block;
+  border:0;
+  margin: 0 auto;
+  padding: 6px 10px;
+  border-radius: 5px;
+  background-color: #6e6e6e;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none solid rgb(255, 255, 255);
+  text-align: center;
+  box-shadow: 0 1px 2px #000000;
+}
