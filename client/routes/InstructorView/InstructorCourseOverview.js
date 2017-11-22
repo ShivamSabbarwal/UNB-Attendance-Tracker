@@ -562,7 +562,7 @@ class InstructorCourseOverview extends Component{
     req.send();
 
     //this is animation to open statistic table
-    document.getElementById("statViewHidden").style.height = "300px";
+    document.getElementById("statViewHidden").style.height = "420px";
     document.getElementById("statViewHidden").WebkitTransition = "all 1s";
     document.getElementById("statViewHidden").style.transition = "all 1s";
   }
@@ -587,11 +587,14 @@ class InstructorCourseOverview extends Component{
     refresh7.innerHTML = 'No Record';
   }
   openQueryTable(){
-    document.getElementById("queViewHidden").style.height = "300px";
+    document.getElementById("queViewHidden").style.height = "180px";
     document.getElementById("queViewHidden").WebkitTransition = "all 1s";
     document.getElementById("queViewHidden").style.transition = "all 1s";
   }
   viewQueryStudents(){
+    document.getElementById("queViewHidden").style.height = "470px";
+    document.getElementById("queViewHidden").WebkitTransition = "all 1s";
+    document.getElementById("queViewHidden").style.transition = "all 1s";
     document.getElementById("studentQuery").innerHTML = "Student"
     document.getElementById("totalDayQuery").innerHTML = "Total Absence";
     var courseName = document.getElementById("courseNameHidden").innerHTML;

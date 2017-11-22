@@ -25,7 +25,7 @@ class RegisterCourse extends Component{
   }
 
   componentDidMount(){
-    
+
   }
 
   searchCourse() {
@@ -85,7 +85,7 @@ class RegisterCourse extends Component{
 
             <div className={styles.registerContainer}>
               <input className={styles.searchBox} type="text" id="searchInput" name="search" placeholder="...Search Courses"/>
-              <button onClick={this.searchCourse.bind(this)}>search!</button>
+              <button className={styles.searchCourseButton} onClick={this.searchCourse.bind(this)}>Search</button>
               <table className={styles.greyTable}>
               <thead>
               <tr>
