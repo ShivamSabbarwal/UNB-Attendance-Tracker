@@ -644,7 +644,6 @@ class InstructorCourseOverview extends Component{
 
               <div className={styles.datePickerWrapper}>
                 <DatePicker id="dateToday" className={styles.datePicker}
-                       autoFocus
                        selected={this.state.startDate}
                        onChange={this.handleChange}
                 />
