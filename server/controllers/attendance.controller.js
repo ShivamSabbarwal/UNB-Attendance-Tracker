@@ -2,7 +2,8 @@ import Course from '../models/course';
 import courseGrid from '../models/coursegrid';
 import User from '../models/user';
 import SessionUtils from '../util/sessionUtils';
-
+var nodemailer = require('nodemailer');
+var fs = require('fs');
  const monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
 /**
@@ -26,7 +27,7 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
     let studentsNotRegistered = []
     Course.findOne({
       'title': courseTitle
-    }, 'title usernames attendanceRecords', function(err, course) {
+    }, 'title usernames attendanceRecords numDays professor emailTemplate', function(err, course) {
       if (err) {
         callback(true, err)
       } else if (course) {
@@ -59,6 +60,19 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
               if (attendanceItem.username === absentStudent) {
                 attendanceItem.absence.push(submissionDate)
                 matched = true
+                var i;
+                var len;
+                console.log(attendanceItem.absence.length);
+                console.log(course.numDays[0][0]);
+                User.findOne({
+                    'username' : absentStudent
+                     },   'email', function(err, user){
+                        for (i = 0, len = course.numDays.length; i < len; ++i){ 
+                            if (course.numDays[i][0] === attendanceItem.absence.length){
+                                    sendEmail(attendanceItem.username, course.title, attendanceItem.absence.length, course.professor, course.emailTemplate, user.email)
+                            }
+                        }             
+                })
               }
             })
             if (matched === false) {
@@ -191,6 +205,13 @@ export function submitAttendance(req, res) {
  */
 export function getAttendance(req, res) {
   const requestDate = Date.parse(req.query.date)
+  const msToQuery = (() => {
+    const numOfDays = req.query.days
+    if (numOfDays) {
+      return numOfDays
+    }
+    return 5
+  })() * 24 * 60 * 60 * 1000;
   if (!req.params.courseTitle || !requestDate) {
     res.status(403).send("Invalid course title or query date (missing or incorrect)").end();
   } else {
@@ -210,7 +231,7 @@ export function getAttendance(req, res) {
               } else if (course) {
                 var attRecords = course.attendanceRecords.filter( atRec => {
                   const recordDate = Date.parse(atRec)
-                  return (recordDate <= requestDate && recordDate > requestDate - 518400000)
+                  return (recordDate <= requestDate && recordDate > requestDate - msToQuery)
                 })
                 var attendanceRecord = course.usernames.map(userData => {
                   return {
@@ -344,6 +365,47 @@ export function getCourseGrid(req, res) {
     }
   })
 }
+function sendEmail (username, course, absences, profUsername, htmlText, emailAddress) {
+    var transporter = nodemailer.createTransport("SMTP",{
+        service: 'gmail',
+        auth: {
+            user: 'swe4103g1@gmail.com',
+            pass: 'BentonianPhysics'
+        }
+    });
+
+    if(username);
+        htmlText = htmlText.replace(/\[username\]/g, username);
+    if(course);
+        htmlText = htmlText.replace(/\[course\]/g, course);
+    if(absences)
+        htmlText = htmlText.replace(/\[absenceCount\]/g, absences);
+    if(profUsername)
+        htmlText = htmlText.replace(/\[profUsername\]/g, profUsername);
+    
+
+ 
+    var htmlTemplate = fs.readFileSync('server/email/email.txt', 'utf8');
+    emailAddress = emailAddress + '@unb.ca';
+    //Replace emailAddress here with your own email address for testing
+    htmlTemplate = htmlTemplate.replace(/\[REPLACEMENT FLAG\]/g, htmlText);
+
+    var mailOptions = {
+      from: 'swe4103g1@gmail.com',
+      to: emailAddress,
+      subject: 'Abscence notice',
+      html: htmlTemplate
+    }
+    console.log('sent email' + mailOptions);
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+});
+    
+};
 
 
 /**
@@ -470,5 +532,115 @@ export function getStats(req, res) {
         })
       }
     })
+  }
+}
+
+/**
+ * param {XMLHTTPRequest} req A request containing the title of a course, and a date of query.
+ * param {XMLHTTPRequest} res Server reponse. If succesful, returns a csv of attendance data.
+ * returns null
+ *
+ * @api {get} course/{courseTtile}/csv?date={date} Get CSV of Attendance Record
+ * @apiGroup Attendance
+ *
+ * @apiDescription
+ *  ## Downloads a CSV file of the attendance data for a given course to the user.
+ *    - admin only
+ *
+ * @apiHeader Content-Type application/json
+ * @apiHeader Cookie session cookie
+ *
+ * @apiParam (URL parameter) {String} courseTitle The title of the course
+ * @apiParam (query parameter) {String} date The date used to define the time period.
+ *
+ * @apiParamExample URL and Query Parameter Example
+ *    http://127.0.0.1:8000/api/course/SWE4103/csv?date=Nov 12, 2017
+ *
+ * @apiParamExample {json} Header Example
+ *  {
+ *    Content-Type: application/json
+ *    Cookie: sessionID=344d94eb4a904b37fcc82305ab67d14f
+ *  }
+ *
+ * @apiSuccess {csv} A csv file containing attendance information
+ * @apiSuccess 200 Successfully found and returned attendance information
+ *
+ * @apiSuccessExample Get Attendance info
+ *  http://127.0.0.1:8000/api/course/ECE2020/csv?date=Dec 27 2017
+ *
+ * "Names","Date","Status"
+ * "morgan","Dec 25 2017","absent"
+ * "morgan","Dec 26 2017","present"
+ * "morgan","Dec 27 2017","absent"
+ * "Tris10","Dec 25 2017","present"
+ * "Tris10","Dec 26 2017","present"
+ * "Tris10","Dec 27 2017","present"
+ *
+ * @apiError 403 User is not allowed
+ * @apiError 401 Unauthorized (User not logged in)
+ * @apiError 400 Bad Request
+ * @apiError (Error 5xx) 500 Internal server error
+ */
+export function getAttendanceCSV(req, res) {
+  var json2csv = require('json2csv');
+  var fields = ['name', 'absence.date', 'absence.status'];
+  var fieldNames = ['Name', 'Date', 'Status'];
+
+  const requestDate = Date.parse(req.query.date);
+  const msToQuery = 365 * 24 * 60 * 60 * 1000; // full year
+
+  if (!req.params.courseTitle) {
+    res.status(403).send("Invalid course title (missing or incorrect)").end();
+  } else {
+    SessionUtils.isValidSession(req.cookies.sessionID).then(isValid => {
+      if (isValid !== true) {
+        res.status(401).end();
+      } else {
+        SessionUtils.isAdmin(req.cookies.sessionID).then(isAdmin => {
+          if (isAdmin !== true) {
+            res.status(403).send("This API endpoint requires Admin capability").end();
+          } else {
+            Course.findOne({
+              'title': req.params.courseTitle
+            }, 'usernames attendanceRecords', function(err, course) {
+              if (err) {
+                res.status(400).end();
+              } else if (course) {
+                var attRecords = course.attendanceRecords.filter( atRec => {
+                  const recordDate = Date.parse(atRec)
+                  return (recordDate <= requestDate && recordDate > requestDate - msToQuery)
+                })
+                var attendanceRecord = course.usernames.map(userData => {
+                  return {
+                    name: userData.username,
+                    absence: attRecords.map( atRec => {
+                      const d__date = new Date(atRec)
+                      return {
+                        date: monthNames[d__date.getMonth()] + " " + d__date.getDate() + " " + d__date.getFullYear(),
+                        status: (() => {
+                          if (userData.absence.includes(atRec)) {
+                            return 'absent'
+                          } else {
+                            return 'present'
+                          }
+                        })()
+                      }
+                    }),
+                    total: userData.absence.length
+                  }
+                })
+                //console.log(attendanceRecord)
+                var csv = json2csv({data: attendanceRecord, fields: fields, fieldNames: fieldNames, unwindPath: 'absence'})
+                res.setHeader('Content-disposition', 'attachment; filename='+req.params.courseTitle+'Record.csv');
+                res.set('Content-Type', 'text/csv');
+                res.status(200).send(csv);
+              } else {
+                res.status(400).send("Course matching \"" + req.params.courseTitle + "\" not found.");
+              }
+            });
+          }
+        });
+      }
+    });
   }
 }
