@@ -627,14 +627,14 @@
   background-color: #000000;
   color: #ffffff;
 }
-/*.hiddenContainer{
+.hiddenContainer{
   display: none;
   visibility: hidden;
 }
 .hiddenContainer2{
   display: none;
   visibility: hidden;
-}*/
+}
 
 .statisticsViewHidden{
   width: 60%;
