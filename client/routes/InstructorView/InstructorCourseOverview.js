@@ -72,11 +72,59 @@ class InstructorCourseOverview extends Component{
     req.send();
   }
 
-
   handleChange(date){
     this.setState({
       startDate: date
     });
+    // START COURSE GRID REFRESH
+
+    var courseName = this.props.location.search;
+    courseName = courseName.split("=")[1];
+
+    var submissionDate = date._d;
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+        var response = JSON.parse(req.responseText);
+
+        for(var i = 0; i < this.state.courseGrid.props.grid.length; i++){
+          for(var j = 0; j < this.state.courseGrid.props.grid[0].length; j++){
+            var cell = document.getElementById("" + i + "" + j + "");
+                cell.classList.remove(styles.courseGridCellClicked);
+          }
+        }
+        debugger;
+        for(var t=0; t<response.students.length; t++){
+          if(response.students[t].absence.length > 0){
+            var status = response.students[t].absence[0].status;
+            if(status == "absent"){
+              var name = response.students[t].name;
+              for(var i = 0; i < this.state.courseGrid.props.grid.length; i++){
+                var found = false;
+                for(var j = 0; j < this.state.courseGrid.props.grid[0].length; j++){
+                  var cell = document.getElementById("" + i + "" + j + "");
+                  if(cell.innerText == name){
+                    debugger;
+                    cell.classList.add(styles.courseGridCellClicked);
+                    found = true;
+                    break;
+                  }
+                }
+                if(found) break;
+              }
+            }
+          }
+        }
+      }
+    }.bind(this)
+
+    req.open("GET", "/api/course/" + courseName + "/attendance?date=" + submissionDate + "&days=1");
+    req.setRequestHeader("Content-type", "application/json");
+
+    req.send();
+    // END COURSE GRID REFRESH
+
     var refresh1 = document.getElementById("studentNameCol");
     var refresh2 = document.getElementById("totalDaysMissedCol");
     var refresh3 = document.getElementById("firstDayMissedCol");
