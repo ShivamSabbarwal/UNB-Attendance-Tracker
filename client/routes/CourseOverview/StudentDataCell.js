@@ -38,9 +38,18 @@ class StudentDataCell extends Component{
   }
 
   render(){
-    return(
+    if(this.state.name == "-1") {
+      return (<td className={styles.closedSeat2} id={this.props.id} onClick = {this.clicked.bind(this)}></td>)
+    }
+
+    else if (this.state.name == "-2") {
+      return(<td className={styles.auditableSeat2} id={this.props.id} onClick = {this.clicked.bind(this)}></td>)
+    }
+
+    else{
+      return (
       <td className={styles.courseGridCell} id={this.props.id} onClick = {this.clicked.bind(this)}> {this.state.name} </td>
-    )
+    )}
   }
 
 }
