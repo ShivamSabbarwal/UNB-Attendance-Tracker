@@ -26,6 +26,7 @@ router.route('/course').delete(CourseController.removeCourse);
 // Attendance
 router.route('/course/:courseTitle/attendance').put(AttendanceController.submitAttendance);
 router.route('/course/:courseTitle/attendance').get(AttendanceController.getAttendance);
+router.route('/course/:courseTitle/csv').get(AttendanceController.getAttendanceCSV);
 router.route('/course/:courseTitle/seat').put(AttendanceController.reserveSeat);
 router.route('/course/:courseTitle/grid').get(AttendanceController.getCourseGrid);
 router.route('/course/:courseTitle/stats').get(AttendanceController.getStats);
