@@ -9,7 +9,7 @@ import * as utils from '../Utils/utils.js';
 // Import Style
 import styles from '../../main.css';
 
-class DataCell extends Component{
+class StudentDataCell extends Component{
 
   constructor(props){
     super(props);
@@ -38,11 +38,20 @@ class DataCell extends Component{
   }
 
   render(){
-    return(
+    if(this.state.name == "-1") {
+      return (<td className={styles.closedSeat2} id={this.props.id} onClick = {this.clicked.bind(this)}></td>)
+    }
+
+    else if (this.state.name == "-2") {
+      return(<td className={styles.auditableSeat2} id={this.props.id} onClick = {this.clicked.bind(this)}></td>)
+    }
+
+    else{
+      return (
       <td className={styles.courseGridCell} id={this.props.id} onClick = {this.clicked.bind(this)}> {this.state.name} </td>
-    )
+    )}
   }
 
 }
 
-export default DataCell;
+export default StudentDataCell;

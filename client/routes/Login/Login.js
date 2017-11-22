@@ -9,10 +9,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 var username = readCookie("username");
 var sessionID = readCookie("sessionID");
 var isAdmin = readCookie("isAdmin");
-console.log("username: "+ username);
-console.log("sessionID: "+ sessionID);
-console.log("isAdmin: "+isAdmin);
-
+var isNull = null;
 class Login extends Component{
 
   constructor(props){
@@ -20,7 +17,12 @@ class Login extends Component{
   }
 
   componentDidMount(){
-
+      document.cookie = "isAdmin="+ isNull;
+      document.cookie = "sessionID="+ isNull;
+      document.cookie = "username="+ isNull;
+      console.log("isAdmin: " + readCookie("isAdmin"));
+      console.log("sessionID: "+ readCookie("sessionID"));
+      console.log("username: "+ readCookie("username"));
   }
 
   render(){

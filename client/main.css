@@ -1,8 +1,42 @@
 /*use this css file ONLY for routes*/
 /*for components like header and footers, use separate css files - justin*/
 /*use lowercase*/
-
 /*----------------------------global components----------------------*/
+.errorMsgTemplate{
+  visibility: hidden;
+}
+.errorMsgCritical{
+  color: #D8000C;
+  background-color: #FFBABA;
+  background-image: url('./images/png/error.png');
+  visibility: hidden;
+  display: none;
+
+}
+.errorMsgSuccessful{
+  color: #4F8A10;
+  background-color: #DFF2BF;
+  background-image:url('./images/png/success.png');
+  visibility: hidden;
+  display: none;
+}
+.errorMsgWarning{
+  color: #9F6000;
+  background-color: #FEEFB3;
+  background-image: url('./images/png/warning.png');
+  visibility: hidden;
+  display: none;
+}
+.errorMsgWarning, .errorMsgCritical, .errorMsgSuccessful, .errorMsgTemplate{
+  border: 1px solid;
+  border-radius: 15px;
+  margin: auto;
+  padding:15px 10px 15px 50px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  width: 350px;
+  margin-bottom: 10px;
+}
 .header{
   margin-top: 25px;
   color: white;
@@ -39,6 +73,7 @@
   padding-top: 1px;
   padding-bottom: 100px;
 }
+
 .mainBodyTitle{
   color: white;
   text-align: center;
@@ -81,6 +116,13 @@
   height: 100vh;
   display: flex;
   vertical-align: middle;
+}
+
+.img{
+  width:100%;
+  max-width:100%;
+  height:100%;
+  max-width:100%;
 }
 
 
@@ -240,6 +282,23 @@
   margin-top: 5%;
 }
 
+.datePicker{
+  font-size: 200%;
+  text-align: center;
+}
+
+.datePickerWrapper{
+  margin-left: 41%;
+}
+
+.mainBodyTitleInstructorCourseOverview{
+  color: white;
+  text-align: center;
+  font-size: 35px;
+  display: inline-block;
+  margin-left: 25%;
+}
+
 .instructorButton{
   background: #a6a6a6;
   border-radius: 5px;
@@ -257,6 +316,7 @@
 
 .attendanceStatsTable{
   width: 100%;
+  background: #FFFFFF;
 }
 
 .courseBackground{
@@ -273,9 +333,24 @@
   margin-bottom:30px;
   width:300px;
   height:200px;
+  position:relative;
+}
+.courseIconBackgroundStudent{
+  height: 100%;
+  width:100%;
+  background-image:url("images/png/books.png");
+}
+.courseIconBackgroundInst{
+  height: 100%;
+  width:100%;
+  max-height: 100%;
+  max-width:100%;
+  background-image:url("images/png/chalkboard.jpg");
 }
 .courseIconBackground{
   height: 100%;
+  width:100%;
+  background-image:url("images/png/books.png");
 }
 .courseNameWrapper{
   background: #000000;
@@ -328,15 +403,23 @@
 	width:70px;
 	height: 50px;
 	text-align: center;
-  background-color:white;
+  background-color:#FFFFFF;
+  color: black;
 }
 
 .courseGridCell:hover{
-	background: grey;
+	background: #ff1a1a;
+  transition: all 0.6s;
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
 }
 
 .courseGridCellClicked{
-	background: grey;
+	background: #ff1a1a;
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
 }
 
 .studentRowEntry{
@@ -411,6 +494,51 @@
   margin-top: 0px;
   margin-bottom: 20px;
 }
+.closedSeat{
+  border-width: 10px;
+  width:70px;
+  height: 50px;
+  text-align: center;
+  background: #000000;
+  border-color: #d9d9d9;
+}
+
+.closedSeat2{
+  border-width: 10px;
+  width:70px;
+  height: 50px;
+  text-align: center;
+  background: #000000;
+  border-color: #d9d9d9;
+  pointer-events: none;
+}
+
+.closedSeat:hover{
+  transform: scale(1.1);
+}
+
+.auditableSeat{
+  border-width: 10px;
+  width:70px;
+  height: 50px;
+  text-align: center;
+  background-image: url("./images/stripes.jpg");
+  border-color: #d9d9d9;
+}
+
+.auditableSeat2{
+  border-width: 10px;
+  width:70px;
+  height: 50px;
+  text-align: center;
+  background-image: url("./images/stripes.jpg");
+  border-color: #d9d9d9;
+  pointer-events: none;
+}
+
+.auditableSeat:hover {
+  transform: scale(1.1);
+}
 
 .openSeatsIcon{
   background: #FFFFFF;
@@ -428,6 +556,8 @@
   margin-left: 40px;
   margin-right: 5px;
 }
+
+
 .auditableSeatsIcon{
   background-image: url("./images/stripes.jpg");
   border-radius: 4px;
@@ -440,9 +570,6 @@
   font-weight: normal;
   color: #FFFFFF;
   margin-left: 10px;
-}
-.gridWrapper{
-
 }
 /*------------------Instructor Course list------------------*/
 .instructorCourseContainer{
@@ -468,9 +595,8 @@
   margin-left: 150px;
 }
 .instCourseList, th, td{
-  background-color: #ffb3b3;
   border-collapse: collapse;
-  border: 1px solid #ff9999;
+  border: 1px solid #ffffff;
 }
 .courseNum{
   width: 100px;
@@ -479,6 +605,170 @@
   width: 200px;
 }
 
+/*------------------Instructor Course Overview-------------*/
+.divtable {
+  display: table;
+  width: auto;
+  background-color: #FFFFFF;
+  border-spacing: 5px; /* cellspacing:poor IE support for  this */
+  border-radius: 5px;
+  text-align: center;
+  font-size: 20px;
+}
+.divtablerow {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+.divtablecol {
+  float: left; /* fix for  buggy browsers */
+  display: table-column;
+  width: 140px;
+}
+.statTableWrapper{
+  background: #d9d9d9;
+  float: left;
+  width: 100%;
+  border-radius: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 10%;
+}
+.query{
+  width: auto;
+  background-color: #FFFFFF;
+  border-spacing: 5px; /* cellspacing:poor IE support for  this */
+  border-radius: 5px;
+  text-align: center;
+  font-size: 20px;
+}
+.queryBodyTitle{
+  color: white;
+  font-size: 35px;
+  text-align: right;
+  margin-bottom: 16px;
+}
+.queriesBodyWrapper{
+  background: #d9d9d9;
+  float: right;
+  width: 100%;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.queriesDirect{
+  transition: background-color 0.8s ease;
+  margin-top: 3px;
+  float: right;
+  background-color: #ffffff;
+  margin-right: 195px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+}
+.queriesDirect:hover{
+  background-color: #000000;
+  color: #ffffff;
+}
+.statDirect{
+  transition: background-color 0.8s ease;
+  margin-top: 3px;
+  float: left;
+  background-color: #ffffff;
+  margin-left: 195px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+}
+.statDirect:hover{
+  background-color: #000000;
+  color: #ffffff;
+}
+.downloadDirect{
+  transition: background-color 0.8s ease;
+  margin-top: 3px;
+  float: right;
+  background-color: #ffffff;
+  margin-right: 195px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+}
+.downloadDirect:hover{
+  background-color: #000000;
+  color: #ffffff;
+}
+.hiddenContainer{
+  display: none;
+  visibility: hidden;
+}
+.hiddenContainer2{
+  display: none;
+  visibility: hidden;
+}
+
+.statisticsViewHidden{
+  width: 60%;
+  height: 0;
+	overflow: hidden;
+  margin-left: 4%;
+  margin-right: 30px;
+  display: inline-block;
+  float: left;
+}
+.queriesViewHidden{
+  width: 24%;
+  height: 0;
+  overflow: hidden;
+  margin-left: 1255px;
+  display: block;
+}
+
+
+.closeStatViewButton{
+  background: #a6a6a6;
+  border-radius: 5px;
+  color: #FFFFFF;
+  font-size: 20px;
+  width: 180px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  padding-bottom: 5px;
+  margin-top: 10px;
+}
+.studentQueryViewButton{
+  background: #a6a6a6;
+  border-radius: 5px;
+  color: #FFFFFF;
+  font-size: 20px;
+  width: 160px;
+  margin-left: 30px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  padding-bottom: 5px;
+  margin-top: -15px;
+}
+.missedDaysInput{
+  width: 50%;
+  margin-top: 10px;
+  text-align: center;
+}
+.studentQueryViewButton, .missedDaysInput{
+  display: inline-block;
+}
 /*------------------Student View-------------------------*/
 
 .reserveSeatBtn{
@@ -501,7 +791,12 @@
   width: 80%;
   margin: 3%;
 }
-
+.searchCourseButton{
+  text-align: center;
+  width: 130px;
+  border-radius: 25px;
+  font-size: 15px;
+}
 .greyTable {
 border: 4px solid #878787;
 background-color: #FFFFFF;
@@ -514,17 +809,17 @@ border-radius: 25px;
 
 .thIn{
   width: 20%;
-  background: #878787;
+  background-color: #878787;
   font-size: 15px;
   font-weight: bold;
-  color: #FFFFFF;
-
+  color: white;
+  text-align: center;
 }
 
 .tdIn {
-
+  background-color: white;
   width: 25%;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .rowIn{
@@ -534,20 +829,49 @@ border-radius: 25px;
   border-radius: 25px;
   border: 3px solid #808080;
   background: white;
-   box-shadow: 2px 2px 1px #888888;
+  box-shadow: 2px 2px 1px #888888;
 }
 
 .buttonIn {
   background-color: #E80001;
   padding: 2px 15px 2px 15px;
   border-radius: 25px;
-  font-size: 13px;
+  border-color: #E80001;
+  font-size: 15px;
   color: #ffffff;
   text-align: center;
+  margin-right: 35px;
 }
 
 .buttonIn:hover {
   background: #f5e100;
+}
+
+.statisticBodyTitle{
+  color: white;
+  font-size: 35px;
+  height: 0px;
+  overflow: hidden;
+  margin-left: 115px;
+}
+.mainBodyTitleOverview{
+  color: white;
+  text-align: center;
+  font-size: 35px;
+  height: 40px;
+}
+.mainBodyTitleOverview1{
+  color: white;
+  text-align: center;
+  font-size: 35px;
+  height: 40px;
+}
+.clickInstruction{
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 0px;
+  height: 6px;
+  text-align: center;
 }
 
 /*-----------------Not Authorized Page-------------------*/

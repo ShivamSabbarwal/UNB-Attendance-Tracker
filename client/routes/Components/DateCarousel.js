@@ -4,14 +4,16 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import * as utils from '../Utils/utils.js';
 
 // Import Style
 import styles from '../../main.css';
 
-class NotAuthorized extends Component{
+class DateCarousel extends Component{
 
   constructor(props){
     super(props);
+
   }
 
   componentDidMount(){
@@ -20,15 +22,16 @@ class NotAuthorized extends Component{
 
   render(){
     return(
-      <div>
-          <div>
-            <h1> Not Authorized </h1>
-            <h3> You are not authorized to access this page</h3>
-          </div>
+      <div className={styles.dateCarousel}>
+        <button className={styles.leftButton} />
+        <div className={styles.weekSelect}>
+          <label>DATE SELECTOR</label>
+        </div>
+        <button className={styles.rightButton} />
       </div>
     )
   }
 
 }
 
-export default NotAuthorized;
+export default DateCarousel;

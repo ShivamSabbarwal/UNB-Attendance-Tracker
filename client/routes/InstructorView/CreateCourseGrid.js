@@ -4,12 +4,12 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import DataCell from './DataCell';
+import CreateCourseCell from './CreateCourseCell';
 
 // Import Style
 import styles from '../../main.css';
 
-class CourseGrid extends Component{
+class CreateCourseGrid extends Component{
 
   constructor(props){
     super(props);
@@ -18,8 +18,8 @@ class CourseGrid extends Component{
 
   componentDidMount(){
     debugger;
-    var height = this.props.grid.length;
-    var width = this.props.grid[0].length;
+    var height = this.props.rowIn;
+    var width = this.props.colIn;
 
     var rows = [];
 
@@ -30,10 +30,8 @@ class CourseGrid extends Component{
       for(var idx = 0; idx < width; idx++){
 
       	var id = "" + i + "" + idx + "";
-      	cell.push(<DataCell name={this.props.grid[i][idx]} id={id} />);
-
+      	cell.push(<CreateCourseCell id={id} />);
       }
-
       rows.push(<tr>{cell}</tr>);
 
     }
@@ -41,6 +39,7 @@ class CourseGrid extends Component{
     this.setState({
       gridVisual: rows
     })
+
 
   }
 
@@ -61,4 +60,4 @@ class CourseGrid extends Component{
 }
 
 
-export default CourseGrid;
+export default CreateCourseGrid;

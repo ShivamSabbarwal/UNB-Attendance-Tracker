@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, ControlLabel, FormControl, Form, Col, Button, Image} from 'react-bootstrap';
-
+import CreateCourseGrid from './CreateCourseGrid';
 
 import SvgIcon from 'react-icons-kit';
 // Import Style
@@ -20,8 +20,8 @@ class CreateCourse extends Component{
 
   constructor(props){
     super(props);
+    this.state = {gridWrapper: [], grid: []};
   }
-
   componentDidMount(){
 
   }
@@ -56,43 +56,52 @@ class CreateCourse extends Component{
                       <FormControl type="text" placeholder="Enter the number of columns" id="gridCols"/>
                     </Col>
                   </FormGroup>
-                  <h3 className={styles.createGridButton} onClick={createGrid}>Show Grid</h3>
+                <h3 className={styles.createGridButton} onClick={createGrid.bind(this)}>Show Grid</h3>
+
                   <h4 className={styles.legendLabel}>Legend:
                               <label className={styles.legendLabel}><label className={styles.openSeatsIcon}>open</label>Open Seats</label>
                               <label className={styles.legendLabel}><label className={styles.closedSeatsIcon}>closed</label>Closed Seats</label>
                               <label className={styles.legendLabel}><label className={styles.auditableSeatsIcon}>auditable</label>Auditable Seats</label>
                   </h4>
-                  <div id="gridWrapper"></div>
+                  <div id="gridWrapper" style={{marginBottom:"20px"}}>{this.state.grid}</div>
                   <FormGroup>
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Course Name:
+                      Course ID:
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter course name" id="title"/>
+                      <FormControl type="text" placeholder="Enter course ID" id="title"/>
                     </Col>
                   </FormGroup>
                   <FormGroup>
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Professor Name:
+                      Course Term:
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter course instructor name" id="professor"/>
+                      <FormControl type="text" placeholder="Enter the course term (fall, winter, summer)" id="term"/>
                     </Col>
                   </FormGroup>
-                  <FormGroup controlId="formHorizontalEmail">
+                  <FormGroup >
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Institution:
+                      Your Email Format
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter name of the institution" id="institution"/>
+                      <FormControl type="text" placeholder="example@unb.ca" id="emailFormat"/>
                     </Col>
                   </FormGroup>
-                  <FormGroup controlId="formHorizontalEmail">
+                  <FormGroup>
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Location:
+                      Notification to Students For Days Missed
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter the room number where the lecture takes place in" id="location"/>
+                      <FormControl type="text" placeholder="Enter some integer number!" id="numIn"/>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
+                      Lecture Time
+                    </Col>
+                    <Col sm={9}>
+                      <FormControl type="text" placeholder="Ex: 10:30-11:20" id="timeIn"/>
                     </Col>
                   </FormGroup>
                 </Form>
@@ -107,45 +116,109 @@ class CreateCourse extends Component{
       </div>
     )
   }
-
 }
-
+//1 click - closed Seat
+//2 click - auditable Seat
+//3 click - back to open seat
 function createGrid(){
-  var rows = document.getElementById('gridRows').value;
-  var cols = document.getElementById('gridCols').value;
-  var theader = '<table style="margin: 0 auto";>\n';
-  var tbody = '';
-  for (var i = 0; i < rows; i++){
-    tbody += '<tr>';
-    for (var j = 0; j < cols; j++){
-      tbody += '<td style="background-color: white; width: 140px; height: 60px; border-width: 10px; border-color: #d9d9d9;">';
-      tbody += '';//content;
-      tbody += '</td>'
-    }
-    tbody += '</tr>\n';
+
+  var count = 0;
+
+  var row = document.getElementById('gridRows').value;
+  var col = document.getElementById('gridCols').value;
+  if (!row || !col ) {
+    alert("Please type interger input! XD");
+    return;
   }
-  var tfooter = '</table>';
-  document.getElementById('gridWrapper').innerHTML = theader + tbody + tfooter;
+
+  var output = <CreateCourseGrid rowIn={row} colIn={col}/>;
+  this.setState({grid:output});
+
 }
+
+
 
 function submit(){
   //creates variable to be passed in
-  var courseName = document.getElementById("title").value;
-  var prof = document.getElementById("professor").value;
-  var inst = document.getElementById("institution").value;
-  var room = document.getElementById("location").value;
-  var row = document.getElementById('gridRows').value;
-  var col = document.getElementById('gridCols').value;
+   var courseName = document.getElementById("title").value;
+   var termIn = document.getElementById("term").value;
+   var email = document.getElementById("emailFormat").value;
+   var numIn = document.getElementById("numIn").value;
+   var time = document.getElementById("timeIn").value;
+   var row = document.getElementById('gridRows').value;
+   var col = document.getElementById('gridCols').value;
+
+   var grid = [];
+
+   //Handling Error
+   if (!courseName ) {
+     alert("Please type your course ID Please!");
+     return;
+   }
+   else if (!termIn){
+     alert("Please type your term Please!");
+     return;
+   }
+   else if (!email) {
+     alert("Please type your email Please!");
+     return;
+   }
+
+   else if (!numIn) {
+     alert("Please type your notification number Please!");
+     return;
+   }
+
+
+   //Parsing for number of days Missed
+   var numbers = numIn.split(",");
+
+   //Getting Grid for input
+   for (var i = 0; i < row; i++){
+     grid[i] = [];
+     for (var j = 0; j < col; j++) {
+       var cellRead = document.getElementById(i+''+j);
+       if (cellRead.className.includes(styles.courseGridCell)) {
+         grid[i][j] = "";
+       }
+
+       else if (cellRead.className.includes(styles.closedSeat)) {
+         grid[i][j] = "-1";
+       }
+
+       else {
+         grid[i][j] = "-2";
+       }
+     }
+   }
+
+  var gridIn = JSON.stringify(grid);
+  var numberIn = JSON.stringify(numbers);
+  var size = []
+  size[0] = row;
+  size[1] = col;
+  var sizeIn = JSON.stringify(size);
+
+
   //xml request
   var req = new XMLHttpRequest();
-
-  var params = '{"title":"' + courseName + '", "professor":"' + prof + '", "usernames":" ", "institution":"' + inst + '", "gridsize":"[' + row + ',' + col + ']", "location":"' + room + '"}';
+  //NOT COMPLETE
+  var params = '{"title":"' + courseName + '", "term":"' + termIn + '", "gridsize":'+ sizeIn+ ', "time":"' + time + '", "courseGrid":' + gridIn + ', "emailTemplate":"' + email + '", "numDays":' + numberIn+ '}';
+  console.log(params);
   req.open("POST", "api/course");
   req.setRequestHeader("Content-type", "application/json");
   //403 - not enough data provided / course already exists / title contains characters other than letter, numbers, -, _ and .
   //200 - course created successfully
   //above comments need to be implemented
-  alert(courseName + " has been created successfully!");
+  req.onreadystatechange = function(){
+    if (req.readyState == 4 && req.status == 200) {
+        alert(courseName + " has been created successfully!");
+        window.location.href ="/instructor_home";
+    }
+    else if(req.readyState == 4 && req.status == 403){
+      alert('Input Error');
+    }
+  }
   req.send(params);
 }
 function readCookie(name) {
@@ -160,22 +233,6 @@ function readCookie(name) {
     }
   }
     return null;
-}
-
-function logout(){
-  var req = new XMLHttpRequest();
-
-  req.open("GET", "api/logout");
-  req.setRequestHeader("Content-type", "application/json");
-  //req.setRequestHeader("Cookie", "sessionID=22f5832147f5650c6a1a999fbd97695d");
-  //document.cookie = "sessionID=22f5832147f5650c6a1a999fbd97695d";
-
-  req.onreadystatechange = function(){
-    //debugger;
-    window.location.href="/";
-  }
-
-  req.send();
 }
 
 export default CreateCourse;
