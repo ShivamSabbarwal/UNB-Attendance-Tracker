@@ -40,7 +40,6 @@ class CreateCourseGrid extends Component{
       gridVisual: rows
     })
 
-    console.log(rows);
 
   }
 

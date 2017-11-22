@@ -296,11 +296,11 @@ class InstructorCourseOverview extends Component{
           }
           //4 days attendance data
           else if (dataLength == 4){
-            document.getElementById("fifthDayMissedCol").innerHTML = students[0].absence[dataLength-1].date.toString();
-            document.getElementById("fourthDayMissedCol").innerHTML = students[0].absence[dataLength-2].date.toString();
-            document.getElementById("thirdDayMissedCol").innerHTML = students[0].absence[dataLength-3].date.toString();
-            document.getElementById("secondDayMissedCol").innerHTML = students[0].absence[dataLength-4].date.toString();
-            document.getElementById("firstDayMissedCol").innerHTML = "No Record";
+            document.getElementById("fourthDayMissedCol").innerHTML = students[0].absence[dataLength-1].date.toString();
+            document.getElementById("thirdDayMissedCol").innerHTML = students[0].absence[dataLength-2].date.toString();
+            document.getElementById("secondDayMissedCol").innerHTML = students[0].absence[dataLength-3].date.toString();
+            document.getElementById("firstDayMissedCol").innerHTML = students[0].absence[dataLength-4].date.toString();
+            document.getElementById("fifthDayMissedCol").innerHTML = "No Record";
             console.log("4 days");
             for (var i=0; i < students.length; i++){
               var fifth = document.createElement("div");
@@ -310,52 +310,52 @@ class InstructorCourseOverview extends Component{
               if (students[i].absence[dataLength-1].status == "present"){
                 var presentNode = document.createTextNode("O");
                 fifth.appendChild(presentNode);
-                document.getElementById("fifthDayMissedCol").appendChild(fifth);
+                document.getElementById("fourthDayMissedCol").appendChild(fifth);
               }
               else if (students[i].absence[dataLength-1].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 fifth.appendChild(absentNode);
-                document.getElementById("fifthDayMissedCol").appendChild(fifth);
+                document.getElementById("fourthDayMissedCol").appendChild(fifth);
               }
               if (students[i].absence[dataLength-2].status == "present"){
                 var presentNode = document.createTextNode("O");
                 fourth.appendChild(presentNode);
-                document.getElementById("fourthDayMissedCol").appendChild(fourth);
+                document.getElementById("thirdDayMissedCol").appendChild(fourth);
               }
               else if (students[i].absence[dataLength-2].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 fourth.appendChild(absentNode);
-                document.getElementById("fourthDayMissedCol").appendChild(fourth);
+                document.getElementById("thirdDayMissedCol").appendChild(fourth);
               }
               if (students[i].absence[dataLength-3].status == "present"){
                 var presentNode = document.createTextNode("O");
                 third.appendChild(presentNode);
-                document.getElementById("thirdDayMissedCol").appendChild(third);
+                document.getElementById("secondDayMissedCol").appendChild(third);
               }
               else if (students[i].absence[dataLength-3].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 third.appendChild(absentNode);
-                document.getElementById("thirdDayMissedCol").appendChild(third);
+                document.getElementById("secondDayMissedCol").appendChild(third);
               }
               if (students[i].absence[dataLength-4].status == "present"){
                 var presentNode = document.createTextNode("O");
                 second.appendChild(presentNode);
-                document.getElementById("secondDayMissedCol").appendChild(second);
+                document.getElementById("firstDayMissedCol").appendChild(second);
               }
               else if (students[i].absence[dataLength-4].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 second.appendChild(absentNode);
-                document.getElementById("secondDayMissedCol").appendChild(second);
+                document.getElementById("firstDayMissedCol").appendChild(second);
               }
             }
           }
           //3 days attendance data
           else if (dataLength == 3){
-            document.getElementById("fifthDayMissedCol").innerHTML = students[0].absence[dataLength-1].date.toString();
-            document.getElementById("fourthDayMissedCol").innerHTML = students[0].absence[dataLength-2].date.toString();
-            document.getElementById("thirdDayMissedCol").innerHTML = students[0].absence[dataLength-3].date.toString();
-            document.getElementById("secondDayMissedCol").innerHTML = "No Record";
-            document.getElementById("firstDayMissedCol").innerHTML = "No Record";
+            document.getElementById("thirdDayMissedCol").innerHTML = students[0].absence[dataLength-1].date.toString();
+            document.getElementById("secondDayMissedCol").innerHTML = students[0].absence[dataLength-2].date.toString();
+            document.getElementById("firstDayMissedCol").innerHTML = students[0].absence[dataLength-3].date.toString();
+            document.getElementById("fifthDayMissedCol").innerHTML = "No Record";
+            document.getElementById("fourthDayMissedCol").innerHTML = "No Record";
             console.log("3 days");
             for (var i=0; i<students.length; i++){
               var fifth = document.createElement("div");
@@ -364,42 +364,42 @@ class InstructorCourseOverview extends Component{
               if (students[i].absence[dataLength-1].status == "present"){
                 var presentNode = document.createTextNode("O");
                 fifth.appendChild(presentNode);
-                document.getElementById("fifthDayMissedCol").appendChild(fifth);
+                document.getElementById("thirdDayMissedCol").appendChild(fifth);
               }
               else if (students[i].absence[dataLength-1].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 fifth.appendChild(absentNode);
-                document.getElementById("fifthDayMissedCol").appendChild(fifth);
+                document.getElementById("thirdDayMissedCol").appendChild(fifth);
               }
               if (students[i].absence[dataLength-2].status == "present"){
                 var presentNode = document.createTextNode("O");
                 fourth.appendChild(presentNode);
-                document.getElementById("fourthDayMissedCol").appendChild(fourth);
+                document.getElementById("secondDayMissedCol").appendChild(fourth);
               }
               else if (students[i].absence[dataLength-2].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 fourth.appendChild(absentNode);
-                document.getElementById("fourthDayMissedCol").appendChild(fourth);
+                document.getElementById("secondDayMissedCol").appendChild(fourth);
               }
               if (students[i].absence[dataLength-3].status == "present"){
                 var presentNode = document.createTextNode("O");
                 third.appendChild(presentNode);
-                document.getElementById("thirdDayMissedCol").appendChild(third);
+                document.getElementById("firstDayMissedCol").appendChild(third);
               }
               else if (students[i].absence[dataLength-3].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 third.appendChild(absentNode);
-                document.getElementById("thirdDayMissedCol").appendChild(third);
+                document.getElementById("firstDayMissedCol").appendChild(third);
               }
             }
           }
           //2 days attendance data
           else if (dataLength == 2){
-            document.getElementById("fifthDayMissedCol").innerHTML = students[0].absence[dataLength-1].date.toString();
-            document.getElementById("fourthDayMissedCol").innerHTML = students[0].absence[dataLength-2].date.toString();
+            document.getElementById("secondDayMissedCol").innerHTML = students[0].absence[dataLength-1].date.toString();
+            document.getElementById("firstDayMissedCol").innerHTML = students[0].absence[dataLength-2].date.toString();
+            document.getElementById("fifthDayMissedCol").innerHTML = "No Record";
+            document.getElementById("fourthDayMissedCol").innerHTML = "No Record";
             document.getElementById("thirdDayMissedCol").innerHTML = "No Record";
-            document.getElementById("secondDayMissedCol").innerHTML = "No Record";
-            document.getElementById("firstDayMissedCol").innerHTML = "No Record";
             console.log("2 days");
             for (var i=0; i<students.length; i++){
               var fifth = document.createElement("div");
@@ -407,44 +407,44 @@ class InstructorCourseOverview extends Component{
               if (students[i].absence[dataLength-1].status == "present"){
                 var presentNode = document.createTextNode("O");
                 fifth.appendChild(presentNode);
-                document.getElementById("fifthDayMissedCol").appendChild(fifth);
+                document.getElementById("secondDayMissedCol").appendChild(fifth);
               }
               else if (students[i].absence[dataLength-1].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 fifth.appendChild(absentNode);
-                document.getElementById("fifthDayMissedCol").appendChild(fifth);
+                document.getElementById("secondDayMissedCol").appendChild(fifth);
               }
               if (students[i].absence[dataLength-2].status == "present"){
                 var presentNode = document.createTextNode("O");
                 fourth.appendChild(presentNode);
-                document.getElementById("fourthDayMissedCol").appendChild(fourth);
+                document.getElementById("firstDayMissedCol").appendChild(fourth);
               }
               else if (students[i].absence[dataLength-2].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 fourth.appendChild(absentNode);
-                document.getElementById("fourthDayMissedCol").appendChild(fourth);
+                document.getElementById("firstDayMissedCol").appendChild(fourth);
               }
             }
           }
           //1 days attendance data
           else if (dataLength == 1){
-            document.getElementById("fifthDayMissedCol").innerHTML = students[0].absence[dataLength-1].date.toString();
+            document.getElementById("firstDayMissedCol").innerHTML = students[0].absence[dataLength-1].date.toString();
+            document.getElementById("fifthDayMissedCol").innerHTML = "No Record";
             document.getElementById("fourthDayMissedCol").innerHTML = "No Record";
             document.getElementById("thirdDayMissedCol").innerHTML = "No Record";
             document.getElementById("secondDayMissedCol").innerHTML = "No Record";
-            document.getElementById("firstDayMissedCol").innerHTML = "No Record";
             console.log("1 day");
             for (var i=0; i< students.length; i++){
               var fifth = document.createElement("div");
               if (students[i].absence[dataLength-1].status == "present"){
                 var presentNode = document.createTextNode("O");
                 fifth.appendChild(presentNode);
-                document.getElementById("fifthDayMissedCol").appendChild(fifth);
+                document.getElementById("firstDayMissedCol").appendChild(fifth);
               }
               else if (students[i].absence[dataLength-1].status =="absent"){
                 var absentNode = document.createTextNode("X");
                 fifth.appendChild(absentNode);
-                document.getElementById("fifthDayMissedCol").appendChild(fifth);
+                document.getElementById("firstDayMissedCol").appendChild(fifth);
               }
             }
           }
