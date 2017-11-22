@@ -495,6 +495,31 @@
   margin-top: 0px;
   margin-bottom: 20px;
 }
+.closedSeat{
+  border-width: 10px;
+  width:70px;
+  height: 50px;
+  text-align: center;
+  background: #000000;
+  border-color: #d9d9d9;
+}
+
+.closedSeat:hover{
+  transform: scale(1.1);
+}
+
+.auditableSeat{
+  border-width: 10px;
+  width:70px;
+  height: 50px;
+  text-align: center;
+  background-image: url("./images/stripes.jpg");
+  border-color: #d9d9d9;
+}
+
+.auditableSeat:hover {
+  transform: scale(1.1);
+}
 
 .openSeatsIcon{
   background: #FFFFFF;
@@ -512,6 +537,8 @@
   margin-left: 40px;
   margin-right: 5px;
 }
+
+
 .auditableSeatsIcon{
   background-image: url("./images/stripes.jpg");
   border-radius: 4px;
