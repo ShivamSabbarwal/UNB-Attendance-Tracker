@@ -8,7 +8,8 @@ import React, { PropTypes, Component } from 'react';
  import DatePicker from 'react-datepicker';
  import DateCarousel from '../Components/DateCarousel';
  import '../../../node_modules/react-datepicker/dist/react-datepicker.min.css';
- import '../../../node_modules/react-datepicker/dist/react-datepicker-cssmodules.min.css';
+ //import '../../../node_modules/react-datepicker/dist/react-datepicker-cssmodules.min.css';
+
  // Import Style
  import styles from '../../main.css';
  import Header from '../Components/InstructorHeader';
@@ -102,7 +103,6 @@ class InstructorCourseOverview extends Component{
     document.getElementById("invalidInput").style.display = "none";
 
     document.getElementById("statViewHidden").style.height = "0px";
-    document.getElementById("queViewHidden").style.height = "0px";
 
   }
   submitAttendance(){
@@ -429,7 +429,7 @@ class InstructorCourseOverview extends Component{
           //1 days attendance data
           else if (dataLength == 1){
             document.getElementById("fifthDayMissedCol").innerHTML = students[0].absence[dataLength-1].date.toString();
-            document.getElementById("fourthDayMissedCol").innerHTML = "No Attendacne";
+            document.getElementById("fourthDayMissedCol").innerHTML = "No Record";
             document.getElementById("thirdDayMissedCol").innerHTML = "No Record";
             document.getElementById("secondDayMissedCol").innerHTML = "No Record";
             document.getElementById("firstDayMissedCol").innerHTML = "No Record";
