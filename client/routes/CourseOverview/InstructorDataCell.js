@@ -25,7 +25,7 @@ class InstructorDataCell extends Component{
     if(document.getElementById(this.props.id).className.includes(styles.courseGridCellClicked)){
       document.getElementById(this.props.id).classList.remove(styles.courseGridCellClicked);
       var absentList =document.getElementById("absentStudents").innerHTML;
-      absentList = absentList.replace(this.props.name+"," , " ");
+      absentList = absentList.replace(this.props.name+"," , "");
       document.getElementById("absentStudents").innerHTML = absentList;
     } else{
       if(this.props.name != ""){

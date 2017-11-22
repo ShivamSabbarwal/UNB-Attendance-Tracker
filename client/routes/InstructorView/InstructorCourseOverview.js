@@ -88,6 +88,20 @@ class InstructorCourseOverview extends Component{
       if (req.readyState == 4 && req.status == 200) {
         var response = JSON.parse(req.responseText);
 
+        for(var t=0; t<response.students.length; t++){
+          if(response.students[t].absence.length > 0){
+            var status = response.students[t].absence[0].status;
+            if(status == "absent"){
+              var name = response.students[t].name;
+              var absentList =document.getElementById("absentStudents").innerHTML;
+              absentList = absentList.replace(name+"," , " ");
+              document.getElementById("absentStudents").innerHTML = absentList;
+            }
+          }
+        }
+
+        //alert(document.getElementById("absentStudents").innerHTML);
+
         for(var i = 0; i < this.state.courseGrid.props.grid.length; i++){
           for(var j = 0; j < this.state.courseGrid.props.grid[0].length; j++){
             var cell = document.getElementById("" + i + "" + j + "");
@@ -107,6 +121,7 @@ class InstructorCourseOverview extends Component{
                   if(cell.innerText == name){
                     debugger;
                     cell.classList.add(styles.courseGridCellClicked);
+                    document.getElementById("absentStudents").innerHTML += name+',';
                     found = true;
                     break;
                   }
@@ -116,6 +131,7 @@ class InstructorCourseOverview extends Component{
             }
           }
         }
+        //alert(document.getElementById("absentStudents").innerHTML);
       }
     }.bind(this)
 
