@@ -163,8 +163,8 @@ export function addStudents(req, res) {
                                     if (i === 1000){
                                         flag = false; //Prevent infinite looping on full classroom
                                     }
-                                    var x = Math.floor((Math.random() * coursegrid.class.length) + 1);
-                                    var y = Math.floor((Math.random() * coursegrid.class[0].length) + 1);
+                                    var x = Math.floor((Math.random() * coursegrid.class.length));
+                                    var y = Math.floor((Math.random() * coursegrid.class[0].length));
                                     if (coursegrid.class[x][y] === ""){
                                         coursegrid.class[x][y] = student_username;
                                         flag = false;
