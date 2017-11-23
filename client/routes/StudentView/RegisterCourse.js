@@ -129,9 +129,9 @@ class RegisterCourse extends Component{
               <thead>
               <tr>
               <th className={styles.thIn}>ID</th>
-              <th className={styles.thIn}>Name</th>
               <th className={styles.thIn}>Professor</th>
-              <th className={styles.thIn}>Location</th>
+              <th className={styles.thIn}>Time</th>
+              <th className={styles.thIn}>Term</th>
               <th className={styles.thIn}>Drop/Register</th>
               </tr>
               </thead>
