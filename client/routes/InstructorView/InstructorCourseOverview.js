@@ -78,6 +78,71 @@ class InstructorCourseOverview extends Component{
     this.setState({
       startDate: date
     });
+    // START COURSE GRID REFRESH
+
+    var courseName = this.props.location.search;
+    courseName = courseName.split("=")[1];
+
+    var submissionDate = date._d;
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && req.status == 200) {
+        var response = JSON.parse(req.responseText);
+
+        for(var t=0; t<response.students.length; t++){
+          if(response.students[t].absence.length > 0){
+            var status = response.students[t].absence[0].status;
+            if(status == "absent"){
+              var name = response.students[t].name;
+              var absentList =document.getElementById("absentStudents").innerHTML;
+              absentList = absentList.replace(name+"," , " ");
+              document.getElementById("absentStudents").innerHTML = absentList;
+            }
+          }
+        }
+
+        //alert(document.getElementById("absentStudents").innerHTML);
+
+        for(var i = 0; i < this.state.courseGrid.props.grid.length; i++){
+          for(var j = 0; j < this.state.courseGrid.props.grid[0].length; j++){
+            var cell = document.getElementById("" + i + "" + j + "");
+                cell.classList.remove(styles.courseGridCellClicked);
+          }
+        }
+        debugger;
+        for(var t=0; t<response.students.length; t++){
+          if(response.students[t].absence.length > 0){
+            var status = response.students[t].absence[0].status;
+            if(status == "absent"){
+              var name = response.students[t].name;
+              for(var i = 0; i < this.state.courseGrid.props.grid.length; i++){
+                var found = false;
+                for(var j = 0; j < this.state.courseGrid.props.grid[0].length; j++){
+                  var cell = document.getElementById("" + i + "" + j + "");
+                  if(cell.innerText == name){
+                    debugger;
+                    cell.classList.add(styles.courseGridCellClicked);
+                    document.getElementById("absentStudents").innerHTML += name+',';
+                    found = true;
+                    break;
+                  }
+                }
+                if(found) break;
+              }
+            }
+          }
+        }
+        //alert(document.getElementById("absentStudents").innerHTML);
+      }
+    }.bind(this)
+
+    req.open("GET", "/api/course/" + courseName + "/attendance?date=" + submissionDate + "&days=1");
+    req.setRequestHeader("Content-type", "application/json");
+
+    req.send();
+    // END COURSE GRID REFRESH
+
     var refresh1 = document.getElementById("studentNameCol");
     var refresh2 = document.getElementById("totalDaysMissedCol");
     var refresh3 = document.getElementById("firstDayMissedCol");
@@ -106,6 +171,43 @@ class InstructorCourseOverview extends Component{
     document.getElementById("statViewHidden").style.height = "0px";
 
   }
+
+  downloadCSV(){
+
+    var courseName = this.props.location.search;
+    courseName = courseName.split("=")[1];
+    debugger;
+    var submissionDateString = document.getElementById("dateToday").value;
+    var rfc2822Format = submissionDateString.split('/');
+    var submissionDate = new Date(rfc2822Format[2],rfc2822Format[0]-1,rfc2822Format[1]);
+
+    var req = new XMLHttpRequest();
+    req.open("GET", "/api/course/" + courseName + "/csv?date=" + submissionDate);
+    req.setRequestHeader("Content-type", "application/json");
+    //403 - not enough data provided / course already exists / title contains characters other than letter, numbers, -, _ and .
+    //200 - course created successfully
+    //above comments need to be implemented
+    req.onreadystatechange = function(){
+      if (req.readyState == 4 && req.status == 200) {
+          debugger;
+          var csvContent = "data:text/csv;charset=utf-8,";
+          csvContent += req.responseText;
+          var encodedUri = encodeURI(csvContent);
+          var link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", "my_data.csv");
+          document.body.appendChild(link); // Required for FF
+
+          link.click(); // This will download the data file named "my_data.csv".
+      }
+      else if(req.readyState == 4 && req.status == 403){
+        alert('Error');
+      }
+    }
+    req.send();
+
+  }
+
   submitAttendance(){
     var absentStudentsUncleaned = document.getElementById("absentStudents").innerHTML;
     //need to clean student list
@@ -263,6 +365,7 @@ class InstructorCourseOverview extends Component{
               </div>
               <div>
               <h3 className={styles.queriesDirect} onClick={openQueryTable}>View Query Statistics</h3>
+              <h3 className={styles.downloadDirect} onClick={this.downloadCSV.bind(this)}>Download CSV Data</h3>
               <h3 className={styles.statDirect} onClick={viewStatistics}>View Attendance Statistics</h3><br/><br/><br/>
               </div>
               <div className={styles.statisticsViewHidden} id="statViewHidden">

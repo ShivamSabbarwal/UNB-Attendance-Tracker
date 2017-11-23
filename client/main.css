@@ -676,7 +676,7 @@
 }
 .queriesDirect{
   transition: background-color 0.8s ease;
-  margin-top: 0px;
+  margin-top: 3px;
   float: right;
   background-color: #ffffff;
   margin-right: 195px;
@@ -692,7 +692,7 @@
 }
 .statDirect{
   transition: background-color 0.8s ease;
-  margin-top: 0px;
+  margin-top: 3px;
   float: left;
   background-color: #ffffff;
   margin-left: 195px;
@@ -703,6 +703,22 @@
   border-radius: 5px;
 }
 .statDirect:hover{
+  background-color: #000000;
+  color: #ffffff;
+}
+.downloadDirect{
+  transition: background-color 0.8s ease;
+  margin-top: 3px;
+  float: right;
+  background-color: #ffffff;
+  margin-right: 370px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+}
+.downloadDirect:hover{
   background-color: #000000;
   color: #ffffff;
 }

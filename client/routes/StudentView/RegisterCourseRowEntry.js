@@ -6,6 +6,7 @@ class RegisterCourseRowEntry extends Component{
 
   constructor(props){
     super(props);
+    this.state = {text:"Register"};
   }
 
   componentDidMount(){
@@ -19,6 +20,11 @@ class RegisterCourseRowEntry extends Component{
       if (req.readyState == 4 && req.status == 200) {
 
         alert(this.props.idIn + " was added as a course!");
+        var btn = document.getElementById(this.props.idIn);
+        btn.disabled = true;
+        this.setState({
+          text: "Registered!"
+        });
 
       }
     }.bind(this)
@@ -39,7 +45,7 @@ class RegisterCourseRowEntry extends Component{
         <td className={styles.tdIn}>{this.props.profIn}</td>
         <td className={styles.tdIn}>{this.props.loIn}</td>
         <td className={styles.tdIn}>
-          <button className={styles.buttonIn}onClick={this.register.bind(this)}>Register</button>
+          <button id={this.props.idIn} className={styles.buttonIn} onClick={this.register.bind(this)}>{this.state.text}</button>
         </td>
       </tr>
       </div>

@@ -35,29 +35,68 @@ class RegisterCourse extends Component{
     var req = new XMLHttpRequest();
     req.onreadystatechange = function() {
       if (req.readyState == 4 && req.status == 200) {
-        var courses = JSON.parse(req.responseText);
-        //alert(courses.courseList.length);
-        var courseAmount = courses.courseList.length;
-        var outcome = [];
-        for (var i = 0; i < courseAmount; i ++){
-          //courses.courseList[i] = courses.courseList[i].toUpperCase();
-        }
-        for (var j = 0; j < courseAmount; j++){
 
-            var course = courses.courseList[j];
-            var idIn1 = course[0];
-            var nameIn1 = course[1];
-            var profIn1 = course[2];
-            var loIn1 = course[3];
-            outcome.push(<RegisterCourseRowEntry idIn={idIn1} nameIn={nameIn1} profIn={profIn1} loIn={loIn1} />);
-            //document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
+        var username = readCookie("username");
+        var req2 = new XMLHttpRequest();
+        req2.onreadystatechange = function() {
+          if (req2.readyState == 4 && req2.status == 200) {
+
+            debugger;
+
+            var courses = JSON.parse(req.responseText);
+
+            var stuCourses = JSON.parse(req2.responseText);
+
+            var fixedCourses = [];
+
+            for(var i = 0; i < courses.courseList.length; i++){
+              var cName = courses.courseList[i][0];
+              var match = false;
+              for(var j = 0; j < stuCourses.courseList.length; j++){
+                var cName2 = stuCourses.courseList[j];
+                if(cName == cName2){
+                  match = true;
+                  break;
+                }
+              }
+              if(!match){
+                fixedCourses.push(courses.courseList[i]);
+              }
+            }
+            debugger;
+            courses.courseList = fixedCourses;
+
+            //alert(courses.courseList.length);
+            var courseAmount = courses.courseList.length;
+            var outcome = [];
+            for (var i = 0; i < courseAmount; i ++){
+              //courses.courseList[i] = courses.courseList[i].toUpperCase();
+            }
+            for (var j = 0; j < courseAmount; j++){
+
+                var course = courses.courseList[j];
+                var idIn1 = course[0];
+                var nameIn1 = course[1];
+                var profIn1 = course[2];
+                var loIn1 = course[3];
+                outcome.push(<RegisterCourseRowEntry idIn={idIn1} nameIn={nameIn1} profIn={profIn1} loIn={loIn1} />);
+                //document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
 
 
-        }
+            }
 
-        this.setState({
-          searchOutput: outcome
-        });
+            this.setState({
+              searchOutput: outcome
+            });
+          }
+        }.bind(this)
+
+        req2.open("POST", "api/courseListByStudent");
+        req2.setRequestHeader("Content-type", "application/json");
+        var params = '{"username":"' + username + '"}';
+
+        req2.send(params);
+
       }
     }.bind(this)
 

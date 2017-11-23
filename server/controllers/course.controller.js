@@ -198,6 +198,32 @@ export function addStudents(req, res) {
                         } else {
                           DBSuccesses = DBSuccesses + 1;
                         }
+                        courseGrid.findOne({
+                            'courseName': req.params.courseTitle
+                          }, 'class', function(err, coursegrid) {
+                            if (err) {
+                              console.error(err)
+                              res.status(400).end();
+                            } else if (coursegrid) {
+                                var flag = true; 
+                                var i = 0;
+                                while (flag){
+                                    if (i === 1000){
+                                        flag = false; //Prevent infinite looping on full classroom
+                                    }
+                                    var x = Math.floor((Math.random() * coursegrid.class.length));
+                                    var y = Math.floor((Math.random() * coursegrid.class[0].length));
+                                    if (coursegrid.class[x][y] === ""){
+                                        coursegrid.class[x][y] = student_username;
+                                        flag = false;
+                                        coursegrid.markModified("class");
+                                        coursegrid.save();
+                                    }
+                                    i++;
+                                }     
+                            }
+                        });
+                            
                         checkAndSend();
                       });
                   }
@@ -439,8 +465,9 @@ export function courseListByStudent(req, res) {
                     courseList: list
                   });
                 } else {
-                  res.status(400).send({
-                    error: "Search Complete. No results found."
+                  console.log("Search Complete. No results found.")
+                  res.status(200).send({
+                    courseList: list
                   });
                 }
               });
