@@ -16,9 +16,20 @@ class Signup extends Component{
   }
 
   componentDidMount(){
-
+    document.addEventListener("keydown", this.handleKeyDown.bind(this));
+    document.addEventListener("keypress", this.handleKeyPress.bind(this));
   }
-
+  handleKeyDown(e){
+    if(e.keyCode == 13){
+      submit();
+    }
+  }
+  //shift l -> login
+  handleKeyPress(e){
+    if (e.shiftKey && e.charCode == 76){
+      window.location.href = '/';
+    }
+  }
   render(){
     return(
       <div className={styles.page}>
