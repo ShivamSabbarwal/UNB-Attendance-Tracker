@@ -28,7 +28,7 @@ class InstructorHeader extends Component {
           <h4 className={styles.logout} onClick={logout}>Logout</h4>
           <Link to={"/instructor_home"}><h4 className={styles.home}>Home</h4></Link>
         </div>
-        <h1 className={styles.headerTitle}>UNB Attendance Services</h1>
+        <div className={styles.headerTitle}></div>
       </div>
     )
   }

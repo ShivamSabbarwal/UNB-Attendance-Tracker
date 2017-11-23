@@ -1,3 +1,69 @@
+/*Global colors accross all pages*/
+:root{
+  --headercolor: #CC0000;
+  --headerbottomcolor:#b30000;
+  --footercolor: #CC0000;
+  --footerbottomcolor:#990000;
+  --maintextcolor:#FFFFFF;
+  --buttoncolor:#a6a6a6;
+  --buttontextcolor:#FFFFFF;
+  --bodybackgroundcolor:#a6a6a6;
+  --bodyforegroundcolor:#d9d9d9;
+  --bodytitlecolor:#000000;
+  --bodytextinstruction:#000000;
+  --bodytextother:#FFFFFF;
+}
+/*UNB ROOT*/
+/*
+:root{
+  --headercolor: #CC0000;
+  --headerbottomcolor:#b30000;
+  --footercolor: #CC0000;
+  --footerbottomcolor:#990000;
+  --maintextcolor:#FFFFFF;
+  --buttoncolor:#a6a6a6;
+  --buttontextcolor:#FFFFFF;
+  --bodybackgroundcolor:#a6a6a6;
+  --bodyforegroundcolor:#d9d9d9;
+  --bodytitlecolor:#000000;
+  --bodytextinstruction:#000000;
+  --bodytextother:#FFFFFF;
+}
+*/
+/*DALROOT*/
+/*
+:root{
+  --headercolor: #cc9900;
+  --headerbottomcolor:#b38000;
+  --footercolor: #cc9900;
+  --footerbottomcolor:#b38000;
+  --maintextcolor:#000000;
+  --buttoncolor:#000000;
+  --buttontextcolor:#FFFFFF;
+  --bodybackgroundcolor:#000000;
+  --bodyforegroundcolor:#101010;
+  --bodytitlecolor:#FFFFFF;
+  --bodytextinstruction:#FFFFFF;
+  --bodytextother:#FFFFFF;
+}
+*/
+/*ACADIA*/
+/*
+:root{
+  --headercolor: #0000CC;
+  --headerbottomcolor:#0000b3;
+  --footercolor: #0000CC;
+  --footerbottomcolor:#0000b3;
+  --maintextcolor:#FFFFFF;
+  --buttoncolor:#404040;
+  --buttontextcolor:#FFFFFF;
+  --bodybackgroundcolor:#800000;
+  --bodyforegroundcolor:#404040;
+  --bodytitlecolor:#FFFFFF;
+  --bodytextinstruction:#000000;
+  --bodytextother:#FFFFFF;
+}
+*/
 /*use this css file ONLY for routes*/
 /*for components like header and footers, use separate css files - justin*/
 /*use lowercase*/
@@ -5,13 +71,13 @@
 .errorMsgTemplate{
   visibility: hidden;
 }
+
 .errorMsgCritical{
   color: #D8000C;
   background-color: #FFBABA;
   background-image: url('./images/png/error.png');
   visibility: hidden;
   display: none;
-
 }
 .errorMsgSuccessful{
   color: #4F8A10;
@@ -37,10 +103,10 @@
   width: 350px;
   margin-bottom: 10px;
 }
-.header{
+.header{/*Problem Child*/
   margin-top: 25px;
-  color: white;
-  background: #CC0000;
+  color: var(--maintextcolor);
+  background: var(--headercolor);
   height: 230px;
   padding-top: 50px;
   margin-bottom: 30px;
@@ -48,13 +114,13 @@
   /*bottom shadow effect*/
   border-bottom-style: solid;
   border-bottom-width: 10px;
-  border-bottom-color: #b30000;
+  border-bottom-color: var(--headerbottomcolor);
 }
 .logout{
   cursor: pointer;
 }
 .logout, .home{
-  color: #FFFFFF;
+  color: var(--maintextcolor);
   float: right;
   display: inline;
   margin-right: 50px;
@@ -63,25 +129,30 @@
 
 .headerTitle{
   margin-top: 70px;
+  background-image: url('./images/png/LogoWhite.png');
+  background-size: contain;
+  height:160px;
+  width:500px;
+  float:left;
+  margin: auto;
   text-align: center;
   font-size: 50px;
-  margin-left: 50px;
 }
 .mainBody{
   height: 100%;
-  background: #a6a6a6;
+  background: var(--bodybackgroundcolor);
   padding-top: 1px;
   padding-bottom: 100px;
 }
 
 .mainBodyTitle{
-  color: white;
+  color: var(--bodytitlecolor);
   text-align: center;
   font-size: 35px;
 }
 
 .mainBodyWrapper{
-  background: #d9d9d9;
+  background: var(--bodyforegroundcolor);
   float: center;
   width: 80%;
   height: 100%;
@@ -94,7 +165,7 @@
   padding-right: 20px;
 }
 .mainBodyWrapperInst{
-  background: #d9d9d9;
+  background: var(--bodyforegroundcolor);
   float: center;
   width: 80%;
   height: 100%;
@@ -108,10 +179,10 @@
 }
 .footer{
   height: 88px;
-  background: #CC0000;
+  background: var(--footercolor);
   border-bottom-style: solid;
   border-bottom-width: 10px;
-  border-bottom-color: #990000;
+  border-bottom-color: var(--footerbottomcolor);
   bottom:0;
   position:fixed;
   width:100%;
@@ -190,7 +261,7 @@
   background-position: 10px center;
 }
 .appName{
-	color: #CC0000;
+	color: var(--headercolor);
   margin: auto;
 }
 
@@ -270,7 +341,7 @@
  outline: 0;
  border: 0;
  color: white;
- background: #CC0000 ;
+ background: var(--headercolor);
  transition: 0.5s;
  cursor: pointer;
 }
@@ -313,9 +384,9 @@
 }
 
 .instructorButton{
-  background: #a6a6a6;
+  background: var(--buttoncolor);
   border-radius: 5px;
-  color: #FFFFFF;
+  color: var(--buttontextcolor);
   font-size: 20px;
   padding-left: 30px;
   padding-right: 30px;
@@ -372,7 +443,7 @@
   border-bottom-left-radius: 10px;
 }
 .courseTitle{
-  color: #FFFFFF;
+  color: white;
   text-decoration: none;
   cursor: pointer;
 }
@@ -412,7 +483,7 @@
 /*---------------------------Course Grid---------------------------*/
 .courseGridCell{
   border-width: 10px;
-  border-color: #d9d9d9;
+  border-color: var(--bodyforegroundcolor);
 	width:70px;
 	height: 50px;
 	text-align: center;
@@ -421,7 +492,7 @@
 }
 
 .courseGridCell:hover{
-	background: #ff1a1a;
+	background:var(--headercolor);
   transition: all 0.6s;
   font-size: 15px;
   font-weight: bold;
@@ -429,7 +500,7 @@
 }
 
 .courseGridCellClicked{
-	background: #ff1a1a;
+	background: var(--headercolor);
   font-size: 15px;
   font-weight: bold;
   color: #FFFFFF;
@@ -491,9 +562,9 @@
   font-weight: 505;
 }
 .createGridButton{
-  background: #CC0000;
+  background: var(--headercolor);
   border-radius: 5px;
-  color: #FFFFFF;
+  color: var(--maintextcolor);
   font-size: 20px;
   padding-left: 50px;
   padding-right: 50px;
@@ -581,7 +652,7 @@
 }
 .legendLabel{
   font-weight: normal;
-  color: #FFFFFF;
+  color: var(--bodytextother);
   margin-left: 10px;
 }
 /*------------------Instructor Course list------------------*/
@@ -846,7 +917,7 @@ border-radius: 25px;
 }
 
 .buttonIn {
-  background-color: #E80001;
+  background-color: var(--headercolor);
   padding: 2px 15px 2px 15px;
   border-radius: 25px;
   border-color: #E80001;
@@ -857,7 +928,8 @@ border-radius: 25px;
 }
 
 .buttonIn:hover {
-  background: #f5e100;
+  background: #ffffff;
+  color:#000000;
 }
 
 .statisticBodyTitle{
@@ -868,13 +940,13 @@ border-radius: 25px;
   margin-left: 115px;
 }
 .mainBodyTitleOverview{
-  color: white;
+  color: var(--bodytitlecolor);
   text-align: center;
   font-size: 35px;
   height: 40px;
 }
 .mainBodyTitleOverview1{
-  color: white;
+  color: var(--bodytitlecolor);
   text-align: center;
   font-size: 35px;
   height: 40px;
@@ -885,6 +957,7 @@ border-radius: 25px;
   margin-top: 0px;
   height: 6px;
   text-align: center;
+  color:var(--bodytextinstruction);
 }
 
 /*-----------------Not Authorized Page-------------------*/
