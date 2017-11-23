@@ -84,12 +84,25 @@ class CreateCourse extends Component{
                       <FormControl type="text" placeholder="Enter the course term (fall, winter, summer)" id="term"/>
                     </Col>
                   </FormGroup>
+
                   <FormGroup >
+                    <div className={styles.test}>
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Your Email Format
+                      Your Email Format:
+                      <p>
+                      variables: <br/>
+                      [username] <br/>
+                      [course] <br/>
+                      [absenceCount] <br/>
+                      [profUsername]</p>
                     </Col>
+
+                    </div>
+
+
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Hello, [username]!" id="emailFormat"/>
+
+                      <textarea rows = "7"  cols = "61" type="text" placeholder="Hello, [username]! Start your message here... This box is expandable" id="emailFormat"/>
                     </Col>
                   </FormGroup>
                   <FormGroup>

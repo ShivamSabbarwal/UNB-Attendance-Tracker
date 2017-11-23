@@ -552,6 +552,9 @@
   width: 50%;
   margin-left: 27%;
 }
+.formatIn {
+  height: 100px;
+}
 .controlLabel{
   background-color: #ffffff;
   color: #999999;
