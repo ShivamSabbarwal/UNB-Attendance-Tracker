@@ -38,6 +38,7 @@ class Signup extends Component{
           <div className={styles.noInput} id="inputError">Do not leave input fields empty</div>
           <div className={styles.authenticationError} id="idTakenError">Username or email is already taken!</div>
           <div className={styles.successfulLogin} id="successfulError">Welcome to UNB Attendance Service!</div>
+          <div className={styles.noInput} id="passwordError">Your password must have length between 6 and 20</div>
           <div className={styles.Container}>
             <div className={styles.user}>
               <div className={styles.userHeader}>
@@ -63,11 +64,10 @@ class Signup extends Component{
 }
 
 function submit(){
-  debugger;
   var user = document.getElementById("username").value;
   var pass = document.getElementById("password").value;
   var email = document.getElementById("email").value;
-
+  console.log(pass.length);
   var req = new XMLHttpRequest();
 
   var params = '{"username":"' + user + '", "password":"' + pass + '", "email":"' + email + '", "isAdmin":"false"}';
@@ -86,6 +86,9 @@ function submit(){
       document.getElementById("errorTemplateBox").style.visibility = "hidden";
       document.getElementById("errorTemplateBox").style.display = "none";
 
+      document.getElementById("passwordError").style.visibility = "hidden";
+      document.getElementById("passwordError").style.display = "none";
+
       document.getElementById("inputError").style.visibility = "hidden";
       document.getElementById("inputError").style.display = "none";
 
@@ -102,19 +105,40 @@ function submit(){
 
       document.getElementById("idTakenError").style.visibility = "hidden";
       document.getElementById("idTakenError").style.display = "none";
+
+      document.getElementById("passwordError").style.visibility = "hidden";
+      document.getElementById("passwordError").style.display = "none";
 		}
-    else if((req.readyState == 4 && req.status == 403) && (user != "" && pass != "" && email != "")) {
-      document.getElementById("errorTemplateBox").style.visibility = "hidden";
-      document.getElementById("errorTemplateBox").style.display = "none";
+    if((req.readyState == 4 && req.status == 403) && (user != "" && pass != "" && email != "")){
+      if (pass.length > 6 && pass.length < 20){
+        document.getElementById("errorTemplateBox").style.visibility = "hidden";
+        document.getElementById("errorTemplateBox").style.display = "none";
 
-      document.getElementById("inputError").style.visibility = "hidden";
-      document.getElementById("inputError").style.display = "none";
+        document.getElementById("inputError").style.visibility = "hidden";
+        document.getElementById("inputError").style.display = "none";
 
-      document.getElementById("idTakenError").style.visibility = "visible";
-      document.getElementById("idTakenError").style.display = "block";
+        document.getElementById("idTakenError").style.visibility = "visible";
+        document.getElementById("idTakenError").style.display = "block";
+
+        document.getElementById("passwordError").style.visibility = "hidden";
+        document.getElementById("passwordError").style.display = "none";
+      }
+      else if (pass.length < 6 || pass.length > 20){
+        document.getElementById("errorTemplateBox").style.visibility = "hidden";
+        document.getElementById("errorTemplateBox").style.display = "none";
+
+        document.getElementById("inputError").style.visibility = "hidden";
+        document.getElementById("inputError").style.display = "none";
+
+        document.getElementById("idTakenError").style.visibility = "hidden";
+        document.getElementById("idTakenError").style.display = "none";
+
+        document.getElementById("passwordError").style.visibility = "visible";
+        document.getElementById("passwordError").style.display = "block";
+      }
+
 		}
   }
-
   req.send(params);
 }
 
