@@ -561,8 +561,8 @@ export function courseListByProfessor(req, res) {
          .cursor()
          .on('data', function(course) {
 
-           console.log([course.title, course.professor, course.institution, course.location]);
-           list.push([course.title, course.professor, course.institution, course.location]);
+           console.log([course.title, course.professor, course.time, course.term]);
+           list.push([course.title, course.professor, course.time, course.term]);
            courseFound = true;
          })
         .on('end', function() {
