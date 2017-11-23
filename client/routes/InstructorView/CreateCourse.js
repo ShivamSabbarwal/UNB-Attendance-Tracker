@@ -89,7 +89,7 @@ class CreateCourse extends Component{
                       Your Email Format
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="example@unb.ca" id="emailFormat"/>
+                      <FormControl type="text" placeholder="Hello, [username]!" id="emailFormat"/>
                     </Col>
                   </FormGroup>
                   <FormGroup>
@@ -97,7 +97,7 @@ class CreateCourse extends Component{
                       Notification to Students For Days Missed
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter some integer number!" id="numIn"/>
+                      <FormControl type="text" placeholder="Enter some integers number"id="numIn"/>
                     </Col>
                   </FormGroup>
                   <FormGroup>
@@ -131,10 +131,14 @@ function createGrid(){
   var row = document.getElementById('gridRows').value;
   var col = document.getElementById('gridCols').value;
   if (!row || !col ) {
-    alert("Please type interger input! XD");
+    alert("Please type interger input!");
     return;
   }
 
+  if(isNaN(+row) || isNaN(+col)) {
+    alert('Please only Type integer number!');
+    return;
+  }
   var output = <CreateCourseGrid rowIn={row} colIn={col}/>;
   this.setState({grid:output});
 
@@ -165,6 +169,16 @@ function submit(){
    }
    else if (!email) {
      alert("Please type your email Please!");
+     return;
+   }
+
+   else if (!grid) {
+     alert("Please Check your grid!");
+     return;
+   }
+
+   else if (!row || !col ) {
+     alert("Please type interger input!");
      return;
    }
 
