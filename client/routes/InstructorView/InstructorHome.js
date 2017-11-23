@@ -63,7 +63,7 @@ class InstructorHome extends Component{
           <Header/>
             <div className={styles.mainBody}>
               <h1 className={styles.mainBodyTitle}>Current Courses</h1>
-                <div className={styles.mainBodyWrapper}>
+                <div className={styles.mainBodyWrapperInst}>
                     {this.state.courseIcons}
                 </div>
             </div>

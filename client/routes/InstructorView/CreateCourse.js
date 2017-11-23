@@ -23,9 +23,13 @@ class CreateCourse extends Component{
     this.state = {gridWrapper: [], grid: []};
   }
   componentDidMount(){
-
+    document.addEventListener("keydown", this.handleKeyDown);
   }
-
+  handleKeyDown(e){
+    if(e.keyCode == 13){
+      submit();
+    }
+  }
   render(){
     if (isAdmin == "false" || username == "null"){
       return (

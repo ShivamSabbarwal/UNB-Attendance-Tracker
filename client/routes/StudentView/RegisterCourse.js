@@ -25,11 +25,10 @@ class RegisterCourse extends Component{
   }
 
   componentDidMount(){
-
+    
   }
 
   searchCourse() {
-
     //document.getElementById('searchOutput').innerHTML = "";
     var input = document.getElementById("searchInput").value;
     var upperCase = input.toUpperCase();
@@ -160,5 +159,7 @@ function readCookie(name) {
   }
     return null;
 }
+function searchCourseEnter(){
 
+}
 export default RegisterCourse;

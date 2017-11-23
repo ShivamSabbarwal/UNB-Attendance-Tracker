@@ -12,11 +12,14 @@ var isAdmin = readCookie("isAdmin");
 var isNull = null;
 class Login extends Component{
 
+
   constructor(props){
     super(props);
   }
 
   componentDidMount(){
+      document.addEventListener("keypress", this.handleKeyPress);
+      document.addEventListener("keydown", this.handleKeyDown);
       document.cookie = "isAdmin="+ isNull;
       document.cookie = "sessionID="+ isNull;
       document.cookie = "username="+ isNull;
@@ -25,6 +28,18 @@ class Login extends Component{
       console.log("username: "+ readCookie("username"));
   }
 
+  //shift register -> register UAT
+  handleKeyPress(e){
+    if (e.shiftKey && e.charCode == 82){
+      window.location.href = '/signup';
+    }
+  }
+  //login
+  handleKeyDown(e){
+    if(e.keyCode == 13){
+      submit();
+    }
+  }
   render(){
     return(
       <div className={styles.page}>
@@ -41,10 +56,10 @@ class Login extends Component{
                   <input className={styles.input} id="username" placeholder="Username"/>
                   <input className={styles.input} id="password" placeholder="Password" type="password"/>
                 </form>
-                <button className={styles.btn} onClick={submit}> Submit</button>
+                <button type="submit" className={styles.btn} onClick={submit}> Submit</button>
               </div>
               <div className={styles.underBar}>
-                <label>New User? <Link to={'/signup'}>Register Here</Link> </label>
+                <label>New User? <Link to={'/signup'}>Register Here</Link></label>
               </div>
             </div>
           </div>
