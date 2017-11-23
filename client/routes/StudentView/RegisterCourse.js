@@ -29,7 +29,6 @@ class RegisterCourse extends Component{
   }
 
   searchCourse() {
-
     //document.getElementById('searchOutput').innerHTML = "";
     var input = document.getElementById("searchInput").value;
     var upperCase = input.toUpperCase();
@@ -41,54 +40,55 @@ class RegisterCourse extends Component{
         var req2 = new XMLHttpRequest();
         req2.onreadystatechange = function() {
           if (req2.readyState == 4 && req2.status == 200) {
+            if(input){
+              debugger;
 
-            debugger;
+              var courses = JSON.parse(req.responseText);
 
-            var courses = JSON.parse(req.responseText);
+              var stuCourses = JSON.parse(req2.responseText);
 
-            var stuCourses = JSON.parse(req2.responseText);
+              var fixedCourses = [];
 
-            var fixedCourses = [];
-
-            for(var i = 0; i < courses.courseList.length; i++){
-              var cName = courses.courseList[i][0];
-              var match = false;
-              for(var j = 0; j < stuCourses.courseList.length; j++){
-                var cName2 = stuCourses.courseList[j];
-                if(cName == cName2){
-                  match = true;
-                  break;
+              for(var i = 0; i < courses.courseList.length; i++){
+                var cName = courses.courseList[i][0];
+                var match = false;
+                for(var j = 0; j < stuCourses.courseList.length; j++){
+                  var cName2 = stuCourses.courseList[j];
+                  if(cName == cName2){
+                    match = true;
+                    break;
+                  }
+                }
+                if(!match){
+                  fixedCourses.push(courses.courseList[i]);
                 }
               }
-              if(!match){
-                fixedCourses.push(courses.courseList[i]);
+              debugger;
+              courses.courseList = fixedCourses;
+
+              //alert(courses.courseList.length);
+              var courseAmount = courses.courseList.length;
+              var outcome = [];
+              for (var i = 0; i < courseAmount; i ++){
+                //courses.courseList[i] = courses.courseList[i].toUpperCase();
               }
+              for (var j = 0; j < courseAmount; j++){
+
+                  var course = courses.courseList[j];
+                  var idIn1 = course[0];
+                  var nameIn1 = course[1];
+                  var profIn1 = course[2];
+                  var loIn1 = course[3];
+                  outcome.push(<RegisterCourseRowEntry idIn={idIn1} nameIn={nameIn1} profIn={profIn1} loIn={loIn1} />);
+                  //document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
+
+
+              }
+
+              this.setState({
+                searchOutput: outcome
+              });
             }
-            debugger;
-            courses.courseList = fixedCourses;
-
-            //alert(courses.courseList.length);
-            var courseAmount = courses.courseList.length;
-            var outcome = [];
-            for (var i = 0; i < courseAmount; i ++){
-              //courses.courseList[i] = courses.courseList[i].toUpperCase();
-            }
-            for (var j = 0; j < courseAmount; j++){
-
-                var course = courses.courseList[j];
-                var idIn1 = course[0];
-                var nameIn1 = course[1];
-                var profIn1 = course[2];
-                var loIn1 = course[3];
-                outcome.push(<RegisterCourseRowEntry idIn={idIn1} nameIn={nameIn1} profIn={profIn1} loIn={loIn1} />);
-                //document.getElementById('searchOutput').innerHTML += courses.courseList[j] + "<br>";
-
-
-            }
-
-            this.setState({
-              searchOutput: outcome
-            });
           }
         }.bind(this)
 
@@ -129,9 +129,9 @@ class RegisterCourse extends Component{
               <thead>
               <tr>
               <th className={styles.thIn}>ID</th>
-              <th className={styles.thIn}>Name</th>
               <th className={styles.thIn}>Professor</th>
-              <th className={styles.thIn}>Location</th>
+              <th className={styles.thIn}>Time</th>
+              <th className={styles.thIn}>Term</th>
               <th className={styles.thIn}>Drop/Register</th>
               </tr>
               </thead>
@@ -160,5 +160,7 @@ function readCookie(name) {
   }
     return null;
 }
+function searchCourseEnter(){
 
+}
 export default RegisterCourse;

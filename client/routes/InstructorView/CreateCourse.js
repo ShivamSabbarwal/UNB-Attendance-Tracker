@@ -23,9 +23,13 @@ class CreateCourse extends Component{
     this.state = {gridWrapper: [], grid: []};
   }
   componentDidMount(){
-
+    document.addEventListener("keydown", this.handleKeyDown);
   }
-
+  handleKeyDown(e){
+    if(e.keyCode == 13){
+      submit();
+    }
+  }
   render(){
     if (isAdmin == "false" || username == "null"){
       return (
@@ -80,12 +84,25 @@ class CreateCourse extends Component{
                       <FormControl type="text" placeholder="Enter the course term (fall, winter, summer)" id="term"/>
                     </Col>
                   </FormGroup>
+
                   <FormGroup >
+                    <div className={styles.test}>
                     <Col componentClass={ControlLabel} sm={3} className={styles.controlLabel}>
-                      Your Email Format
+                      Your Email Format:
+                      <p>
+                      variables: <br/>
+                      [username] <br/>
+                      [course] <br/>
+                      [absenceCount] <br/>
+                      [profUsername]</p>
                     </Col>
+
+                    </div>
+
+
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="example@unb.ca" id="emailFormat"/>
+
+                      <textarea rows = "7"  cols = "61" type="text" placeholder="Hello, [username]! Start your message here... This box is expandable" id="emailFormat"/>
                     </Col>
                   </FormGroup>
                   <FormGroup>
@@ -93,7 +110,7 @@ class CreateCourse extends Component{
                       Notification to Students For Days Missed
                     </Col>
                     <Col sm={9}>
-                      <FormControl type="text" placeholder="Enter some integer number!" id="numIn"/>
+                      <FormControl type="text" placeholder="Enter some integers number"id="numIn"/>
                     </Col>
                   </FormGroup>
                   <FormGroup>
@@ -127,10 +144,14 @@ function createGrid(){
   var row = document.getElementById('gridRows').value;
   var col = document.getElementById('gridCols').value;
   if (!row || !col ) {
-    alert("Please type interger input! XD");
+    alert("Please type interger input!");
     return;
   }
 
+  if(isNaN(+row) || isNaN(+col)) {
+    alert('Please only Type integer number!');
+    return;
+  }
   var output = <CreateCourseGrid rowIn={row} colIn={col}/>;
   this.setState({grid:output});
 
@@ -161,6 +182,16 @@ function submit(){
    }
    else if (!email) {
      alert("Please type your email Please!");
+     return;
+   }
+
+   else if (!grid) {
+     alert("Please Check your grid!");
+     return;
+   }
+
+   else if (!row || !col ) {
+     alert("Please type interger input!");
      return;
    }
 
