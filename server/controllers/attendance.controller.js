@@ -67,11 +67,12 @@ function saveStudents(courseTitle, submissionTime, absentstudents, callback) {
                 User.findOne({
                     'username' : absentStudent
                      },   'email', function(err, user){
-                        for (i = 0, len = course.numDays.length; i < len; ++i){ 
+                        for (i = 0, len = course.numDays.length; i < len; ++i){
+                            console.log(attendanceItem.username);
                             if (course.numDays[i][0] === attendanceItem.absence.length){
                                     sendEmail(attendanceItem.username, course.title, attendanceItem.absence.length, course.professor, course.emailTemplate, user.email)
                             }
-                        }             
+                        }
                 })
               }
             })
@@ -382,9 +383,9 @@ function sendEmail (username, course, absences, profUsername, htmlText, emailAdd
         htmlText = htmlText.replace(/\[absenceCount\]/g, absences);
     if(profUsername)
         htmlText = htmlText.replace(/\[profUsername\]/g, profUsername);
-    
 
- 
+
+
     var htmlTemplate = fs.readFileSync('server/email/email.txt', 'utf8');
     emailAddress = emailAddress + '@unb.ca';
     //Replace emailAddress here with your own email address for testing
@@ -404,7 +405,7 @@ function sendEmail (username, course, absences, profUsername, htmlText, emailAdd
         console.log('Email sent: ' + info.response);
       }
 });
-    
+
 };
 
 

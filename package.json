@@ -188,11 +188,9 @@
   },
   "ava": {
     "files": [
-      "client/**/*.spec.js",
       "server/**/*.spec.js"
     ],
     "source": [
-      "client/**/*.js",
       "server/**/*.js"
     ],
     "failFast": false,
@@ -203,7 +201,6 @@
   },
   "nyc": {
     "include": [
-      "client/**/*.js",
       "server/**/*.js"
     ],
     "exclude": [
