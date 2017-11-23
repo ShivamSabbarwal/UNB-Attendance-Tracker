@@ -400,8 +400,9 @@ export function courseListByStudent(req, res) {
                     courseList: list
                   });
                 } else {
-                  res.status(400).send({
-                    error: "Search Complete. No results found."
+                  console.log("Search Complete. No results found.")
+                  res.status(200).send({
+                    courseList: list
                   });
                 }
               });
